@@ -20,6 +20,19 @@
     <UpgradeBackupLocation />
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\Game.ts" />
+    <TypeScriptCompile Include="src\AssetManager.ts" />
+    <Content Include="data\img\wormsBackGround.png" />
+    <Content Include="src\AssetManager.js">
+      <DependentUpon>AssetManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Game.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Graphics.ts" />
+    <Content Include="src\Graphics.js">
+      <DependentUpon>Graphics.ts</DependentUpon>
+    </Content>
     <Content Include="src\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
@@ -30,8 +43,13 @@
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="data\" />
     <Folder Include="external\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
