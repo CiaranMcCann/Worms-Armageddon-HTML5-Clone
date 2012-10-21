@@ -16,6 +16,7 @@ class Terrain {
         this.world = world;
         this.scale = world;
         this.groundbodiesList = []; //Used to easly delete all the ground bodies
+        this.canvas = canvas;
 
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
@@ -52,6 +53,16 @@ class Terrain {
 
         var bodiesCreated = 0;
 
+        // Used to create a single rect out of a series of consecnative solid 
+        var makeBlock = function () => {
+
+             fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
+             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
+             bodyDef.position.y = ((yPos - rectheight) / worldScale);
+             this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
+
+        }
+
         //Loops though the image pixel data, looking
         // for constecative NON-alpha pixels. To create the physical blocks out of
         for (var yPos = y; yPos <= height; yPos += rectheight) {
@@ -61,14 +72,17 @@ class Terrain {
 
                 if (data[xPos + (yPos * width) + theAlphaByte] == 255) //if not alpha pixel
                 {
-                    rectWidth++;
-                } else if (rectWidth > 1) {
+                    rectWidth++; 
+                    
+                    if (rectWidth >= this.canvas.width) {
+                        makeBlock();
+                        rectWidth = 0; //reset rect
+                    }
 
-                    fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
-                    bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
-                    bodyDef.position.y = ((yPos - rectheight) / worldScale);
-                    this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
-
+                }
+                else if (rectWidth > 1) {
+            
+                    makeBlock();
                     bodiesCreated++;
                     rectWidth = 0; //reset rect
 
