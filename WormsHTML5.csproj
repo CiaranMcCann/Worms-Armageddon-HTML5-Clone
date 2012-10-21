@@ -36,6 +36,14 @@
     <Content Include="src\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Physics.ts" />
+    <Content Include="src\Physics.js">
+      <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Terrain.ts" />
+    <Content Include="src\Terrain.js">
+      <DependentUpon>Terrain.ts</DependentUpon>
+    </Content>
     <Content Include="style.css" />
     <Content Include="default.htm" />
   </ItemGroup>
@@ -58,6 +66,10 @@
   <PropertyGroup>
     <RootNamespace>WormsHTML5</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -67,7 +79,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>51631</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:52559/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

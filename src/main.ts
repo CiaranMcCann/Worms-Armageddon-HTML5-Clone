@@ -2,13 +2,14 @@
 
 window.onload = function () => {
 
-    var game = new Game();
 
     var imagesToLoad = {
         background: 'data/img/wormsBackGround.png',
     };
 
     AssetManager.loadImages(imagesToLoad, function () {
+
+        var game = new Game();
 
         (function gameloop() {
 
