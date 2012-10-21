@@ -1,4 +1,5 @@
 ///<reference path="Game.ts"/>
+///<reference path="Graphics.ts"/>
 
 window.onload = function () => {
 
@@ -13,7 +14,7 @@ window.onload = function () => {
 
         (function gameloop() {
 
-           // stats.update();
+            Graphics.stats.update();
             game.step();
             game.update();
             game.draw();

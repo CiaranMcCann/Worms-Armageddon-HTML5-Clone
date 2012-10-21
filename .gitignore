@@ -7,11 +7,12 @@
 *.o
 *.so
 *.v11.suo
-*.js
+
 
 #Directories
 obj
 bin
+src/*.js
 
 # Packages #
 ############

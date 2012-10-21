@@ -43,7 +43,7 @@ class Game {
     }
 
     draw() {
-       // this.terrain.draw(this.ctx);
+        //this.terrain.draw(this.ctx);
        // this.ctx.drawImage(AssetManager.images.background, 0, 0);
     }
 

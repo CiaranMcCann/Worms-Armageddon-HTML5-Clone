@@ -40,7 +40,7 @@ class Terrain {
 
         var theAlphaByte = 3;
         var rectWidth;
-        var rectheight = 4;
+        var rectheight = 5; // Every 4 lines is used instead of every px line
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -74,7 +74,10 @@ class Terrain {
                 {
                     rectWidth++; 
                     
+                     //Check if the box spans the full width of the image.
                     if (rectWidth >= this.canvas.width) {
+
+                        // if so make the box and reset for the next line
                         makeBlock();
                         rectWidth = 0; //reset rect
                     }
@@ -92,7 +95,7 @@ class Terrain {
         console.log("Current body count " + bodiesCreated);
     }
 
-    // Still allows the terrain image data to be changed.
+    // This allows the terrain image data to be changed.
     // It then calls for the box2d physic terrain to be reconstructed from the new image
     deformRegion(x, y, radius) {
 
