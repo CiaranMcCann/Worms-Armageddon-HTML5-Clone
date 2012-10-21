@@ -14,7 +14,7 @@ class Terrain {
     constructor (canvas, terrainImage, world, scale) {
 
         this.world = world;
-        this.scale = world;
+        this.scale = scale;
         this.groundbodiesList = []; //Used to easly delete all the ground bodies
         this.canvas = canvas;
 
@@ -30,6 +30,7 @@ class Terrain {
 
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
         this.createTerrainPhysics(0, 0, canvas.width, canvas.height, this.terrainData.data, world, scale)
+        this.draw(this.canvas.getContext("2d"));
     }
 
     // This setup physical bodies from image data 
@@ -93,12 +94,15 @@ class Terrain {
             }
         }
         console.log("Current body count " + bodiesCreated);
+      
     }
 
     // This allows the terrain image data to be changed.
     // It then calls for the box2d physic terrain to be reconstructed from the new image
     deformRegion(x, y, radius) {
 
+        //TODO : Dirty rect for clearing
+       // this.bufferCanvasContext.clearRect(x-radius, y-radius, radius*2, radius*2);
         this.bufferCanvasContext.globalCompositeOperation = "destination-out";
         this.bufferCanvasContext.putImageData(this.terrainData, 0, 0);
         this.bufferCanvasContext.beginPath();
@@ -111,11 +115,14 @@ class Terrain {
         for (var body in this.groundbodiesList) {
             this.world.DestroyBody(this.groundbodiesList[body]);
         }
+        this.groundbodiesList = [] //clear list
 
-        this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, this.physics.world, this.physics.SCALE)
+        this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, this.world, this.scale);
+        this.draw(this.canvas.getContext("2d"));
     }
 
-    draw(canvasContextWhichToDrawOn) {
+    draw(canvasContextWhichToDrawOn) { 
+       // canvasContextWhichToDrawOn.clearRect(0,0,this.canvas.width,this.canvas.height);
         canvasContextWhichToDrawOn.drawImage(this.bufferCanvas, 0, -5);
     };
 
