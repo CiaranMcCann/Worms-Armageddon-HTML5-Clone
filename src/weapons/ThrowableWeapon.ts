@@ -12,12 +12,11 @@ class ThrowableWeapon {
 
         this.image = image;
 
-        // Demo objects falling
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 0.5;
         fixDef.restitution = 0.2;
-        fixDef.shape = new b2CircleShape((image.width/2)/Physics.worldScale);
+        fixDef.shape = new b2CircleShape((image.width/4)/Physics.worldScale);
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
@@ -38,7 +37,7 @@ class ThrowableWeapon {
         )
         ctx.rotate(this.body.GetAngle())
 
-        var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
+        var radius = this.fixture.GetShape().GetRadius()*2 * Physics.worldScale;
 
         ctx.drawImage(this.image,
             -radius,

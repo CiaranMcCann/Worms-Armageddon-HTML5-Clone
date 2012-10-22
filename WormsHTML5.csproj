@@ -44,6 +44,10 @@
     <Content Include="src\Terrain.js">
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
+    <Content Include="src\weapons\ThrowableWeapon.js">
+      <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
     <Content Include="style.css" />
     <Content Include="default.htm" />
   </ItemGroup>

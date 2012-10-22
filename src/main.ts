@@ -6,7 +6,8 @@ window.onload = function () => {
 
     var imagesToLoad = {
         background: 'data/img/wormsBackGround.png',
-        bananabomb: 'data/img/bananabomb.png'
+        bananabomb: 'data/img/bananabomb.png',
+        worm: 'data/img/worm.png'
     };
 
     AssetManager.loadImages(imagesToLoad, function () {

@@ -3,6 +3,7 @@
 ///<reference path="Physics.ts"/>
 ///<reference path="Terrain.ts"/>
 ///<reference path="weapons/ThrowableWeapon.ts"/>
+///<reference path="Worm.ts"/>
 
 
 class Game {
@@ -15,6 +16,8 @@ class Game {
 
     terrain;
     weapon : ThrowableWeapon;
+    worm : Worm;
+
 
     constructor () {
         Graphics.init();
@@ -40,7 +43,14 @@ class Game {
 
         }, false);
         
+        this.worm = new Worm(12, 2, AssetManager.images.worm);
         this.weapon = new ThrowableWeapon(10, -10, AssetManager.images.bananabomb);
+
+        window.addEventListener("keydown", function (evt) =>
+        {
+            this.worm.controls(event);
+
+        }, false);
     }
 
     update() {
@@ -66,6 +76,7 @@ class Game {
 
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
         this.weapon.draw(this.actionCanvasContext);
+        this.worm.draw(this.actionCanvasContext);
     }
 
 }
