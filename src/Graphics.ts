@@ -23,12 +23,15 @@ module Graphics {
         })();
     }
 
-    export function createCanvas() {
+    export function createCanvas(name : string) {
 
         var canvas = document.createElement('canvas');
-        canvas.id = "canvas";
+        canvas.id = name;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        canvas.style.position = "absolute";
+        canvas.style.left = "0px";
+        canvas.style.top = "0px";
         window.document.body.appendChild(canvas);
 
         window.onload = window.onresize = function () => {

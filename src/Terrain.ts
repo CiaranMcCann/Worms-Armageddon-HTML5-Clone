@@ -41,7 +41,7 @@ class Terrain {
 
         var theAlphaByte = 3;
         var rectWidth;
-        var rectheight = 5; // Every 4 lines is used instead of every px line
+        var rectheight = 4; // Every 4 lines is used instead of every px line
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -122,7 +122,7 @@ class Terrain {
     }
 
     draw(canvasContextWhichToDrawOn) { 
-       // canvasContextWhichToDrawOn.clearRect(0,0,this.canvas.width,this.canvas.height);
+        canvasContextWhichToDrawOn.clearRect(0,0,this.canvas.width,this.canvas.height);
         canvasContextWhichToDrawOn.drawImage(this.bufferCanvas, 0, -5);
     };
 
