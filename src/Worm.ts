@@ -28,6 +28,7 @@ class Worm {
         this.body = this.fixture.GetBody();
         this.body.SetFixedRotation(true);
         this.body.SetSleepingAllowed(false);
+
     }
 
     controls(event) {
@@ -64,8 +65,8 @@ class Worm {
         this.body.GetPosition().x * Physics.worldScale,
         this.body.GetPosition().y * Physics.worldScale
         )
+    
         ctx.rotate(this.body.GetAngle())
-
         var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
 
         ctx.drawImage(this.image,       

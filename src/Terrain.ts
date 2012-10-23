@@ -11,6 +11,8 @@ class Terrain {
     groundbodiesList;
     terrainData;
 
+    deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
+
     constructor (canvas, terrainImage, world, scale) {
 
         this.world = world;
@@ -97,16 +99,26 @@ class Terrain {
       
     }
 
+    addToDeformBatch(x, y, r) 
+    {
+        this.deformTerrainBatchList.push({ xPos: x, yPos: y, radius: r });
+    }
+
     // This allows the terrain image data to be changed.
     // It then calls for the box2d physic terrain to be reconstructed from the new image
-    deformRegion(x, y, radius) {
+     deformRegionBatch() {
 
         //TODO : Dirty rect for clearing
        // this.bufferCanvasContext.clearRect(x-radius, y-radius, radius*2, radius*2);
         this.bufferCanvasContext.globalCompositeOperation = "destination-out";
         this.bufferCanvasContext.putImageData(this.terrainData, 0, 0);
         this.bufferCanvasContext.beginPath();
-        this.bufferCanvasContext.arc(x, y, radius, Math.PI * 2, 0, true);
+
+        for (var i = 0; i < this.deformTerrainBatchList.length; i++) {
+            var tmp = this.deformTerrainBatchList[i];
+            this.bufferCanvasContext.arc(tmp.xPos, tmp.yPos, tmp.radius, Math.PI * 2, 0, true);
+        }
+
         this.bufferCanvasContext.closePath();
         this.bufferCanvasContext.fill();
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
@@ -119,7 +131,17 @@ class Terrain {
 
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, this.world, this.scale);
         this.draw(this.canvas.getContext("2d"));
+
+        this.deformTerrainBatchList = [];
     }
+
+     update() {
+
+         if (this.deformTerrainBatchList.length > 0) {
+             this.deformRegionBatch();
+         }
+
+     }
 
     draw(canvasContextWhichToDrawOn) { 
         canvasContextWhichToDrawOn.clearRect(0,0,this.canvas.width,this.canvas.height);

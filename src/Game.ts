@@ -4,6 +4,7 @@
 ///<reference path="Terrain.ts"/>
 ///<reference path="weapons/ThrowableWeapon.ts"/>
 ///<reference path="Worm.ts"/>
+///<reference path="Utilies.ts"/>
 
 
 class Game {
@@ -15,7 +16,7 @@ class Game {
     actionCanvasContext;
 
     terrain;
-    weapon : ThrowableWeapon;
+    weapons = [];
     worm : Worm;
 
 
@@ -39,12 +40,15 @@ class Game {
 
         window.addEventListener("click", function (evt) =>
         {
-            this.terrain.deformRegion(evt.pageX, evt.pageY, 40)
+            this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 40)
 
         }, false);
         
         this.worm = new Worm(12, 2, AssetManager.images.worm);
-        this.weapon = new ThrowableWeapon(10, -10, AssetManager.images.bananabomb);
+        
+        for (var i = 0; i < 130; i++) {
+            this.weapons[i] = new ThrowableWeapon(Utilies.random(12,40), -5, AssetManager.images.bananabomb);
+        }
 
         window.addEventListener("keydown", function (evt) =>
         {
@@ -55,7 +59,11 @@ class Game {
 
     update() {
 
+          for (var w in this.weapons) {
+              this.weapons[w].update(this.terrain);
+         }
 
+          this.terrain.update();
     }
 
     step() {
@@ -75,7 +83,9 @@ class Game {
         //this.terrain.draw(this.ctx);
 
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
-        this.weapon.draw(this.actionCanvasContext);
+        for (var w in this.weapons) {
+            this.weapons[w].draw(this.actionCanvasContext);
+        }
         this.worm.draw(this.actionCanvasContext);
     }
 

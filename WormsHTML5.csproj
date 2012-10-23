@@ -23,6 +23,9 @@
     <TypeScriptCompile Include="src\Game.ts" />
     <TypeScriptCompile Include="src\AssetManager.ts" />
     <Content Include="data\img\wormsBackGround.png" />
+    <Content Include="external\Box2dWeb-2.1.a.3.js" />
+    <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
+    <Content Include="external\Stats.js" />
     <Content Include="src\AssetManager.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
@@ -45,24 +48,24 @@
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
+    <TypeScriptCompile Include="src\Utilies.ts" />
+    <Content Include="src\Utilies.js">
+      <DependentUpon>Utilies.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\ThrowableWeapon.js">
       <DependentUpon>ThrowableWeapon.ts</DependentUpon>
     </Content>
+    <Content Include="src\Worm.js">
+      <DependentUpon>Worm.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.ts" />
     <Content Include="style.css" />
-    <Content Include="default.htm" />
+    <Content Include="index.htm" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="external\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Web.config" />
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
