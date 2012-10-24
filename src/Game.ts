@@ -51,11 +51,6 @@ class Game {
             this.weapons[i] = new ThrowableWeapon(35, Utilies.random(-10,2), AssetManager.images.bananabomb);
         }
 
-        window.addEventListener("keydown", function (evt) =>
-        {
-            this.worm.controls(event);
-
-        }, false);
     }
 
     update() {
@@ -65,6 +60,7 @@ class Game {
          }
 
           this.terrain.update();
+          this.worm.controls();
     }
 
     step() {

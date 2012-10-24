@@ -7,6 +7,7 @@ class Worm {
     body;
     fixture;
     image;
+    direction;
 
     constructor (x, y, image) {
 
@@ -15,7 +16,7 @@ class Worm {
         var fixDef = new b2FixtureDef;
         fixDef.density = 10.0;
         fixDef.friction = 50.5;
-        fixDef.restitution = 0.2;
+        fixDef.restitution = 0.3;
         fixDef.shape = new b2PolygonShape();
         fixDef.shape = new b2CircleShape((image.width/4)/Physics.worldScale);
 
@@ -28,31 +29,31 @@ class Worm {
         this.body = this.fixture.GetBody();
         this.body.SetFixedRotation(true);
         this.body.SetSleepingAllowed(false);
+        this.direction = 1;
 
     }
 
-    controls(event) {
+    controls() {
 
         var currentPos = new b2Vec2(this.body.GetPosition().x,this.body.GetPosition().y);
 
-        if (event.keyCode == 37) //left
+        if (keyboard.isKeyDown(65)) //left
         {
-            //currentPos.Normalize();
-            //currentPos.Multiply(20/Physics.worldScale);
-            //currentPos.Add(this.body.GetPosition())
-            //console.log(" " + currentPos.x + "   " + currentPos.y);
-            this.body.SetPosition(new b2Vec2(currentPos.x - 1.5/Physics.worldScale, currentPos.y) );
+            this.body.SetPosition(new b2Vec2(currentPos.x - 1/Physics.worldScale, currentPos.y) );
+            this.direction = -1;
         }
 
-
-        if (event.keyCode == 39) //right
+        if (keyboard.isKeyDown(87)) //jump
         {
-           // currentPos.Normalize();
-           // currentPos.Multiply(-20/Physics.worldScale);
-            //currentPos.Add(this.body.GetPosition())
-           // console.log(" " + currentPos.x + "   " + currentPos.y);
-            //this.body.SetPosition(currentPos);
-             this.body.SetPosition(new b2Vec2(currentPos.x + 1.5/Physics.worldScale, currentPos.y) );
+            if (this.body.GetLinearVelocity().y <= 0) {
+                this.body.SetLinearVelocity(new b2Vec2(20*this.direction,20));
+            }
+        }
+
+        if (keyboard.isKeyDown(68)) //right
+        {
+             this.body.SetPosition(new b2Vec2(currentPos.x + 1/Physics.worldScale, currentPos.y) );
+             this.direction = 1;
         }
 
     }

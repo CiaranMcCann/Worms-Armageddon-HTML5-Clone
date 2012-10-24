@@ -49,22 +49,22 @@ class ThrowableWeapon {
             this.timeToLive = -1;
 
 
-            var aabb = new b2AABB();
-            aabb.lowerBound.Set(this.body.GetPosition().x-1, this.body.GetPosition().y-1);
-            aabb.upperBound.Set(this.body.GetPosition().x+ 1, this.body.GetPosition().x+1);
+            //var aabb = new b2AABB();
+            //aabb.lowerBound.Set(this.body.GetPosition().x-1, this.body.GetPosition().y-1);
+            //aabb.upperBound.Set(this.body.GetPosition().x+ 1, this.body.GetPosition().x+1);
 
-            var count: Number = Physics.world.QueryAABB(function (fixture) => 
-            {     
+            //var count: Number = Physics.world.QueryAABB(function (fixture) => 
+            //{     
                 
-              if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
+            //  if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
               
-                fixture.GetBody().SetPosition(new b2Vec2(0,0));
-                console.log( fixture.GetBody());
-                //fixture.GetBody().ApplyTorque(5000);
-                //Physics.world.DestroyBody(fixture.GetBody());
+            //    fixture.GetBody().SetPosition(new b2Vec2(0,0));
+            //    console.log( fixture.GetBody());
+            //    //fixture.GetBody().ApplyTorque(5000);
+            //    //Physics.world.DestroyBody(fixture.GetBody());
 
-               }
-            },aabb);
+            //   }
+            //},aabb);
         }
     }
 
