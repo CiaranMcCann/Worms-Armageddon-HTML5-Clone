@@ -5,3 +5,14 @@ module Utilies {
 	}
 
 }
+
+module Logger {
+
+    export var loggingActive = true;
+
+    export function log(message) {
+        if(loggingActive)
+        console.log(message);
+    }
+
+}

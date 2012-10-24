@@ -46,8 +46,8 @@ class Game {
         
         this.worm = new Worm(12, 2, AssetManager.images.worm);
         
-        for (var i = 0; i < 130; i++) {
-            this.weapons[i] = new ThrowableWeapon(Utilies.random(12,40), -5, AssetManager.images.bananabomb);
+        for (var i = 0; i < 150; i++) {
+            this.weapons[i] = new ThrowableWeapon(Utilies.random(8,50), Utilies.random(-10,2), AssetManager.images.bananabomb);
         }
 
         window.addEventListener("keydown", function (evt) =>
@@ -74,17 +74,17 @@ class Game {
            , 10       //position iterations
         );
         //Physics.world.DrawDebugData();
-        Physics.world.ClearForces();
+        //Physics.world.ClearForces();
 
     }
 
     draw() {
-       // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        //this.terrain.draw(this.ctx);
-
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
-        for (var w in this.weapons) {
-            this.weapons[w].draw(this.actionCanvasContext);
+       
+        var weaponsLenght = this.weapons.length;
+        for (var i = 0; i <  weaponsLenght; i++)
+        {
+            this.weapons[i].draw(this.actionCanvasContext);
         }
         this.worm.draw(this.actionCanvasContext);
     }
