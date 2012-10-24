@@ -7,7 +7,8 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2MassData = Box2D.Collision.Shapes.b2MassData,
     b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
     b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
-    b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+    b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+    b2AABB = Box2D.Collision.b2AABB;
 
 
 module Physics {

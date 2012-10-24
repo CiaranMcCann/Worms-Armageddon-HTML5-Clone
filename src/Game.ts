@@ -34,6 +34,7 @@ class Game {
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
+        this.actionCanvasContext.font  = 'bold 14px Sans-Serif';
 
         Physics.init(this.terrainCanvasContext);
         this.terrain = new Terrain(this.terrainCanvas, AssetManager.images.background, Physics.world, Physics.worldScale);
@@ -46,8 +47,8 @@ class Game {
         
         this.worm = new Worm(12, 2, AssetManager.images.worm);
         
-        for (var i = 0; i < 120; i++) {
-            this.weapons[i] = new ThrowableWeapon(Utilies.random(8,50), Utilies.random(-10,2), AssetManager.images.bananabomb);
+        for (var i = 0; i < 10; i++) {
+            this.weapons[i] = new ThrowableWeapon(35, Utilies.random(-10,2), AssetManager.images.bananabomb);
         }
 
         window.addEventListener("keydown", function (evt) =>
@@ -73,7 +74,7 @@ class Game {
            , 10       //velocity iterations
            , 10       //position iterations
         );
-        //Physics.world.DrawDebugData();
+        Physics.world.DrawDebugData();
         //Physics.world.ClearForces();
 
     }
