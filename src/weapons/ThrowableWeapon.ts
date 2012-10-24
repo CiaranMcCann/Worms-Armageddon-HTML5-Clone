@@ -8,20 +8,20 @@ class ThrowableWeapon {
     body;
     fixture;
     image;
-    ttl;
-    expl;
+    detonationCounter;
+    timeToLive;
 
     constructor (x, y, image) {
 
         this.image = image;
 
-        this.ttl = 6;
-        this.expl = false;
+        this.detonationCounter = 6;
+        this.timeToLive = 1000;
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
-        fixDef.friction = 0.5;
-        fixDef.restitution = 0.2;
+        fixDef.friction = 3.5;
+        fixDef.restitution = 0.3;
         fixDef.shape = new b2CircleShape((image.width/4)/Physics.worldScale);
 
         var bodyDef = new b2BodyDef;
@@ -35,16 +35,18 @@ class ThrowableWeapon {
 
     update(terrainRef : Terrain) {
 
-        if (this.ttl > 0) {
-            this.ttl -= 1 / 60;
-        }
-
-        if (this.ttl <= 1 && this.expl == false) {
-            terrainRef.addToDeformBatch(
+        if (this.detonationCounter > 0) {
+            this.detonationCounter -= 1 / 60;
+        } 
+        
+        if (this.detonationCounter <= 1 && this.timeToLive > 0) {
+           
+             terrainRef.addToDeformBatch(
                 this.body.GetPosition().x * Physics.worldScale,
                 this.body.GetPosition().y * Physics.worldScale,
                 Utilies.random(32,80));
-            this.expl = true;
+
+             this.timeToLive = -1;
         }
     }
 
@@ -69,7 +71,12 @@ class ThrowableWeapon {
             radius*2);
 
         ctx.restore()
-        ctx.fillText(Math.floor(this.ttl), radius/2, 0);
+    
+       // ctx.fillStyle = 'rgba(0,0,0,255)';
+       // ctx.fillRect(radius/2, -radius / 2, 10, 10);
+
+        ctx.fillStyle = 'rgba(255,0,0,255)';
+        ctx.fillText(Math.floor(this.detonationCounter), radius/2, 0);
 
         ctx.restore()
 

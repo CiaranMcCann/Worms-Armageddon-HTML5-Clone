@@ -46,7 +46,7 @@ class Game {
         
         this.worm = new Worm(12, 2, AssetManager.images.worm);
         
-        for (var i = 0; i < 150; i++) {
+        for (var i = 0; i < 120; i++) {
             this.weapons[i] = new ThrowableWeapon(Utilies.random(8,50), Utilies.random(-10,2), AssetManager.images.bananabomb);
         }
 
