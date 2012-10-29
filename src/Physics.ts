@@ -39,5 +39,12 @@ module Physics {
         world.SetDebugDraw(debugDraw);
     }
 
+    export function pixelToMeters(pixels: number) {
+        return pixels / worldScale;
+    }
+
+    export function metersToPixels(meters: number) {
+        return meters / worldScale;
+    }
 
 }

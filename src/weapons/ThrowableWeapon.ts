@@ -9,15 +9,26 @@ class ThrowableWeapon {
     fixture;
     image;
     detonationCounter;
+    effectedRadius;
+    explosiveForce;
     timeToLive;
 
     constructor (x, y, image) {
 
         this.image = image;
 
-        this.detonationCounter = 6;
+        // Force/worm damge radius
+        this.effectedRadius = Physics.pixelToMeters(30);
+
+        // force scaler
+        this.explosiveForce = 15
+
+        // Counter till bomb explodes
+        this.detonationCounter = Utilies.random(4, 8);
+
         this.timeToLive = 1000;
 
+        // Setup of physical body
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 3.5;
@@ -33,12 +44,23 @@ class ThrowableWeapon {
         this.body = this.fixture.GetBody();
     }
 
+    isLive() {
+        if (this.timeToLive < 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     update(terrainRef: Terrain) {
 
+        // Decrements the timers on the bomb
         if (this.detonationCounter > 0) {
             this.detonationCounter -= 1 / 60;
         }
 
+        //Checks if its time for the bomb to explode
         if (this.detonationCounter <= 1 && this.timeToLive > 0) {
 
             terrainRef.addToDeformBatch(
@@ -48,30 +70,32 @@ class ThrowableWeapon {
 
             this.timeToLive = -1;
 
+            var aabb = new b2AABB();
+            aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
+            aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
 
-            //var aabb = new b2AABB();
-            //aabb.lowerBound.Set(this.body.GetPosition().x-1, this.body.GetPosition().y-1);
-            //aabb.upperBound.Set(this.body.GetPosition().x+ 1, this.body.GetPosition().x+1);
+            var count: Number = Physics.world.QueryAABB(function (fixture) =>
+            {
+                if (fixture.GetBody().GetType() != b2Body.b2_staticBody) {
 
-            //var count: Number = Physics.world.QueryAABB(function (fixture) => 
-            //{     
-                
-            //  if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
-              
-            //    fixture.GetBody().SetPosition(new b2Vec2(0,0));
-            //    console.log( fixture.GetBody());
-            //    //fixture.GetBody().ApplyTorque(5000);
-            //    //Physics.world.DestroyBody(fixture.GetBody());
+                    var direction = fixture.GetBody().GetPosition().Copy();
+                    direction.Subtract(this.body.GetPosition());
+                    direction.Normalize();
+                    direction.Multiply(15);
+                    fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+                }
 
-            //   }
-            //},aabb);
+                return true;
+            }, aabb);
+
+            //The bomb has exploded so remove it from the world
+            Physics.world.DestroyBody(this.body);
         }
     }
 
     draw(ctx) {
 
-        //if (this.timeToLive > 0) 
-         {
+        if (this.timeToLive > 0) {
             ctx.save()
 
             ctx.translate(
