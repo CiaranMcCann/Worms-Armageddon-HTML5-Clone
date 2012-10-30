@@ -12,13 +12,15 @@ class ThrowableWeapon {
     effectedRadius;
     explosiveForce;
     timeToLive;
+    terrainRef;
 
-    constructor (x, y, image) {
+    constructor (x, y, image,terrainRef: Terrain) {
 
         this.image = image;
+        this.terrainRef = terrainRef;
 
         // Force/worm damge radius
-        this.effectedRadius = Physics.pixelToMeters(30);
+        this.effectedRadius = Physics.pixelToMeters(60);
 
         // force scaler
         this.explosiveForce = 15
@@ -53,7 +55,7 @@ class ThrowableWeapon {
         }
     }
 
-    update(terrainRef: Terrain) {
+    update() {
 
         // Decrements the timers on the bomb
         if (this.detonationCounter > 0) {
@@ -63,7 +65,7 @@ class ThrowableWeapon {
         //Checks if its time for the bomb to explode
         if (this.detonationCounter <= 1 && this.timeToLive > 0) {
 
-            terrainRef.addToDeformBatch(
+            this.terrainRef.addToDeformBatch(
                this.body.GetPosition().x * Physics.worldScale,
                this.body.GetPosition().y * Physics.worldScale,
                Utilies.random(32, 80));
@@ -81,7 +83,7 @@ class ThrowableWeapon {
                     var direction = fixture.GetBody().GetPosition().Copy();
                     direction.Subtract(this.body.GetPosition());
                     direction.Normalize();
-                    direction.Multiply(15);
+                    direction.Multiply(this.explosiveForce);
                     fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
                 }
 

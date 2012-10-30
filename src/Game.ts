@@ -5,7 +5,7 @@
 ///<reference path="weapons/ThrowableWeapon.ts"/>
 ///<reference path="Worm.ts"/>
 ///<reference path="Utilies.ts"/>
-
+///<reference path="weapons/ProjectileWeapon.ts"/>
 
 class Game {
 
@@ -16,17 +16,13 @@ class Game {
     actionCanvasContext;
 
     terrain;
-    weapons = [];
+    weapons;
     worm : Worm;
 
 
     constructor () {
         Graphics.init();
-        this.init();
-    }
-
-    init() {
-
+ 
         //Create Terrain canvas
         this.terrainCanvas = Graphics.createCanvas("terrain");
         this.terrainCanvasContext = this.terrainCanvas.getContext("2d");
@@ -45,10 +41,16 @@ class Game {
 
         }, false);
         
-        this.worm = new Worm(12, 2, AssetManager.images.worm);
+        this.worm = new Worm(32, 2, AssetManager.images.worm);
         
-        for (var i = 0; i < 10; i++) {
-            this.weapons[i] = new ThrowableWeapon(35, Utilies.random(-10,2), AssetManager.images.bananabomb);
+        //TODO Remove this first sprint demo code after
+        this.weapons = [];
+        for (var i = 0; i < 5; i++) {
+            this.weapons[i] = new ProjectileWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.bananabomb, this.terrain);
+        }
+
+         for (var i = 5; i < 15; i++) {
+            this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.bananabomb, this.terrain);
         }
 
     }
@@ -56,11 +58,11 @@ class Game {
     update() {
 
           for (var w in this.weapons) {
-              this.weapons[w].update(this.terrain);
+              this.weapons[w].update();
          }
 
           this.terrain.update();
-          this.worm.controls();
+          this.worm.update();
     }
 
     step() {
@@ -70,7 +72,7 @@ class Game {
            , 10       //velocity iterations
            , 10       //position iterations
         );
-        Physics.world.DrawDebugData();
+       //Physics.world.DrawDebugData();
         //Physics.world.ClearForces();
 
     }

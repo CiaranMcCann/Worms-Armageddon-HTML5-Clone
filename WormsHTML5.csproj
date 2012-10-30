@@ -52,6 +52,10 @@
     <Content Include="src\Utilies.js">
       <DependentUpon>Utilies.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\weapons\ProjectileWeapon.ts" />
+    <Content Include="src\weapons\ProjectileWeapon.js">
+      <DependentUpon>ProjectileWeapon.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\ThrowableWeapon.js">
       <DependentUpon>ThrowableWeapon.ts</DependentUpon>
     </Content>

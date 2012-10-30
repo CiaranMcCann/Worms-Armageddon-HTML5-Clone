@@ -14,8 +14,8 @@ class Worm {
         this.image = image;
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 10.0;
-        fixDef.friction = 50.5;
+        fixDef.density = 1.0;
+        fixDef.friction = 5.5;
         fixDef.restitution = 0.3;
         fixDef.shape = new b2PolygonShape();
         fixDef.shape = new b2CircleShape((image.width/4)/Physics.worldScale);
@@ -33,26 +33,31 @@ class Worm {
 
     }
 
-    controls() {
+    update() {
 
         var currentPos = new b2Vec2(this.body.GetPosition().x,this.body.GetPosition().y);
 
         if (keyboard.isKeyDown(65)) //left
         {
-            this.body.SetPosition(new b2Vec2(currentPos.x - 1/Physics.worldScale, currentPos.y) );
+            this.body.SetPosition(new b2Vec2(currentPos.x - 0.8/Physics.worldScale, currentPos.y) );
+            //this.body.SetLinearVelocity(new b2Vec2(-5,0));
             this.direction = -1;
         }
 
-        if (keyboard.isKeyDown(87)) //jump
+        if (keyboard.isKeyDown(87)) //jumpaa
         {
-            if (this.body.GetLinearVelocity().y <= 0) {
-                this.body.SetLinearVelocity(new b2Vec2(20*this.direction,20));
+            if (this.body.GetLinearVelocity().y == 0) {
+                
+                var forces = new b2Vec2(this.direction*2, 1);          
+                forces.Multiply(15);
+                this.body.SetLinearVelocity(forces);
+               // this.body.ApplyImpulse(forces, this.body.GetPosition());
             }
         }
 
         if (keyboard.isKeyDown(68)) //right
         {
-             this.body.SetPosition(new b2Vec2(currentPos.x + 1/Physics.worldScale, currentPos.y) );
+             this.body.SetPosition(new b2Vec2(currentPos.x + 0.8/Physics.worldScale, currentPos.y) );
              this.direction = 1;
         }
 

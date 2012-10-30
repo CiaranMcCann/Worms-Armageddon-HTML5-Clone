@@ -1,8 +1,14 @@
 module Utilies {
 
-    export function random(min,max){
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
+    export function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    export function deleteFromCollection(collection, indexToRemove) {
+            delete collection[indexToRemove];     
+            collection.splice(indexToRemove, 1);
+    }
+
 
 }
 
@@ -15,6 +21,10 @@ module Logger {
         console.log(message);
     }
 
+     export function debug(message) {
+        if(loggingActive)
+        console.log(message);
+    }
 }
 
 module keyboard {

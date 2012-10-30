@@ -72,7 +72,9 @@ class Terrain {
             fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
             bodyDef.position.y = ((yPos - rectheight) / worldScale);
-            this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
+
+          this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
+          this.groundbodiesList[this.groundbodiesList.length-1].SetUserData("terrain");
 
         }
 
@@ -162,6 +164,7 @@ class Terrain {
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
         this.drawingCanvasContext.drawImage(this.bufferCanvas, 0, -5);
+       this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
 
 
