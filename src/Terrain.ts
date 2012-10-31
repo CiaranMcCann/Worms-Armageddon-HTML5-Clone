@@ -19,7 +19,7 @@ class Terrain {
 
     deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
 
-    constructor (canvas, terrainImage, world, scale) {
+    constructor (canvas, terrainImage, backgroundGradientImage, world, scale) {
 
         this.world = world;
         this.scale = scale;
@@ -34,6 +34,19 @@ class Terrain {
         this.bufferCanvas.height = canvas.height;
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
+
+        //Using buffer temporialy to get the top line of the gradient image 
+        this.bufferCanvasContext.drawImage(backgroundGradientImage, 0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
+        var gradientData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height).data;
+        var gradientColor = " rgb( " + gradientData[0] + "," + gradientData[1] + "," + gradientData[2] + ")";
+        this.bufferCanvasContext.clearRect(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
+
+        //Setups the background gradientcolor using CSS
+        this.drawingCanvas.style.background = gradientColor;
+        this.drawingCanvas.style.backgroundImage = "url("+ backgroundGradientImage.src + ")";
+        this.drawingCanvas.style.backgroundPositionY = "bottom";
+        this.drawingCanvas.style.backgroundRepeat = "repeat-x";
+
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain
         this.bufferCanvasContext.drawImage(terrainImage, 0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
 

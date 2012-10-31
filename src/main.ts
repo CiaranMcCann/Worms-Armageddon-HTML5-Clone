@@ -7,7 +7,8 @@ window.onload = function () => {
     var imagesToLoad = {
         background: 'data/img/wormsBackGround.png',
         bananabomb: 'data/img/bananabomb.png',
-        worm: 'data/img/worm.png'
+        worm: 'data/img/worm.png',
+        bggradient: 'data/img/graident.png'
     };
 
     AssetManager.loadImages(imagesToLoad, function () {
@@ -15,7 +16,7 @@ window.onload = function () => {
         var game = new Game();
 
         (function gameloop() {
-            
+
             Graphics.stats.update();
             game.step();
             game.update();

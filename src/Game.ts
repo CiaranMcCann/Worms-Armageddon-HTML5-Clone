@@ -33,7 +33,7 @@ class Game {
         this.actionCanvasContext.font  = 'bold 14px Sans-Serif';
 
         Physics.init(this.terrainCanvasContext);
-        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images.background, Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images.background, AssetManager.images.bggradient, Physics.world, Physics.worldScale);
 
         window.addEventListener("click", function (evt) =>
         {
