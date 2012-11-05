@@ -68,7 +68,7 @@ class ThrowableWeapon {
             this.terrainRef.addToDeformBatch(
                this.body.GetPosition().x * Physics.worldScale,
                this.body.GetPosition().y * Physics.worldScale,
-               Utilies.random(32, 80));
+               50);
 
             this.timeToLive = -1;
 

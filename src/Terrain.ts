@@ -19,6 +19,8 @@ class Terrain {
 
     deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
 
+    TERRAIN_RECT_HEIGHT: number;
+
     constructor (canvas, terrainImage, backgroundGradientImage, world, scale) {
 
         this.world = world;
@@ -26,6 +28,8 @@ class Terrain {
         this.groundbodiesList = []; //Used to easly delete all the ground bodies
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
+
+        this.TERRAIN_RECT_HEIGHT = 5;
 
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
@@ -43,7 +47,7 @@ class Terrain {
 
         //Setups the background gradientcolor using CSS
         this.drawingCanvas.style.background = gradientColor;
-        this.drawingCanvas.style.backgroundImage = "url("+ backgroundGradientImage.src + ")";
+        this.drawingCanvas.style.backgroundImage = "url(" + backgroundGradientImage.src + ")";
         this.drawingCanvas.style.backgroundPositionY = "bottom";
         this.drawingCanvas.style.backgroundRepeat = "repeat-x";
 
@@ -55,7 +59,7 @@ class Terrain {
 
         this.draw();
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
-          
+
     }
 
     // This setup physical bodies from image data 
@@ -86,8 +90,8 @@ class Terrain {
             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
             bodyDef.position.y = ((yPos - rectheight) / worldScale);
 
-          this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
-          this.groundbodiesList[this.groundbodiesList.length-1].SetUserData("terrain");
+            this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
+            this.groundbodiesList[this.groundbodiesList.length - 1].SetUserData("terrain");
 
         }
 
@@ -133,34 +137,51 @@ class Terrain {
     // It then calls for the box2d physic terrain to be reconstructed from the new image
     deformRegionBatch() {
 
-        this.bufferCanvasContext.beginPath();
+
 
         var lenghtCache = this.deformTerrainBatchList.length;
         var angle = Math.PI * 2;
 
+        this.bufferCanvasContext.beginPath();
         // Draw cut outs of all batched deformations
         for (var i = 0; i < lenghtCache; i++) {
             var tmp = this.deformTerrainBatchList[i];
             this.bufferCanvasContext.arc(tmp.xPos, tmp.yPos, tmp.radius, angle, 0, true);
         }
-        this.deformTerrainBatchList = [];
 
         this.bufferCanvasContext.closePath();
         this.bufferCanvasContext.fill();
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
-     
 
-        lenghtCache = this.groundbodiesList.length;
+        // for each explision in batch find what rects its radius interects and destory them.
+        // Then scan image from top of explosion radius down to bottom and fill back in the rects
         for (var i = 0; i < lenghtCache; i++) {
-            this.world.DestroyBody(this.groundbodiesList[i]);
+
+            var tmp = this.deformTerrainBatchList[i];
+            var aabb = new b2AABB();
+            aabb.lowerBound.Set(0, Physics.metersToPixels(Math.floor(tmp.yPos) - tmp.radius));
+            aabb.upperBound.Set(Physics.metersToPixels(this.bufferCanvas.width), Physics.metersToPixels(Math.floor(tmp.yPos) + tmp.radius));
+
+            Physics.world.QueryAABB(function (fixture) =>
+            {
+                if (fixture.GetBody().GetType() == b2Body.b2_staticBody) {
+                    this.world.DestroyBody(fixture.GetBody());
+                }
+
+                return true;
+            }, aabb);
+
+            this.createTerrainPhysics(0, //x
+                Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) - tmp.radius,  //y
+                this.bufferCanvas.width, //x
+                Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) + tmp.radius, //y
+                this.terrainData.data, 
+                this.world, 
+                this.scale);
         }
-        this.groundbodiesList = [] //clear list
 
-        this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, this.world, this.scale);
+        this.deformTerrainBatchList = [];
         this.draw();
-
-        
-
     }
 
     update() {
@@ -177,7 +198,7 @@ class Terrain {
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
         this.drawingCanvasContext.drawImage(this.bufferCanvas, 0, -5);
-       this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
+        this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
 
 
