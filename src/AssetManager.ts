@@ -1,3 +1,5 @@
+///<reference path="audio/Sound.ts"/>
+
 module AssetManager {
 
     export var images = {};
@@ -22,6 +24,26 @@ module AssetManager {
             };
             images[src].src = sources[src];
         }
+
+    }
+
+    export function loadPriorityAssets(audioSources, imageSources, callback) {
+        loadImages(imageSources, function () {
+            loadSounds(audioSources, function (bufferList) {
+
+                for (var i = 0; i < bufferList.length; i++) {
+                    sounds[bufferList[i].name] = bufferList[i].buffer;
+                }
+                callback();
+
+            });
+        });
+    }
+
+    export function loadSounds(sources, callback) {
+
+      var bufferLoader = new BufferLoader(Sound.context,sources,callback);
+      bufferLoader.load();
 
     }
 

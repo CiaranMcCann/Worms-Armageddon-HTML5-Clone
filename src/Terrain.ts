@@ -173,8 +173,8 @@ class Terrain {
 
             this.createTerrainPhysics(0, //x
                 Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) - tmp.radius,  //y
-                this.bufferCanvas.width, //x
-                Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) + tmp.radius, //y
+                this.bufferCanvas.width, //w
+                Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) + tmp.radius, //h
                 this.terrainData.data, 
                 this.world, 
                 this.scale);

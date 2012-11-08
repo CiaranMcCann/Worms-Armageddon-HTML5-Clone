@@ -11,7 +11,14 @@ window.onload = function () => {
         bggradient: 'data/img/graident.png'
     };
 
-    AssetManager.loadImages(imagesToLoad, function () {
+    var priorityAudio = [
+        "data/sounds/boring.wav"
+    ]
+        
+
+    AssetManager.loadPriorityAssets(priorityAudio, imagesToLoad, function () {
+
+        Sound.play(AssetManager.sounds.boring, 20);
 
         var game = new Game();
 
@@ -21,7 +28,6 @@ window.onload = function () => {
             game.step();
             game.update();
             game.draw();
-
             window.requestAnimationFrame(gameloop);
         })();
 

@@ -29,6 +29,14 @@
     <Content Include="src\AssetManager.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
+    <Content Include="src\audio\SoundBufferLoader.js" />
+    <TypeScriptCompile Include="src\audio\Sound.ts" />
+    <Content Include="src\audio\Sound.js">
+      <DependentUpon>Sound.ts</DependentUpon>
+    </Content>
+    <Content Include="src\audio\Sound.min.js">
+      <DependentUpon>Sound.ts</DependentUpon>
+    </Content>
     <Content Include="src\Game.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
