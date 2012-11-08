@@ -33,7 +33,7 @@ class Game {
         this.actionCanvasContext.font  = 'bold 14px Sans-Serif';
 
         Physics.init(this.terrainCanvasContext);
-        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images.background, AssetManager.images.bggradient, Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["wormsBackGround"], AssetManager.images.bggradient, Physics.world, Physics.worldScale);
 
         window.addEventListener("click", function (evt) =>
         {
@@ -41,16 +41,16 @@ class Game {
 
         }, false);
         
-        this.worm = new Worm(32, 2, AssetManager.images.worm);
+        this.worm = new Worm(32, 2, AssetManager.images["worm"]);
         
         //TODO Remove this first sprint demo code after
         this.weapons = [];
-        for (var i = 0; i < 15; i++) {
-           this.weapons[i] = new ProjectileWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.bananabomb, this.terrain);
+        for (var i = 0; i < 2; i++) {
+           this.weapons[i] = new ProjectileWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.["bananabomb"], this.terrain);
         }
 
-         for (var i = 15; i < 25; i++) {
-            this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.bananabomb, this.terrain);
+         for (var i = 2; i < 5; i++) {
+            this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.["bananabomb"], this.terrain);
         }
 
     }

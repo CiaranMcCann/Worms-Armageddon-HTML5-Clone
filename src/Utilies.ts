@@ -18,12 +18,17 @@ module Logger {
 
     export function log(message) {
         if(loggingActive)
-        console.log(message);
+        console.info(message);
     }
 
      export function debug(message) {
         if(loggingActive)
         console.log(message);
+    }
+
+     export function error(message) {
+        if(loggingActive)
+        console.error(message);
     }
 }
 

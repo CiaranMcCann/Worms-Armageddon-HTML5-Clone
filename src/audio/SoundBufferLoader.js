@@ -23,8 +23,8 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
           alert('error decoding file data: ' + url);
           return;
         }
-        loader.bufferList[index] = { buffer: buffer, name: url.match("[a-z]+[.]")[0].replace(".","") };
-
+        loader.bufferList[index] = { buffer: buffer, name: url.match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "") };
+        Logger.log(" Audio file " + url + " loaded sucessfully ");
         if (++loader.loadCount == loader.urlList.length)
           loader.onload(loader.bufferList);
       },

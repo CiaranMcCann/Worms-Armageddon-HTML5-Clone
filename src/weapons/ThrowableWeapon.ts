@@ -76,6 +76,8 @@ class ThrowableWeapon {
             aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
             aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
 
+            Sound.play(AssetManager.sounds["explosion" + Utilies.random(1,3) ]);
+
             var count: Number = Physics.world.QueryAABB(function (fixture) =>
             {
                 if (fixture.GetBody().GetType() != b2Body.b2_staticBody) {

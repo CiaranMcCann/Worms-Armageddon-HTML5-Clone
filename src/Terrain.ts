@@ -39,17 +39,9 @@ class Terrain {
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 
-        //Using buffer temporialy to get the top line of the gradient image 
-        this.bufferCanvasContext.drawImage(backgroundGradientImage, 0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
-        var gradientData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height).data;
-        var gradientColor = " rgb( " + gradientData[0] + "," + gradientData[1] + "," + gradientData[2] + ")";
-        this.bufferCanvasContext.clearRect(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
-
         //Setups the background gradientcolor using CSS
-        this.drawingCanvas.style.background = gradientColor;
-        this.drawingCanvas.style.backgroundImage = "url(" + backgroundGradientImage.src + ")";
-        this.drawingCanvas.style.backgroundPositionY = "bottom";
-        this.drawingCanvas.style.backgroundRepeat = "repeat-x";
+        this.drawingCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);"
+
 
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain
         this.bufferCanvasContext.drawImage(terrainImage, 0, 0, this.bufferCanvas.width, this.bufferCanvas.height);

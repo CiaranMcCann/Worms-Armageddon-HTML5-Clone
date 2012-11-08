@@ -3,22 +3,7 @@
 
 window.onload = function () => {
 
-
-    var imagesToLoad = {
-        background: 'data/img/wormsBackGround.png',
-        bananabomb: 'data/img/bananabomb.png',
-        worm: 'data/img/worm.png',
-        bggradient: 'data/img/graident.png'
-    };
-
-    var priorityAudio = [
-        "data/sounds/boring.wav"
-    ]
-        
-
-    AssetManager.loadPriorityAssets(priorityAudio, imagesToLoad, function () {
-
-        Sound.play(AssetManager.sounds.boring, 20);
+    AssetManager.loadPriorityAssets(function () {
 
         var game = new Game();
 

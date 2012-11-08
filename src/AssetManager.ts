@@ -2,6 +2,19 @@
 
 module AssetManager {
 
+   var priorityImages = [
+        'data/img/wormsBackGround.png',
+        'data/img/bananabomb.png',
+        'data/img/worm.png', 
+        'data/img/worms/waccuse.png'
+    ];
+
+    var priorityAudio = [
+        "data/sounds/explosion1.wav",
+        "data/sounds/explosion2.wav",
+        "data/sounds/explosion3.wav"
+    ]
+
     export var images = {};
     export var sounds = {};
 
@@ -15,36 +28,36 @@ module AssetManager {
             numImages++;
         }
         for (var src in sources) {
-            images[src] = new Image();
-            images[src].onload = function () {
+            var name =  sources[src].match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "");
+            images[name] = new Image();
+            images[name].onload = function () {
+                Logger.log(" Image " + sources[src] + " loaded sucessfully ");
                 if (++loadedImages >= numImages) {
                     AssetManager.images = images;
                     callback();
                 }
             };
-            images[src].src = sources[src];
+            images[name].src = sources[src];
         }
 
     }
 
-    export function loadPriorityAssets(audioSources, imageSources, callback) {
-        loadImages(imageSources, function () {
-            loadSounds(audioSources, function (bufferList) {
-
-                for (var i = 0; i < bufferList.length; i++) {
-                    sounds[bufferList[i].name] = bufferList[i].buffer;
-                }
-                callback();
-
-            });
+    export function loadPriorityAssets(callback) {
+        loadImages(priorityImages, function () {
+            loadSounds(priorityAudio, callback);
         });
     }
 
     export function loadSounds(sources, callback) {
+        var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList) {
 
-      var bufferLoader = new BufferLoader(Sound.context,sources,callback);
+             for (var i = 0; i < bufferList.length; i++) {
+                    sounds[bufferList[i].name] = bufferList[i].buffer;
+             }
+
+             callback();
+        });
       bufferLoader.load();
-
     }
 
 }

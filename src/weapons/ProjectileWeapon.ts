@@ -65,6 +65,8 @@ class ProjectileWeapon {
                     aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
                     aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
 
+                     Sound.play(AssetManager.sounds["explosion" + Utilies.random(1,3) ]);
+
                     //find dynamic bodies inside the effectedRadius and apply a impluse
                     Physics.world.QueryAABB(function (fixture) =>
                     {
