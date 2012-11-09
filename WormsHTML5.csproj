@@ -57,6 +57,13 @@
     <Content Include="src\Graphics.min.js">
       <DependentUpon>Graphics.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\gui\SplashScreen.ts" />
+    <Content Include="src\gui\SplashScreen.js">
+      <DependentUpon>SplashScreen.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\SplashScreen.min.js">
+      <DependentUpon>SplashScreen.ts</DependentUpon>
+    </Content>
     <Content Include="src\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>

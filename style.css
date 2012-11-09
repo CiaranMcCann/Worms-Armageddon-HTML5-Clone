@@ -4,3 +4,10 @@
                 padding:0;
                 background:#fff;
 }
+
+ h1{
+
+    color: #f1f1f1;
+    font-family:Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+    text-align: center;
+ }
