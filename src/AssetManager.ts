@@ -1,4 +1,5 @@
 ///<reference path="audio/Sound.ts"/>
+declare var BufferLoader;
 
 module AssetManager {
 
@@ -6,7 +7,8 @@ module AssetManager {
         'data/img/wormsBackGround.png',
         'data/img/bananabomb.png',
         'data/img/worm.png', 
-        'data/img/worms/waccuse.png'
+        'data/img/worms/wselect.png',
+        'data/img/worms/whgrlnk.png'
     ];
 
     var priorityAudio = [
@@ -31,7 +33,7 @@ module AssetManager {
             var name =  sources[src].match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "");
             images[name] = new Image();
             images[name].onload = function () {
-                Logger.log(" Image " + sources[src] + " loaded sucessfully ");
+                Logger.log(" Image " + this.src + " loaded sucessfully ");
                 if (++loadedImages >= numImages) {
                     AssetManager.images = images;
                     callback();

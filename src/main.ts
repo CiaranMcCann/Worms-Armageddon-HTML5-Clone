@@ -7,14 +7,15 @@ window.onload = function () => {
 
         var game = new Game();
 
-        (function gameloop() {
+        function gameloop() {
 
             Graphics.stats.update();
             game.step();
             game.update();
             game.draw();
             window.requestAnimationFrame(gameloop);
-        })();
+         }
+         gameloop();
 
     });
 

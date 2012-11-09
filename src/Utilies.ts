@@ -1,3 +1,5 @@
+declare var $;
+
 module Utilies {
 
     export function random(min, max) {

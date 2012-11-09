@@ -1,3 +1,4 @@
+declare var Box2D;
 //Global defining of shortened names for box2d types
 var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2BodyDef = Box2D.Dynamics.b2BodyDef,

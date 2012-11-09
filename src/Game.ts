@@ -19,9 +19,12 @@ class Game {
     weapons;
     worm : Worm;
 
+    static soundOn;
 
     constructor () {
         Graphics.init();
+
+        Game.soundOn = false;
  
         //Create Terrain canvas
         this.terrainCanvas = Graphics.createCanvas("terrain");
@@ -33,24 +36,24 @@ class Game {
         this.actionCanvasContext.font  = 'bold 14px Sans-Serif';
 
         Physics.init(this.terrainCanvasContext);
-        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["wormsBackGround"], AssetManager.images.bggradient, Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["wormsBackGround"], Physics.world, Physics.worldScale);
 
-        window.addEventListener("click", function (evt) =>
+        window.addEventListener("click", function (evt : any) =>
         {
             this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
 
         }, false);
         
-        this.worm = new Worm(32, 2, AssetManager.images["worm"]);
+        this.worm = new Worm(32, 2);
         
         //TODO Remove this first sprint demo code after
         this.weapons = [];
         for (var i = 0; i < 2; i++) {
-           this.weapons[i] = new ProjectileWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.["bananabomb"], this.terrain);
+           this.weapons[i] = new ProjectileWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
         }
 
          for (var i = 2; i < 5; i++) {
-            this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images.["bananabomb"], this.terrain);
+            this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
         }
 
     }
@@ -72,7 +75,7 @@ class Game {
            , 10       //velocity iterations
            , 10       //position iterations
         );
-       //Physics.world.DrawDebugData();
+       Physics.world.DrawDebugData();
         //Physics.world.ClearForces();
 
     }

@@ -21,7 +21,7 @@ class Terrain {
 
     TERRAIN_RECT_HEIGHT: number;
 
-    constructor (canvas, terrainImage, backgroundGradientImage, world, scale) {
+    constructor (canvas, terrainImage, world, scale) {
 
         this.world = world;
         this.scale = scale;
@@ -33,7 +33,7 @@ class Terrain {
 
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
-        this.bufferCanvas = document.createElement('canvas');
+        this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
         this.bufferCanvas.width = canvas.width;
         this.bufferCanvas.height = canvas.height;
 

@@ -1,8 +1,12 @@
-module Graphics {
+declare var Stats;
+
+module Graphics
+{
 
     export var stats;
 
-    export function init() {
+    export function init()
+    {
 
         stats = new Stats();
 
@@ -14,18 +18,21 @@ module Graphics {
         document.body.appendChild(stats.domElement);
 
         // requestAnim shim layer by Paul Irish
-        window.requestAnimationFrame = (function () {
-            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-            function ( /* function */ callback, /* DOMElement */ element) {
+        window.requestAnimationFrame = (function ()
+        {
+            return window.requestAnimationFrame || (<any>window).webkitRequestAnimationFrame || (<any>window).mozRequestAnimationFrame || (<any>window).oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function ( /* function */ callback, /* DOMElement */ element)
+            {
                 window.setTimeout(callback, 1000 / 60);
             };
 
         })();
     }
 
-    export function createCanvas(name : string) {
+    export function createCanvas(name: string)
+    {
 
-        var canvas = document.createElement('canvas');
+        var canvas = <HTMLCanvasElement>document.createElement('canvas');
         canvas.id = name;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
