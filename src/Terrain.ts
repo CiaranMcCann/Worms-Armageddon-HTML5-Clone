@@ -129,8 +129,6 @@ class Terrain {
     // It then calls for the box2d physic terrain to be reconstructed from the new image
     deformRegionBatch() {
 
-
-
         var lenghtCache = this.deformTerrainBatchList.length;
         var angle = Math.PI * 2;
 
@@ -150,9 +148,19 @@ class Terrain {
         for (var i = 0; i < lenghtCache; i++) {
 
             var tmp = this.deformTerrainBatchList[i];
+           // var normalizedRadis = Math.floor(tmp.radius / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT;
+
+            //Setup bounding box, to check which terrain rects intercest the box and need to be removed and recreated.
             var aabb = new b2AABB();
-            aabb.lowerBound.Set(0, Physics.metersToPixels(Math.floor(tmp.yPos) - tmp.radius));
-            aabb.upperBound.Set(Physics.metersToPixels(this.bufferCanvas.width), Physics.metersToPixels(Math.floor(tmp.yPos) + tmp.radius));
+            aabb.lowerBound.Set(
+                0, 
+                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) - tmp.radius)
+            );
+            
+            aabb.upperBound.Set(
+                Physics.pixelToMeters(this.bufferCanvas.width), 
+                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) + tmp.radius)
+            );
 
             Physics.world.QueryAABB(function (fixture) =>
             {
@@ -164,9 +172,9 @@ class Terrain {
             }, aabb);
 
             this.createTerrainPhysics(0, //x
-                Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) - tmp.radius,  //y
+                Physics.metersToPixels(aabb.lowerBound.y),  //y
                 this.bufferCanvas.width, //w
-                Math.floor(tmp.yPos + this.TERRAIN_RECT_HEIGHT) + tmp.radius, //h
+                Physics.metersToPixels(aabb.upperBound.y)+this.TERRAIN_RECT_HEIGHT*2, //h
                 this.terrainData.data, 
                 this.world, 
                 this.scale);

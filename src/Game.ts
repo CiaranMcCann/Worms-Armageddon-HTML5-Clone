@@ -49,7 +49,7 @@ class Game {
         //TODO Remove this first sprint demo code after
         this.weapons = [];
         for (var i = 0; i < 2; i++) {
-           this.weapons[i] = new ProjectileWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
+           this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
         }
 
          for (var i = 2; i < 5; i++) {

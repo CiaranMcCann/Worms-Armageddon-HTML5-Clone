@@ -81,7 +81,7 @@ module Physics {
 
     //Converts physic world measurement to pixels;
     export function metersToPixels(meters: number) {
-        return meters / worldScale;
+        return meters * worldScale;
     }
 
 }

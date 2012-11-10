@@ -20,7 +20,7 @@ class ThrowableWeapon {
         this.terrainRef = terrainRef;
 
         // Force/worm damge radius
-        this.effectedRadius = Physics.pixelToMeters(60);
+        this.effectedRadius = Physics.pixelToMeters(50);
 
         // force scaler
         this.explosiveForce = 15

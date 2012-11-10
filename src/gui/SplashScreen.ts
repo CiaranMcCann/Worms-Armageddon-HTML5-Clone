@@ -9,7 +9,7 @@ class SplashScreen
         this.div = <HTMLDivElement>document.createElement('div');
         this.div.style.cssText = " position: absolute; left: 0px; top: 0px; background: #111111; width: 100%; height:100%; z-index: 1";
         this.div.id = "SplashScreen";
-        this.div.innerHTML = " <h1> Worms HTMl5</h1> ";
+       // this.div.innerHTML = " <h1> Worms HTMl5</h1> ";
         parentElement.appendChild(this.div);
 
         var loaderImage = document.createElement('div');
