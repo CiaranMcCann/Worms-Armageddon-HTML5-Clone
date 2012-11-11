@@ -62,7 +62,7 @@ class Terrain {
 
         var theAlphaByte = 3;
         var rectWidth = 0;
-        var rectheight = 5; // Every 5 lines is used instead of every px line
+        var rectheight = this.TERRAIN_RECT_HEIGHT; // Every 5 lines is used instead of every px line
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -148,18 +148,18 @@ class Terrain {
         for (var i = 0; i < lenghtCache; i++) {
 
             var tmp = this.deformTerrainBatchList[i];
-           // var normalizedRadis = Math.floor(tmp.radius / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT;
+            var normalizedRadis = Math.floor(tmp.radius / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT;
 
             //Setup bounding box, to check which terrain rects intercest the box and need to be removed and recreated.
             var aabb = new b2AABB();
             aabb.lowerBound.Set(
                 0, 
-                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) - tmp.radius)
+                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) - normalizedRadis)
             );
             
             aabb.upperBound.Set(
                 Physics.pixelToMeters(this.bufferCanvas.width), 
-                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) + tmp.radius)
+                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) + normalizedRadis)
             );
 
             Physics.world.QueryAABB(function (fixture) =>

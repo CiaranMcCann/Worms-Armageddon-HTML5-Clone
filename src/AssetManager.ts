@@ -3,12 +3,15 @@ declare var BufferLoader;
 
 module AssetManager {
 
+   var remoteAssetServer = "http://www.ciaranmccann.me/fyp/";
+
    var priorityImages = [
         'data/img/wormsBackGround.png',
         'data/img/bananabomb.png',
-        'data/img/worm.png', 
-        'data/img/worms/wselect.png',
-        'data/img/worms/whgrlnk.png'
+        remoteAssetServer + 'data/img/wselect.png',
+        remoteAssetServer + 'data/img/whgrlnk.png',
+        remoteAssetServer + 'data/img/wwalk.png',
+        remoteAssetServer + 'data/img/wwalkright.png',
     ];
 
     var priorityAudio = [
@@ -30,7 +33,7 @@ module AssetManager {
             numImages++;
         }
         for (var src in sources) {
-            var name =  sources[src].match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "");
+            var name =  sources[src].match("[a-z,A-Z,0-9]+[.]png")[0].replace(".png", "");
             images[name] = new Image();
             images[name].onload = function () {
                 Logger.log(" Image " + this.src + " loaded sucessfully ");

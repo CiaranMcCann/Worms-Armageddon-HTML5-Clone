@@ -43,30 +43,37 @@ class Worm extends Sprite
 
         if (keyboard.isKeyDown(65)) //left
         {
+            super.setSpriteDef(Sprites.worms.walkingLeft);
+            super.update();
             this.body.SetPosition(new b2Vec2(currentPos.x - 0.8 / Physics.worldScale, currentPos.y));
             //this.body.SetLinearVelocity(new b2Vec2(-5,0));
             this.direction = -1;
+
+            
         }
 
         if (keyboard.isKeyDown(87)) //jumpaa
         {
             if (this.body.GetLinearVelocity().y == 0)
             {
-
                 var forces = new b2Vec2(this.direction * 2, 1);
                 forces.Multiply(15);
                 this.body.SetLinearVelocity(forces);
                 // this.body.ApplyImpulse(forces, this.body.GetPosition());
             }
+
+         
         }
 
         if (keyboard.isKeyDown(68)) //right
         {
+            super.setSpriteDef(Sprites.worms.walkingRight);
+            super.update();
+
             this.body.SetPosition(new b2Vec2(currentPos.x + 0.8 / Physics.worldScale, currentPos.y));
-            this.direction = 1;
+            this.direction = 1;  
         }
 
-        super.update();
 
     }
 
@@ -84,8 +91,8 @@ class Worm extends Sprite
         var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
 
         super.draw(ctx,
-            -radius,
-            -radius);
+            -radius*0.8,
+            -radius*0.8);
         ctx.restore()
 
     }

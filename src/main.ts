@@ -4,8 +4,7 @@
 
 $(document).ready(function() => {
 
-    var splashScreen = new SplashScreen(document.body);
-    splashScreen.show();
+    var splashScreen = new SplashScreen();
 
     AssetManager.loadPriorityAssets(function () {
         

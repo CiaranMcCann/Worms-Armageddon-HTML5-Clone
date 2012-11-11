@@ -11,3 +11,50 @@
     font-family:Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
     text-align: center;
  }
+
+
+#splashScreen {
+     position: absolute; 
+     left: 0px; 
+     top: 0px; 
+     background: #111111; 
+     width: 100%; 
+     height:100%; 
+     z-index: 1;
+
+ }
+
+
+
+ #splashScreen #loadIcon{
+
+     width:160px; 
+     height:160px;
+     background: url(http://www.ciaranmccann.me/fyp/data/img/cdrom.png);    
+     position: absolute;
+     left: 50%;
+     top: 50%; 
+     margin-left: -80px;
+     margin-top: -80px;
+
+
+    -webkit-animation: wink 2.8s steps(25, end);
+    -moz-animation: wink 2.8s steps(25, end);
+    
+ }
+
+
+ @-webkit-keyframes wink {
+    from { background-position: 0px 0px; }
+    to { background-position: 0px -4000px; }
+}
+
+@-moz-keyframes wink {
+      from { background-position: 0px 0px; }
+    to { background-position: 0px -4000px; }
+}
+
+@keyframes wink {
+      from { background-position: 0px 0px; }
+    to { background-position: 0px -4000px; }
+}

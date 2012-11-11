@@ -3,7 +3,6 @@ interface SpriteDef
 
     imageName: string;
     frameY: number;
-    frameHeight: number;
     frameCount: number;
     msPerFrame: number;
 
@@ -21,21 +20,30 @@ module Sprites
 
             imageName: "wselect",
             frameY: 0,
-            frameHeight: 26,
             frameCount: 16,
             msPerFrame: 100,
 
         },
 
+        walkingLeft: {
+
+            imageName: "wwalk",
+            frameY: 0,
+            frameCount: 15,
+            msPerFrame: 50,
+
+        },
+
         walkingRight: {
 
-            imageName: "whgrlnk",
+            imageName: "wwalkright",
             frameY: 0,
-            frameHeight: 31,
-            frameCount: 10,
-            msPerFrame: 100,
+            frameCount: 15,
+            msPerFrame: 50,
 
         }
+
+
     }
 
 }
@@ -87,20 +95,25 @@ class Sprite
     draw(ctx, x, y)
     {
         var img = AssetManager.images[this.spriteDef.imageName];
+        var frameHeight = img.height / this.spriteDef.frameCount;
+
         ctx.drawImage(
                img,
-               0, this.currentFrameY * this.spriteDef.frameHeight, img.width, this.spriteDef.frameHeight,
+               0, this.currentFrameY * frameHeight, img.width, frameHeight,
                x,
                y,
               img.width, 
-              this.spriteDef.frameHeight
+              frameHeight
         );
     }
 
     setSpriteDef(spriteDef: SpriteDef)
     {
-        this.spriteDef = spriteDef;
-        this.currentFrameY = this.spriteDef.frameY;
+        if (spriteDef != this.spriteDef)
+        {
+            this.spriteDef = spriteDef;
+            this.currentFrameY = this.spriteDef.frameY;
+        }
     }
 
 }

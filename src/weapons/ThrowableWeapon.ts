@@ -26,7 +26,7 @@ class ThrowableWeapon {
         this.explosiveForce = 15
 
         // Counter till bomb explodes
-        this.detonationCounter = Utilies.random(4, 8);
+        this.detonationCounter = Utilies.random(4, 12);
 
         this.timeToLive = 1000;
 
