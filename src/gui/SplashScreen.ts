@@ -8,8 +8,13 @@ class SplashScreen
 
     hide(callback)
     {   
-       document.getElementById("splashScreen").parentNode.removeChild( document.getElementById("splashScreen"));
-       callback();
+        setTimeout(function ()
+        {
+            $('#splashScreen').fadeOut('normal');
+            callback();
+
+        }, 1000); // articifal load delay
+      
     }
 
 }

@@ -1,23 +1,57 @@
 declare var webkitAudioContext;
 
-module Sound {
+// Sound object
+class Sound
+{
+    static context = new webkitAudioContext();
+    static soundOn = true;
 
-    export var context = new webkitAudioContext();
+    buffer;
+    private volume;
+    private playing;
 
-    export function play(buffer, time = 0) {
+    constructor (buffer, volume = 1)
+    {
+        this.buffer = buffer;
+        this.volume = volume;
+        this.playing = false;
 
-        if (!buffer)
+        if (!this.buffer)
         {
-
             Logger.error("buffer null");
         }
-        
-        if (Game.soundOn)
+    }
+
+    play(time = 0)
+    {
+        if (Sound.soundOn)
         {
-            var sound = context.createBufferSource();
-            sound.buffer = buffer;
-            sound.connect(context.destination);
-            sound.noteOn(time);
+            var source = Sound.context.createBufferSource();
+            source.buffer = this.buffer;
+            source.connect(Sound.context.destination);
+
+            var gainNode = Sound.context.createGainNode();
+            source.connect(gainNode);
+            gainNode.connect(Sound.context.destination);
+            gainNode.gain.value = this.volume;
+            source.noteOn(time);
+            this.playing = true;
+            var bufferLenght = this.buffer.duration;
+
+            setTimeout(function () => {
+                this.playing = false;
+            }, bufferLenght  * 1000);
+
+
+        } else
+        {
+            Logger.debug("Sounds are currently disabled");
         }
     }
+
+    isPlaying()
+    {
+        return this.playing;
+    }
+
 }

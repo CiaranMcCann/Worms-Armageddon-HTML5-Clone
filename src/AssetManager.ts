@@ -17,15 +17,17 @@ module AssetManager {
     var priorityAudio = [
         "data/sounds/explosion1.wav",
         "data/sounds/explosion2.wav",
-        "data/sounds/explosion3.wav"
+        "data/sounds/explosion3.wav",
+        "data/sounds/WalkExpand.wav",
+        "data/sounds/WalkCompress.wav",
     ]
 
-    export var images = {};
-    export var sounds = {};
+    export var images = [];
+    export var sounds = [];
 
     export function loadImages(sources, callback) {
 
-        var images = {};
+        var images = [];
         var loadedImages = 0;
         var numImages = 0;
         // get num of sources
@@ -57,7 +59,7 @@ module AssetManager {
         var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList) {
 
              for (var i = 0; i < bufferList.length; i++) {
-                    sounds[bufferList[i].name] = bufferList[i].buffer;
+                    sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
              }
 
              callback();

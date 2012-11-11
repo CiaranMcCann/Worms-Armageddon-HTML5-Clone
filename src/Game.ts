@@ -24,7 +24,7 @@ class Game {
     constructor () {
         Graphics.init();
 
-        Game.soundOn = false;
+        Game.soundOn = true;
  
         //Create Terrain canvas
         this.terrainCanvas = Graphics.createCanvas("terrain");
@@ -48,14 +48,13 @@ class Game {
         
         //TODO Remove this first sprint demo code after
         this.weapons = [];
-        for (var i = 0; i < 100; i++) {
-           //this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
+        for (var i = 0; i < 50; i++) {
+           //this.weapons[i] = new ThrowableWeapon(Utilies.random(15,40), Utilies.random(-30,0), AssetManager.images["bananabomb"], this.terrain);
         }
 
         // for (var i = 2; i < 5; i++) {
         //    this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
         //}
-
     }
 
     update() {

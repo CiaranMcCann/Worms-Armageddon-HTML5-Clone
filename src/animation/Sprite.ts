@@ -107,6 +107,21 @@ class Sprite
         );
     }
 
+    sync()
+    {
+        return this.accumulateDelta > this.spriteDef.msPerFrame;
+    }
+
+    getCurrentFrame()
+    {
+        return this.currentFrameY;
+    }
+
+    getTotalFrames()
+    {
+        return this.spriteDef.frameCount;
+    }
+
     setSpriteDef(spriteDef: SpriteDef)
     {
         if (spriteDef != this.spriteDef)

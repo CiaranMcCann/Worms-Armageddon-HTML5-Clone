@@ -11,6 +11,7 @@ class Worm extends Sprite
     image;
     direction;
     sprite;
+    speed;
 
     constructor (x, y)
     {
@@ -32,7 +33,8 @@ class Worm extends Sprite
         this.body = this.fixture.GetBody();
         this.body.SetFixedRotation(true);
         this.body.SetSleepingAllowed(false);
-        this.direction = 1;
+        this.direction = 1
+        this.speed = 0.5;
 
     }
 
@@ -43,13 +45,23 @@ class Worm extends Sprite
 
         if (keyboard.isKeyDown(65)) //left
         {
-            super.setSpriteDef(Sprites.worms.walkingLeft);
+            super.setSpriteDef(Sprites.worms.walkingLeft);        
             super.update();
-            this.body.SetPosition(new b2Vec2(currentPos.x - 0.8 / Physics.worldScale, currentPos.y));
+            this.body.SetPosition(new b2Vec2(currentPos.x - this.speed / Physics.worldScale, currentPos.y));
             //this.body.SetLinearVelocity(new b2Vec2(-5,0));
             this.direction = -1;
 
-            
+            if (AssetManager.sounds["WalkExpand"].isPlaying() == false )
+            {
+                    if (super.getCurrentFrame() % 5 == 0)
+                    {
+                        AssetManager.sounds["WalkCompress"].play();
+                    } else
+                    {
+                        AssetManager.sounds["WalkExpand"].play();
+                    }
+            }
+                
         }
 
         if (keyboard.isKeyDown(87)) //jumpaa
@@ -70,7 +82,7 @@ class Worm extends Sprite
             super.setSpriteDef(Sprites.worms.walkingRight);
             super.update();
 
-            this.body.SetPosition(new b2Vec2(currentPos.x + 0.8 / Physics.worldScale, currentPos.y));
+            this.body.SetPosition(new b2Vec2(currentPos.x + this.speed / Physics.worldScale, currentPos.y));
             this.direction = 1;  
         }
 

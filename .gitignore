@@ -13,6 +13,7 @@
 obj
 bin
 src/*.js
+data/
 
 # Packages #
 ############
