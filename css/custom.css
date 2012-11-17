@@ -5,12 +5,6 @@
                 background:#fff;
 }
 
- h1{
-
-    color: #f1f1f1;
-    font-family:Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
-    text-align: center;
- }
 
 
 #splashScreen {
@@ -58,3 +52,22 @@
       from { background-position: 0px 0px; }
     to { background-position: 0px -4000px; }
 }
+
+#startMenu{
+position: absolute;
+left: 50%;
+top: 50%;
+margin-left: -360px;
+margin-top: -275px;
+width: 600px;
+height: 430px;
+    z-index:1;
+    display:none;
+}
+
+
+.btn-large{
+    margin-left:30px;
+    margin-right:30px;
+}
+

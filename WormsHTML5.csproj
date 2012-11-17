@@ -25,6 +25,10 @@
     <Content Include="data\img\wormsBackGround.png" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
+    <TypeScriptCompile Include="external\Social.ts" />
+    <Content Include="external\Social.js">
+      <DependentUpon>Social.ts</DependentUpon>
+    </Content>
     <Content Include="external\Stats.js" />
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <Content Include="src\animation\Sprite.js">
@@ -64,6 +68,13 @@
     <Content Include="src\gui\SplashScreen.min.js">
       <DependentUpon>SplashScreen.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\gui\StartMenu.ts" />
+    <Content Include="src\gui\StartMenu.js">
+      <DependentUpon>StartMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\StartMenu.min.js">
+      <DependentUpon>StartMenu.ts</DependentUpon>
+    </Content>
     <Content Include="src\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
@@ -97,7 +108,7 @@
       <DependentUpon>Worm.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.ts" />
-    <Content Include="style.css" />
+    <Content Include="css\custom.css" />
     <Content Include="index.htm" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +119,9 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\tools\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

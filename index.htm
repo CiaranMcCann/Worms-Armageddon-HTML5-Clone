@@ -2,11 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-        <title>Worms HTML5</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Worms HTML5</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/custom.css" type="text/css" />
     <script src="external/jquery.1.8.2.min.js"></script>
-    <script src="src/gui/SplashScreen.js"></script>
-    <script src="src/main.js"></script>  
+    <script src="src/gui/StartMenu.js"></script>
+    <script src="src/main.js"></script>
     <script src="external/Box2dWeb-2.1.a.3.js"></script>
     <script src="external/Stats.js"></script>
     <script src="src/animation/Sprite.js"></script>
@@ -22,12 +23,48 @@
     <script src="src/weapons/ProjectileWeapon.js"></script>
     <script src="src/Worm.js"></script>
 </head>
-    <body>
+<body>
 
-        <div id="splashScreen">
-            <div id="loadIcon"></div>
+    <div id="splashScreen">
+        <div id="loadIcon"></div>
+    </div>
+    <div class="hero-unit" id="startMenu">
+        <div class="slide">
+            <h1 style="text-align: center">Worms Armageddon HTML5 Clone</h1>
+            <br />
+            <p>
+                Welcome to a recreation of <a href="http://www.team17.com/">Team17's</a> amazing turn-base artillery strategy game, worms armageddon. 
+                I don't think it needs to be said but I don't own any of the copyright to the art/sound assets all credit goes to <a href="http://www.team17.com/">Team17</a>
+                for these and making such an awesome game in the first place. This recreation is brought to you by <a href="http://www.ciaranmccann.me/">Ciarán McCann</a>
+            </p>
+            <br />
+            <p style="text-align: center"><a class="btn btn-primary btn-large" id="startLocal">Start local two player</a><a class="btn btn-primary btn-large" id="startOnline">Start online multiplayer</a></p>
+            <br />
+            <ul class="breadcrumb" style="margin-bottom: 5px; background: none; display: none">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" url="https://dev.twitter.com" data-lang="en">Tweet</a>
+                <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="300"></div>
+
+            </ul>
         </div>
 
-    </body>
+
+         
+    
+    </div>
+</body>
 </html>
+<div id="fb-root"></div>
+<script>
+    //Twiiter
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+
+    //G+
+    (function ()
+    {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+
+</script>
 

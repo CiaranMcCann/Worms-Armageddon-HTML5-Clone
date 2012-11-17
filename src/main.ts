@@ -1,15 +1,15 @@
 ///<reference path="Game.ts"/>
 ///<reference path="Graphics.ts"/>
-///<reference path="gui/SplashScreen.ts" />
+///<reference path="gui/StartMenu.ts" />
 
 $(document).ready(function() => {
 
-    var splashScreen = new SplashScreen();
+    var startMenu = new StartMenu();
 
     AssetManager.loadPriorityAssets(function () {
         
         var game = new Game();
-        splashScreen.hide(function ()
+        startMenu.onGameReady(function ()
         {
                 function gameloop()
                 {
