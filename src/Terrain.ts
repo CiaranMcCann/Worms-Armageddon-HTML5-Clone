@@ -1,12 +1,13 @@
-///<reference path="Physics.ts"/>
-///<reference path="Logger.ts"
+///<reference path="system/Physics.ts"/>
+///<reference path="system/Utilies.ts" />
 
 /**
  * The terrain class handles the graphical repsentation of the terrain
  * as well as the box2d physic model. Using the map image data the terrain class
  * constructs box2d objects which make up the terrain. It also handles deformations
  */
-class Terrain {
+class Terrain
+{
 
     drawingCanvas: HTMLCanvasElement;
     drawingCanvasContext: CanvasRenderingContext2D;
@@ -21,7 +22,8 @@ class Terrain {
 
     TERRAIN_RECT_HEIGHT: number;
 
-    constructor (canvas, terrainImage, world, scale) {
+    constructor (canvas, terrainImage, world, scale)
+    {
 
         this.world = world;
         this.scale = scale;
@@ -55,7 +57,8 @@ class Terrain {
     }
 
     // This setup physical bodies from image data 
-    createTerrainPhysics(x, y, width, height, data, world, worldScale) {
+    createTerrainPhysics(x, y, width, height, data, world, worldScale)
+    {
 
         width = width * 4; // 4 becase of [r,g,b,a]
         height = height;
@@ -89,17 +92,20 @@ class Terrain {
 
         //Loops though the image pixel data, looking
         // for constecative NON-alpha pixels. To create the physical blocks out of
-        for (var yPos = y; yPos <= height; yPos += rectheight) {
+        for (var yPos = y; yPos <= height; yPos += rectheight)
+        {
             rectWidth = 0;
 
-            for (var xPos = x; xPos <= width; xPos += 4) {
+            for (var xPos = x; xPos <= width; xPos += 4)
+            {
 
                 if (data[xPos + (yPos * width) + theAlphaByte] == 255) //if not alpha pixel
                 {
                     rectWidth++;
 
                     //Check if the box spans the full width of the image.
-                    if (rectWidth >= this.drawingCanvas.width) {
+                    if (rectWidth >= this.drawingCanvas.width)
+                    {
 
                         // if so make the box and reset for the next line
                         makeBlock();
@@ -107,7 +113,8 @@ class Terrain {
                     }
 
                 }
-                else if (rectWidth > 1) {
+                else if (rectWidth > 1)
+                    {
 
                     makeBlock();
                     bodiesCreated++;
@@ -121,20 +128,23 @@ class Terrain {
 
     //Adds this deform position to the list so that the deforms 
     //can be batched at the end of the update loop
-    addToDeformBatch(x, y, r) {
+    addToDeformBatch(x, y, r)
+    {
         this.deformTerrainBatchList.push({ xPos: x, yPos: y, radius: r });
     }
 
     // This allows the terrain image data to be changed.
     // It then calls for the box2d physic terrain to be reconstructed from the new image
-    deformRegionBatch() {
+    deformRegionBatch()
+    {
 
         var lenghtCache = this.deformTerrainBatchList.length;
         var angle = Math.PI * 2;
 
         this.bufferCanvasContext.beginPath();
         // Draw cut outs of all batched deformations
-        for (var i = 0; i < lenghtCache; i++) {
+        for (var i = 0; i < lenghtCache; i++)
+        {
             var tmp = this.deformTerrainBatchList[i];
             this.bufferCanvasContext.arc(tmp.xPos, tmp.yPos, tmp.radius, angle, 0, true);
         }
@@ -145,7 +155,8 @@ class Terrain {
 
         // for each explision in batch find what rects its radius interects and destory them.
         // Then scan image from top of explosion radius down to bottom and fill back in the rects
-        for (var i = 0; i < lenghtCache; i++) {
+        for (var i = 0; i < lenghtCache; i++)
+        {
 
             var tmp = this.deformTerrainBatchList[i];
             var normalizedRadis = Math.floor(tmp.radius / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT;
@@ -153,18 +164,19 @@ class Terrain {
             //Setup bounding box, to check which terrain rects intercest the box and need to be removed and recreated.
             var aabb = new b2AABB();
             aabb.lowerBound.Set(
-                0, 
-                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) - normalizedRadis)
+                0,
+                Physics.pixelToMeters((Math.floor(tmp.yPos / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT) - normalizedRadis)
             );
-            
+
             aabb.upperBound.Set(
-                Physics.pixelToMeters(this.bufferCanvas.width), 
-                Physics.pixelToMeters( (Math.floor(tmp.yPos/this.TERRAIN_RECT_HEIGHT)*this.TERRAIN_RECT_HEIGHT) + normalizedRadis)
+                Physics.pixelToMeters(this.bufferCanvas.width),
+                Physics.pixelToMeters((Math.floor(tmp.yPos / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT) + normalizedRadis)
             );
 
             Physics.world.QueryAABB(function (fixture) =>
             {
-                if (fixture.GetBody().GetType() == b2Body.b2_staticBody) {
+                if (fixture.GetBody().GetType() == b2Body.b2_staticBody)
+                {
                     this.world.DestroyBody(fixture.GetBody());
                 }
 
@@ -174,9 +186,9 @@ class Terrain {
             this.createTerrainPhysics(0, //x
                 Physics.metersToPixels(aabb.lowerBound.y),  //y
                 this.bufferCanvas.width, //w
-                Physics.metersToPixels(aabb.upperBound.y)+this.TERRAIN_RECT_HEIGHT*2, //h
-                this.terrainData.data, 
-                this.world, 
+                Physics.metersToPixels(aabb.upperBound.y) + this.TERRAIN_RECT_HEIGHT * 2, //h
+                this.terrainData.data,
+                this.world,
                 this.scale);
         }
 
@@ -184,15 +196,18 @@ class Terrain {
         this.draw();
     }
 
-    update() {
+    update()
+    {
 
-        if (this.deformTerrainBatchList.length > 0) {
+        if (this.deformTerrainBatchList.length > 0)
+        {
             this.deformRegionBatch();
         }
 
     }
 
-    draw() {
+    draw()
+    {
         this.drawingCanvasContext.clearRect(0, 0, this.drawingCanvas.width, this.drawingCanvas.height);
 
         // Here we draw an off screen buffer canvas onto our on screen one

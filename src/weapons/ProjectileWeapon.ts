@@ -1,11 +1,12 @@
-///<reference path="../Graphics.ts"/>
-///<reference path="../AssetManager.ts"/>
-///<reference path="../Physics.ts"/>
+///<reference path="../system/Graphics.ts"/>
+///<reference path="../system/AssetManager.ts"/>
+///<reference path="../system/Physics.ts"/>
 ///<reference path="../Terrain.ts"/>
 
 // Projectiles explode when they collide with somthing
 // thats the main different between them and throwable weapons
-class ProjectileWeapon {
+class ProjectileWeapon
+{
 
     body;
     fixture;
@@ -16,7 +17,8 @@ class ProjectileWeapon {
     explosiveForce;
     isLive;
 
-    constructor (x, y, image, terrainRef: Terrain) {
+    constructor (x, y, image, terrainRef: Terrain)
+    {
 
         this.image = image;
         this.terrainRef = terrainRef;
@@ -42,69 +44,74 @@ class ProjectileWeapon {
 
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
-        this.body.SetUserData( "projectileweapon"+x+y ); //Give it a unqine name
+        this.body.SetUserData("projectileweapon" + x + y); //Give it a unqine name
 
 
         // Setup callback function for when the projectile collides with the terrain
         Physics.addContactListener(function (contact) => {
 
-                var UserDataA = contact.GetFixtureA().GetBody().GetUserData();
-                var UserDataB = contact.GetFixtureB().GetBody().GetUserData();
+            var UserDataA = contact.GetFixtureA().GetBody().GetUserData();
+            var UserDataB = contact.GetFixtureB().GetBody().GetUserData();
 
-                // If the contact is with the terrain and THIS body
-                if ((UserDataA == "terrain" && UserDataB == this.body.GetUserData()) ) {
+            // If the contact is with the terrain and THIS body
+            if ((UserDataA == "terrain" && UserDataB == this.body.GetUserData()))
+            {
 
-                    Logger.debug("Exploded");
-                    this.terrainRef.addToDeformBatch(
-                         this.body.GetPosition().x * Physics.worldScale,
-                         this.body.GetPosition().y * Physics.worldScale,
-                         Utilies.random(32, 80)
-                    );
+                Logger.debug("Exploded");
+                this.terrainRef.addToDeformBatch(
+                     this.body.GetPosition().x * Physics.worldScale,
+                     this.body.GetPosition().y * Physics.worldScale,
+                     Utilies.random(32, 80)
+                );
 
-                    var aabb = new b2AABB();
-                    aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
-                    aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
+                var aabb = new b2AABB();
+                aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
+                aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
 
-                     AssetManager.sounds["explosion" + Utilies.random(1,3) ].play();
+                AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
 
-                    //find dynamic bodies inside the effectedRadius and apply a impluse
-                    Physics.world.QueryAABB(function (fixture) =>
+                //find dynamic bodies inside the effectedRadius and apply a impluse
+                Physics.world.QueryAABB(function (fixture) =>
+                {
+                    if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
                     {
-                        if (fixture.GetBody().GetType() != b2Body.b2_staticBody) {
 
-                            var direction = fixture.GetBody().GetPosition().Copy();
-                            direction.Subtract(this.body.GetPosition());
-                            direction.Normalize();
-                            direction.Multiply(this.explosiveForce);
-                            fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
-                        }
+                        var direction = fixture.GetBody().GetPosition().Copy();
+                        direction.Subtract(this.body.GetPosition());
+                        direction.Normalize();
+                        direction.Multiply(this.explosiveForce);
+                        fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+                    }
 
-                        return true;
-                    }, aabb);
-
-                    // Set this object to dead so it can be cleaned up 
-                    this.isLive = false;
-
-                    // so that this callback is removed from the list of contactlistener functions
                     return true;
+                }, aabb);
 
-                }
+                // Set this object to dead so it can be cleaned up 
+                this.isLive = false;
 
-                return false;
-            } );
+                // so that this callback is removed from the list of contactlistener functions
+                return true;
 
-}
+            }
 
-    update() {
-        if (!this.isLive) {
+            return false;
+        });
+
+    }
+
+    update()
+    {
+        if (!this.isLive)
+        {
             //The bomb has exploded so remove it from the world
             Physics.world.DestroyBody(this.body);
         }
     }
 
-    draw(ctx) {
+    draw(ctx)
+    {
 
-        if (this.isLive) 
+        if (this.isLive)
         {
             ctx.save()
 

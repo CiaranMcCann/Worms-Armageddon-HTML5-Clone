@@ -1,6 +1,6 @@
-///<reference path="../Graphics.ts"/>
-///<reference path="../AssetManager.ts"/>
-///<reference path="../Physics.ts"/>
+///<reference path="../system/Graphics.ts"/>
+///<reference path="../system/AssetManager.ts"/>
+///<reference path="../system/Physics.ts"/>
 ///<reference path="../Terrain.ts"/>
 
 class ThrowableWeapon {
@@ -14,7 +14,7 @@ class ThrowableWeapon {
     timeToLive;
     terrainRef;
 
-    constructor (x, y, image,terrainRef: Terrain) {
+    constructor (x, y, initalVelocity, image,terrainRef: Terrain) {
 
         this.image = image;
         this.terrainRef = terrainRef;
@@ -44,6 +44,7 @@ class ThrowableWeapon {
 
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
+        this.body.SetLinearVelocity(initalVelocity);
     }
 
     isLive() {

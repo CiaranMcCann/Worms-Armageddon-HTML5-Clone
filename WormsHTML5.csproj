@@ -21,7 +21,7 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\Game.ts" />
-    <TypeScriptCompile Include="src\AssetManager.ts" />
+    <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <Content Include="data\img\wormsBackGround.png" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
@@ -37,7 +37,7 @@
     <Content Include="src\animation\Sprite.min.js">
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
-    <Content Include="src\AssetManager.js">
+    <Content Include="src\system\AssetManager.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
     <Content Include="src\audio\SoundBufferLoader.js" />
@@ -51,14 +51,17 @@
     <Content Include="src\Game.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\Graphics.ts" />
+    <TypeScriptCompile Include="src\system\Graphics.ts" />
     <Content Include="src\Game.min.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
-    <Content Include="src\Graphics.js">
+    <Content Include="src\system\AssetManager.min.js">
+      <DependentUpon>AssetManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Graphics.js">
       <DependentUpon>Graphics.ts</DependentUpon>
     </Content>
-    <Content Include="src\Graphics.min.js">
+    <Content Include="src\system\Graphics.min.js">
       <DependentUpon>Graphics.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\gui\SplashScreen.ts" />
@@ -75,14 +78,21 @@
     <Content Include="src\gui\StartMenu.min.js">
       <DependentUpon>StartMenu.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\gui\WeaponsMenu.ts" />
+    <Content Include="src\gui\WeaponsMenu.js">
+      <DependentUpon>WeaponsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\WeaponsMenu.min.js">
+      <DependentUpon>WeaponsMenu.ts</DependentUpon>
+    </Content>
     <Content Include="src\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\Physics.ts" />
+    <TypeScriptCompile Include="src\system\Physics.ts" />
     <Content Include="src\main.min.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
-    <Content Include="src\Physics.js">
+    <Content Include="src\system\Physics.js">
       <DependentUpon>Physics.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Terrain.ts" />
@@ -90,15 +100,21 @@
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
-    <TypeScriptCompile Include="src\Utilies.ts" />
-    <Content Include="src\Utilies.js">
+    <TypeScriptCompile Include="src\system\Utilies.ts" />
+    <Content Include="src\system\Utilies.js">
       <DependentUpon>Utilies.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\ProjectileWeapon.ts" />
-    <Content Include="src\Utilies.min.js">
+    <Content Include="src\system\Utilies.min.js">
       <DependentUpon>Utilies.ts</DependentUpon>
     </Content>
+    <Content Include="src\Terrain.min.js">
+      <DependentUpon>Terrain.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\ProjectileWeapon.js">
+      <DependentUpon>ProjectileWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ProjectileWeapon.min.js">
       <DependentUpon>ProjectileWeapon.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\ThrowableWeapon.js">

@@ -1,3 +1,4 @@
+///<reference path="../system/Utilies.ts"/>
 declare var webkitAudioContext;
 
 // Sound object

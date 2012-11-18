@@ -1,6 +1,6 @@
-///<reference path="Graphics.ts"/>
-///<reference path="AssetManager.ts"/>
-///<reference path="Physics.ts"/>
+///<reference path="system/Graphics.ts"/>
+///<reference path="system/AssetManager.ts"/>
+///<reference path="system/Physics.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 
 class Worm extends Sprite

@@ -1,10 +1,10 @@
-///<reference path="Graphics.ts"/>
-///<reference path="AssetManager.ts"/>
-///<reference path="Physics.ts"/>
+///<reference path="system/Graphics.ts"/>
+///<reference path="system/AssetManager.ts"/>
+///<reference path="system/Physics.ts"/>
 ///<reference path="Terrain.ts"/>
 ///<reference path="weapons/ThrowableWeapon.ts"/>
 ///<reference path="Worm.ts"/>
-///<reference path="Utilies.ts"/>
+///<reference path="system/Utilies.ts"/>
 ///<reference path="weapons/ProjectileWeapon.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
 
