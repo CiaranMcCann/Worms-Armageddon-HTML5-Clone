@@ -7,6 +7,7 @@
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="weapons/ProjectileWeapon.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
+///<reference path="Player.ts" />
 
 class Game {
 
@@ -18,7 +19,7 @@ class Game {
 
     terrain;
     weapons;
-    worm : Worm;
+    players: Player[];
 
     weaponMenu: WeaponsMenu;
 
@@ -51,13 +52,17 @@ class Game {
 
         }, false);
         
-        this.worm = new Worm(32, 2);
+        this.players = [];
+        for (var i = 0; i < 2; i++)
+        {
+            this.players.push(new Player());
+        }
         
         //TODO Remove this first sprint demo code after
-        this.weapons = [];
-        for (var i = 0; i < 50; i++) {
-           //this.weapons[i] = new ThrowableWeapon(Utilies.random(15,40), Utilies.random(-30,0), AssetManager.images["bananabomb"], this.terrain);
-        }
+        //this.weapons = [];
+        //for (var i = 0; i < 50; i++) {
+        //   //this.weapons[i] = new ThrowableWeapon(Utilies.random(15,40), Utilies.random(-30,0), AssetManager.images["bananabomb"], this.terrain);
+        //}
 
         // for (var i = 2; i < 5; i++) {
         //    this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
@@ -66,12 +71,17 @@ class Game {
 
     update() {
 
-          for (var w in this.weapons) {
-              this.weapons[w].update();
+         // for (var w in this.weapons) {
+         //     this.weapons[w].update();
+         //}
+          this.players[Game.currentPlayer].update();
+
+         for (var player in this.players) {
+
+             this.players[player].team.update();
          }
 
           this.terrain.update();
-          this.worm.update();
     }
 
     step() {
@@ -89,12 +99,15 @@ class Game {
     draw() {
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
        
-        var weaponsLenght = this.weapons.length;
-        for (var i = 0; i <  weaponsLenght; i++)
-        {
-            this.weapons[i].draw(this.actionCanvasContext);
-        }
-        this.worm.draw(this.actionCanvasContext);
+       // var weaponsLenght = this.weapons.length;
+        //for (var i = 0; i <  weaponsLenght; i++)
+        //{
+        //    this.weapons[i].draw(this.actionCanvasContext);
+        //}
+        
+        for (var player in this.players) {
+              this.players[player].draw(this.actionCanvasContext);
+         }
     }
 
 }

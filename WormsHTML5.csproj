@@ -37,6 +37,13 @@
     <Content Include="src\animation\Sprite.min.js">
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Player.ts" />
+    <Content Include="src\Player.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Player.min.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
     <Content Include="src\system\AssetManager.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
@@ -96,6 +103,13 @@
       <DependentUpon>Physics.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Terrain.ts" />
+    <TypeScriptCompile Include="src\Team.ts" />
+    <Content Include="src\Team.js">
+      <DependentUpon>Team.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Team.min.js">
+      <DependentUpon>Team.ts</DependentUpon>
+    </Content>
     <Content Include="src\Terrain.js">
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
@@ -121,6 +135,9 @@
       <DependentUpon>ThrowableWeapon.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.js">
+      <DependentUpon>Worm.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.min.js">
       <DependentUpon>Worm.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.ts" />
