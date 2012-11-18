@@ -16,6 +16,7 @@ class StartMenu
 
     onGameReady(callback)
     {
+        var _this = this;
         if (this.menuActive)
         {
             setTimeout(function =>
@@ -25,7 +26,20 @@ class StartMenu
 
                 $('#startLocal').click(function =>
                 {
-                    $('.slide').fadeOut('normal', function =>
+                    _this.controlsMenu(callback);
+                });
+
+            }, 200); // articifal load delay
+        } else
+        {
+            $('#splashScreen').remove();
+            callback();
+        }
+    }
+
+    controlsMenu(callback)
+    {
+           $('.slide').fadeOut('normal', function =>
                     {
                         $('.slide').empty();
                         $('.slide').append(this.controlsView);
@@ -38,16 +52,6 @@ class StartMenu
                             callback();
                         })
                     });
-
-
-                });
-
-            }, 1200); // articifal load delay
-        } else
-        {
-            $('#splashScreen').remove();
-            callback();
-        }
     }
 
     display()

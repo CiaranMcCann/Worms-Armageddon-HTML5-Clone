@@ -7,6 +7,7 @@
 
 
 
+
 #splashScreen {
      position: absolute; 
      left: 0px; 
@@ -71,3 +72,37 @@ height: 430px;
     margin-right:30px;
 }
 
+.thumbnails {
+    margin-left: auto;
+    list-style: none;
+}
+
+#weaponsMenu{
+
+ position: absolute;
+left: 100%;
+top: 100%;
+width: 275px;
+height: 500px;
+margin-top: -500px;
+z-index: 1;
+background: #EEE;
+border: 2px solid black;
+padding: 10px;
+padding-left: 2px;
+padding-right: 2px;
+
+}
+
+.span1{
+    width: auto;
+}
+
+.ammoCount {
+    position: absolute;
+    font-size: 9px;
+    margin-left: 23px;
+    margin-top: -5px;
+    font-weight: bold;
+    color: black;
+}

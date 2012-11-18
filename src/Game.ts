@@ -6,6 +6,7 @@
 ///<reference path="Worm.ts"/>
 ///<reference path="Utilies.ts"/>
 ///<reference path="weapons/ProjectileWeapon.ts"/>
+///<reference path="gui/WeaponsMenu.ts" />
 
 class Game {
 
@@ -19,12 +20,18 @@ class Game {
     weapons;
     worm : Worm;
 
+    weaponMenu: WeaponsMenu;
+
     static soundOn;
+    static currentPlayer;
 
     constructor () {
         Graphics.init();
 
         Game.soundOn = true;
+        Game.currentPlayer = 0;
+
+        this.weaponMenu = new WeaponsMenu();
  
         //Create Terrain canvas
         this.terrainCanvas = Graphics.createCanvas("terrain");

@@ -5,22 +5,34 @@
     <title>Worms HTML5</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/custom.css" type="text/css" />
+    
+    <!-- External deps -->
     <script src="external/jquery.1.8.2.min.js"></script>
-    <script src="src/gui/StartMenu.js"></script>
-    <script src="src/main.js"></script>
     <script src="external/Box2dWeb-2.1.a.3.js"></script>
     <script src="external/Stats.js"></script>
+
+    <!-- GUI -->
+    <script src="src/gui/StartMenu.js"></script>
+    <script src="src/gui/WeaponsMenu.js"></script>
+
+    <script src="src/main.js"></script>
     <script src="src/animation/Sprite.js"></script>
+
+    <!-- Audio -->
     <script src="src/audio/Sound.js"></script>
     <script src="src/audio/SoundBufferLoader.js"></script>
+
     <script src="src/AssetManager.js"></script>
     <script src="src/Utilies.js"></script>
     <script src="src/Physics.js"></script>
     <script src="src/Game.js"></script>
     <script src="src/Graphics.js"></script>
     <script src="src/Terrain.js"></script>
+
+    <!-- Weapons and tools -->
     <script src="src/weapons/ThrowableWeapon.js"></script>
     <script src="src/weapons/ProjectileWeapon.js"></script>
+
     <script src="src/Worm.js"></script>
 </head>
 <body>
@@ -28,6 +40,9 @@
     <div id="splashScreen">
         <div id="loadIcon"></div>
     </div>
+
+
+
     <div class="hero-unit" id="startMenu">
         <div class="slide">
             <h1 style="text-align: center">Worms Armageddon HTML5 Clone</h1>
@@ -46,11 +61,9 @@
 
             </ul>
         </div>
-
-
-         
-    
     </div>
+
+
 </body>
 </html>
 <div id="fb-root"></div>
