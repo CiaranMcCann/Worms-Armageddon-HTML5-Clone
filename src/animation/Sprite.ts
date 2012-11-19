@@ -12,17 +12,23 @@ interface SpriteDef
 module Sprites
 {
 
-    var spriteDirectory = "data/img/worms/";
-
-
     // These are defined frames for said animations
     export var worms = {
 
         lookAround: {
 
-            imageName: "wselect",
+            imageName: "wselbak",
             frameY: 0,
-            frameCount: 16,
+            frameCount: 12,
+            msPerFrame: 200,
+
+        },
+
+        drill: {
+
+            imageName: "wdrill",
+            frameY: 0,
+            frameCount: 4,
             msPerFrame: 100,
 
         },
@@ -36,7 +42,7 @@ module Sprites
 
         },
 
-        
+
         blink: {
 
             imageName: "wblink1u",
@@ -45,8 +51,8 @@ module Sprites
             msPerFrame: 50,
 
         },
-    
-         falling: {
+
+        falling: {
 
             imageName: "wfall",
             frameY: 0,
@@ -56,7 +62,6 @@ module Sprites
         },
 
     }
-
 }
 
 // This class manages animation of sprites
@@ -69,6 +74,7 @@ class Sprite
 
     lastUpdateTime;
     accumulateDelta;
+    isSpriteLocked;
 
     constructor (spriteDef: SpriteDef)
     {
@@ -77,6 +83,7 @@ class Sprite
         this.lastUpdateTime = 0;
         this.accumulateDelta = 0;
         this.currentFrameY = this.spriteDef.frameY;
+        this.isSpriteLocked = false;
     }
 
     update()
@@ -133,13 +140,25 @@ class Sprite
         return this.spriteDef.frameCount;
     }
 
-    setSpriteDef(spriteDef: SpriteDef)
-    {
+    setSpriteDef(spriteDef: SpriteDef, lockSprite = false)
+    {   
+
         if (spriteDef != this.spriteDef)
         {
-            this.spriteDef = spriteDef;
-            this.currentFrameY = this.spriteDef.frameY;
+            if (this.isSpriteLocked == false)
+            {
+                this.spriteDef = spriteDef;
+                Logger.debug("SpriteDef " + this.spriteDef.imageName + " LockSprite " + lockSprite);
+                this.currentFrameY = this.spriteDef.frameY;
+                this.isSpriteLocked = lockSprite;
+            }     
         }
+
+        if (this.isSpriteLocked == true && this.spriteDef == spriteDef && lockSprite == false)
+        {
+            this.isSpriteLocked = lockSprite;
+        }
+
     }
 
 }

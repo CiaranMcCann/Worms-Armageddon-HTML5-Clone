@@ -8,12 +8,7 @@ module AssetManager
 
     var priorityImages = [
          'data/img/wormsBackGround.png',
-         'data/img/bananabomb.png',
-         remoteAssetServer + 'data/img/wselect.png',
-         remoteAssetServer + 'data/img/whgrlnk.png',
-         remoteAssetServer + 'data/img/wwalk.png',
-         remoteAssetServer + 'data/img/wblink1u.png',
-         remoteAssetServer + 'data/img/wfall.png',
+         'data/img/bananabomb.png'
 
     ];
 
@@ -59,6 +54,12 @@ module AssetManager
 
     export function loadPriorityAssets(callback)
     {
+        // Load all sprites
+        for (var sprite in Sprites.worms)
+        {
+            priorityImages.push(remoteAssetServer + "data/img/" + Sprites.worms[sprite].imageName + ".png");
+        }
+
         loadImages(priorityImages, function ()
         {
             loadSounds(priorityAudio, callback);

@@ -17,6 +17,9 @@ class Terrain
     scale;
     groundbodiesList;
     terrainData;
+    
+
+    static userData;
 
     deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
 
@@ -24,6 +27,7 @@ class Terrain
 
     constructor (canvas, terrainImage, world, scale)
     {
+        Terrain.userData = "terrain";
 
         this.world = world;
         this.scale = scale;
@@ -36,8 +40,8 @@ class Terrain
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
-        this.bufferCanvas.width = canvas.width;
-        this.bufferCanvas.height = canvas.height;
+        this.bufferCanvas.width = canvas.width; //*1.5;
+        this.bufferCanvas.height = canvas.height;  //*1.5;
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 
@@ -49,7 +53,7 @@ class Terrain
         this.bufferCanvasContext.drawImage(terrainImage, 0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
 
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
-        this.createTerrainPhysics(0, 0, canvas.width, canvas.height, this.terrainData.data, world, scale)
+        this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, world, scale)
 
         this.draw();
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
@@ -70,7 +74,7 @@ class Terrain
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 0.5;
-        fixDef.restitution = 0.2;
+        fixDef.restitution = 0.0;
         fixDef.shape = new b2PolygonShape;
 
         var bodyDef = new b2BodyDef;
@@ -86,7 +90,7 @@ class Terrain
             bodyDef.position.y = ((yPos - rectheight) / worldScale);
 
             this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
-            this.groundbodiesList[this.groundbodiesList.length - 1].SetUserData("terrain");
+            this.groundbodiesList[this.groundbodiesList.length - 1].SetUserData(Terrain.userData );
 
         }
 
@@ -133,6 +137,11 @@ class Terrain
         this.deformTerrainBatchList.push({ xPos: x, yPos: y, radius: r });
     }
 
+    addRectToDeformBatch(x, y, w, h)
+    {
+        this.deformTerrainBatchList.push({ xPos: x, yPos: y, radius: h , width: w});
+    }
+
     // This allows the terrain image data to be changed.
     // It then calls for the box2d physic terrain to be reconstructed from the new image
     deformRegionBatch()
@@ -146,11 +155,22 @@ class Terrain
         for (var i = 0; i < lenghtCache; i++)
         {
             var tmp = this.deformTerrainBatchList[i];
-            this.bufferCanvasContext.arc(tmp.xPos, tmp.yPos, tmp.radius, angle, 0, true);
+
+            if (tmp.width)
+            {
+                this.bufferCanvasContext.fillRect(tmp.xPos-tmp.width/2, tmp.yPos, tmp.width, tmp.radius);
+            } else
+            {
+                this.bufferCanvasContext.arc(tmp.xPos, tmp.yPos, tmp.radius, angle, 0, true);
+            }
+
+            
         }
 
         this.bufferCanvasContext.closePath();
         this.bufferCanvasContext.fill();
+
+
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
 
         // for each explision in batch find what rects its radius interects and destory them.

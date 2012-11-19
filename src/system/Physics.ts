@@ -74,6 +74,24 @@ module Physics {
 	   world.SetContactListener(listener); 
     }
 
+
+    export function isObjectColliding(userData1, userData2 ,contact)
+    {
+            var UserDataA = contact.GetFixtureA().GetBody().GetUserData();
+            var UserDataB = contact.GetFixtureB().GetBody().GetUserData();
+
+            if (
+                (UserDataA == userData1 || UserDataB == userData1) 
+                && 
+                (UserDataB == userData2 || UserDataA == userData2 )
+            ) {
+                return true;
+            }else{
+                return false;
+            }
+
+    }
+
     //Converts pixels to physic world measurement
     export function pixelToMeters(pixels: number) {
         return pixels / worldScale;

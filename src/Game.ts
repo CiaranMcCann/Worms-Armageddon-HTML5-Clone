@@ -25,6 +25,7 @@ class Game {
 
     static soundOn;
     static currentPlayer;
+    static terrain: Terrain;
 
     constructor () {
         Graphics.init();
@@ -45,6 +46,7 @@ class Game {
 
         Physics.init(this.terrainCanvasContext);
         this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["wormsBackGround"], Physics.world, Physics.worldScale);
+        Game.terrain = this.terrain;
 
         window.addEventListener("click", function (evt : any) =>
         {
@@ -91,7 +93,7 @@ class Game {
            , 10       //velocity iterations
            , 10       //position iterations
         );
-      // Physics.world.DrawDebugData();
+       //Physics.world.DrawDebugData();
         //Physics.world.ClearForces();
 
     }

@@ -29,7 +29,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 200); // articifal load delay
+            }, 1200); // articifal load delay
         } else
         {
             $('#splashScreen').remove();
