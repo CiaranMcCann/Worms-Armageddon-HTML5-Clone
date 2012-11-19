@@ -12,7 +12,9 @@ module AssetManager
          remoteAssetServer + 'data/img/wselect.png',
          remoteAssetServer + 'data/img/whgrlnk.png',
          remoteAssetServer + 'data/img/wwalk.png',
-         remoteAssetServer + 'data/img/wwalkright.png',
+         remoteAssetServer + 'data/img/wblink1u.png',
+         remoteAssetServer + 'data/img/wfall.png',
+
     ];
 
     var priorityAudio = [

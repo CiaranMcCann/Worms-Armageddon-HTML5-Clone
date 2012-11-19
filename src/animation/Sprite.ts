@@ -8,10 +8,12 @@ interface SpriteDef
 
 }
 
+
 module Sprites
 {
 
     var spriteDirectory = "data/img/worms/";
+
 
     // These are defined frames for said animations
     export var worms = {
@@ -25,7 +27,7 @@ module Sprites
 
         },
 
-        walkingLeft: {
+        walking: {
 
             imageName: "wwalk",
             frameY: 0,
@@ -34,15 +36,24 @@ module Sprites
 
         },
 
-        walkingRight: {
+        
+        blink: {
 
-            imageName: "wwalkright",
+            imageName: "wblink1u",
             frameY: 0,
-            frameCount: 15,
+            frameCount: 6,
             msPerFrame: 50,
 
-        }
+        },
+    
+         falling: {
 
+            imageName: "wfall",
+            frameY: 0,
+            frameCount: 2,
+            msPerFrame: 50,
+
+        },
 
     }
 
