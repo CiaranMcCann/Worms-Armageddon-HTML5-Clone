@@ -10,10 +10,14 @@ class Drill
     isActive;
     startTime;
     ammo;
+    timeSinceLastExplosion;
+    timeBetweenExplosions;
 
     constructor ()
     {
         this.isActive = false;
+
+        this.timeBetweenExplosions = 200;
         
         //Physics.addContactListener(function (contact) => {
 
@@ -42,7 +46,9 @@ class Drill
     {
         if (this.isActive)
         {
-            AssetManager.sounds["DRILL"].play();
+            
+            this.timeSinceLastExplosion += Date.now() - this.timeSinceLastExplosion;
+
             if (Date.now() - this.startTime > 2000)
             {
                 this.isActive = false;
@@ -51,7 +57,13 @@ class Drill
                 this.worm.setSpriteDef(Sprites.worms.lookAround);
             }
 
-           Game.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
+            if (this.timeSinceLastExplosion > this.timeBetweenExplosions)
+            {
+                AssetManager.sounds["DRILL"].play();
+                Game.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
+                this.timeSinceLastExplosion = 0;
+            }
+            
         }
 
     }

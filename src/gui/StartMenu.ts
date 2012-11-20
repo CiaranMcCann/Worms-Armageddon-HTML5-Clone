@@ -1,5 +1,7 @@
 declare var $;
 
+//This is the first menu the user interacts with
+// allows them to start the game and shows them the controls.
 class StartMenu
 {
     controlsView;
@@ -11,7 +13,6 @@ class StartMenu
         this.controlsView = '<h1 style="text-align: center">Controls</h1><p><p><br>' +
             '<img src="data/img/xbox360controls.png"><p><p><br />' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a>';
-
     }
 
     onGameReady(callback)
@@ -29,7 +30,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 1200); // articifal load delay
+            }, 1200); //TODO: remove once all sprites are in articifal load delay
         } else
         {
             $('#splashScreen').remove();
@@ -39,25 +40,21 @@ class StartMenu
 
     controlsMenu(callback)
     {
-           $('.slide').fadeOut('normal', function =>
-                    {
-                        $('.slide').empty();
-                        $('.slide').append(this.controlsView);
-                        $('.slide').fadeIn('slow');
 
-                        $('#startLocal').click(function =>
-                        {
-                            $('#splashScreen').css({ opacity: '0.0' })
-                            $('#startMenu').fadeOut('normal');
-                            callback();
-                        })
-                    });
+        $('.slide').fadeOut('normal', function =>
+        {
+            $('.slide').empty();
+            $('.slide').append(this.controlsView);
+            $('.slide').fadeIn('slow');
+
+            $('#startLocal').click(function =>
+            {
+                $('#startLocal').unbind();
+                $('#splashScreen').css({ opacity: '0.0' })
+                $('#startMenu').fadeOut('normal');
+                callback();
+            })
+        });
     }
-
-    display()
-    {
-        //$('#splashScreen').
-    }
-
 
 }
