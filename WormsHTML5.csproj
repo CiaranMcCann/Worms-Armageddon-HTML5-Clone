@@ -103,6 +103,9 @@
     </Content>
     <TypeScriptCompile Include="src\Terrain.ts" />
     <TypeScriptCompile Include="src\Team.ts" />
+    <Content Include="src\system\Physics.min.js">
+      <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
     <Content Include="src\Team.js">
       <DependentUpon>Team.ts</DependentUpon>
     </Content>
@@ -141,6 +144,9 @@
       <DependentUpon>ThrowableWeapon.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\WeaponManager.ts" />
+    <Content Include="src\weapons\ThrowableWeapon.min.js">
+      <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\WeaponManager.js">
       <DependentUpon>WeaponManager.ts</DependentUpon>
     </Content>
@@ -164,6 +170,63 @@
     <Content Include="web.config" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js.map">
       <DependentUpon>Box2dWeb-2.1.a.3.js</DependentUpon>
+    </Content>
+    <Content Include="src\Player.js.map">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.js.map">
+      <DependentUpon>Worm.ts</DependentUpon>
+    </Content>
+    <Content Include="src\tools\Drill.js.map">
+      <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Graphics.js.map">
+      <DependentUpon>Graphics.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Terrain.js.map">
+      <DependentUpon>Terrain.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Sprite.js.map">
+      <DependentUpon>Sprite.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Game.js.map">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\WeaponsMenu.js.map">
+      <DependentUpon>WeaponsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\main.js.map">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\AssetManager.js.map">
+      <DependentUpon>AssetManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\NameGenerator.js.map">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Physics.js.map">
+      <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Utilies.js.map">
+      <DependentUpon>Utilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Team.js.map">
+      <DependentUpon>Team.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ThrowableWeapon.js.map">
+      <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\WeaponManager.js.map">
+      <DependentUpon>WeaponManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\audio\Sound.js.map">
+      <DependentUpon>Sound.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ProjectileWeapon.js.map">
+      <DependentUpon>ProjectileWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\StartMenu.js.map">
+      <DependentUpon>StartMenu.ts</DependentUpon>
     </Content>
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>

@@ -13,6 +13,7 @@ class Team
 
     constructor ()
     {
+        //Random color - Credit Paul Irish
         this.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
         this.currentWorm = 0;
         this.worms = [];

@@ -47,9 +47,9 @@ class Worm extends Sprite
         y = Physics.pixelToMeters(y);
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = 0.0;
         fixDef.friction = 1.0;
-        fixDef.restitution = 0.1;
+        fixDef.restitution = 0.0;
         fixDef.shape = new b2PolygonShape();
         fixDef.shape = new b2CircleShape((AssetManager.images[this.spriteDef.imageName].width / 2) / Physics.worldScale);
 
@@ -63,7 +63,7 @@ class Worm extends Sprite
         this.body.SetFixedRotation(true);
         this.body.SetSleepingAllowed(false);
         this.direction = 1
-        this.speed = 0.5;
+        this.speed = 0.9;
 
         this.body.SetUserData("worm");
 
@@ -125,11 +125,14 @@ class Worm extends Sprite
             {
                 // this.body.SetFixedRotation(false);
                 var currentPos = this.body.GetPosition();
-                //this.body.SetPosition(new b2Vec2(currentPos.x, currentPos.y - this.body.GetFixtureList().GetShape().GetRadius()));
-                var forces = new b2Vec2(this.direction * 1, 2);
+               // this.body.SetPosition(new b2Vec2(currentPos.x, currentPos.y - this.body.GetFixtureList().GetShape().GetRadius()));
+                var forces = new b2Vec2(this.direction * 0.1, 2);
                 forces.Multiply(10);
                 //this.body.SetLinearVelocity(forces);
-                this.body.ApplyImpulse(forces, this.body.GetPosition());
+                var piontOfForce = this.body.GetPosition().Copy();
+                piontOfForce.y -= this.body.GetFixtureList().GetShape().GetRadius()*2
+
+                this.body.ApplyImpulse(forces, piontOfForce);
                 Logger.debug("Jump");
                 //this.body.SetFixedRotation(true);
             }
@@ -197,10 +200,10 @@ class Worm extends Sprite
         //ctx.rotate(this.body.GetAngle())
         var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
      
+        ctx.save()
         if (this.direction == this.DIRECTION.right)
         {
-            // Used to flip the sprites
-            ctx.save()
+            // Used to flip the sprites       
             ctx.scale(-1, 1);
         }
         
