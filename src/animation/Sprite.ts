@@ -148,7 +148,7 @@ class Sprite
             if (this.isSpriteLocked == false)
             {
                 this.spriteDef = spriteDef;
-                Logger.debug("SpriteDef " + this.spriteDef.imageName + " LockSprite " + lockSprite);
+                //Logger.debug("SpriteDef " + this.spriteDef.imageName + " LockSprite " + lockSprite);
                 this.currentFrameY = this.spriteDef.frameY;
                 this.isSpriteLocked = lockSprite;
             }     

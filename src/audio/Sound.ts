@@ -27,22 +27,25 @@ class Sound
     {
         if (Sound.soundOn)
         {
-            var source = Sound.context.createBufferSource();
-            source.buffer = this.buffer;
-            source.connect(Sound.context.destination);
+            // if sound is playing don't replay it
+            if (this.playing == false)
+            {
+                var source = Sound.context.createBufferSource();
+                source.buffer = this.buffer;
+                source.connect(Sound.context.destination);
 
-            var gainNode = Sound.context.createGainNode();
-            source.connect(gainNode);
-            gainNode.connect(Sound.context.destination);
-            gainNode.gain.value = this.volume;
-            source.noteOn(time);
-            this.playing = true;
-            var bufferLenght = this.buffer.duration;
+                var gainNode = Sound.context.createGainNode();
+                source.connect(gainNode);
+                gainNode.connect(Sound.context.destination);
+                gainNode.gain.value = this.volume;
+                source.noteOn(time);
+                this.playing = true;
+                var bufferLenght = this.buffer.duration;
 
-            setTimeout(function () => {
-                this.playing = false;
-            }, bufferLenght  * 1000);
-
+                setTimeout(function () => {
+                    this.playing = false;
+                }, bufferLenght * 1000);
+            }
 
         } else
         {

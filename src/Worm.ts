@@ -4,20 +4,20 @@
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="tools/Drill.ts"/>
 
-var DIRECTION = {
-    left: -1,
-    right: 1
-}
-
-var STATE = {
-    FALLING: 0,
-    IDEL: 1,
-    WALKING: 2,
-    USING_TOOL: 3,
-}
 
 class Worm extends Sprite
 {
+    DIRECTION = {
+        left: -1,
+        right: 1
+    }
+
+    STATE = {
+        FALLING: 0,
+        IDEL: 1,
+        WALKING: 2,
+        USING_TOOL: 3,
+    }
 
     body;
     fixture;
@@ -30,12 +30,12 @@ class Worm extends Sprite
 
     constructor (x, y)
     {
-        super(Sprites.worms.walking);
+        super(Sprites.worms.lookAround);
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 1.0;
-        fixDef.restitution = 0.0;
+        fixDef.restitution = 0.1;
         fixDef.shape = new b2PolygonShape();
         fixDef.shape = new b2CircleShape((AssetManager.images[this.spriteDef.imageName].width / 2) / Physics.worldScale);
 
@@ -65,9 +65,12 @@ class Worm extends Sprite
         });
 
         this.currentWeapon = new Drill(this);
-        this.currentWeapon.active();
     }
 
+    fire()
+    {
+        this.currentWeapon.active();
+    }
 
     walkLeft()
     {
@@ -75,7 +78,7 @@ class Worm extends Sprite
         {
             var currentPos = this.body.GetPosition();
 
-            this.direction = DIRECTION.left;
+            this.direction = this.DIRECTION.left;
             if (Sprites.worms.falling != this.spriteDef)
             {
                 super.setSpriteDef(Sprites.worms.walking);
@@ -108,11 +111,12 @@ class Worm extends Sprite
             {
                 // this.body.SetFixedRotation(false);
                 var currentPos = this.body.GetPosition();
-                this.body.SetPosition(new b2Vec2(currentPos.x, currentPos.y - this.body.GetFixtureList().GetShape().GetRadius()));
+                //this.body.SetPosition(new b2Vec2(currentPos.x, currentPos.y - this.body.GetFixtureList().GetShape().GetRadius()));
                 var forces = new b2Vec2(this.direction * 1, 2);
                 forces.Multiply(10);
                 //this.body.SetLinearVelocity(forces);
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
+                Logger.debug("Jump");
                 //this.body.SetFixedRotation(true);
             }
         }
@@ -123,7 +127,7 @@ class Worm extends Sprite
         if (this.currentWeapon.isActive == false)
         {
             var currentPos = this.body.GetPosition();
-            this.direction = DIRECTION.right;
+            this.direction = this.DIRECTION.right;
 
             if (Sprites.worms.falling != this.spriteDef)
             {
@@ -139,37 +143,27 @@ class Worm extends Sprite
         
     }
 
-    changeState()
-    {
-        
-    }
-
     update()
     {
+        super.setSpriteDef(Sprites.worms.lookAround);    
         
-        if (this.body.GetLinearVelocity().y == 0)
+        if ( Utilies.isBetweenRange(this.body.GetLinearVelocity().y,0.5,-0.5) )
         {
-            this.canJump = true;
+            this.canJump = true;         
         }
-        else if (this.body.GetLinearVelocity().y > 1 || this.body.GetLinearVelocity().y < -1)
+        else
         {
             this.canJump = false;
+            super.setSpriteDef(Sprites.worms.falling);           
         }
 
-        // While velcoity is -1 or less worm is falling so use falling animation
-        if (-this.body.GetLinearVelocity().y > 1)
-        {
-            super.setSpriteDef(Sprites.worms.falling);
-            super.update();
-
-            //console.log(" Current y " + this.body.GetLinearVelocity().y + "  " + this.spriteDef.imageName);
-        } else if(this.body.GetLinearVelocity().y >= 0 && this.body.GetLinearVelocity().x >= 0)
-        {
-            super.setSpriteDef(Sprites.worms.lookAround);
-            super.update();
-        }
-
+        
          this.currentWeapon.update();
+
+         if (this.spriteDef != Sprites.worms.walking)
+         {
+             super.update();
+         }
           
       
     }
@@ -187,7 +181,7 @@ class Worm extends Sprite
         //ctx.rotate(this.body.GetAngle())
         var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
      
-        if (this.direction == DIRECTION.right)
+        if (this.direction == this.DIRECTION.right)
         {
             // Used to flip the sprites
             ctx.scale(-1, 1);

@@ -12,6 +12,7 @@ class Player
 
     update()
     {       
+        
 
         if (keyboard.isKeyDown(65))
         {
@@ -27,6 +28,13 @@ class Player
         {
             this.team.getCurrentWorm().walkRight();
         }
+
+        if (keyboard.isKeyDown(13))
+        {
+            this.team.getCurrentWorm().fire();
+        }
+
+        //this.team.update();
       
     }
 

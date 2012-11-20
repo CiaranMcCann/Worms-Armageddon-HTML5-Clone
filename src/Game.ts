@@ -33,6 +33,8 @@ class Game {
         Game.soundOn = true;
         Game.currentPlayer = 0;
 
+
+
         this.weaponMenu = new WeaponsMenu();
  
         //Create Terrain canvas

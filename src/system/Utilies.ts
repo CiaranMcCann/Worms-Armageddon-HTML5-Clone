@@ -11,6 +11,28 @@ module Utilies {
             collection.splice(indexToRemove, 1);
     }
 
+    export function isBetweenRange(value, rangeMax, rangeMin)
+    {
+       return value >= rangeMin && value <= rangeMax;
+    }
+
+    //export function isBetweenRangeTest()
+    //{
+    //    var t1 = isBetweenRange(3.3, 10, -10);
+    //    var t2 = isBetweenRange(-2.3, 40, -3);
+    //    var t3 = isBetweenRange(-25.3, 40, -3);
+
+    //    if ( t1 == false || t2 == false || t3 == true)
+    //    {
+    //        Logger.error(" isBetweenRangeTestFailed ");
+    //    } else
+    //    {
+    //        Logger.log("isBetweenTestPassed");
+    //    }
+
+
+    //};
+
 
 }
 
