@@ -40,6 +40,13 @@ module Utilies
 
     //};
 
+    //var time;
+
+    //export function timer(delay, func)
+    //{
+
+    //}
+
 
 }
 

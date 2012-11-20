@@ -95,7 +95,7 @@ class Game {
            , 10       //velocity iterations
            , 10       //position iterations
         );
-       Physics.world.DrawDebugData();
+       //Physics.world.DrawDebugData();
         //Physics.world.ClearForces();
 
     }

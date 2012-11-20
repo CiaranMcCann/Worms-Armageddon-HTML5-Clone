@@ -3,7 +3,6 @@
 ///<reference path="../Worm.ts" />
 ///<reference path="../animation/Sprite.ts"/>
 
-
 class Drill
 {
     worm : Worm;
@@ -12,12 +11,15 @@ class Drill
     ammo;
     timeSinceLastExplosion;
     timeBetweenExplosions;
+    delta;
 
     constructor ()
     {
         this.isActive = false;
 
         this.timeBetweenExplosions = 200;
+        this.delta = 0;
+        this.timeSinceLastExplosion = 0;
         
         //Physics.addContactListener(function (contact) => {
 
@@ -38,6 +40,7 @@ class Drill
         this.worm = worm;
         this.isActive = true;
         this.startTime = Date.now();
+        this.timeSinceLastExplosion = Date.now();
         this.worm.setSpriteDef(Sprites.worms.drill,true);
                        
     }
@@ -47,9 +50,9 @@ class Drill
         if (this.isActive)
         {
             
-            this.timeSinceLastExplosion += Date.now() - this.timeSinceLastExplosion;
+            this.delta += Date.now() - this.timeSinceLastExplosion;
 
-            if (Date.now() - this.startTime > 2000)
+            if (Date.now() - this.startTime > 4000)
             {
                 this.isActive = false;
                 Logger.debug(" deactivedate ");
@@ -57,12 +60,16 @@ class Drill
                 this.worm.setSpriteDef(Sprites.worms.lookAround);
             }
 
-            if (this.timeSinceLastExplosion > this.timeBetweenExplosions)
-            {
-                AssetManager.sounds["DRILL"].play();
+             AssetManager.sounds["DRILL"].play();
+
+            if (this.delta > this.timeBetweenExplosions)
+            {           
                 Game.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
-                this.timeSinceLastExplosion = 0;
+                this.delta = 0;
             }
+
+            this.timeSinceLastExplosion = Date.now();
+            
             
         }
 
