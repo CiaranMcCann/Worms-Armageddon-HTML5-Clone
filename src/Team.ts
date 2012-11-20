@@ -13,7 +13,7 @@ class Team
         this.worms = [];
         for (var i = 0; i < 2; i++)
         {
-            this.worms.push(new Worm(Utilies.random(2,50) , -2));
+            this.worms.push(new Worm(Utilies.random(200,1300) , -2));
         }
     }
 

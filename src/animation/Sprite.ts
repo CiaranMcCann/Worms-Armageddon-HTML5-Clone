@@ -59,8 +59,7 @@ module Sprites
             frameCount: 2,
             msPerFrame: 50,
 
-        },
-
+        }
     }
 }
 

@@ -27,10 +27,14 @@ class Worm extends Sprite
     speed;
     canJump;
     currentWeapon;
+    currentState;
 
     constructor (x, y)
     {
         super(Sprites.worms.lookAround);
+
+        x = Physics.pixelToMeters(x);
+        y = Physics.pixelToMeters(y);
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -144,10 +148,11 @@ class Worm extends Sprite
     }
 
     update()
-    {
-        super.setSpriteDef(Sprites.worms.lookAround);    
+    {   
+        if (this.spriteDef != Sprites.worms.walking)
+            super.setSpriteDef(Sprites.worms.lookAround); 
         
-        if ( Utilies.isBetweenRange(this.body.GetLinearVelocity().y,0.5,-0.5) )
+        if ( Utilies.isBetweenRange(this.body.GetLinearVelocity().y,1.5,-1.5) )
         {
             this.canJump = true;         
         }
@@ -163,6 +168,7 @@ class Worm extends Sprite
          if (this.spriteDef != Sprites.worms.walking)
          {
              super.update();
+             
          }
           
       
