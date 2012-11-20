@@ -88,6 +88,16 @@
     <Content Include="src\main.min.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\system\NameGenerator.ts" />
+    <Content Include="src\system\NameGen.js">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\NameGenerator.js">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\NameGenerator.min.js">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
     <Content Include="src\system\Physics.js">
       <DependentUpon>Physics.ts</DependentUpon>
     </Content>
@@ -129,6 +139,13 @@
     </Content>
     <Content Include="src\weapons\ThrowableWeapon.js">
       <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\WeaponManager.ts" />
+    <Content Include="src\weapons\WeaponManager.js">
+      <DependentUpon>WeaponManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\WeaponManager.min.js">
+      <DependentUpon>WeaponManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.js">
       <DependentUpon>Worm.ts</DependentUpon>

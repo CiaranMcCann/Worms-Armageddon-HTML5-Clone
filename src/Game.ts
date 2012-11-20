@@ -28,7 +28,7 @@ class Game {
     static terrain: Terrain;
 
     constructor () {
-        Graphics.init();
+        Graphics.init();   
 
         Game.soundOn = true;
         Game.currentPlayer = 0;

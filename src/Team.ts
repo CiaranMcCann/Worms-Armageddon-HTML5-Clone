@@ -8,15 +8,17 @@ class Team
     worms: Worm[];
     currentWorm: number;
     weaponManager: WeaponManager;
+    color;
 
 
     constructor ()
     {
+        this.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
         this.currentWorm = 0;
         this.worms = [];
         for (var i = 0; i < 2; i++)
         {
-            this.worms.push(new Worm(Utilies.random(200,1300) , -2));
+            this.worms.push(new Worm(this, Utilies.random(200,1300) , -2));
         }
     }
 

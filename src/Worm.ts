@@ -3,6 +3,9 @@
 ///<reference path="system/Physics.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="tools/Drill.ts"/>
+///<reference path="Team.ts"/>
+///<reference path="system/Utilies.ts" />
+///<reference path="system/NameGenerator.ts" />
 
 
 class Worm extends Sprite
@@ -28,10 +31,17 @@ class Worm extends Sprite
     canJump;
     currentWeapon;
     currentState;
+    name;
+    health;
+    team : Team;
 
-    constructor (x, y)
+    constructor (team, x, y)
     {
         super(Sprites.worms.lookAround);
+
+        this.name = NameGenerator.randomName();
+        this.health = 100;
+        this.team = team;
 
         x = Physics.pixelToMeters(x);
         y = Physics.pixelToMeters(y);
@@ -190,6 +200,7 @@ class Worm extends Sprite
         if (this.direction == this.DIRECTION.right)
         {
             // Used to flip the sprites
+            ctx.save()
             ctx.scale(-1, 1);
         }
         
@@ -198,8 +209,19 @@ class Worm extends Sprite
             -radius,
             -radius);
 
-        ctx.restore()
+         ctx.restore()
 
+          
+       // ctx.fillStyle = '#1A1110';
+       // ctx.strokeStyle = "#eee";
+       // ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).fill();
+       //ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).stroke();
+       ctx.fillStyle = this.team.color;
+       ctx.textAlign = 'center';
+       ctx.fillText(this.name, 0, -radius*2.8);
+       ctx.fillText(this.health, 0, -radius*1.5);
+
+        ctx.restore()
     }
 
 }
