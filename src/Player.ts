@@ -3,11 +3,16 @@
 
 class Player
 {
-    team: Team;
+    private team: Team;
 
     constructor ()
     {
         this.team = new Team();
+    }
+
+    getTeam()
+    {
+        return this.team;
     }
 
     update()

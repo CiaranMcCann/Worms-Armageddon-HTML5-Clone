@@ -68,12 +68,12 @@ class Worm extends Sprite
 
         });
 
-        this.currentWeapon = new Drill(this);
+        this.currentWeapon = new Drill();
     }
 
     fire()
     {
-        this.currentWeapon.active();
+        this.currentWeapon.active(this);
     }
 
     walkLeft()

@@ -9,13 +9,12 @@ class Drill
     worm : Worm;
     isActive;
     startTime;
+    ammo;
 
-    constructor (worm : Worm)
+    constructor ()
     {
-        this.worm = worm;
         this.isActive = false;
         
-
         //Physics.addContactListener(function (contact) => {
 
         //    if (Physics.isObjectColliding(Terrain.userData, this.worm.body.GetUserData(), contact))
@@ -30,8 +29,9 @@ class Drill
         //});
     }
 
-    active()
+    active(worm : Worm)
     {
+        this.worm = worm;
         this.isActive = true;
         this.startTime = Date.now();
         this.worm.setSpriteDef(Sprites.worms.drill,true);

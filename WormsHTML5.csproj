@@ -25,10 +25,6 @@
     <Content Include="data\img\wormsBackGround.png" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
-    <TypeScriptCompile Include="external\Social.ts" />
-    <Content Include="external\Social.js">
-      <DependentUpon>Social.ts</DependentUpon>
-    </Content>
     <Content Include="external\Stats.js" />
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <Content Include="src\animation\Sprite.js">
@@ -118,6 +114,13 @@
     <Content Include="src\Terrain.min.js">
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\tools\Drill.ts" />
+    <Content Include="src\tools\Drill.js">
+      <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
+    <Content Include="src\tools\Drill.min.js">
+      <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\ProjectileWeapon.js">
       <DependentUpon>ProjectileWeapon.ts</DependentUpon>
     </Content>
@@ -142,13 +145,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="external\Box2dWeb-2.1.a.3.min.js.map">
+      <DependentUpon>Box2dWeb-2.1.a.3.js</DependentUpon>
+    </Content>
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\tools\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
