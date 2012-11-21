@@ -2,47 +2,28 @@
 ///<reference path="../system/Utilies.ts" />
 ///<reference path="../Worm.ts" />
 ///<reference path="../animation/Sprite.ts"/>
+///<reference path="../system/Timer.ts"/>
 
 class Drill
 {
     worm : Worm;
     isActive;
-    startTime;
     ammo;
-    timeSinceLastExplosion;
-    timeBetweenExplosions;
-    delta;
+    timeBetweenExploisionsTimer : Timer;
+    useDurationTimer: Timer;
 
     constructor ()
     {
         this.isActive = false;
-
-        this.timeBetweenExplosions = 200;
-        this.delta = 0;
-        this.timeSinceLastExplosion = 0;
-        
-        //Physics.addContactListener(function (contact) => {
-
-        //    if (Physics.isObjectColliding(Terrain.userData, this.worm.body.GetUserData(), contact))
-        //    {
-        //        if (this.startTime > 0)
-        //        {
-        //            Game.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
-        //        }
-        //    }
-           
-        //    return !this.isActive;
-        //});
+        this.timeBetweenExploisionsTimer = new Timer(200);
+        this.useDurationTimer = new Timer(4000);
     }
 
     active(worm : Worm)
     {
         this.worm = worm;
         this.isActive = true;
-        this.startTime = Date.now();
-        this.timeSinceLastExplosion = Date.now();
-        this.worm.setSpriteDef(Sprites.worms.drill,true);
-                       
+        this.worm.setSpriteDef(Sprites.worms.drill,true);                     
     }
 
     update()
@@ -50,9 +31,7 @@ class Drill
         if (this.isActive)
         {
             
-            this.delta += Date.now() - this.timeSinceLastExplosion;
-
-            if (Date.now() - this.startTime > 4000)
+            if ( this.useDurationTimer.hasTimePeriodPassed())
             {
                 this.isActive = false;
                 Logger.debug(" deactivedate ");
@@ -62,15 +41,14 @@ class Drill
 
              AssetManager.sounds["DRILL"].play();
 
-            if (this.delta > this.timeBetweenExplosions)
+            if (this.timeBetweenExploisionsTimer.hasTimePeriodPassed())
             {           
                 Game.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
-                this.delta = 0;
             }
 
-            this.timeSinceLastExplosion = Date.now();
-            
-            
+            this.useDurationTimer.update();
+            this.timeBetweenExploisionsTimer.update();
+          
         }
 
     }

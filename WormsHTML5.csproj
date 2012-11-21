@@ -34,6 +34,10 @@
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Player.ts" />
+    <TypeScriptCompile Include="src\gui\TurnCountDown.ts" />
+    <Content Include="src\gui\TurnCountDown.js">
+      <DependentUpon>TurnCountDown.ts</DependentUpon>
+    </Content>
     <Content Include="src\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
@@ -167,7 +171,6 @@
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web.config" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js.map">
       <DependentUpon>Box2dWeb-2.1.a.3.js</DependentUpon>
     </Content>
@@ -228,11 +231,13 @@
     <Content Include="src\gui\StartMenu.js.map">
       <DependentUpon>StartMenu.ts</DependentUpon>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
