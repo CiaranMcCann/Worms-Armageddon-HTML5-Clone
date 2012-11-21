@@ -8,13 +8,11 @@ class Sound
     static soundOn = true;
 
     buffer;
-    private volume;
     private playing;
 
-    constructor (buffer, volume = 1)
+    constructor (buffer)
     {
         this.buffer = buffer;
-        this.volume = volume;
         this.playing = false;
 
         if (!this.buffer)
@@ -23,7 +21,7 @@ class Sound
         }
     }
 
-    play(time = 0)
+    play(volume = 1, time = 0)
     {
         if (Sound.soundOn)
         {
@@ -32,12 +30,11 @@ class Sound
             {
                 var source = Sound.context.createBufferSource();
                 source.buffer = this.buffer;
-                source.connect(Sound.context.destination);
 
                 var gainNode = Sound.context.createGainNode();
                 source.connect(gainNode);
                 gainNode.connect(Sound.context.destination);
-                gainNode.gain.value = this.volume;
+                gainNode.gain.value = volume;
                 source.noteOn(time);
                 this.playing = true;
                 var bufferLenght = this.buffer.duration;

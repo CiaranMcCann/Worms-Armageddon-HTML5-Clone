@@ -27,7 +27,7 @@ class Game
 
     weaponMenu: WeaponsMenu;
 
-    gameTimer: Timer;
+    gameTimer: CountDownTimer;
 
     static soundOn;
     static currentPlayer;
@@ -42,6 +42,7 @@ class Game
 
 
         this.weaponMenu = new WeaponsMenu();
+        this.gameTimer = new CountDownTimer();
 
         //Create Terrain canvas
         this.terrainCanvas = Graphics.createCanvas("terrain");
@@ -80,36 +81,8 @@ class Game
         //    this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
         //}
 
-        this.gameTimer = new Timer(Settings.PLAYER_TURN_TIME);
     }
 
-    updateTurn()
-    {
-        this.gameTimer.update();
-        var timeLeft = Math.floor(this.gameTimer.getTimeLeft() / 1000);
-        $('#turnTimeCounter').html(timeLeft);
-
-        if (timeLeft < Settings.TURN_TIME_WARING)
-        {
-            $('#turnTimeCounter').css("background", "red");
-        } else
-        {
-            $('#turnTimeCounter').css("background", "#808080");
-        }
-
-        if (this.gameTimer.hasTimePeriodPassed())
-        {
-            if (Game.currentPlayer + 1 == this.players.length)
-            {
-                Game.currentPlayer = 0;
-            }
-            else
-            {
-                Game.currentPlayer++;
-            }
-        }
-
-    }
 
     update()
     {
@@ -127,7 +100,7 @@ class Game
 
         this.terrain.update();
 
-        this.updateTurn();
+        this.gameTimer.update(this.players);
 
     }
 

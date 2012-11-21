@@ -18,7 +18,9 @@ module AssetManager
         "data/sounds/explosion3.wav",
         "data/sounds/WalkExpand.wav",
         "data/sounds/WalkCompress.wav",
-        "data/sounds/DRILL.WAV"
+        "data/sounds/DRILL.WAV",
+        "data/sounds/JUMP1.WAV",
+        "data/sounds/TIMERTICK.WAV" 
     ]
 
     export var images = [];

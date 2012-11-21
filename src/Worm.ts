@@ -123,6 +123,8 @@ class Worm extends Sprite
         {
             if (this.canJump)
             {
+                //AssetManager.sounds["JUMP1"].play();
+
                 // this.body.SetFixedRotation(false);
                 var currentPos = this.body.GetPosition();
                // this.body.SetPosition(new b2Vec2(currentPos.x, currentPos.y - this.body.GetFixtureList().GetShape().GetRadius()));

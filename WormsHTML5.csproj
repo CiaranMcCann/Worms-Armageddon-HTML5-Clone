@@ -34,15 +34,25 @@
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Player.ts" />
-    <TypeScriptCompile Include="src\gui\TurnCountDown.ts" />
-    <Content Include="src\gui\TurnCountDown.js">
-      <DependentUpon>TurnCountDown.ts</DependentUpon>
+    <TypeScriptCompile Include="src\CountDownTimer.ts" />
+    <Content Include="src\CountDownTimer.js">
+      <DependentUpon>CountDownTimer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\CountDownTimer.min.js">
+      <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>
     <Content Include="src\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
     <Content Include="src\Player.min.js">
       <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Settings.ts" />
+    <Content Include="src\Settings.js">
+      <DependentUpon>Settings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Settings.min.js">
+      <DependentUpon>Settings.ts</DependentUpon>
     </Content>
     <Content Include="src\system\AssetManager.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
@@ -109,6 +119,13 @@
     <TypeScriptCompile Include="src\Team.ts" />
     <Content Include="src\system\Physics.min.js">
       <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\Timer.ts" />
+    <Content Include="src\system\Timer.js">
+      <DependentUpon>Timer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Timer.min.js">
+      <DependentUpon>Timer.ts</DependentUpon>
     </Content>
     <Content Include="src\Team.js">
       <DependentUpon>Team.ts</DependentUpon>
