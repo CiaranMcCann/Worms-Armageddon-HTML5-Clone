@@ -22,7 +22,11 @@ class Drill
     active(worm : Worm)
     {
         this.worm = worm;
+
         this.isActive = true;
+        this.useDurationTimer.reset();
+        this.timeBetweenExploisionsTimer.reset();
+
         this.worm.setSpriteDef(Sprites.worms.drill,true);                     
     }
 

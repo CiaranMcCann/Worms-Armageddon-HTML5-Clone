@@ -25,6 +25,16 @@ class Timer
         }
     }
 
+    reset()
+    {
+        this.delta = 0;
+    }
+
+    getTimeLeft()
+    {
+        return this.timePeriod - this.delta;
+    }
+
     update()
     {
         this.delta += Date.now() - this.timeSinceLastUpdate;

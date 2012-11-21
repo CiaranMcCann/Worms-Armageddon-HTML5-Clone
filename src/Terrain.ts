@@ -233,7 +233,7 @@ class Terrain
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
         this.drawingCanvasContext.drawImage(this.bufferCanvas, 0, -5);
-        this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
+       // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
 
 
