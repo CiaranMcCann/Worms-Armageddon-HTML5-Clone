@@ -22,11 +22,17 @@ class CountDownTimer
 
         if (timeLeft != this.previousSecound)
         {
+            if (timeLeft == 5)
+            {
+                AssetManager.sounds["hurry"].play();
+            }
+
+
             this.previousSecound = timeLeft;
             $('#turnTimeCounter').html(timeLeft);
         
             if (timeLeft < Settings.TURN_TIME_WARING && timeLeft >= 0)
-            {
+            {             
                 $('#turnTimeCounter').css("background", "red");
                  AssetManager.sounds["TIMERTICK"].play(0.3);
 
