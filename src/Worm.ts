@@ -244,8 +244,8 @@ class Worm extends Sprite
         var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
 
         ctx.translate(
-        Physics.metersToPixels(this.body.GetPosition().x),
-        Physics.metersToPixels(this.body.GetPosition().y) - radius * 1.1
+            Physics.metersToPixels(this.body.GetPosition().x),
+            Physics.metersToPixels(this.body.GetPosition().y) - radius * 1.1
         )
 
         //ctx.rotate(this.body.GetAngle())

@@ -7,8 +7,8 @@ module AssetManager
     var remoteAssetServer = "http://www.ciaranmccann.me/fyp/";
 
     var priorityImages = [
-         'data/img/wormsBackGround.png',
-         'data/img/bananabomb.png'
+         'data/images/levels/level2.png',
+         remoteAssetServer + '/data/images/bananabomb.png'
 
     ];
 
@@ -61,7 +61,7 @@ module AssetManager
         // Load all sprites
         for (var sprite in Sprites.worms)
         {
-            priorityImages.push(remoteAssetServer + "data/img/" + Sprites.worms[sprite].imageName + ".png");
+            priorityImages.push(remoteAssetServer + "data/images/" + Sprites.worms[sprite].imageName + ".png");
         }
 
         loadImages(priorityImages, function ()

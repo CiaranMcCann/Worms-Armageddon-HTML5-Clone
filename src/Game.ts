@@ -1,3 +1,11 @@
+/**
+ * Game.js
+ * This is the main game object which controls gameloop and basically everything in the game
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
@@ -11,7 +19,6 @@
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
 ///<reference path="CountDownTimer.ts" />
-
 
 class Game
 {
@@ -55,9 +62,10 @@ class Game
         this.actionCanvasContext.font = 'bold 14px Sans-Serif';
 
         Physics.init(this.terrainCanvasContext);
-        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["wormsBackGround"], Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["level2"], Physics.world, Physics.worldScale);
 
-        Game.terrain = this.terrain; // Allows the terrain to be accessed any where
+        // Allows the terrain to be accessed any where
+        Game.terrain = this.terrain; 
 
         window.addEventListener("click", function (evt: any) =>
         {

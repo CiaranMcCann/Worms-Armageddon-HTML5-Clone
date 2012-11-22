@@ -1,3 +1,13 @@
+/**
+ * Physics
+ * This namespace wholes the physics world and scale. It provides helper convert methods
+ * to increase codebase readablity. It also mangaes the global box2d contactlistner.
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
+
 declare var Box2D;
 //Global defining of shortened names for box2d types
 var b2Vec2 = Box2D.Common.Math.b2Vec2,
@@ -29,11 +39,9 @@ module Physics
 
         // Creating our physics world.
         Physics.world = new b2World(
-            new b2Vec2(0, 10) //gravity
-            ,
+            new b2Vec2(0, 10) ,//gravity
             true //allow sleep
         );
-
 
         //Setting up debug drawing of the physics world
         debugDraw = new b2DebugDraw();
@@ -81,13 +89,7 @@ module Physics
         world.SetContactListener(listener);
     }
 
-    //Allows for easy callback functions when their is a collision
-    // between two objects.
-    export function addContactListener(func)
-    {
-        Logger.error(" Add Contact listern has been removed");   
-    }
-
+    //Checks if the collison is between an obj of type1 and an obj of type2
     export function isCollisionBetweenTypes(objType1, objType2, contact)
     {
         var obj1 = contact.GetFixtureA().GetBody().GetUserData();
@@ -104,11 +106,6 @@ module Physics
         {
             return false;
         }
-    }
-
-    export function isObjectColliding(userData1, userData2, contact)
-    {
-         Logger.error(" Add isObjectColliding has been removed");   
     }
 
     //Converts pixels to physic world measurement

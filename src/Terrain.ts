@@ -1,11 +1,16 @@
-///<reference path="system/Physics.ts"/>
-///<reference path="system/Utilies.ts" />
-
 /**
+ * Terrain
  * The terrain class handles the graphical repsentation of the terrain
  * as well as the box2d physic model. Using the map image data the terrain class
  * constructs box2d objects which make up the terrain. It also handles deformations
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
  */
+///<reference path="system/Physics.ts"/>
+///<reference path="system/Utilies.ts" />
+
 class Terrain
 {
 
@@ -17,9 +22,7 @@ class Terrain
     scale;
     groundbodiesList;
     terrainData;
-    
 
-    
 
     deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
 
@@ -27,7 +30,7 @@ class Terrain
 
     constructor (canvas, terrainImage, world, scale)
     {
-  
+
 
         this.world = world;
         this.scale = scale;
@@ -139,7 +142,7 @@ class Terrain
 
     addRectToDeformBatch(x, y, w, h)
     {
-        this.deformTerrainBatchList.push({ xPos: x, yPos: y, radius: h , width: w});
+        this.deformTerrainBatchList.push({ xPos: x, yPos: y, radius: h, width: w });
     }
 
     // This allows the terrain image data to be changed.
@@ -158,13 +161,13 @@ class Terrain
 
             if (tmp.width)
             {
-                this.bufferCanvasContext.fillRect(tmp.xPos-tmp.width/2, tmp.yPos, tmp.width, tmp.radius);
+                this.bufferCanvasContext.fillRect(tmp.xPos - tmp.width / 2, tmp.yPos, tmp.width, tmp.radius);
             } else
             {
                 this.bufferCanvasContext.arc(tmp.xPos, tmp.yPos, tmp.radius, angle, 0, true);
             }
 
-            
+
         }
 
         this.bufferCanvasContext.closePath();
@@ -233,7 +236,7 @@ class Terrain
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
         this.drawingCanvasContext.drawImage(this.bufferCanvas, 0, -5);
-       // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
+        // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
 
 
