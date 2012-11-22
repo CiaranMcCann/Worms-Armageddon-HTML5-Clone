@@ -1,9 +1,8 @@
+///<reference path="../Settings.ts" />
 declare var $;
 
 module Utilies
 {
-
-  
 
     export function random(min, max)
     {
@@ -39,29 +38,24 @@ module Utilies
 
 
     //};
-
-    //var time;
-
-    //export function timer(delay, func)
-    //{
-
-    //}
-
-
 }
-
-
 
 
 module Logger
 {
 
-    export var loggingActive = true;
+    export var loggingActive = true; // !Settings.DEVELOPMENT_MODE;
 
     export function log(message)
     {
         if (loggingActive)
             console.info(message);
+    }
+
+     export function warn(message)
+    {
+        if (loggingActive)
+            console.warn(message);
     }
 
     export function debug(message)

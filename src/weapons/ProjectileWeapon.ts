@@ -15,6 +15,7 @@ class ProjectileWeapon
     terrainRef;
     effectedRadius;
     explosiveForce;
+    explosionRadius;
     isLive;
 
     constructor (x, y, image, terrainRef: Terrain)
@@ -26,6 +27,9 @@ class ProjectileWeapon
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(30);
+
+        // The area in pxiels that get cut out of the terrain
+        this.explosionRadius = 40;
 
         // force scaler
         this.explosiveForce = 15
@@ -44,58 +48,47 @@ class ProjectileWeapon
 
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
-        this.body.SetUserData("projectileweapon" + x + y); //Give it a unqine name
+        this.body.SetUserData(this);
+
+    }
 
 
-        // Setup callback function for when the projectile collides with the terrain
-        Physics.addContactListener(function (contact) => {
+    beginContact(contact)
+    {
+        if (Physics.isCollisionBetweenTypes(Terrain, ProjectileWeapon, contact))
+        {
+            Logger.debug("Exploded");
+            this.terrainRef.addToDeformBatch(
+                 this.body.GetPosition().x * Physics.worldScale,
+                 this.body.GetPosition().y * Physics.worldScale,
+                 this.explosionRadius
+            );
 
-            var UserDataA = contact.GetFixtureA().GetBody().GetUserData();
-            var UserDataB = contact.GetFixtureB().GetBody().GetUserData();
+            var aabb = new b2AABB();
+            aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
+            aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
 
-            // If the contact is with the terrain and THIS body
-            if ((UserDataA == "terrain" && UserDataB == this.body.GetUserData()))
+            AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+
+            //find dynamic bodies inside the effectedRadius and apply a impluse
+            Physics.world.QueryAABB(function (fixture) =>
             {
-
-                Logger.debug("Exploded");
-                this.terrainRef.addToDeformBatch(
-                     this.body.GetPosition().x * Physics.worldScale,
-                     this.body.GetPosition().y * Physics.worldScale,
-                     Utilies.random(32, 80)
-                );
-
-                var aabb = new b2AABB();
-                aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
-                aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
-
-                AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
-
-                //find dynamic bodies inside the effectedRadius and apply a impluse
-                Physics.world.QueryAABB(function (fixture) =>
+                if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
                 {
-                    if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
-                    {
 
-                        var direction = fixture.GetBody().GetPosition().Copy();
-                        direction.Subtract(this.body.GetPosition());
-                        direction.Normalize();
-                        direction.Multiply(this.explosiveForce);
-                        fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
-                    }
+                    var direction = fixture.GetBody().GetPosition().Copy();
+                    direction.Subtract(this.body.GetPosition());
+                    direction.Normalize();
+                    direction.Multiply(this.explosiveForce);
+                    fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+                }
 
-                    return true;
-                }, aabb);
-
-                // Set this object to dead so it can be cleaned up 
-                this.isLive = false;
-
-                // so that this callback is removed from the list of contactlistener functions
                 return true;
+            }, aabb);
 
-            }
-
-            return false;
-        });
+            // Set this object to dead so it can be cleaned up 
+            this.isLive = false;
+        }
 
     }
 

@@ -13,15 +13,17 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2AABB = Box2D.Collision.b2AABB,
     b2ContactListener = Box2D.Dynamics.b2ContactListener;
 
-//TODO convert to a singlteon 
-module Physics {
+
+module Physics
+{
 
     export var worldScale;
     export var world;
     export var debugDraw;
     export var contactFunctionsList = [];
 
-    export function init(ctx) {
+    export function init(ctx)
+    {
 
         Physics.worldScale = 30;
 
@@ -41,64 +43,83 @@ module Physics {
         debugDraw.SetLineThickness(1.0);
         debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
         world.SetDebugDraw(debugDraw);
+
+
+        // This sets up the world contact listenre
+        // when their is a contact we get the user data from the
+        // two bodies that are in contact. In the construction of these bodies
+        // I have set the this pionter as the user data, which allows me to then call methods
+        // on that class as we can see below.
+        var listener = new b2ContactListener();
+        listener.BeginContact = function (contact) =>
+        {
+            if (contact.GetFixtureA().GetBody().GetUserData().beginContact != null)
+            {
+                 contact.GetFixtureA().GetBody().GetUserData().beginContact(contact);
+            }
+
+             if (contact.GetFixtureB().GetBody().GetUserData().beginContact != null)
+            {
+                 contact.GetFixtureB().GetBody().GetUserData().beginContact(contact);
+            }
+        }
+
+
+        listener.EndContact = function (contact) =>
+        {
+            if (contact.GetFixtureA().GetBody().GetUserData().endContact != null)
+            {
+                 contact.GetFixtureA().GetBody().GetUserData().endContact(contact);
+            }
+
+             if (contact.GetFixtureB().GetBody().GetUserData().endContact != null)
+            {
+                 contact.GetFixtureB().GetBody().GetUserData().endContact(contact);
+            }
+        }
+
+        world.SetContactListener(listener);
     }
 
     //Allows for easy callback functions when their is a collision
     // between two objects.
-    export function addContactListener(func) {
-        contactFunctionsList.push(func);
-        var listener = new b2ContactListener();
-
-        // called when two objects start touching
-        var removalList = [];
-        listener.BeginContact = function (contact) {
-            
-            var lenght = contactFunctionsList.length;
-            for (var i = 0; i < lenght; i++) {
-
-                //call all the functions that have registered as listens
-                var removefunc = contactFunctionsList[i](contact);
-
-                // If a listener function returned true, it has wishs to be unregistered 
-                if (removefunc) {
-                    removalList.push(i);
-                }
-            }
-
-            for (var i = 0; i < removalList.length; i++) {
-                Utilies.deleteFromCollection(contactFunctionsList, removalList[i]);
-            }
-            removalList = []; // clean up
-        }
-    
-	   world.SetContactListener(listener); 
+    export function addContactListener(func)
+    {
+        Logger.error(" Add Contact listern has been removed");   
     }
 
-
-    export function isObjectColliding(userData1, userData2 ,contact)
+    export function isCollisionBetweenTypes(objType1, objType2, contact)
     {
-            var UserDataA = contact.GetFixtureA().GetBody().GetUserData();
-            var UserDataB = contact.GetFixtureB().GetBody().GetUserData();
+        var obj1 = contact.GetFixtureA().GetBody().GetUserData();
+        var obj2 = contact.GetFixtureB().GetBody().GetUserData();
 
-            if (
-                (UserDataA == userData1 || UserDataB == userData1) 
-                && 
-                (UserDataB == userData2 || UserDataA == userData2 )
-            ) {
-                return true;
-            }else{
-                return false;
-            }
+        if (
+            (obj1 instanceof objType1 || obj1 instanceof objType2)
+            &&
+            (obj2 instanceof objType1 || obj2 instanceof objType2)
+          )
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 
+    export function isObjectColliding(userData1, userData2, contact)
+    {
+         Logger.error(" Add isObjectColliding has been removed");   
     }
 
     //Converts pixels to physic world measurement
-    export function pixelToMeters(pixels: number) {
+    export function pixelToMeters(pixels: number)
+    {
         return pixels / worldScale;
     }
 
     //Converts physic world measurement to pixels;
-    export function metersToPixels(meters: number) {
+    export function metersToPixels(meters: number)
+    {
         return meters * worldScale;
     }
 

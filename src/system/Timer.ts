@@ -5,12 +5,19 @@ class Timer
     timeSinceLastUpdate;
     delta;
     timePeriod;
+    isTimerPaused;
 
     constructor(timePeriod)
     {
         this.delta = 0;
         this.timePeriod = timePeriod;
         this.timeSinceLastUpdate = 0;
+        this.isTimerPaused = false;
+    }
+
+    pause()
+    {
+        this.isTimerPaused = true;
     }
 
     hasTimePeriodPassed()
@@ -37,7 +44,10 @@ class Timer
 
     update()
     {
-        this.delta += Date.now() - this.timeSinceLastUpdate;
-        this.timeSinceLastUpdate = Date.now();
+        if (this.isTimerPaused == false)
+        {
+            this.delta += Date.now() - this.timeSinceLastUpdate;
+            this.timeSinceLastUpdate = Date.now();
+        }
     }
 }

@@ -12,6 +12,9 @@ class CountDownTimer
     {
         this.timer = new Timer(Settings.PLAYER_TURN_TIME);
         this.previousSecound = this.timer.timePeriod;
+
+        if(Settings.DEVELOPMENT_MODE)
+            this.timer.pause();
     }
 
     update(players)

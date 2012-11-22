@@ -19,7 +19,7 @@ class Terrain
     terrainData;
     
 
-    static userData;
+    
 
     deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
 
@@ -27,7 +27,7 @@ class Terrain
 
     constructor (canvas, terrainImage, world, scale)
     {
-        Terrain.userData = "terrain";
+  
 
         this.world = world;
         this.scale = scale;
@@ -73,7 +73,7 @@ class Terrain
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
-        fixDef.friction = 0.5;
+        fixDef.friction = 1.0;
         fixDef.restitution = 0.0;
         fixDef.shape = new b2PolygonShape;
 
@@ -90,7 +90,7 @@ class Terrain
             bodyDef.position.y = ((yPos - rectheight) / worldScale);
 
             this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
-            this.groundbodiesList[this.groundbodiesList.length - 1].SetUserData(Terrain.userData );
+            this.groundbodiesList[this.groundbodiesList.length - 1].SetUserData(this);
 
         }
 

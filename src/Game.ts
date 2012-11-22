@@ -10,6 +10,7 @@
 ///<reference path="Player.ts" />
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
+///<reference path="CountDownTimer.ts" />
 
 
 class Game
@@ -72,10 +73,10 @@ class Game
 
 
         //TODO Remove this first sprint demo code after
-        //this.weapons = [];
-        //for (var i = 0; i < 50; i++) {
-        //   //this.weapons[i] = new ThrowableWeapon(Utilies.random(15,40), Utilies.random(-30,0), AssetManager.images["bananabomb"], this.terrain);
-        //}
+        this.weapons = [];
+        for (var i = 0; i < 5; i++) {
+           this.weapons[i] = new ProjectileWeapon(Utilies.random(15,40), Utilies.random(-30,0), AssetManager.images["bananabomb"], this.terrain);
+        }
 
         // for (var i = 2; i < 5; i++) {
         //    this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
@@ -87,9 +88,9 @@ class Game
     update()
     {
 
-        // for (var w in this.weapons) {
-        //     this.weapons[w].update();
-        //}
+         for (var w in this.weapons) {
+             this.weapons[w].update();
+        }
         this.players[Game.currentPlayer].update();
 
         for (var player in this.players)
@@ -121,11 +122,11 @@ class Game
     {
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
 
-        // var weaponsLenght = this.weapons.length;
-        //for (var i = 0; i <  weaponsLenght; i++)
-        //{
-        //    this.weapons[i].draw(this.actionCanvasContext);
-        //}
+         var weaponsLenght = this.weapons.length;
+        for (var i = 0; i <  weaponsLenght; i++)
+        {
+            this.weapons[i].draw(this.actionCanvasContext);
+        }
 
         for (var player in this.players)
         {

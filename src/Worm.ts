@@ -6,6 +6,7 @@
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts" />
 ///<reference path="system/NameGenerator.ts" />
+///<reference path="Terrain.ts" />
 
 
 class Worm extends Sprite
@@ -28,12 +29,13 @@ class Worm extends Sprite
     direction;
     sprite;
     speed;
-    canJump;
+    canJump: number;
     currentWeapon;
     currentState;
     name;
     health;
-    team : Team;
+    team: Team;
+    footSensor;
 
     constructor (team, x, y)
     {
@@ -45,13 +47,14 @@ class Worm extends Sprite
 
         x = Physics.pixelToMeters(x);
         y = Physics.pixelToMeters(y);
+        var circleRadius = (AssetManager.images[this.spriteDef.imageName].width / 2) / Physics.worldScale;
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 0.0;
+        fixDef.density = 1.0;
         fixDef.friction = 1.0;
-        fixDef.restitution = 0.0;
-        fixDef.shape = new b2PolygonShape();
-        fixDef.shape = new b2CircleShape((AssetManager.images[this.spriteDef.imageName].width / 2) / Physics.worldScale);
+        fixDef.restitution = 0.1;
+        fixDef.shape = new b2CircleShape(circleRadius);
+        fixDef.shape.SetLocalPosition(new b2Vec2(0, (circleRadius) * -1));
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
@@ -65,20 +68,41 @@ class Worm extends Sprite
         this.direction = 1
         this.speed = 0.9;
 
-        this.body.SetUserData("worm");
+        // Setup foot sensor
+        fixDef.shape = new b2PolygonShape();
+        fixDef.shape.SetAsBox(circleRadius / 2, circleRadius / 4);
+        fixDef.isSensor = true;
+        this.footSensor = this.body.CreateFixture(fixDef);
 
-        this.canJump = false;
 
-        Physics.addContactListener(function (contact) => {
 
-            if(Physics.isObjectColliding(Terrain.userData, this.body.GetUserData(), contact))
-            {
-                this.canJump = true;
-            }
+        this.body.SetUserData(this);
 
-        });
+        this.canJump = 0;
 
         this.currentWeapon = new Drill();
+    }
+
+    beginContact(contact)
+    {
+        if (Physics.isCollisionBetweenTypes(Terrain, Worm, contact))
+        {
+            if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
+            {
+                this.canJump++;
+            }
+        }
+    }
+
+    endContact(contact)
+    {
+        if (Physics.isCollisionBetweenTypes(Terrain, Worm, contact))
+        {
+            if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
+            {
+                this.canJump--;
+            }
+        }
     }
 
     fire()
@@ -121,22 +145,43 @@ class Worm extends Sprite
     {
         if (this.currentWeapon.isActive == false)
         {
-            if (this.canJump)
+            if (this.canJump > 0)
             {
+                // this.canJump--;
                 //AssetManager.sounds["JUMP1"].play();
 
                 // this.body.SetFixedRotation(false);
                 var currentPos = this.body.GetPosition();
-               // this.body.SetPosition(new b2Vec2(currentPos.x, currentPos.y - this.body.GetFixtureList().GetShape().GetRadius()));
-                var forces = new b2Vec2(this.direction * 0.1, 2);
-                forces.Multiply(10);
-                //this.body.SetLinearVelocity(forces);
-                var piontOfForce = this.body.GetPosition().Copy();
-                piontOfForce.y -= this.body.GetFixtureList().GetShape().GetRadius()*2
+                // 
 
-                this.body.ApplyImpulse(forces, piontOfForce);
-                Logger.debug("Jump");
+                // var forces = new b2Vec2(this.direction * 2, 2);
+                // forces.Multiply(18);
+                var forces = new b2Vec2(0, 1);
+                forces.Multiply(40);
+
+
+                //this.body.SetPosition(new b2Vec2(currentPos.x + this.direction*this.body.GetFixtureList().m_next.GetShape().GetRadius()/2, currentPos.y - this.body.GetFixtureList().m_next.GetShape().GetRadius()/2 ));
+                //this.body.SetLinearVelocity(forces);
+
+                // window.setTimeout(function() => {
+                this.body.ApplyImpulse(forces, this.body.GetPosition());
+                // this.body.SetLinearVelocity(forces);
+                //      Logger.debug("Jump");
+                //},20 );
+
+
+                //window.setTimeout(function () => {
+                //    this.canJump++;
+                //}, 2000);
+
+
+                // this.kTest = false;
+
+                //window.setTimeout(function () => { this.kTest = true }, 2000);
                 //this.body.SetFixedRotation(true);
+            } else
+            {
+                Logger.debug("Cant Jump");
             }
         }
     }
@@ -159,34 +204,36 @@ class Worm extends Sprite
             //var forces = new b2Vec2(5, 0);
             //this.body.SetLinearVelocity(forces);
         }
-        
+
     }
 
     update()
-    {   
+    {
+        //Logger.log(this.canJump);
+
         if (this.spriteDef != Sprites.worms.walking)
-            super.setSpriteDef(Sprites.worms.lookAround); 
-        
-        if ( Utilies.isBetweenRange(this.body.GetLinearVelocity().y,1.5,-1.5) )
+            super.setSpriteDef(Sprites.worms.lookAround);
+
+        if (Utilies.isBetweenRange(this.body.GetLinearVelocity().y, 2, -2))
         {
-            this.canJump = true;         
+            //this.canJump = true;         
         }
         else
         {
-            this.canJump = false;
-            super.setSpriteDef(Sprites.worms.falling);           
+            //this.canJump = false;
+            super.setSpriteDef(Sprites.worms.falling);
         }
 
-        
-         this.currentWeapon.update();
 
-         if (this.spriteDef != Sprites.worms.walking)
-         {
-             super.update();
-             
-         }
-          
-      
+        this.currentWeapon.update();
+
+        if (this.spriteDef != Sprites.worms.walking)
+        {
+            super.update();
+
+        }
+
+
     }
 
     draw(ctx)
@@ -194,37 +241,39 @@ class Worm extends Sprite
 
         ctx.save()
 
+        var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
+
         ctx.translate(
-        this.body.GetPosition().x * Physics.worldScale,
-        this.body.GetPosition().y * Physics.worldScale
+        Physics.metersToPixels(this.body.GetPosition().x),
+        Physics.metersToPixels(this.body.GetPosition().y) - radius * 1.1
         )
 
         //ctx.rotate(this.body.GetAngle())
-        var radius = this.fixture.GetShape().GetRadius() * Physics.worldScale;
-     
+
+
         ctx.save()
         if (this.direction == this.DIRECTION.right)
         {
             // Used to flip the sprites       
             ctx.scale(-1, 1);
         }
-        
+
 
         super.draw(ctx,
             -radius,
             -radius);
 
-         ctx.restore()
+        ctx.restore()
 
-          
-       // ctx.fillStyle = '#1A1110';
-       // ctx.strokeStyle = "#eee";
-       // ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).fill();
-       //ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).stroke();
-       ctx.fillStyle = this.team.color;
-       ctx.textAlign = 'center';
-       ctx.fillText(this.name, 0, -radius*2.8);
-       ctx.fillText(this.health, 0, -radius*1.5);
+
+        // ctx.fillStyle = '#1A1110';
+        // ctx.strokeStyle = "#eee";
+        // ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).fill();
+        //ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).stroke();
+        ctx.fillStyle = this.team.color;
+        ctx.textAlign = 'center';
+        ctx.fillText(this.name, 0, -radius * 2.8);
+        ctx.fillText(this.health, 0, -radius * 1.5);
 
         ctx.restore()
     }
