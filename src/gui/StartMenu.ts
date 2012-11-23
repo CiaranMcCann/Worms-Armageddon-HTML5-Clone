@@ -28,6 +28,15 @@ class StartMenu
         var _this = this;
         if (this.menuActive)
         {
+             $(window).one("keydown",function (e)
+             {
+                 if (e.which == 13)
+                 {
+                     _this.controlsMenu(callback);
+                 }
+
+             });
+
             setTimeout(function =>
             {
                 $('#startMenu').fadeIn('fast');
@@ -48,6 +57,16 @@ class StartMenu
 
     controlsMenu(callback)
     {
+         $(window).one("keydown",function (e)
+             {
+                 if (e.which == 13)
+                 {
+                     $('#splashScreen').css({ opacity: '0.0' })
+                     $('#startMenu').fadeOut('normal');
+                     callback();
+                 }
+
+             });
 
         $('.slide').fadeOut('normal', function =>
         {

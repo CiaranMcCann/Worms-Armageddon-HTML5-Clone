@@ -75,8 +75,9 @@ class ThrowableWeapon extends BaseWeapon
         }
     }
 
-    activate(x, y, initalVelocity)
+    activate( worm )
     {
+        var x, y, initalVelocity
         this.isActive = true;
         this.setupPhysicsBodies(x, y, initalVelocity, this.image);
     }

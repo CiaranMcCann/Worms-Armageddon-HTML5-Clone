@@ -18,10 +18,10 @@
 
 class Drill extends BaseWeapon
 {
-    worm : Worm;
+    worm: Worm;
     isActive;
     ammo;
-    timeBetweenExploisionsTimer : Timer;
+    timeBetweenExploisionsTimer: Timer;
     useDurationTimer: Timer;
 
     constructor ()
@@ -32,7 +32,8 @@ class Drill extends BaseWeapon
         this.useDurationTimer = new Timer(4000);
     }
 
-    active(worm : Worm)
+
+    activate(worm: Worm)
     {
         if (this.ammo > 0)
         {
@@ -44,14 +45,14 @@ class Drill extends BaseWeapon
             this.worm.setSpriteDef(Sprites.worms.drill, true);
 
             //Used up ammo
-            this.ammo--; 
+            this.ammo--;
 
             return true;
         } else
         {
             // Was unable to active weapon due to no ammo
             // so most give the user some feedback
-            return false; 
+            return false;
         }
 
     }
@@ -65,20 +66,20 @@ class Drill extends BaseWeapon
             {
                 this.isActive = false;
                 Logger.debug(" deactivedate ");
-                this.worm.setSpriteDef(Sprites.worms.drill,false);
+                this.worm.setSpriteDef(Sprites.worms.drill, false);
                 this.worm.setSpriteDef(Sprites.worms.lookAround);
             }
 
-             AssetManager.sounds["DRILL"].play();
+            AssetManager.sounds["DRILL"].play();
 
             if (this.timeBetweenExploisionsTimer.hasTimePeriodPassed())
-            {           
+            {
                 GameInstance.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
             }
 
             this.useDurationTimer.update();
             this.timeBetweenExploisionsTimer.update();
-          
+
         }
 
     }

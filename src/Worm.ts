@@ -39,7 +39,6 @@ class Worm extends Sprite
     sprite;
     speed;
     canJump: number;
-    currentWeapon;
     currentState;
     name;
     health;
@@ -48,8 +47,7 @@ class Worm extends Sprite
 
     constructor (team, x, y)
     {
-        super(Sprites.worms.lookAround);
-
+        super(Sprites.worms.lookAround);     
         this.name = NameGenerator.randomName();
         this.health = 100;
         this.team = team;
@@ -87,7 +85,7 @@ class Worm extends Sprite
 
         this.body.SetUserData(this);
         this.canJump = 0;
-        this.currentWeapon = new Drill();
+ 
     }
 
     // What happens when a worm collies with another object
@@ -116,12 +114,12 @@ class Worm extends Sprite
 
     fire()
     {
-        this.currentWeapon.active(this);
+        this.team.getWeaponManager().getCurrentWeapon().activate(this);
     }
 
     walkLeft()
     {
-        if (this.currentWeapon.isActive == false)
+        if (this.team.getWeaponManager().getCurrentWeapon().isActive == false)
         {
             var currentPos = this.body.GetPosition();
 
@@ -152,7 +150,7 @@ class Worm extends Sprite
 
     jump()
     {
-        if (this.currentWeapon.isActive == false)
+        if (this.team.getWeaponManager().getCurrentWeapon().isActive == false)
         {
             if (this.canJump > 0)
             {
@@ -192,7 +190,7 @@ class Worm extends Sprite
 
     walkRight()
     {
-        if (this.currentWeapon.isActive == false)
+        if (this.team.getWeaponManager().getCurrentWeapon().isActive == false)
         {
             var currentPos = this.body.GetPosition();
             this.direction = this.DIRECTION.right;
@@ -221,7 +219,7 @@ class Worm extends Sprite
         }
 
 
-        this.currentWeapon.update();
+        this.team.getWeaponManager().getCurrentWeapon().update();
 
         if (this.spriteDef != Sprites.worms.walking)
         {

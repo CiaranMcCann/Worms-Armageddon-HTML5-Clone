@@ -15,7 +15,6 @@ class WeaponsMenu
 {
     htmlElement;
     isVisable;
-    lastPlayer;
     cssId;
 
     constructor ()
@@ -35,11 +34,9 @@ class WeaponsMenu
         });
 
         this.isVisable = false;
-        this.lastPlayer = -1;
-
     }
 
-    selectWeapon(weaponId) 
+    selectWeapon(weaponId)
     {
         var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
 
@@ -53,28 +50,9 @@ class WeaponsMenu
 
     toggle()
     {
-        // If its still same players go no need to repopluate menu
-        if (this.lastPlayer == GameInstance.currentPlayerIndex)
-        {
-            // do nothing
-        } else
-        {
-            // populate
-            var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
-
-            ////TODO demo code
-            //var tmp = [];
-            //for (var i = 0; i < 8 * 4; i++)
-            //{
-            //    tmp.push({ img: Settings.REMOTE_ASSERT_SERVER + "data/images/bananabomb.png", name: "bannan", ammo: Utilies.random(0, 2) });
-            //}
-
-            
-            this.populateMenu(weaponMgmt.getListOfWeapons());
-
-            this.lastPlayer = GameInstance.currentPlayerIndex;
-        }
-
+        // populate
+        var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
+        this.populateMenu(weaponMgmt.getListOfWeapons());
 
         var moveAmountInPx;
 
@@ -95,13 +73,13 @@ class WeaponsMenu
     }
 
     //Fills the menu up with the various weapon items
-    populateMenu(listOfWeapons : BaseWeapon[])
+    populateMenu(listOfWeapons: BaseWeapon[])
     {
         var html = "<ul class = \"thumbnails\" >"
 
         for (var weapon in listOfWeapons)
         {
-            var currentWeapon :BaseWeapon = listOfWeapons[weapon];
+            var currentWeapon: BaseWeapon = listOfWeapons[weapon];
             var cssClassType = "ammo";
 
             html += "<li class=span1>";
@@ -109,7 +87,7 @@ class WeaponsMenu
             {
                 cssClassType = "noAmmo";
             }
-            html += "<a  class=\"thumbnail "  +  cssClassType + "\" value=" + currentWeapon.name + " id=" + weapon +"><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImageUrl + " alt=" + currentWeapon.name + "></a>";
+            html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " id=" + weapon + "><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImageUrl + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }
         html += "</ul>";
@@ -118,8 +96,9 @@ class WeaponsMenu
         this.htmlElement.append(html);
 
         var _this = this;
-        $("#" +this.cssId + " a").click(function (){
-            _this.selectWeapon( parseInt( $(this).attr('id') ) );
+        $("#" + this.cssId + " a").click(function ()
+        {
+            _this.selectWeapon(parseInt($(this).attr('id')));
         });
 
     }

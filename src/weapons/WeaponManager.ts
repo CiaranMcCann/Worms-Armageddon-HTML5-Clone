@@ -28,8 +28,10 @@ class WeaponManager
             new ThrowableWeapon()
         ];
 
+        this.currentWeaponIndex = 0;
     }
 
+ 
     checkWeaponHasAmmo(weaponIndex)
     {
         if (this.weaponsAndTools[weaponIndex].ammo)
@@ -42,7 +44,7 @@ class WeaponManager
 
     getCurrentWeapon()
     {
-        return this.currentWeaponIndex;
+        return this.weaponsAndTools[this.currentWeaponIndex];
     }
 
     setCurrentWeapon(index)

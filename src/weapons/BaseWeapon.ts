@@ -5,16 +5,18 @@ class BaseWeapon
     ammo;
     name;
     iconImageUrl;
+    isActive;
 
     constructor (name,ammo, iconImage = Settings.REMOTE_ASSERT_SERVER + "data/images/weaponicons/" + name.toLowerCase() + ".png")
     {
         this.ammo = ammo;
         this.name = name;
         this.iconImageUrl = iconImage;
+        this.isActive = false;
     }
 
 
-    activate(x,y,initalVelocity) { };
+    activate(worm) { };
     update() { }
     draw(ctx) { }
 }
