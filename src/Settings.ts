@@ -14,6 +14,7 @@ module Settings
     export var DEVELOPMENT_MODE = !false; 
     export var REMOTE_ASSERT_SERVER = "http://www.ciaranmccann.me/fyp/";
     export var PHYSICS_DEBUG_MODE = false;
+    export var RUN_UNIT_TEST_ONLY = !true;
 
     //Pasers commandline type arguments from the page url like this ?argName=value
     export function getSettingsFromUrl()
@@ -33,7 +34,9 @@ module Settings
 
         if (argv[commands[2]] == "true")
         {
-            window.open('test.html', 'name', 'height=1000,width=700,top:100%');
+           var testWindow = window.open('test.html', 'name', 'height=1000,width=700,top:100%');
+           testWindow.location.reload(); // This is so if the window was left open it refreshs
+            
         }
 
         Logger.log(" Notice: argv are as follows " + commands);

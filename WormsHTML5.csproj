@@ -29,6 +29,8 @@
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
     <Content Include="external\Stats.js" />
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
+    <Content Include="external\test\qunit.css" />
+    <Content Include="external\test\qunit.js" />
     <Content Include="src\animation\Sprite.js">
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
@@ -151,11 +153,26 @@
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\tools\Drill.ts" />
+    <TypeScriptCompile Include="src\tests\TimerTest.ts" />
+    <Content Include="src\tests\TimerTest.min.js">
+      <DependentUpon>TimerTest.ts</DependentUpon>
+    </Content>
+    <Content Include="test.html" />
+    <Content Include="src\tests\TimerTest.js">
+      <DependentUpon>TimerTest.ts</DependentUpon>
+    </Content>
     <Content Include="src\tools\Drill.js">
       <DependentUpon>Drill.ts</DependentUpon>
     </Content>
     <Content Include="src\tools\Drill.min.js">
       <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\BaseWeapon.ts" />
+    <Content Include="src\weapons\BaseWeapon.js">
+      <DependentUpon>BaseWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\BaseWeapon.min.js">
+      <DependentUpon>BaseWeapon.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\ProjectileWeapon.js">
       <DependentUpon>ProjectileWeapon.ts</DependentUpon>
@@ -240,9 +257,6 @@
     </Content>
     <Content Include="src\weapons\WeaponManager.js.map">
       <DependentUpon>WeaponManager.ts</DependentUpon>
-    </Content>
-    <Content Include="src\audio\Sound.js.map">
-      <DependentUpon>Sound.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\ProjectileWeapon.js.map">
       <DependentUpon>ProjectileWeapon.ts</DependentUpon>

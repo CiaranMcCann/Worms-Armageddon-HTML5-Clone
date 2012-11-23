@@ -16,29 +16,32 @@ $(document).ready(function () => {
 
     Settings.getSettingsFromUrl();
 
-    var startMenu = new StartMenu();
-   
-    AssetManager.loadPriorityAssets(function ()
+    if (!Settings.RUN_UNIT_TEST_ONLY)
     {
-        // Once we the names from wikiepa then we can create the game
-        NameGenerator.init(function ()
+        var startMenu = new StartMenu();
+
+        AssetManager.loadPriorityAssets(function ()
         {
-            var game = new Game();
-
-            startMenu.onGameReady(function ()
+            // Once we the names from wikiepa then we can create the game
+            NameGenerator.init(function ()
             {
-                function gameloop()
-                {
-                    Graphics.stats.update();
-                    game.step();
-                    game.update();
-                    game.draw();
-                    window.requestAnimationFrame(gameloop);
-                }
-                gameloop();
+                var game = new Game();
 
+                startMenu.onGameReady(function ()
+                {
+                    function gameloop()
+                    {
+                        Graphics.stats.update();
+                        game.step();
+                        game.update();
+                        game.draw();
+                        window.requestAnimationFrame(gameloop);
+                    }
+                    gameloop();
+
+                });
             });
         });
-    });
+    }
 
 });
