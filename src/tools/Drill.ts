@@ -27,7 +27,7 @@ class Drill
         this.ammo = ammo;
         this.isActive = false;
         this.timeBetweenExploisionsTimer = new Timer(200);
-        this.useDurationTimer = new Timer(400000);
+        this.useDurationTimer = new Timer(4000);
     }
 
     active(worm : Worm)
