@@ -32,7 +32,15 @@ module Utilies
         collection.splice(indexToRemove, 1);
     }
 
-   
+    export function getUrlVars()
+    {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value)
+        {
+            vars[key] = value;
+        });
+        return vars;
+    }
 
     export function isBetweenRange(value, rangeMax, rangeMin)
     {
@@ -67,7 +75,7 @@ module Logger
             console.info(message);
     }
 
-     export function warn(message)
+    export function warn(message)
     {
         if (loggingActive)
             console.warn(message);

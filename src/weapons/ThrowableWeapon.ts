@@ -22,13 +22,11 @@ class ThrowableWeapon
     effectedRadius;
     explosiveForce;
     timeToLive;
-    terrainRef;
 
-    constructor (x, y, initalVelocity, image, terrainRef: Terrain)
+    constructor (x, y, initalVelocity, image)
     {
 
         this.image = image;
-        this.terrainRef = terrainRef;
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(50);
@@ -83,7 +81,7 @@ class ThrowableWeapon
         if (this.detonationCounter <= 1 && this.timeToLive > 0)
         {
 
-            this.terrainRef.addToDeformBatch(
+               Game.terrain.addToDeformBatch(
                this.body.GetPosition().x * Physics.worldScale,
                this.body.GetPosition().y * Physics.worldScale,
                50);

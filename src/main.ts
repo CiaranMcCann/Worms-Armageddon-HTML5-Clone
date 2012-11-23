@@ -14,9 +14,10 @@
 
 $(document).ready(function () => {
 
+    Settings.getSettingsFromUrl();
+
     var startMenu = new StartMenu();
    
-
     AssetManager.loadPriorityAssets(function ()
     {
         // Once we the names from wikiepa then we can create the game

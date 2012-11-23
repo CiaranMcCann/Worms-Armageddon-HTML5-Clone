@@ -22,30 +22,44 @@ class Drill
     timeBetweenExploisionsTimer : Timer;
     useDurationTimer: Timer;
 
-    constructor ()
+    constructor (ammo = 1)
     {
+        this.ammo = ammo;
         this.isActive = false;
         this.timeBetweenExploisionsTimer = new Timer(200);
-        this.useDurationTimer = new Timer(4000);
+        this.useDurationTimer = new Timer(400000);
     }
 
     active(worm : Worm)
     {
-        this.worm = worm;
+        if (this.ammo > 0)
+        {
+            Logger.log("Actived");
+            this.worm = worm;
+            this.isActive = true;
+            this.useDurationTimer.reset();
+            this.timeBetweenExploisionsTimer.reset();
+            this.worm.setSpriteDef(Sprites.worms.drill, true);
 
-        this.isActive = true;
-        this.useDurationTimer.reset();
-        this.timeBetweenExploisionsTimer.reset();
+            //Used up ammo
+            this.ammo--; 
 
-        this.worm.setSpriteDef(Sprites.worms.drill,true);                     
+            return true;
+        } else
+        {
+            // Was unable to active weapon due to no ammo
+            // so most give the user some feedback
+            return false; 
+        }
+
     }
 
     update()
     {
         if (this.isActive)
         {
-            
-            if ( this.useDurationTimer.hasTimePeriodPassed())
+            var ans = this.useDurationTimer.hasTimePeriodPassed();
+            if (ans)
             {
                 this.isActive = false;
                 Logger.debug(" deactivedate ");

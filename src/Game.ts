@@ -121,7 +121,10 @@ class Game
            , 10       //velocity iterations
            , 10       //position iterations
         );
-        //Physics.world.DrawDebugData();
+
+        if(Settings.PHYSICS_DEBUG_MODE)
+            Physics.world.DrawDebugData();
+
         //Physics.world.ClearForces();
 
     }
