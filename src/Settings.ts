@@ -11,7 +11,7 @@ module Settings
 {
     export var PLAYER_TURN_TIME = 20 * 1000; // 60 secounds
     export var TURN_TIME_WARING = 5; // after 10 secounds warn player they are running out of time
-    export var DEVELOPMENT_MODE = !false; 
+    export var DEVELOPMENT_MODE = false; 
     export var REMOTE_ASSERT_SERVER = "http://www.ciaranmccann.me/fyp/";
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;

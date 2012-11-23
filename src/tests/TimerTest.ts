@@ -1,15 +1,38 @@
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Timer.ts" />
-declare var test, ok, equal
+declare var test, ok, equal, notEqual, asyncTest, start,QUnit
 
-test("TimerTest", function ()
-{
-    var t = new Timer(2000);
-     t.update();
+QUnit.module( "Timer.js" );
+asyncTest( "Asynchronous", function() {
+     
+    var timePeroid = 1000;
+    var t = new Timer(timePeroid);
+     
+    
+    setTimeout(function() => {
+        t.update();
+        notEqual(t.getTimeLeft(), timePeroid , "getTimeLeft()");
+        equal(t.hasTimePeriodPassed(), true,"hasTimePeriodPassed()");
+        equal(t.getTimeLeft(), timePeroid , "getTimeLeft()");
 
-    equal(t.getTimeLeft(), 2000, "getTimeLeft()");
-    equal(t.hasTimePeriodPassed(), false,"hasTimePeriodPassed()");
-    equal(t.getTimeLeft(), 2000, "getTimeLeft() after hasTimePeriodPassed()");
+        start();
+    }, timePeroid+200);
+});
 
 
+
+asyncTest( "Reset", function() {
+     
+    var timePeroid = 1000;
+    var t = new Timer(timePeroid);
+     
+    
+    setTimeout(function() => {
+        t.update();
+        notEqual(t.getTimeLeft(), timePeroid , "getTimeLeft()");
+        t.reset();
+        equal(t.getTimeLeft(), timePeroid , "getTimeLeft()");
+
+        start();
+    }, timePeroid);
 });

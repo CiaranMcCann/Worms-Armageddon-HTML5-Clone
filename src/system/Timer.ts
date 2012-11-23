@@ -42,6 +42,7 @@ class Timer
     reset()
     {
         this.delta = 0;
+        this.timeSinceLastUpdate = Date.now();
     }
 
     getTimeLeft()
