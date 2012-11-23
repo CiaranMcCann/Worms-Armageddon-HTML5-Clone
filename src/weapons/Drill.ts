@@ -13,8 +13,10 @@
 ///<reference path="../animation/Sprite.ts"/>
 ///<reference path="../system/Timer.ts"/>
 ///<reference path="../Game.ts"/>
+///<reference path="BaseWeapon.ts"/>
 
-class Drill
+
+class Drill extends BaseWeapon
 {
     worm : Worm;
     isActive;
@@ -22,9 +24,9 @@ class Drill
     timeBetweenExploisionsTimer : Timer;
     useDurationTimer: Timer;
 
-    constructor (ammo = 1)
+    constructor ()
     {
-        this.ammo = ammo;
+        super("Drill", 1);
         this.isActive = false;
         this.timeBetweenExploisionsTimer = new Timer(200);
         this.useDurationTimer = new Timer(4000);
@@ -71,7 +73,7 @@ class Drill
 
             if (this.timeBetweenExploisionsTimer.hasTimePeriodPassed())
             {           
-                Game.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
+                GameInstance.terrain.addToDeformBatch(Physics.metersToPixels(this.worm.body.GetPosition().x), Physics.metersToPixels(this.worm.body.GetPosition().y), 25);
             }
 
             this.useDurationTimer.update();
