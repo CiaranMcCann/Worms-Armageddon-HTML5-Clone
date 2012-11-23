@@ -11,8 +11,9 @@
 ///<reference path="../system/AssetManager.ts"/>
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../Terrain.ts"/>
+///<reference path="BaseWeapon.ts"/>
 
-class ThrowableWeapon
+class ThrowableWeapon extends BaseWeapon
 {
 
     body;
@@ -22,10 +23,12 @@ class ThrowableWeapon
     effectedRadius;
     explosiveForce;
     timeToLive;
+    isActive;
 
-    constructor (x, y, initalVelocity, image)
+    constructor (image)
     {
-
+        super("Throwable", 1);
+        this.isActive = false;
         this.image = image;
 
         // Force/worm damge radius
@@ -39,7 +42,11 @@ class ThrowableWeapon
 
         this.timeToLive = 1000;
 
-        // Setup of physical body
+    }
+
+    setupPhysicsBodies(x,y,initalVelocity, image)
+    {
+           // Setup of physical body
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 3.5;
@@ -68,56 +75,65 @@ class ThrowableWeapon
         }
     }
 
+    activate(x, y, initalVelocity)
+    {
+        this.isActive = true;
+        this.setupPhysicsBodies(x, y, initalVelocity, this.image);
+    }
+
     update()
     {
-
-        // Decrements the timers on the bomb
-        if (this.detonationCounter > 0)
-        {
-            this.detonationCounter -= 1 / 60;
-        }
-
-        //Checks if its time for the bomb to explode
-        if (this.detonationCounter <= 1 && this.timeToLive > 0)
+        if (this.isActive)
         {
 
-               Game.terrain.addToDeformBatch(
-               this.body.GetPosition().x * Physics.worldScale,
-               this.body.GetPosition().y * Physics.worldScale,
-               50);
-
-            this.timeToLive = -1;
-
-            var aabb = new b2AABB();
-            aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
-            aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
-
-            AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
-
-            var count: Number = Physics.world.QueryAABB(function (fixture) =>
+            // Decrements the timers on the bomb
+            if (this.detonationCounter > 0)
             {
-                if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
+                this.detonationCounter -= 1 / 60;
+            }
+
+            //Checks if its time for the bomb to explode
+            if (this.detonationCounter <= 1 && this.timeToLive > 0)
+            {
+
+                GameInstance.terrain.addToDeformBatch(
+                    this.body.GetPosition().x * Physics.worldScale,
+                    this.body.GetPosition().y * Physics.worldScale,
+                50);
+
+                this.timeToLive = -1;
+
+                var aabb = new b2AABB();
+                aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
+                aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
+
+                AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+
+                var count: Number = Physics.world.QueryAABB(function (fixture) =>
                 {
+                    if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
+                    {
 
-                    var direction = fixture.GetBody().GetPosition().Copy();
-                    direction.Subtract(this.body.GetPosition());
-                    direction.Normalize();
-                    direction.Multiply(this.explosiveForce);
-                    fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
-                }
+                        var direction = fixture.GetBody().GetPosition().Copy();
+                        direction.Subtract(this.body.GetPosition());
+                        direction.Normalize();
+                        direction.Multiply(this.explosiveForce);
+                        fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+                    }
 
-                return true;
-            }, aabb);
+                    return true;
+                }, aabb);
 
-            //The bomb has exploded so remove it from the world
-            Physics.world.DestroyBody(this.body);
+                //The bomb has exploded so remove it from the world
+                Physics.world.DestroyBody(this.body);
+            }
         }
     }
 
     draw(ctx)
     {
 
-        if (this.timeToLive > 0)
+        if (this.isActive && this.timeToLive > 0)
         {
             ctx.save()
 

@@ -11,8 +11,9 @@
 ///<reference path="../system/AssetManager.ts"/>
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../Terrain.ts"/>
+///<reference path="BaseWeapon.ts"/>
 
-class ProjectileWeapon
+class ProjectileWeapon extends BaseWeapon
 {
 
     body;
@@ -27,6 +28,7 @@ class ProjectileWeapon
 
     constructor (x, y, image, terrainRef: Terrain)
     {
+        super("Projecttile", 1);
 
         this.image = image;
         this.terrainRef = terrainRef;

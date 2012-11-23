@@ -11,20 +11,33 @@
 ///<reference path="../system/AssetManager.ts"/>
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../animation/Sprite.ts"/>
-///<reference path="../tools/Drill.ts"/>
+///<reference path="../weapons/Drill.ts"/>
+///<reference path="../weapons/ThrowableWeapon.ts"/>
 
 class WeaponManager
 {
 
-    private weaponsAndTools;
+    private weaponsAndTools: BaseWeapon[];
     private currentWeaponIndex;
 
     constructor ()
     {
         this.weaponsAndTools = 
         [
-            new Drill()            
+            new Drill(),
+            new ThrowableWeapon(AssetManager.images["bananabomb"])
         ];
+
+    }
+
+    checkWeaponHasAmmo(weaponIndex)
+    {
+        if (this.weaponsAndTools[weaponIndex].ammo)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     getCurrentWeapon()
@@ -39,7 +52,7 @@ class WeaponManager
 
     getListOfWeapons()
     {
-        this.weaponsAndTools;
+        return this.weaponsAndTools;
     }
 
 
