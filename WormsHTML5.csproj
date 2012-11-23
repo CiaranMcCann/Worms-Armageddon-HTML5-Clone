@@ -22,6 +22,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\Game.ts" />
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
+    <Content Include=".gitignore" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="data\img\wormsBackGround.png" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
@@ -251,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="README.md" />
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

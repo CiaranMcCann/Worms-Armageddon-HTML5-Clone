@@ -66,7 +66,7 @@ class Worm extends Sprite
         this.body.SetFixedRotation(true);
         this.body.SetSleepingAllowed(false);
         this.direction = 1
-        this.speed = 0.9;
+        this.speed = 1.2;
 
         // Setup foot sensor
         fixDef.shape = new b2PolygonShape();

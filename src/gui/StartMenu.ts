@@ -12,7 +12,7 @@ class StartMenu
     {
         this.menuActive = !Settings.DEVELOPMENT_MODE;
         this.controlsView = '<h1 style="text-align: center">Controls</h1><p><p><br>' +
-            '<img src="data/img/xbox360controls.png"><p><p><br />' +
+            '<img src="data/images/menu/xbox360controls.png"><p><p><br />' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a>';
     }
 

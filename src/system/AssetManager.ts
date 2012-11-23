@@ -4,11 +4,10 @@ declare var BufferLoader;
 module AssetManager
 {
 
-    var remoteAssetServer = "http://www.ciaranmccann.me/fyp/";
 
     var priorityImages = [
          'data/images/levels/level2.png',
-         remoteAssetServer + '/data/images/bananabomb.png'
+         Settings.REMOTE_ASSERT_SERVER + '/data/images/bananabomb.png'
 
     ];
 
@@ -61,7 +60,7 @@ module AssetManager
         // Load all sprites
         for (var sprite in Sprites.worms)
         {
-            priorityImages.push(remoteAssetServer + "data/images/" + Sprites.worms[sprite].imageName + ".png");
+            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.worms[sprite].imageName + ".png");
         }
 
         loadImages(priorityImages, function ()
