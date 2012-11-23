@@ -1,3 +1,12 @@
+/**
+ * Player
+ * The player class contains a team objects, which is the team of worms. 
+ * It also defines the controls for the worms movements.
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
 

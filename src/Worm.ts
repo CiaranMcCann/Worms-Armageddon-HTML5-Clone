@@ -1,3 +1,13 @@
+/**
+ * Worm.js inherts Sprite.js
+ *
+ * This contains all the logic for each indvdiual worm entity. 
+ * Its physics objects, sprite drawing, movements etc
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
@@ -7,7 +17,6 @@
 ///<reference path="system/Utilies.ts" />
 ///<reference path="system/NameGenerator.ts" />
 ///<reference path="Terrain.ts" />
-
 
 class Worm extends Sprite
 {
@@ -77,12 +86,11 @@ class Worm extends Sprite
 
 
         this.body.SetUserData(this);
-
         this.canJump = 0;
-
         this.currentWeapon = new Drill();
     }
 
+    // What happens when a worm collies with another object
     beginContact(contact)
     {
         if (Physics.isCollisionBetweenTypes(Terrain, Worm, contact))
@@ -94,6 +102,7 @@ class Worm extends Sprite
         }
     }
 
+    //What happens when a worm is no longer in contact with the object it was in contact with
     endContact(contact)
     {
         if (Physics.isCollisionBetweenTypes(Terrain, Worm, contact))
@@ -175,13 +184,8 @@ class Worm extends Sprite
                 //}, 2000);
 
 
-                // this.kTest = false;
-
                 //window.setTimeout(function () => { this.kTest = true }, 2000);
                 //this.body.SetFixedRotation(true);
-            } else
-            {
-                Logger.debug("Cant Jump");
             }
         }
     }
@@ -201,26 +205,18 @@ class Worm extends Sprite
             super.update();
 
             this.body.SetPosition(new b2Vec2(currentPos.x + this.speed / Physics.worldScale, currentPos.y));
-            //var forces = new b2Vec2(5, 0);
-            //this.body.SetLinearVelocity(forces);
         }
 
     }
 
     update()
     {
-        //Logger.log(this.canJump);
 
         if (this.spriteDef != Sprites.worms.walking)
             super.setSpriteDef(Sprites.worms.lookAround);
 
-        if (Utilies.isBetweenRange(this.body.GetLinearVelocity().y, 2, -2))
+        if (!Utilies.isBetweenRange(this.body.GetLinearVelocity().y, 2, -2))
         {
-            //this.canJump = true;         
-        }
-        else
-        {
-            //this.canJump = false;
             super.setSpriteDef(Sprites.worms.falling);
         }
 
@@ -230,9 +226,7 @@ class Worm extends Sprite
         if (this.spriteDef != Sprites.worms.walking)
         {
             super.update();
-
         }
-
 
     }
 
@@ -248,9 +242,6 @@ class Worm extends Sprite
             Physics.metersToPixels(this.body.GetPosition().y) - radius * 1.1
         )
 
-        //ctx.rotate(this.body.GetAngle())
-
-
         ctx.save()
         if (this.direction == this.DIRECTION.right)
         {
@@ -258,13 +249,11 @@ class Worm extends Sprite
             ctx.scale(-1, 1);
         }
 
-
         super.draw(ctx,
             -radius,
             -radius);
 
         ctx.restore()
-
 
         // ctx.fillStyle = '#1A1110';
         // ctx.strokeStyle = "#eee";

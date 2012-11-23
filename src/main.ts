@@ -1,3 +1,13 @@
+/**
+ *  
+ * Worms Armageddon HTML5 Clone 
+ *
+ * Main entry piont
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="Game.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="gui/StartMenu.ts" />

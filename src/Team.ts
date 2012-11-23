@@ -1,8 +1,18 @@
+/**
+ * Team
+ * This manages all the worms a player controls and it also stores the weapons 
+ * manager which controls what weapons a player has at there disposal.
+ * It is also reponsibale for updating and drawing all the worms
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="weapons/WeaponManager.ts"/>
 
-// This mamnages all the worms for a said player
+
 class Team
 {
     worms: Worm[];
@@ -19,7 +29,7 @@ class Team
         this.worms = [];
         for (var i = 0; i < 2; i++)
         {
-            this.worms.push(new Worm(this, Utilies.random(200,1300) , -2));
+            this.worms.push(new Worm(this, Utilies.random(200, 1300), -2));
         }
     }
 
@@ -55,7 +65,7 @@ class Team
         {
             this.worms[i].draw(ctx);
         }
-        
+
     }
 
 

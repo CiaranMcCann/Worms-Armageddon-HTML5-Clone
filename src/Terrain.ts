@@ -23,8 +23,8 @@ class Terrain
     groundbodiesList;
     terrainData;
 
-
-    deformTerrainBatchList = []; //Used to batch the deforms to one draw and one box2d regen
+    //Used to batch the deforms to one draw and one box2d regen
+    deformTerrainBatchList = []; 
 
     TERRAIN_RECT_HEIGHT: number;
 
@@ -34,7 +34,10 @@ class Terrain
 
         this.world = world;
         this.scale = scale;
-        this.groundbodiesList = []; //Used to easly delete all the ground bodies
+
+        //Used to easly delete all the ground bodies
+        this.groundbodiesList = []; 
+
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
 
