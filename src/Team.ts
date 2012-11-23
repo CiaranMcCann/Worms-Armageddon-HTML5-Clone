@@ -25,6 +25,9 @@ class Team
     {
         //Random color - Credit Paul Irish
         this.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+        this.weaponManager = new WeaponManager();
+
         this.currentWorm = 0;
         this.worms = [];
         for (var i = 0; i < 2; i++)

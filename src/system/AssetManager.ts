@@ -20,7 +20,8 @@ module AssetManager
     // no need for the full url or the extenision
     var priorityImages = [
          'data/images/levels/level2.png',
-         Settings.REMOTE_ASSERT_SERVER + '/data/images/bananabomb.png'
+         Settings.REMOTE_ASSERT_SERVER + '/data/images/bananabomb.png',
+         Settings.REMOTE_ASSERT_SERVER + '/data/images/weaponicons/hgrenade.png'
 
     ];
 

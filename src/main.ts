@@ -11,7 +11,7 @@
 ///<reference path="Game.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="gui/StartMenu.ts" />
-
+var GameInstance: Game;
 $(document).ready(function () => {
 
     Settings.getSettingsFromUrl();
@@ -25,16 +25,16 @@ $(document).ready(function () => {
             // Once we the names from wikiepa then we can create the game
             NameGenerator.init(function ()
             {
-                var game = new Game();
+                GameInstance = new Game();
 
                 startMenu.onGameReady(function ()
                 {
                     function gameloop()
                     {
                         Graphics.stats.update();
-                        game.step();
-                        game.update();
-                        game.draw();
+                        GameInstance.step();
+                        GameInstance.update();
+                        GameInstance.draw();
                         window.requestAnimationFrame(gameloop);
                     }
                     gameloop();

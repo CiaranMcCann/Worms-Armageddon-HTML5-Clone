@@ -34,7 +34,7 @@ module Settings
 
         if (argv[commands[2]] == "true")
         {
-           var testWindow = window.open('test.html', 'name', 'height=1000,width=700,top:100%');
+           var testWindow = window.open('test.html', '|UnitTests', 'height=1000,width=700,top:100%');
            testWindow.location.reload(); // This is so if the window was left open it refreshs
             
         }

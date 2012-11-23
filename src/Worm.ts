@@ -12,7 +12,7 @@
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
 ///<reference path="animation/Sprite.ts"/>
-///<reference path="tools/Drill.ts"/>
+///<reference path="weapons/Drill.ts"/>
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts" />
 ///<reference path="system/NameGenerator.ts" />

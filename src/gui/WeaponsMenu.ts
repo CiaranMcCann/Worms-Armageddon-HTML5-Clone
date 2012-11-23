@@ -8,18 +8,22 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
+///<reference path="../Main.ts"/>
+///<reference path="../Game.ts"/>
+///<reference path="../system/AssetManager.ts"/>
 class WeaponsMenu
 {
     htmlElement;
     isVisable;
     lastPlayer;
+    cssId;
 
     constructor ()
     {
-        var cssId = "weaponsMenu";
+        this.cssId = "weaponsMenu";
 
-        $('body').append("<div id=" + cssId + "></div>");
-        this.htmlElement = $("#" + cssId);
+        $('body').append("<div id=" + this.cssId + "></div>");
+        this.htmlElement = $("#" + this.cssId);
 
         var _this = this;
         $(window).keypress(function (event)
@@ -32,28 +36,43 @@ class WeaponsMenu
 
         this.isVisable = false;
         this.lastPlayer = -1;
+
+    }
+
+    selectWeapon(weaponId) 
+    {
+        var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
+
+        //Checks if the weapon has ammo to provide the html been hacked and a weaponid passed that doesn't have ammo
+        if (weaponMgmt.checkWeaponHasAmmo(weaponId))
+        {
+            weaponMgmt.setCurrentWeapon(weaponId);
+        }
+
     }
 
     toggle()
     {
         // If its still same players go no need to repopluate menu
-        if (this.lastPlayer == Game.currentPlayer)
+        if (this.lastPlayer == GameInstance.currentPlayerIndex)
         {
             // do nothing
         } else
         {
             // populate
+            var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
 
-            //TODO demo code
-            var tmp = [];
-            for (var i = 0; i < 8 * 4; i++)
-            {
-                tmp.push({ img: "data/img/bananabomb.png", name: "bannan", ammo: Utilies.random(0, 10) });
-            }
+            ////TODO demo code
+            //var tmp = [];
+            //for (var i = 0; i < 8 * 4; i++)
+            //{
+            //    tmp.push({ img: Settings.REMOTE_ASSERT_SERVER + "data/images/bananabomb.png", name: "bannan", ammo: Utilies.random(0, 2) });
+            //}
 
-            this.populateMenu(tmp);
+            
+            this.populateMenu(weaponMgmt.getListOfWeapons());
 
-            this.lastPlayer = Game.currentPlayer;
+            this.lastPlayer = GameInstance.currentPlayerIndex;
         }
 
 
@@ -76,22 +95,32 @@ class WeaponsMenu
     }
 
     //Fills the menu up with the various weapon items
-    populateMenu(listOfWeapons)
+    populateMenu(listOfWeapons : BaseWeapon[])
     {
         var html = "<ul class = \"thumbnails\" >"
 
         for (var weapon in listOfWeapons)
         {
-            var currentWeapon = listOfWeapons[weapon];
+            var currentWeapon :BaseWeapon = listOfWeapons[weapon];
+            var cssClassType = "ammo";
 
             html += "<li class=span1>";
-            html += "<a class=\"thumbnail\" value=" + currentWeapon.name + "><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.img + " alt=" + currentWeapon.name + "></a>";
+            if (currentWeapon.ammo <= 0)
+            {
+                cssClassType = "noAmmo";
+            }
+            html += "<a  class=\"thumbnail "  +  cssClassType + "\" value=" + currentWeapon.name + " id=" + weapon +"><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImageUrl + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }
         html += "</ul>";
 
         this.htmlElement.empty();
         this.htmlElement.append(html);
+
+        var _this = this;
+        $("#" +this.cssId + " a").click(function (){
+            _this.selectWeapon( parseInt( $(this).attr('id') ) );
+        });
 
     }
 

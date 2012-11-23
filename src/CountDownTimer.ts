@@ -7,6 +7,7 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
+///<reference path="Main.ts"/>
 ///<reference path="Game.ts"/>
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
@@ -56,13 +57,13 @@ class CountDownTimer
 
             if (this.timer.hasTimePeriodPassed())
             {
-                if (Game.currentPlayer + 1 == players.length)
+                if (GameInstance.currentPlayerIndex + 1 == players.length)
                 {
-                    Game.currentPlayer = 0;
+                    GameInstance.currentPlayerIndex = 0;
                 }
                 else
                 {
-                    Game.currentPlayer++;
+                    GameInstance.currentPlayerIndex++;
                 }
             }
         }

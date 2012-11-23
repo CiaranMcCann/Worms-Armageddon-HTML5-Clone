@@ -152,19 +152,19 @@
     <Content Include="src\Terrain.min.js">
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\tools\Drill.ts" />
+    <TypeScriptCompile Include="src\weapons\Drill.ts" />
     <TypeScriptCompile Include="src\tests\TimerTest.ts" />
     <Content Include="src\tests\TimerTest.min.js">
       <DependentUpon>TimerTest.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Drill.js">
+      <DependentUpon>Drill.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
     <Content Include="src\tests\TimerTest.js">
       <DependentUpon>TimerTest.ts</DependentUpon>
     </Content>
-    <Content Include="src\tools\Drill.js">
-      <DependentUpon>Drill.ts</DependentUpon>
-    </Content>
-    <Content Include="src\tools\Drill.min.js">
+    <Content Include="src\weapons\Drill.min.js">
       <DependentUpon>Drill.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\BaseWeapon.ts" />
@@ -215,9 +215,6 @@
     </Content>
     <Content Include="src\Worm.js.map">
       <DependentUpon>Worm.ts</DependentUpon>
-    </Content>
-    <Content Include="src\tools\Drill.js.map">
-      <DependentUpon>Drill.ts</DependentUpon>
     </Content>
     <Content Include="src\system\Graphics.js.map">
       <DependentUpon>Graphics.ts</DependentUpon>

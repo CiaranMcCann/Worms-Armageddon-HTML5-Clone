@@ -22,14 +22,13 @@
 
 class Game
 {
-
     terrainCanvas;
     terrainCanvasContext;
 
     actionCanvas;
     actionCanvasContext;
 
-    terrain;
+    terrain : Terrain;
     weapons;
     players: Player[];
 
@@ -37,16 +36,15 @@ class Game
 
     gameTimer: CountDownTimer;
 
-    static soundOn;
-    static currentPlayer;
-    static terrain: Terrain;
+    soundOn : bool;
+    currentPlayerIndex : number;
 
     constructor ()
     {
         Graphics.init();
 
-        Game.soundOn = true;
-        Game.currentPlayer = 0;
+        this.soundOn = true;
+        this.currentPlayerIndex = 0;
 
 
         this.weaponMenu = new WeaponsMenu();
@@ -63,9 +61,6 @@ class Game
 
         Physics.init(this.terrainCanvasContext);
         this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["level2"], Physics.world, Physics.worldScale);
-
-        // Allows the terrain to be accessed any where
-        Game.terrain = this.terrain; 
 
         window.addEventListener("click", function (evt: any) =>
         {
@@ -92,6 +87,10 @@ class Game
 
     }
 
+    getCurrentPlayerObject()
+    {
+        return this.players[this.currentPlayerIndex];
+    }
 
     update()
     {
@@ -99,7 +98,7 @@ class Game
          for (var w in this.weapons) {
              this.weapons[w].update();
         }
-        this.players[Game.currentPlayer].update();
+        this.getCurrentPlayerObject().update();
 
         for (var player in this.players)
         {

@@ -25,11 +25,11 @@ class ThrowableWeapon extends BaseWeapon
     timeToLive;
     isActive;
 
-    constructor (image)
+    constructor ()
     {
-        super("Throwable", 1);
+        super("hgrenade", 1);
         this.isActive = false;
-        this.image = image;
+        this.image = AssetManager.images["hgrenade"];
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(50);

@@ -104,6 +104,25 @@
     padding-right: 2px;
 }
 
+#weaponsMenu .thumbnail:active{
+    transform: scale(0.7,0.7);
+-ms-transform: scale(0.7,0.7); /* IE 9 */
+-webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
+-o-transform: scale(0.7,0.7); /* Opera */
+-moz-transform: scale(0.7,0.7); /* Firefox */
+}
+
+    #weaponsMenu .noAmmo {
+        -moz-opacity: 0.2;
+        opacity: 0.2;
+    }
+
+   a.noAmmo:hover{
+        border-color: none;
+
+   }
+
+
 .span1 {
     width: auto;
 }

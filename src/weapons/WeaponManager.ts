@@ -25,7 +25,7 @@ class WeaponManager
         this.weaponsAndTools = 
         [
             new Drill(),
-            new ThrowableWeapon(AssetManager.images["bananabomb"])
+            new ThrowableWeapon()
         ];
 
     }
