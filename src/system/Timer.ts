@@ -1,5 +1,12 @@
-//Handy Timer class, as I use timelapse alot thoughout
-// the codebase and window.SetTimeOut() isn't as fexible as I would like
+/**
+ * Timer.js
+ * Handy Timer class, as I use timelapses alot thoughout
+ * the codebase and window.SetTimeOut() isn't as fexible as I would like
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 class Timer
 {
     timeSinceLastUpdate;
@@ -7,7 +14,7 @@ class Timer
     timePeriod;
     isTimerPaused;
 
-    constructor(timePeriod)
+    constructor (timePeriod)
     {
         this.delta = 0;
         this.timePeriod = timePeriod;

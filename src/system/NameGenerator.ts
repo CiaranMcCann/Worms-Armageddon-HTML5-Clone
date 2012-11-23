@@ -1,6 +1,12 @@
+/**
+ * NameGenerator.js
+ * The name generator gets a list of famous programmers from wikipeda and randomly assigns them to worms
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="Utilies.ts" />
-
-// The name generator gets a list of famous programmers from wikipeda and randomly assigns them to worms
 module NameGenerator
 {
 
@@ -16,13 +22,13 @@ module NameGenerator
             dataType: 'jsonp',
             success: function (data) =>
             {
-                randomNamesList = JSON.stringify(data).match(new RegExp("\\*\\[\\[[A-Z,a-z, ]+]]","g") )
-                
+                randomNamesList = JSON.stringify(data).match(new RegExp("\\*\\[\\[[A-Z,a-z, ]+]]", "g"))
+
                 for (var name in randomNamesList)
                 {
                     randomNamesList[name] = randomNamesList[name].replace("*", "");
-                    randomNamesList[name] = randomNamesList[name].replace(/\[/g,"")
-                    randomNamesList[name] = randomNamesList[name].replace(/]/g, "");                   
+                    randomNamesList[name] = randomNamesList[name].replace(/\[/g, "")
+                    randomNamesList[name] = randomNamesList[name].replace(/]/g, "");
                 }
                 callback();
             }

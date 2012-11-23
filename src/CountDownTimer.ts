@@ -32,6 +32,7 @@ class CountDownTimer
         this.timer.update();
         var timeLeft = Math.floor(this.timer.getTimeLeft() / 1000);
 
+        // Dont update the HTML element while 
         if (timeLeft != this.previousSecound)
         {
             if (timeLeft == 5)

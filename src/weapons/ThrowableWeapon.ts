@@ -1,9 +1,19 @@
+/**
+ * ThrowableWeapon.js
+ * This is a base type of weapon which is thrown like a generade 
+ * it lands and generally explodes after a set time. 
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="../system/Graphics.ts"/>
 ///<reference path="../system/AssetManager.ts"/>
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../Terrain.ts"/>
 
-class ThrowableWeapon {
+class ThrowableWeapon
+{
 
     body;
     fixture;
@@ -14,7 +24,8 @@ class ThrowableWeapon {
     timeToLive;
     terrainRef;
 
-    constructor (x, y, initalVelocity, image,terrainRef: Terrain) {
+    constructor (x, y, initalVelocity, image, terrainRef: Terrain)
+    {
 
         this.image = image;
         this.terrainRef = terrainRef;
@@ -47,24 +58,30 @@ class ThrowableWeapon {
         this.body.SetLinearVelocity(initalVelocity);
     }
 
-    isLive() {
-        if (this.timeToLive < 0) {
+    isLive()
+    {
+        if (this.timeToLive < 0)
+        {
             return true;
         }
-        else {
+        else
+        {
             return false;
         }
     }
 
-    update() {
+    update()
+    {
 
         // Decrements the timers on the bomb
-        if (this.detonationCounter > 0) {
+        if (this.detonationCounter > 0)
+        {
             this.detonationCounter -= 1 / 60;
         }
 
         //Checks if its time for the bomb to explode
-        if (this.detonationCounter <= 1 && this.timeToLive > 0) {
+        if (this.detonationCounter <= 1 && this.timeToLive > 0)
+        {
 
             this.terrainRef.addToDeformBatch(
                this.body.GetPosition().x * Physics.worldScale,
@@ -76,12 +93,13 @@ class ThrowableWeapon {
             var aabb = new b2AABB();
             aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
             aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
-            
+
             AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
 
             var count: Number = Physics.world.QueryAABB(function (fixture) =>
             {
-                if (fixture.GetBody().GetType() != b2Body.b2_staticBody) {
+                if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
+                {
 
                     var direction = fixture.GetBody().GetPosition().Copy();
                     direction.Subtract(this.body.GetPosition());
@@ -98,9 +116,11 @@ class ThrowableWeapon {
         }
     }
 
-    draw(ctx) {
+    draw(ctx)
+    {
 
-        if (this.timeToLive > 0) {
+        if (this.timeToLive > 0)
+        {
             ctx.save()
 
             ctx.translate(

@@ -1,10 +1,23 @@
+/**
+ * AssetManager.js
+ * This manages the loading of image and sound assets. 
+ * The loaded images and sounds are then acessable from any where by the following. 
+ * AssetManager.images["myImageName"] no need for the full url or the extenision
+ * 
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="../audio/Sound.ts"/>
 declare var BufferLoader;
 
 module AssetManager
 {
 
-
+    // Placing an image url in the below array
+    // will make sure its is loaded before the game starts.
+    // you can then acess the image by AssetManager.images["placeHolderImage"]
+    // no need for the full url or the extenision
     var priorityImages = [
          'data/images/levels/level2.png',
          Settings.REMOTE_ASSERT_SERVER + '/data/images/bananabomb.png'

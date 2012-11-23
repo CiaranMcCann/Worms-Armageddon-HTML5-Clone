@@ -1,7 +1,16 @@
+/**
+ * Sound.js
+ * This wraps the Web audio api. When a sound file is loaded 
+ * one of these is created using the sound buffer. It allows for a 
+ * cleaner and simple api for doing basic things like playing sound, controling volume etc
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="../system/Utilies.ts"/>
-declare var webkitAudioContext;
+declare var webkitAudioContext; //TODO implement support for other browsers
 
-// Sound object
 class Sound
 {
     static context = new webkitAudioContext();

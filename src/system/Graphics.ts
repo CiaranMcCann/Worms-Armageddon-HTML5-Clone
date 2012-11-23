@@ -1,10 +1,18 @@
+/**
+ * Graphics.js
+ * Graphics namespace provides helper functions for creating a canvas 
+ * it also setup the request animation frame shim and the stats.js fps counter
+ * 
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 declare var Stats;
 
 module Graphics
 {
 
     export var stats;
-
     export function init()
     {
 
@@ -20,7 +28,11 @@ module Graphics
         // requestAnim shim layer by Paul Irish
         window.requestAnimationFrame = (function ()
         {
-            return window.requestAnimationFrame || (<any>window).webkitRequestAnimationFrame || (<any>window).mozRequestAnimationFrame || (<any>window).oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            return window.requestAnimationFrame || 
+                (<any>window).webkitRequestAnimationFrame || 
+                (<any>window).mozRequestAnimationFrame || 
+                (<any>window).oRequestAnimationFrame || 
+                window.msRequestAnimationFrame ||
             function ( /* function */ callback, /* DOMElement */ element)
             {
                 window.setTimeout(callback, 1000 / 60);
@@ -57,6 +69,7 @@ module Graphics
         window.document.body.appendChild(canvas);
 
         window.onload = window.onresize = function () => {
+            //TODO somthing about this
             // canvas.width = window.innerWidth;
             // canvas.height = window.innerHeight;
         };

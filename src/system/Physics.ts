@@ -1,6 +1,6 @@
 /**
  * Physics
- * This namespace wholes the physics world and scale. It provides helper convert methods
+ * This namespace holes the box2d physics world and scale. It provides helper convert methods
  * to increase codebase readablity. It also mangaes the global box2d contactlistner.
  *
  *  License: Apache 2.0

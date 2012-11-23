@@ -1,13 +1,24 @@
-interface SpriteDef
+/**
+ * Sprite.js
+ * This is encpluates the rendering of animated sprites and also 
+ * contains all the various sprites which can be applied to a object.
+ * 
+ * Sprite is a base class for game enities like the Worms. 
+ *
+ * SpriteDefinitions can be ascced and set from any where like the following
+ * mySpriteObj.setSpriteDef(Sprites.worms.walking);
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
+interface SpriteDefinition
 {
-
     imageName: string;
     frameY: number;
     frameCount: number;
     msPerFrame: number;
-
 }
-
 
 module Sprites
 {
@@ -68,14 +79,14 @@ module Sprites
 class Sprite
 {
 
-    spriteDef: SpriteDef;
+    spriteDef: SpriteDefinition;
     currentFrameY: number;
 
     lastUpdateTime;
     accumulateDelta;
     isSpriteLocked;
 
-    constructor (spriteDef: SpriteDef)
+    constructor (spriteDef: SpriteDefinition)
     {
 
         this.spriteDef = spriteDef;
@@ -119,7 +130,7 @@ class Sprite
                0, this.currentFrameY * frameHeight, img.width, frameHeight,
                x,
                y,
-              img.width, 
+              img.width,
               frameHeight
         );
     }
@@ -139,8 +150,8 @@ class Sprite
         return this.spriteDef.frameCount;
     }
 
-    setSpriteDef(spriteDef: SpriteDef, lockSprite = false)
-    {   
+    setSpriteDef(spriteDef: SpriteDefinition, lockSprite = false)
+    {
 
         if (spriteDef != this.spriteDef)
         {
@@ -150,7 +161,7 @@ class Sprite
                 //Logger.debug("SpriteDef " + this.spriteDef.imageName + " LockSprite " + lockSprite);
                 this.currentFrameY = this.spriteDef.frameY;
                 this.isSpriteLocked = lockSprite;
-            }     
+            }
         }
 
         if (this.isSpriteLocked == true && this.spriteDef == spriteDef && lockSprite == false)
@@ -161,8 +172,3 @@ class Sprite
     }
 
 }
-
-
-
-
-

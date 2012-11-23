@@ -1,8 +1,18 @@
+/**
+ * Drill.js
+ * This class manages the Drill tool which the worm
+ * can use to drill down into the terrain and also hurt other worms.
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../system/Utilies.ts" />
 ///<reference path="../Worm.ts" />
 ///<reference path="../animation/Sprite.ts"/>
 ///<reference path="../system/Timer.ts"/>
+///<reference path="../Game.ts"/>
 
 class Drill
 {

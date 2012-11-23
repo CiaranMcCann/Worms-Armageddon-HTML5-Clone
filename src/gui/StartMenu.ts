@@ -1,8 +1,15 @@
+/**
+ * StartMenu.js
+ * This is the first menu the user interacts with
+ * allows them to start the game and shows them the controls.
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="../Settings.ts" />
 declare var $;
 
-//This is the first menu the user interacts with
-// allows them to start the game and shows them the controls.
 class StartMenu
 {
     controlsView;
