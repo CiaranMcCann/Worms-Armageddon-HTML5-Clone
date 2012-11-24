@@ -24,6 +24,7 @@ class StartMenu
             ' <kbd>E</kbd> - Weapon Menu. </p>' +
             ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
+
     }
 
     onGameReady(callback)

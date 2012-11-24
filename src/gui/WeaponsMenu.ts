@@ -33,8 +33,15 @@ class WeaponsMenu
             }
         });
 
-        //Disable context menu so I can use right click for game controls
-        //$(window).on
+        $('body').mousedown(function (event) =>
+        {
+            if (event.which == 3)
+            {
+                this.toggle();
+            }
+        });
+        
+
         this.isVisable = false;
     }
 
@@ -84,12 +91,12 @@ class WeaponsMenu
             var currentWeapon: BaseWeapon = listOfWeapons[weapon];
             var cssClassType = "ammo";
 
-            html += "<li class=span1>";
+            html += "<li class=span1 id=" + weapon + ">";
             if (currentWeapon.ammo <= 0)
             {
                 cssClassType = "noAmmo";
             }
-            html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " id=" + weapon + "><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
+            html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " ><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }
         html += "</ul>";
@@ -98,7 +105,7 @@ class WeaponsMenu
         this.htmlElement.append(html);
 
         var _this = this;
-        $("#" + this.cssId + " a").click(function ()
+        $("#" + this.cssId + " .span1").click(function ()
         {
             _this.selectWeapon(parseInt($(this).attr('id')));
             _this.toggle();

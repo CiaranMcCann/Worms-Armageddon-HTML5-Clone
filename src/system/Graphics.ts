@@ -68,7 +68,12 @@ module Graphics
         canvas.style.top = "0px";
         window.document.body.appendChild(canvas);
 
-        window.onload = window.onresize = function () => {
+        //Disable context menu so I can use right click for game controls
+         $('body').on('contextmenu', "#"+name, function (e){ 
+            return false;
+        });
+
+        window.onresize = function () => {
             //TODO somthing about this
             // canvas.width = window.innerWidth;
             // canvas.height = window.innerHeight;

@@ -97,7 +97,7 @@ display: none;
     height: 500px;
     margin-top: -500px;
     z-index: 1;
-    background: #EEE;
+    background: #eee;
     border: 2px solid black;
     padding: 10px;
     padding-left: 2px;
@@ -113,8 +113,8 @@ display: none;
 }
 
     #weaponsMenu .noAmmo {
-        -moz-opacity: 0.2;
-        opacity: 0.2;
+        -moz-opacity: 0.4;
+        opacity: 0.4;
     }
 
    a.noAmmo:hover{
@@ -127,13 +127,17 @@ display: none;
     width: auto;
 }
 
+a.thumbnail.ammo{
+    background:black;
+} 
+
 .ammoCount {
     position: absolute;
     font-size: 9px;
     margin-left: 23px;
     margin-top: -5px;
     font-weight: bold;
-    color: black;
+    color: white;
 }
 
 #turnTimeCounter {
