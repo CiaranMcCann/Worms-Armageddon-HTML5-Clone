@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Worms HTML5</title>
+    <title>FYP</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/custom.css" type="text/css" />
 
@@ -68,9 +68,16 @@
                 for these and making such an awesome game in the first place. This recreation is brought to you by <a href="http://www.ciaranmccann.me/">Ciarán McCann</a>
             </p>
             <br />
-            <p style="text-align: center"><a class="btn btn-primary btn-large" id="startLocal">Start local two player</a><a class="btn btn-primary btn-large" id="startOnline">Start online multiplayer</a></p>
+
+            <p style="text-align: center">
+            
+             <a class="btn btn-primary btn-large" id="startTutorial">Noobs tutorial</a>
+             <a class="btn btn-primary btn-large" id="startLocal">Local two player</a>
+             <a class="btn btn-primary btn-large" id="startOnline">Online multiplayer</a></p>
+          
+            
             <br />
-            <ul class="breadcrumb" style="margin-bottom: 5px; background: none; display: none">
+            <ul class="breadcrumb" style="margin-bottom: 5px; background: none; margin-top: 20px;text-align: center;margin-left: 80px;">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" url="https://dev.twitter.com" data-lang="en">Tweet</a>
                 <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="300"></div>
 
@@ -84,15 +91,15 @@
 <div id="fb-root"></div>
 <script>
     //Twiiter
-    //!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
 
-    ////G+
-    //(function ()
-    //{
-    //    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    //    po.src = 'https://apis.google.com/js/plusone.js';
-    //    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    //})();
+    //G+
+    (function ()
+    {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
 
 </script>
 

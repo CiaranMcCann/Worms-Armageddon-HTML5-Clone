@@ -67,21 +67,21 @@
 }
 
 #startMenu {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -360px;
-    margin-top: -275px;
-    width: 600px;
-    height: 430px;
-    z-index: 1;
-    display: none;
+position: absolute;
+left: 50%;
+top: 50%;
+margin-left: -360px;
+margin-top: -280px;
+width: 600px;
+height: 450px;
+z-index: 1;
+display: none;
 }
 
 
 .btn-large {
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .thumbnails {
@@ -151,4 +151,14 @@
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
     -webkit-box-align: center;
+}
+
+kbd {
+    white-space: nowrap;
+    color: black;
+    background: #EEE;
+    border-style: solid;
+    border-color: #CCC #AAA #888 #BBB;
+    padding: 2px 4px;
+    border-width: 1px 3px 3px 1px;
 }

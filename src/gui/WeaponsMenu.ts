@@ -99,6 +99,7 @@ class WeaponsMenu
         $("#" + this.cssId + " a").click(function ()
         {
             _this.selectWeapon(parseInt($(this).attr('id')));
+            _this.toggle();
         });
 
     }

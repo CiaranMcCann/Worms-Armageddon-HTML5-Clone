@@ -18,9 +18,12 @@ class StartMenu
     constructor ()
     {
         this.menuActive = !Settings.DEVELOPMENT_MODE;
-        this.controlsView = '<h1 style="text-align: center">Controls</h1><p><p><br>' +
-            '<img src="data/images/menu/xbox360controls.png"><p><p><br />' +
-            '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a>';
+        this.controlsView = '<div style="text-align:center">' +
+            '<img style="width:80%" src="data/images/menu/xbox360controls.png"> <h2>Or</h2>' +
+            '<p><kbd>W</kbd> <kbd>A</kbd> <kbd>D</kbd> - Jump, Left, Right. <br> ' +
+            ' <kbd>E</kbd> - Weapon Menu. </p>' +
+            ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br><br>' +
+            '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
     }
 
     onGameReady(callback)
