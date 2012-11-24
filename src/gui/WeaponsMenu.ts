@@ -33,6 +33,8 @@ class WeaponsMenu
             }
         });
 
+        //Disable context menu so I can use right click for game controls
+        //$(window).on
         this.isVisable = false;
     }
 

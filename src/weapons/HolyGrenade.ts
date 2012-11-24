@@ -13,7 +13,7 @@ class HolyGrenade extends ThrowableWeapon
     {
         super(
             "Holy Grenade", // Weapon name
-            1, // ammo
+            5, // ammo
             Sprites.weaponIcons.holyGernade, //Icon for menu
             Sprites.weapons.holyGernade //Inital weapon object state
         );

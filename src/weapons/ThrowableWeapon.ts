@@ -20,13 +20,13 @@ class ThrowableWeapon extends BaseWeapon
 {
 
     body;
-    fixture; 
+    fixture;
     detonationCounter;
     effectedRadius;
     explosiveForce;
     sprite: Sprite;
 
-    constructor (name,ammo,iconSpriteDef, weaponSpriteDef : SpriteDefinition)
+    constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition)
     {
         super(
             name,
@@ -40,20 +40,28 @@ class ThrowableWeapon extends BaseWeapon
         this.effectedRadius = Physics.pixelToMeters(50);
 
         // force scaler
-        this.explosiveForce = 15
+        this.explosiveForce = 150
+
+        // set default values
+        this.reset();
+    }
+
+    reset()
+    {
+
+        Logger.debug(this + " was deactivated ");
+        this.setIsActive(false);
 
         // Counter till bomb explodes
         this.detonationCounter = 6;
-
-
         this.timeToLive = 1000;
 
     }
 
-    setupPhysicsBodies(initalPosition,initalVelocity)
+    setupPhysicsBodies(initalPosition, initalVelocity)
     {
-           // Setup of physical body
-    
+        // Setup of physical body
+
         var image = this.sprite.getImage();
 
         var fixDef = new b2FixtureDef;
@@ -85,7 +93,7 @@ class ThrowableWeapon extends BaseWeapon
         }
     }
 
-    activate( worm )
+    activate(worm)
     {
         super.activate(worm);
 
@@ -117,33 +125,16 @@ class ThrowableWeapon extends BaseWeapon
 
                 this.timeToLive = -1;
 
-                var aabb = new b2AABB();
-                aabb.lowerBound.Set(this.body.GetPosition().x - this.effectedRadius, this.body.GetPosition().y - this.effectedRadius);
-                aabb.upperBound.Set(this.body.GetPosition().x + this.effectedRadius, this.body.GetPosition().y + this.effectedRadius);
-
+                Physics.applyForceToNearByObjects(this.body.GetPosition(), this.effectedRadius, this.explosiveForce);
                 AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
 
-                var count: Number = Physics.world.QueryAABB(function (fixture) =>
-                {
-                    if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
-                    {
-
-                        var direction = fixture.GetBody().GetPosition().Copy();
-                        direction.Subtract(this.body.GetPosition());
-                        direction.Normalize();
-                        direction.Multiply(this.explosiveForce);
-                        fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
-                        this.detivate();
-                    }
-
-                    return true;
-                }, aabb);
-
                 //The bomb has exploded so remove it from the world
+                this.reset();
                 Physics.world.DestroyBody(this.body);
             }
         }
     }
+
 
     draw(ctx)
     {
@@ -161,9 +152,9 @@ class ThrowableWeapon extends BaseWeapon
 
             var radius = this.fixture.GetShape().GetRadius() * 2 * Physics.worldScale;
 
-             this.sprite.draw(ctx,
-            -radius,
-            -radius);
+            this.sprite.draw(ctx,
+           -radius,
+           -radius);
 
             ctx.restore()
 

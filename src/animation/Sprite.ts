@@ -26,27 +26,26 @@ class Sprite
 
     update()
     {
-        if (this.spriteDef.msPerFrame > 0) // Non-animated sprites have -1 
+
+        var delta = Date.now() - this.lastUpdateTime;
+
+        if (this.accumulateDelta > this.spriteDef.msPerFrame)
         {
-            var delta = Date.now() - this.lastUpdateTime;
+            this.accumulateDelta = 0;
+            this.currentFrameY++;
 
-            if (this.accumulateDelta > this.spriteDef.msPerFrame)
+            if (this.currentFrameY >= this.spriteDef.frameCount)
             {
-                this.accumulateDelta = 0;
-                this.currentFrameY++;
-
-                if (this.currentFrameY >= this.spriteDef.frameCount)
-                {
-                    this.currentFrameY = this.spriteDef.frameY; //reset to start
-                }
-
-            } else
-            {
-                this.accumulateDelta += delta;
+                this.currentFrameY = this.spriteDef.frameY; //reset to start
             }
 
-            this.lastUpdateTime = Date.now();
+        } else
+        {
+            this.accumulateDelta += delta;
         }
+
+        this.lastUpdateTime = Date.now();
+
 
     }
 
@@ -63,11 +62,6 @@ class Sprite
               img.width,
               frameHeight
         );
-    }
-
-    sync()
-    {
-        return this.accumulateDelta > this.spriteDef.msPerFrame;
     }
 
     getImage()

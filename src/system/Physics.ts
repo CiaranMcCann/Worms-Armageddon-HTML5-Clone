@@ -108,6 +108,28 @@ module Physics
         }
     }
 
+    export function applyForceToNearByObjects(epicenter,effectedRadius,force)
+    {
+        var aabb = new b2AABB();
+        aabb.lowerBound.Set(epicenter.x - effectedRadius, epicenter.y - effectedRadius);
+        aabb.upperBound.Set(epicenter.x + effectedRadius, epicenter.y + effectedRadius);
+
+        Physics.world.QueryAABB(function (fixture) =>
+        {
+            if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
+            {
+
+                var direction = fixture.GetBody().GetPosition().Copy();
+                direction.Subtract(epicenter);
+                direction.Normalize();
+                direction.Multiply(force);
+                fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());        
+            }
+
+            return true;
+        }, aabb);
+    }
+
     //Converts pixels to physic world measurement
     export function pixelToMeters(pixels: number)
     {
