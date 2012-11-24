@@ -65,7 +65,7 @@ class StartMenu
              {
                  if (e.which == 13)
                  {
-                     $('#splashScreen').css({ opacity: '0.0' })
+                     $('#splashScreen').remove();
                      $('#startMenu').fadeOut('normal');
                      callback();
                  }
@@ -81,7 +81,7 @@ class StartMenu
             $('#startLocal').click(function =>
             {
                 $('#startLocal').unbind();
-                $('#splashScreen').css({ opacity: '0.0' })
+                $('#splashScreen').remove();
                 $('#startMenu').fadeOut('normal');
                 callback();
             })

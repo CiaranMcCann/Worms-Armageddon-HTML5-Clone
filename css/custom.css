@@ -119,7 +119,6 @@ display: none;
 
    a.noAmmo:hover{
         border-color: none;
-
    }
 
 
@@ -133,9 +132,9 @@ a.thumbnail.ammo{
 
 .ammoCount {
     position: absolute;
-    font-size: 9px;
-    margin-left: 23px;
-    margin-top: -5px;
+    font-size: 10.5px;
+    margin-left: 26px;
+    margin-top: -7px;
     font-weight: bold;
     color: white;
 }

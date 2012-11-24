@@ -62,30 +62,17 @@ class Game
         Physics.init(this.terrainCanvasContext);
         this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["level2"], Physics.world, Physics.worldScale);
 
-        window.addEventListener("click", function (evt: any) =>
-        {
-            this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
-
-        }, false);
-
         this.players = [];
         for (var i = 0; i < 2; i++)
         {
             this.players.push(new Player());
         }
 
-
-        //TODO Remove this first sprint demo code after
-        //this.weapons = [];
-        //for (var i = 0; i < 5; i++)
+        // window.addEventListener("click", function (evt: any) =>
         //{
-        //    this.weapons[i] = new HolyGrenade();
-        //}
+        //    this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
 
-        // for (var i = 2; i < 5; i++) {
-        //    this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
-        //}
-
+        //}, false);
     }
 
     getCurrentPlayerObject()
@@ -108,15 +95,10 @@ class Game
     update()
     {
 
-        //for (var w in this.weapons)
-        //{
-        //    this.weapons[w].update();
-        //}
         this.getCurrentPlayerObject().update();
 
         for (var player in this.players)
         {
-
             this.players[player].team.update();
         }
 
@@ -139,18 +121,11 @@ class Game
             Physics.world.DrawDebugData();
 
         //Physics.world.ClearForces();
-
     }
 
     draw()
     {
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
-
-        //var weaponsLenght = this.weapons.length;
-        //for (var i = 0; i < weaponsLenght; i++)
-        //{
-        //    this.weapons[i].draw(this.actionCanvasContext);
-        //}
 
         for (var player in this.players)
         {
