@@ -87,7 +87,7 @@ class WeaponsMenu
             {
                 cssClassType = "noAmmo";
             }
-            html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " id=" + weapon + "><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImageUrl + " alt=" + currentWeapon.name + "></a>";
+            html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " id=" + weapon + "><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }
         html += "</ul>";

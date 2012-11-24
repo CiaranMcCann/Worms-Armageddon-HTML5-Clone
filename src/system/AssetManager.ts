@@ -20,9 +20,6 @@ module AssetManager
     // no need for the full url or the extenision
     var priorityImages = [
          'data/images/levels/level2.png',
-         Settings.REMOTE_ASSERT_SERVER + '/data/images/bananabomb.png',
-         Settings.REMOTE_ASSERT_SERVER + '/data/images/weaponicons/hgrenade.png'
-
     ];
 
     var priorityAudio = [
@@ -54,22 +51,30 @@ module AssetManager
         for (var src in sources)
         {
             var name = sources[src].match("[a-z,A-Z,0-9]+[.]png")[0].replace(".png", "");
-            images[name] = new Image();
-            images[name].onload = function ()
+
+            if (images[name] == null)
             {
-                Logger.log(" Image " + this.src + " loaded sucessfully ");
-                if (++loadedImages >= numImages)
+                images[name] = new Image();
+                images[name].onload = function ()
                 {
-                    AssetManager.images = images;
-                    callback();
-                }
-            };
+                    Logger.log(" Image " + this.src + " loaded sucessfully ");
+                    if (++loadedImages >= numImages)
+                    {
+                        AssetManager.images = images;
+                        callback();
+                    }
+                };
+            } else
+            {
+                Logger.error("Image " + sources[src] + " has the same name as" + images[name].src);
+            }
+
             images[name].src = sources[src];
         }
 
     }
 
-    export function loadPriorityAssets(callback)
+    export function addSpritesDefToLoadList()
     {
         // Load all sprites
         for (var sprite in Sprites.worms)
@@ -77,6 +82,21 @@ module AssetManager
             priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.worms[sprite].imageName + ".png");
         }
 
+        for (var sprite in Sprites.weaponIcons)
+        {
+            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/weaponicons/" + Sprites.weaponIcons[sprite].imageName + ".png");
+        }
+
+        for (var sprite in Sprites.weapons)
+        {
+            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.weapons[sprite].imageName + ".png");
+        }
+
+    }
+
+    export function loadPriorityAssets(callback)
+    {
+        addSpritesDefToLoadList();
         loadImages(priorityImages, function ()
         {
             loadSounds(priorityAudio, callback);

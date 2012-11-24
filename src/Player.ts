@@ -9,14 +9,19 @@
  */
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
+///<reference path="system/Timer.ts"/>
 
 class Player
 {
     private team: Team;
+    private timer: Timer;
+    private hasPlayerFiredWeapon;
 
     constructor ()
     {
         this.team = new Team();
+        this.timer = new Timer(2000);
+        this.hasPlayerFiredWeapon = false;
     }
 
     getTeam()
@@ -43,10 +48,23 @@ class Player
             this.team.getCurrentWorm().walkRight();
         }
 
-        if (keyboard.isKeyDown(13))
+        if (keyboard.isKeyDown(13) && !this.hasPlayerFiredWeapon)
         {
+            this.hasPlayerFiredWeapon = true;
             this.team.getCurrentWorm().fire();
+
         }
+
+
+        //if (this.hasPlayerFiredWeapon)
+        //{
+        //    this.timer.update();
+        //}
+
+        //if (this.timer.hasTimePeriodPassed())
+        //{
+        //        GameInstance.nextPlayer();
+        //}
 
         //this.team.update();
       

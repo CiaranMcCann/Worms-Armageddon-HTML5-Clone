@@ -57,14 +57,7 @@ class CountDownTimer
 
             if (this.timer.hasTimePeriodPassed())
             {
-                if (GameInstance.currentPlayerIndex + 1 == players.length)
-                {
-                    GameInstance.currentPlayerIndex = 0;
-                }
-                else
-                {
-                    GameInstance.currentPlayerIndex++;
-                }
+                GameInstance.nextPlayer();
             }
         }
 

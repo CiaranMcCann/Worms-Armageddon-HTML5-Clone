@@ -119,7 +119,7 @@ class Worm extends Sprite
 
     walkLeft()
     {
-        if (this.team.getWeaponManager().getCurrentWeapon().isActive == false)
+        if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
         {
             var currentPos = this.body.GetPosition();
 
@@ -150,7 +150,7 @@ class Worm extends Sprite
 
     jump()
     {
-        if (this.team.getWeaponManager().getCurrentWeapon().isActive == false)
+        if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
         {
             if (this.canJump > 0)
             {
@@ -190,7 +190,7 @@ class Worm extends Sprite
 
     walkRight()
     {
-        if (this.team.getWeaponManager().getCurrentWeapon().isActive == false)
+        if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
         {
             var currentPos = this.body.GetPosition();
             this.direction = this.DIRECTION.right;
@@ -230,6 +230,7 @@ class Worm extends Sprite
 
     draw(ctx)
     {
+        this.team.getWeaponManager().getCurrentWeapon().draw(ctx);
 
         ctx.save()
 

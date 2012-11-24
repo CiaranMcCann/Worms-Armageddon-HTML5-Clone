@@ -12,7 +12,7 @@
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../animation/Sprite.ts"/>
 ///<reference path="../weapons/Drill.ts"/>
-///<reference path="../weapons/ThrowableWeapon.ts"/>
+///<reference path="../weapons/HolyGrenade.ts"/>
 
 class WeaponManager
 {
@@ -25,7 +25,7 @@ class WeaponManager
         this.weaponsAndTools = 
         [
             new Drill(),
-            new ThrowableWeapon()
+            new HolyGrenade()
         ];
 
         this.currentWeaponIndex = 0;

@@ -4,19 +4,45 @@ class BaseWeapon
 {
     ammo;
     name;
-    iconImageUrl;
-    isActive;
+    iconImage;
+    sprite: Sprite;
+    private isActive;
+    timeToLive;
+    worm;
 
-    constructor (name,ammo, iconImage = Settings.REMOTE_ASSERT_SERVER + "data/images/weaponicons/" + name.toLowerCase() + ".png")
+    constructor (name :string,ammo : number, iconSprite)
     {
-        this.ammo = ammo;
         this.name = name;
-        this.iconImageUrl = iconImage;
-        this.isActive = false;
+        this.ammo = ammo;
+        
+        this.timeToLive = 0;
+
+         //Setup the icon used in the weapon menu
+        this.iconImage = AssetManager.images[iconSprite.imageName];
+
+        this.setIsActive(false);
     }
 
+    getIsActive() { return this.isActive; }
+    setIsActive(val) { this.isActive = val; }
 
-    activate(worm) { };
+    detivate()
+    {
+        Logger.debug(this + " was deactivated ");
+        this.setIsActive(false);
+    }
+
+    activate(worm) 
+    {
+        this.setIsActive(true);
+        this.ammo--;
+        this.worm = worm;
+
+        Logger.debug(this + " was activated ");
+    };
+
+
     update() { }
     draw(ctx) { }
 }
+

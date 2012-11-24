@@ -19,15 +19,17 @@
 class Drill extends BaseWeapon
 {
     worm: Worm;
-    isActive;
-    ammo;
     timeBetweenExploisionsTimer: Timer;
     useDurationTimer: Timer;
 
     constructor ()
     {
-        super("Drill", 1);
-        this.isActive = false;
+        super(
+            "Drill", // Weapon name
+            1, // ammo
+            Sprites.weaponIcons.drill //Icon for menu
+        );
+
         this.timeBetweenExploisionsTimer = new Timer(200);
         this.useDurationTimer = new Timer(4000);
     }
@@ -35,38 +37,32 @@ class Drill extends BaseWeapon
 
     activate(worm: Worm)
     {
-        if (this.ammo > 0)
-        {
-            Logger.log("Actived");
-            this.worm = worm;
-            this.isActive = true;
-            this.useDurationTimer.reset();
-            this.timeBetweenExploisionsTimer.reset();
-            this.worm.setSpriteDef(Sprites.worms.drill, true);
+        super.activate(worm);
 
-            //Used up ammo
-            this.ammo--;
-
-            return true;
-        } else
+        if (this.ammo < 0)
         {
             // Was unable to active weapon due to no ammo
             // so most give the user some feedback
             return false;
         }
 
+        this.useDurationTimer.reset();
+        this.timeBetweenExploisionsTimer.reset();
+        this.worm.setSpriteDef(Sprites.worms.drilling, true);
+
+        return true;
     }
 
     update()
     {
-        if (this.isActive)
+        if (this.getIsActive())
         {
-            var ans = this.useDurationTimer.hasTimePeriodPassed();
-            if (ans)
+            var weaponUseDuration = this.useDurationTimer.hasTimePeriodPassed();
+            if (weaponUseDuration)
             {
-                this.isActive = false;
+                this.setIsActive(false);
                 Logger.debug(" deactivedate ");
-                this.worm.setSpriteDef(Sprites.worms.drill, false);
+                this.worm.setSpriteDef(Sprites.worms.drilling, false); //unlocks sprite
                 this.worm.setSpriteDef(Sprites.worms.lookAround);
             }
 

@@ -28,7 +28,7 @@ class Game
     actionCanvas;
     actionCanvasContext;
 
-    terrain : Terrain;
+    terrain: Terrain;
     weapons;
     players: Player[];
 
@@ -36,8 +36,8 @@ class Game
 
     gameTimer: CountDownTimer;
 
-    soundOn : bool;
-    currentPlayerIndex : number;
+    soundOn: bool;
+    currentPlayerIndex: number;
 
     constructor ()
     {
@@ -76,10 +76,11 @@ class Game
 
 
         //TODO Remove this first sprint demo code after
-        this.weapons = [];
-        for (var i = 0; i < 5; i++) {
-           this.weapons[i] = new ProjectileWeapon(Utilies.random(15,40), Utilies.random(-30,0), AssetManager.images["bananabomb"], this.terrain);
-        }
+        //this.weapons = [];
+        //for (var i = 0; i < 5; i++)
+        //{
+        //    this.weapons[i] = new HolyGrenade();
+        //}
 
         // for (var i = 2; i < 5; i++) {
         //    this.weapons[i] = new ThrowableWeapon(Utilies.random(10,40), Utilies.random(-10,2), AssetManager.images["bananabomb"], this.terrain);
@@ -92,12 +93,25 @@ class Game
         return this.players[this.currentPlayerIndex];
     }
 
+    nextPlayer()
+    {
+        if (this.currentPlayerIndex + 1 == this.players.length)
+        {
+            this.currentPlayerIndex = 0;
+        }
+        else
+        {
+            this.currentPlayerIndex++;
+        }
+    }
+
     update()
     {
 
-         for (var w in this.weapons) {
-             this.weapons[w].update();
-        }
+        //for (var w in this.weapons)
+        //{
+        //    this.weapons[w].update();
+        //}
         this.getCurrentPlayerObject().update();
 
         for (var player in this.players)
@@ -121,7 +135,7 @@ class Game
            , 10       //position iterations
         );
 
-        if(Settings.PHYSICS_DEBUG_MODE)
+        if (Settings.PHYSICS_DEBUG_MODE)
             Physics.world.DrawDebugData();
 
         //Physics.world.ClearForces();
@@ -132,11 +146,11 @@ class Game
     {
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
 
-         var weaponsLenght = this.weapons.length;
-        for (var i = 0; i <  weaponsLenght; i++)
-        {
-            this.weapons[i].draw(this.actionCanvasContext);
-        }
+        //var weaponsLenght = this.weapons.length;
+        //for (var i = 0; i < weaponsLenght; i++)
+        //{
+        //    this.weapons[i].draw(this.actionCanvasContext);
+        //}
 
         for (var player in this.players)
         {

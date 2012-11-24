@@ -25,7 +25,7 @@ module Sprites
     
      export var weaponIcons = {
 
-        holyGernade: {imageName: "hgrenade"},
+        holyGernade: {imageName: "iconhgrenade"},
         drill: {imageName: "drill"},
 
     };
@@ -36,7 +36,7 @@ module Sprites
             imageName: "hgrenade",
             frameY: 0,
             frameCount: 31,
-            msPerFrame: -1,
+            msPerFrame: 10,
 
         }
 

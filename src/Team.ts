@@ -62,7 +62,7 @@ class Team
 
     draw(ctx)
     {
-
+        
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {

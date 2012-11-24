@@ -39,6 +39,13 @@
     </Content>
     <TypeScriptCompile Include="src\Player.ts" />
     <TypeScriptCompile Include="src\CountDownTimer.ts" />
+    <TypeScriptCompile Include="src\animation\SpriteDefinitions.ts" />
+    <Content Include="src\animation\SpriteDefinitions.js">
+      <DependentUpon>SpriteDefinitions.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\SpriteDefinitions.min.js">
+      <DependentUpon>SpriteDefinitions.ts</DependentUpon>
+    </Content>
     <Content Include="src\CountDownTimer.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>
@@ -159,6 +166,13 @@
     </Content>
     <Content Include="src\weapons\Drill.js">
       <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\HolyGrenade.ts" />
+    <Content Include="src\weapons\HolyGrenade.js">
+      <DependentUpon>HolyGrenade.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\HolyGrenade.min.js">
+      <DependentUpon>HolyGrenade.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
     <Content Include="src\tests\TimerTest.js">

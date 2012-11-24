@@ -12,24 +12,29 @@
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../Terrain.ts"/>
 ///<reference path="BaseWeapon.ts"/>
+///<reference path="../Game.ts"/>
+///<reference path="../Main.ts"/>
+///<reference path="../animation/Sprite.ts"/>
 
 class ThrowableWeapon extends BaseWeapon
 {
 
     body;
-    fixture;
-    image;
+    fixture; 
     detonationCounter;
     effectedRadius;
     explosiveForce;
-    timeToLive;
-    isActive;
+    sprite: Sprite;
 
-    constructor ()
+    constructor (name,ammo,iconSpriteDef, weaponSpriteDef : SpriteDefinition)
     {
-        super("hgrenade", 1);
-        this.isActive = false;
-        this.image = AssetManager.images["hgrenade"];
+        super(
+            name,
+            ammo,
+          iconSpriteDef
+        );
+
+        this.sprite = new Sprite(weaponSpriteDef);
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(50);
@@ -38,15 +43,19 @@ class ThrowableWeapon extends BaseWeapon
         this.explosiveForce = 15
 
         // Counter till bomb explodes
-        this.detonationCounter = Utilies.random(4, 12);
+        this.detonationCounter = 6;
+
 
         this.timeToLive = 1000;
 
     }
 
-    setupPhysicsBodies(x,y,initalVelocity, image)
+    setupPhysicsBodies(initalPosition,initalVelocity)
     {
            // Setup of physical body
+    
+        var image = this.sprite.getImage();
+
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 3.5;
@@ -55,12 +64,13 @@ class ThrowableWeapon extends BaseWeapon
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.position.x = x;
-        bodyDef.position.y = y;
+        bodyDef.position = initalPosition;
 
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
         this.body.SetLinearVelocity(initalVelocity);
+
+        this.body.SetUserData(this);
     }
 
     isLive()
@@ -77,14 +87,17 @@ class ThrowableWeapon extends BaseWeapon
 
     activate( worm )
     {
-        var x, y, initalVelocity
-        this.isActive = true;
-        this.setupPhysicsBodies(x, y, initalVelocity, this.image);
+        super.activate(worm);
+
+        if (this.ammo >= 0)
+        {
+            this.setupPhysicsBodies(worm.body.GetPosition(), new b2Vec2(20, 20));
+        }
     }
 
     update()
     {
-        if (this.isActive)
+        if (this.getIsActive())
         {
 
             // Decrements the timers on the bomb
@@ -120,6 +133,7 @@ class ThrowableWeapon extends BaseWeapon
                         direction.Normalize();
                         direction.Multiply(this.explosiveForce);
                         fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+                        this.detivate();
                     }
 
                     return true;
@@ -133,8 +147,7 @@ class ThrowableWeapon extends BaseWeapon
 
     draw(ctx)
     {
-
-        if (this.isActive && this.timeToLive > 0)
+        if (this.getIsActive() && this.timeToLive > 0)
         {
             ctx.save()
 
@@ -148,11 +161,9 @@ class ThrowableWeapon extends BaseWeapon
 
             var radius = this.fixture.GetShape().GetRadius() * 2 * Physics.worldScale;
 
-            ctx.drawImage(this.image,
-                -radius,
-                -radius,
-                radius * 2,
-                radius * 2);
+             this.sprite.draw(ctx,
+            -radius,
+            -radius);
 
             ctx.restore()
 
