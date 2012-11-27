@@ -10,6 +10,7 @@
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="system/Timer.ts"/>
+///<reference path="system/Controls.ts"/>
 
 class Player
 {
@@ -22,6 +23,16 @@ class Player
         this.team = new Team();
         this.timer = new Timer(2000);
         this.hasPlayerFiredWeapon = false;
+
+
+        //TODO refactor all control code into central Controls.ts when adding gamepad
+        //$('body').mousedown(function (event) =>
+        //{
+        //    if (Controls.checkControls( Controls.fire, event.which))
+        //    {
+        //          this.team.getCurrentWorm().fire();
+        //    }
+        //});
     }
 
     getTeam()
@@ -33,22 +44,22 @@ class Player
     {       
         
 
-        if (keyboard.isKeyDown(65))
+        if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
         {
             this.team.getCurrentWorm().walkLeft();
         }
 
-        if (keyboard.isKeyDown(87))
+        if (keyboard.isKeyDown(Controls.jump.keyboard))
         {
             this.team.getCurrentWorm().jump();
         }
 
-        if (keyboard.isKeyDown(68))
+        if (keyboard.isKeyDown(Controls.walkRight.keyboard))
         {
             this.team.getCurrentWorm().walkRight();
         }
 
-        if (keyboard.isKeyDown(13) && !this.hasPlayerFiredWeapon)
+        if (keyboard.isKeyDown(Controls.fire.keyboard) && !this.hasPlayerFiredWeapon)
         {
             this.hasPlayerFiredWeapon = true;
             window.setTimeout(function () =>

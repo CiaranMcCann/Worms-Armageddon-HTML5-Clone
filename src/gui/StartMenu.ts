@@ -8,6 +8,7 @@
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Settings.ts" />
+///<reference path="../system/Controls.ts"/>
 declare var $;
 
 class StartMenu
@@ -18,11 +19,17 @@ class StartMenu
     constructor ()
     {
         this.menuActive = !Settings.DEVELOPMENT_MODE;
+
+        //TODO gamepad controls
+        //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
         this.controlsView = '<div style="text-align:center">' +
-            '<img style="width:80%" src="data/images/menu/xbox360controls.png"> <h2>Or</h2>' +
-            '<p><kbd>W</kbd> <kbd>A</kbd> <kbd>D</kbd> - Jump, Left, Right. <br> ' +
-            ' <kbd>E</kbd> - Weapon Menu. </p>' +
-            ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br><br>' +
+            ' <p>Just incase you have never played the original worms armageddon, its a turn base deathmatch game. Where you control a team of worms. Use whatever weapons you have to destroy the enemy. <p><br>' +
+            '<p><kbd>' + String.fromCharCode(Controls.jump.keyboard) +
+            '</kbd> <kbd> ' + String.fromCharCode(Controls.walkLeft.keyboard) +
+            '</kbd> <kbd> ' + String.fromCharCode(Controls.walkRight.keyboard) +
+            '</kbd> - Jump, Left, Right. <br> <br>' +
+            ' <kbd>Enter</kbd> or Right mouse - Weapon Menu. </p><br>' +        
+            ' <kbd>' + String.fromCharCode(Controls.toggleWeaponMenu.keyboard) +  '</kbd> - Fire weapon. </p><p></p><br><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
 
     }
@@ -51,7 +58,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 1200); //TODO: remove once all sprites are in articifal load delay
+            }, 1000); //TODO: remove once all sprites are in articifal load delay
         } else
         {
             $('#splashScreen').remove();

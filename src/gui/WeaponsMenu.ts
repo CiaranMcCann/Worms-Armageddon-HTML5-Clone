@@ -11,6 +11,7 @@
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>
 ///<reference path="../system/AssetManager.ts"/>
+///<reference path="../system/Controls.ts"/>
 class WeaponsMenu
 {
     htmlElement;
@@ -27,7 +28,7 @@ class WeaponsMenu
         var _this = this;
         $(window).keypress(function (event)
         {
-            if (event.which == 101)
+            if (Controls.checkControls( Controls.toggleWeaponMenu, event.which))
             {
                 _this.toggle();
             }
@@ -35,7 +36,7 @@ class WeaponsMenu
 
         $('body').mousedown(function (event) =>
         {
-            if (event.which == 3)
+            if (Controls.checkControls( Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }

@@ -86,6 +86,13 @@
     <Content Include="src\system\AssetManager.min.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\system\Controls.ts" />
+    <Content Include="src\system\Controls.js">
+      <DependentUpon>Controls.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Controls.min.js">
+      <DependentUpon>Controls.ts</DependentUpon>
+    </Content>
     <Content Include="src\system\Graphics.js">
       <DependentUpon>Graphics.ts</DependentUpon>
     </Content>

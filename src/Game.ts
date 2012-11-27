@@ -39,6 +39,8 @@ class Game
     soundOn: bool;
     currentPlayerIndex: number;
 
+    isStarted: bool;
+
     constructor ()
     {
         Graphics.init();
@@ -68,11 +70,18 @@ class Game
             this.players.push(new Player());
         }
 
+        this.isStarted = false;
         // window.addEventListener("click", function (evt: any) =>
         //{
         //    this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
 
         //}, false);
+    }
+
+    start()
+    {
+        this.gameTimer.timer.reset();
+        this.isStarted = true;
     }
 
     getCurrentPlayerObject()
@@ -94,31 +103,35 @@ class Game
 
     update()
     {
-
-        this.getCurrentPlayerObject().update();
-
-        for (var player in this.players)
+        if (this.isStarted)
         {
-            this.players[player].team.update();
+            this.getCurrentPlayerObject().update();
+
+            for (var player in this.players)
+            {
+                this.players[player].team.update();
+            }
+
+            this.terrain.update();
+
+            this.gameTimer.update(this.players);
         }
-
-        this.terrain.update();
-
-        this.gameTimer.update(this.players);
 
     }
 
     step()
     {
+        if (this.isStarted)
+        {
+            Physics.world.Step(
+                  (1 / 60)
+               , 10       //velocity iterations
+               , 10       //position iterations
+            );
 
-        Physics.world.Step(
-              (1 / 60)
-           , 10       //velocity iterations
-           , 10       //position iterations
-        );
-
-        if (Settings.PHYSICS_DEBUG_MODE)
-            Physics.world.DrawDebugData();
+            if (Settings.PHYSICS_DEBUG_MODE)
+                Physics.world.DrawDebugData();
+        }
 
         //Physics.world.ClearForces();
     }

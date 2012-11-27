@@ -29,6 +29,7 @@ $(document).ready(function () => {
 
                 startMenu.onGameReady(function ()
                 {
+                    GameInstance.start();
                     function gameloop()
                     {
                         Graphics.stats.update();
