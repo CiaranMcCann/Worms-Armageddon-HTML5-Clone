@@ -15,15 +15,17 @@ module Graphics
     export var stats;
     export function init()
     {
+        if (Settings.DEVELOPMENT_MODE)
+        {
+            stats = new Stats();
 
-        stats = new Stats();
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
 
-        // Align top-left
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
-
-        document.body.appendChild(stats.domElement);
+            document.body.appendChild(stats.domElement);
+        }
 
         // requestAnim shim layer by Paul Irish
         window.requestAnimationFrame = (function ()
