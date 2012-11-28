@@ -110,6 +110,11 @@ class Sprite
         return this.currentFrameY;
     }
 
+    setNoLoop(val: bool)
+    {
+        this.noLoop = val;
+    }
+
     getFrameHeight()
     {
         var img = AssetManager.images[this.spriteDef.imageName];

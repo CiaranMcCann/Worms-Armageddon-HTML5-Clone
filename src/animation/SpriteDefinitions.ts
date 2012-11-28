@@ -119,6 +119,14 @@ module Sprites
             frameY: 0,
             frameCount: 12,
             msPerFrame: 20,
+        },
+
+       flame1: {
+
+            imageName: "flame1",
+            frameY: 0,
+            frameCount: 36,
+            msPerFrame: 50,
         }
 
     }
