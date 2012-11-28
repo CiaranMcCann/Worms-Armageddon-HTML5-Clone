@@ -1,6 +1,6 @@
 /**
- * Game.js
- * This is the main game object which controls gameloop and basically everything in the game
+ * ParticleSystem.js
+ * Manages all the different sprites that make up the explosion effect
  *
  *  License: Apache 2.0
  *  author:  Ciarán McCann
