@@ -94,5 +94,35 @@ module Sprites
     }
 
 
+    export var particleEffects = {
+
+        eclipse: {
+
+            imageName: "elipse75",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 20,
+        },
+
+        
+        cirlce1: {
+
+            imageName: "circl100",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 20,
+        },
+
+        wordBiff: {
+
+            imageName: "exbiff",
+            frameY: 0,
+            frameCount: 12,
+            msPerFrame: 20,
+        }
+
+    }
    
 }
+
+//circl100 exbiff

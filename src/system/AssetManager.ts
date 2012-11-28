@@ -92,6 +92,12 @@ module AssetManager
             priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.weapons[sprite].imageName + ".png");
         }
 
+        
+        for (var sprite in Sprites.particleEffects)
+        {
+            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.particleEffects[sprite].imageName + ".png");
+        }
+
     }
 
     export function loadPriorityAssets(callback)

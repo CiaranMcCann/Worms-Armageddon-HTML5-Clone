@@ -31,6 +31,13 @@
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <Content Include="external\test\qunit.css" />
     <Content Include="external\test\qunit.js" />
+    <TypeScriptCompile Include="src\animation\ParticleSystem.ts" />
+    <Content Include="src\animation\ParticleSystem.js">
+      <DependentUpon>ParticleSystem.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ParticleSystem.min.js">
+      <DependentUpon>ParticleSystem.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\Sprite.js">
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>

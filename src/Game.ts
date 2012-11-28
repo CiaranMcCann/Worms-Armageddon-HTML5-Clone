@@ -19,6 +19,8 @@
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
 ///<reference path="CountDownTimer.ts" />
+///<reference path="animation/SpriteDefinitions.ts" />
+
 
 class Game
 {
@@ -40,6 +42,8 @@ class Game
     currentPlayerIndex: number;
 
     isStarted: bool;
+    pEffect: ParticleSystem;
+
 
     constructor ()
     {
@@ -71,11 +75,14 @@ class Game
         }
 
         this.isStarted = false;
-        // window.addEventListener("click", function (evt: any) =>
-        //{
-        //    this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
+        window.addEventListener("click", function (evt: any) =>
+        {
+            //this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
+            this.pEffect = new ParticleSystem(evt.pageX, evt.pageY);
 
-        //}, false);
+        }, false);
+
+        this.pEffect = new ParticleSystem(100, 100);
     }
 
     start()
@@ -115,6 +122,8 @@ class Game
             this.terrain.update();
 
             this.gameTimer.update(this.players);
+
+            this.pEffect.update();
         }
 
     }
@@ -144,6 +153,8 @@ class Game
         {
             this.players[player].draw(this.actionCanvasContext);
         }
+
+         this.pEffect.draw(this.actionCanvasContext);
     }
 
 }
