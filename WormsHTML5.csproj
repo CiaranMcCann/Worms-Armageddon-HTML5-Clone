@@ -31,7 +31,7 @@
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <Content Include="external\test\qunit.css" />
     <Content Include="external\test\qunit.js" />
-    <TypeScriptCompile Include="src\animation\ParticleSystem.ts" />
+    <TypeScriptCompile Include="src\animation\ParticleEffect.ts" />
     <TypeScriptCompile Include="src\animation\Particle.ts" />
     <Content Include="src\animation\Particle.js">
       <DependentUpon>Particle.ts</DependentUpon>
@@ -40,12 +40,16 @@
       <DependentUpon>Particle.ts</DependentUpon>
     </Content>
     <Content Include="src\animation\ParticleSystem.js">
-      <DependentUpon>ParticleSystem.ts</DependentUpon>
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
     </Content>
     <Content Include="src\animation\ParticleSystem.min.js">
-      <DependentUpon>ParticleSystem.ts</DependentUpon>
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\animation\PhysicsSprite.ts" />
+    <TypeScriptCompile Include="src\animation\ParticleEffectManager.ts" />
+    <Content Include="src\animation\ParticleSystemManager.js">
+      <DependentUpon>ParticleEffectManager.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\PhysicsSprite.js">
       <DependentUpon>PhysicsSprite.ts</DependentUpon>
     </Content>

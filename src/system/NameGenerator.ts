@@ -12,6 +12,7 @@ module NameGenerator
 
     var randomNamesList = [];
     //List_of_programming_language_researchers
+    //TODO Remove live link to wikipead if I put this live
     var nameDataSrc = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=List_of_programmers&prop=revisions&rvprop=content";
 
     export function init(callback)
@@ -31,6 +32,16 @@ module NameGenerator
                     randomNamesList[name] = randomNamesList[name].replace(/]/g, "");
                 }
                 callback();
+            },
+            error: function(x, t, m) {
+                
+                  //Fall back list we cant get to wikipeda
+                 randomNamesList = [
+                   "Anders Hejlsberg", "Ted Henter", "Andy Hertzfeld", "Rich Hickey", "Grace Hopper", "Dave Hyatt", "Miguel de Icaza", "Roberto Ierusalimschy", "Dan Ingalls", 
+                   "Toru Iwatani", "Bo Jangeborg", "Paul Jardetzky", "Lynne Jolitz", "William Jolitz", "Bill Joy", "Mitch Kapor", "Phil Katz", "Alan Kay", "Mel Kaye",
+                    "Brian Kernighan", "Dennis Ritchie", "Jim Knopf", "Andre LaMothe", "Leslie Lamport", "Butler Lampson", "Sam Lantinga", "Chris Lattner", "Samuel J Leffler", 
+                    "Rasmus Lerdorf", "Linus torvalds"
+                ]
             }
         });
 

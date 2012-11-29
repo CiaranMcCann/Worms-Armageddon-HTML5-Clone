@@ -28,8 +28,8 @@ class StartMenu
             '</kbd> <kbd> ' + String.fromCharCode(Controls.walkLeft.keyboard) +
             '</kbd> <kbd> ' + String.fromCharCode(Controls.walkRight.keyboard) +
             '</kbd> - Jump, Left, Right. <br> <br>' +
-            ' <kbd>Enter</kbd> or Right mouse - Weapon Menu. </p><br>' +        
-            ' <kbd>' + String.fromCharCode(Controls.toggleWeaponMenu.keyboard) +  '</kbd> - Fire weapon. </p><p></p><br><br>' +
+            ' <kbd>'+  String.fromCharCode(Controls.toggleWeaponMenu.keyboard)  +'</kbd> - Weapon Menu. </p><br>' +        
+            ' <kbd>Enter</kbd> or left mouse - Fire weapon. </p><p></p><br><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
 
     }

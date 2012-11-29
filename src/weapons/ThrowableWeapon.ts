@@ -25,6 +25,7 @@ class ThrowableWeapon extends BaseWeapon
     effectedRadius;
     explosiveForce;
     sprite: Sprite;
+    explosionRadius: number;
 
     constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition)
     {
@@ -35,6 +36,9 @@ class ThrowableWeapon extends BaseWeapon
         );
 
         this.sprite = new Sprite(weaponSpriteDef);
+
+        // The area in pxiels that get cut out of the terrain
+        this.explosionRadius = 40;
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(50);
@@ -111,7 +115,7 @@ class ThrowableWeapon extends BaseWeapon
         GameInstance.terrain.addToDeformBatch(
                   posX,
                   posY,
-              50);
+               this.explosionRadius);
 
         this.timeToLive = -1;
 
