@@ -135,6 +135,7 @@ class Sprite
         return this.spriteDef.frameCount;
     }
 
+    // Allows for func to be called once this sprite animation has finished
     onFinish(func)
     {
         this.onFinishFunc = func;
@@ -154,6 +155,12 @@ class Sprite
             }
         }
 
+
+        //This allows a call to this method to lock the current spriteDef
+        // Which stops other calls to this method from unlocking changing the spriteDef
+        // unless they pass in the same spritedef that was used when it was inital set.
+        // This is useful to stop the game loop and other states from unsetting each others spritedefs
+        // Mainly used in the weapon classes.
         if (this.spriteDef == spriteDef)
         {
             this.isSpriteLocked = lockSprite;

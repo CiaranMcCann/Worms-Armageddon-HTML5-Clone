@@ -36,17 +36,17 @@ class Worm extends Sprite
 
     body;
     fixture;
-    image;
     direction;
-    sprite;
     speed;
     canJump: number;
-    currentState;
     name;
     health;
     team: Team;
     footSensor;
     stateAnimationMgmt: WormAnimationManger;
+    targetDirection;
+    rotationRate;
+
 
     constructor (team, x, y)
     {
@@ -90,6 +90,10 @@ class Worm extends Sprite
         this.stateAnimationMgmt = new WormAnimationManger(this);
 
         this.canJump = 0;
+
+        //The direction in which the worm is aiming
+        this.targetDirection = new b2Vec2();
+        this.rotationRate = 5;
  
     }
 
@@ -150,6 +154,13 @@ class Worm extends Sprite
 
     }
 
+    aim(upOrDown : number)
+    {
+        var currentAngle = (this.rotationRate*upOrDown) + Utilies.vectorToAngle(this.targetDirection);
+        this.targetDirection = Utilies.angleToVector(currentAngle);
+    }
+
+
     jump()
     {
         
@@ -209,11 +220,13 @@ class Worm extends Sprite
 
     update()
     {
-        
+        //Manages the different states of the animation
         this.stateAnimationMgmt.update();
 
+        //updates the current sprite
         super.update();
 
+        // Always reset to idle
         this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
 
         this.team.getWeaponManager().getCurrentWeapon().update();

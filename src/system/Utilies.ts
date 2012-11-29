@@ -16,6 +16,7 @@
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Settings.ts" />
+///<reference path="Physics.ts" />
 declare var $;
 
 module Utilies
@@ -47,6 +48,30 @@ module Utilies
         return value >= rangeMin && value <= rangeMax;
     }
 
+    export function angleToVector(angle : number)
+    {
+            return new b2Vec2(Math.cos(angle), Math.sin(angle));
+     }
+        /// <summary>
+        /// adds 90% to answer because in XNA 0 is up :-(
+        /// </summary>
+        /// <param name="vector">vector we need to convert</param>
+        /// <returns>angle of vector in radians</returns>
+     export function vectorToAngle(vector)
+     {
+         return Math.atan2(vector.y, vector.x) //+(float)Math.PI/2;
+     }
+
+     export function toRadians(angleInDegrees: number)
+     {
+         return angleInDegrees * (Math.PI / 180);
+     }
+
+     export function toDegrees(angleInRdains: number)
+     {
+         return angleInRdains * (180 / Math.PI);
+     }
+ 
     //export function isBetweenRangeTest()
     //{
     //    var t1 = isBetweenRange(3.3, 10, -10);

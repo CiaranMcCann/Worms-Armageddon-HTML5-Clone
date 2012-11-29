@@ -68,12 +68,12 @@
     <Content Include="src\animation\SpriteDefinitions.min.js">
       <DependentUpon>SpriteDefinitions.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\StateAnimationManger.ts" />
+    <TypeScriptCompile Include="src\WormAnimationManger.ts" />
     <Content Include="src\StateAnimationManger.js">
-      <DependentUpon>StateAnimationManger.ts</DependentUpon>
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
     <Content Include="src\StateAnimationManger.min.js">
-      <DependentUpon>StateAnimationManger.ts</DependentUpon>
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
     <Content Include="src\CountDownTimer.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
@@ -196,9 +196,15 @@
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\Drill.ts" />
-    <TypeScriptCompile Include="src\tests\TimerTest.ts" />
+    <TypeScriptCompile Include="src\tests\AllTest.ts" />
+    <Content Include="src\tests\AllTest.js">
+      <DependentUpon>AllTest.ts</DependentUpon>
+    </Content>
+    <Content Include="src\tests\AllTest.min.js">
+      <DependentUpon>AllTest.ts</DependentUpon>
+    </Content>
     <Content Include="src\tests\TimerTest.min.js">
-      <DependentUpon>TimerTest.ts</DependentUpon>
+      <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\Drill.js">
       <DependentUpon>Drill.ts</DependentUpon>
@@ -212,7 +218,7 @@
     </Content>
     <Content Include="test.html" />
     <Content Include="src\tests\TimerTest.js">
-      <DependentUpon>TimerTest.ts</DependentUpon>
+      <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\Drill.min.js">
       <DependentUpon>Drill.ts</DependentUpon>

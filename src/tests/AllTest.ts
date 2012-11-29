@@ -51,3 +51,41 @@ test( " remove item from array ", function() {
     ok(t);
 });
 
+test( " Angle converts ", function() {
+     
+    var angleInDegrees = 45;
+    var angleInRadins = 0.7853981633974483;
+
+    equal(Utilies.toRadians(angleInDegrees),angleInRadins, "Degrees to radins " );
+    equal(Utilies.toDegrees(angleInRadins),angleInDegrees, " radins to degrees " );
+
+});
+
+test( " angles  to vectors ", function() {
+     
+    var angleInRadins = Utilies.toRadians(0);
+    var v = Utilies.angleToVector(angleInRadins)
+
+    equal(v.x,1);
+    equal(v.y,0);
+
+    var angleInRadins = Utilies.toRadians(45);
+    var v = Utilies.angleToVector(angleInRadins)
+
+    equal(v.x,0.7071067811865476);
+    equal(v.y,0.7071067811865475);
+
+});
+
+
+test( " vectors to angles  ", function() {
+     
+   
+    var v = new b2Vec2(0.7, 0.7);
+    var angle = Utilies.vectorToAngle(v);
+
+    equal(angle,Utilies.toRadians(45));
+   
+});
+
+

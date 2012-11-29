@@ -53,6 +53,7 @@ class WormAnimationManger
     
     setIdleAnimation()
     {
+        // If this worm is the worm of the current player
         if (this.worm.team.getCurrentWorm() == this.worm && GameInstance.getCurrentPlayerObject().getTeam() == this.worm.team)
         {   
             //If the worm is the current worm its idel will be to take out its weapon
@@ -108,12 +109,15 @@ class WormAnimationManger
         } 
 
         
+        //Once the idel timer has run out we which to idel animation and pause the timer
+        // as some of the idel animations are animated and some are not. 
         if (this.idleTimer.hasTimePeriodPassed())
         {
             this.idleTimer.pause();
             this.setIdleAnimation();
         }
 
+        
         this.idleTimer.update();
 
     }
