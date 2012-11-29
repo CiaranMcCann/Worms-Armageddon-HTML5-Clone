@@ -17,34 +17,18 @@
 
 class Particle extends PhysicsSprite
 {
+    gravity;
    
     constructor (initalPos, initalVelocity, spriteDef = Sprites.particleEffects.flame1)
     {
         super(initalPos, initalVelocity, spriteDef);
         this.setNoLoop(true);
+        this.gravity = new b2Vec2(0, 9.81);
     }
 
     update()
     {
-        var t = 0.016;
-        var g = new b2Vec2(0, 9.81);
-
-        var at = g.Copy();
-        g.Multiply(t);
-        this.velocity.Add(at);
-
-        var vt = this.velocity.Copy();
-        vt.Multiply(t);
-        this.position.Add(vt);
-        //u * t + 0.5 * a * (t * t);
-
-        //v += a * t;
-        // p += v * t;
-
-       
-
-        super.update();
+        super.update(this.gravity);
     }
-
 
 }

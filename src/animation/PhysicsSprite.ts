@@ -26,20 +26,31 @@ class PhysicsSprite extends Sprite
         this.velocity = initalVelocity;
     }
 
-    draw(ctx)
+    draw(ctx,x = this.position.x, y  = this.position.y)
     {
-        super.draw(ctx, this.position.x, this.position.y);
+        super.draw(ctx, x,y);
     }
 
-    //update(time = 0.16)
-    //{
-    //    //u * t + 0.5 * a * (t * t);
+    update(acc = new b2Vec2(0,0))
+    {
+        var t = 0.016;
 
-    //    //v += a * t;
-    //    // p += v * t;
+        var at = acc.Copy();
+        acc.Multiply(t);
+        this.velocity.Add(at);
 
-    //    super.update();
-    //}
+        var vt = this.velocity.Copy();
+        vt.Multiply(t);
+        this.position.Add(vt);
+        //u * t + 0.5 * a * (t * t);
+
+        //v += a * t;
+        // p += v * t;
+ 
+
+        super.update();
+    }
+
 
 
 }

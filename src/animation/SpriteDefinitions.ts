@@ -38,6 +38,14 @@ module Sprites
             frameCount: 32,
             msPerFrame: 10,
 
+        },
+         //TODO Move aiming things to misulaous 
+         redTarget: {
+            imageName: "crshairr",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 50,
+
         }
 
      }
@@ -106,7 +114,7 @@ module Sprites
             imageName: "whgrlnk",
             frameY: 0,
             frameCount: 10,
-            msPerFrame: 100,
+            msPerFrame: 50,
 
         },
 

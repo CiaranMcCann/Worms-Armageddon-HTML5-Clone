@@ -19,6 +19,7 @@
 ///<reference path="Terrain.ts" />
 ///<reference path="Main.ts" />
 ///<reference path="WormAnimationManger.ts" />
+///<reference path="Target.ts" />
 
 class Worm extends Sprite
 {
@@ -44,9 +45,8 @@ class Worm extends Sprite
     team: Team;
     footSensor;
     stateAnimationMgmt: WormAnimationManger;
-    targetDirection;
-    rotationRate;
-
+    target: Target;
+    
 
     constructor (team, x, y)
     {
@@ -91,10 +91,8 @@ class Worm extends Sprite
 
         this.canJump = 0;
 
-        //The direction in which the worm is aiming
-        this.targetDirection = new b2Vec2();
-        this.rotationRate = 5;
- 
+        this.target = new Target(this);
+
     }
 
     // What happens when a worm collies with another object
@@ -152,12 +150,6 @@ class Worm extends Sprite
             }
         }
 
-    }
-
-    aim(upOrDown : number)
-    {
-        var currentAngle = (this.rotationRate*upOrDown) + Utilies.vectorToAngle(this.targetDirection);
-        this.targetDirection = Utilies.angleToVector(currentAngle);
     }
 
 
@@ -230,12 +222,14 @@ class Worm extends Sprite
         this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
 
         this.team.getWeaponManager().getCurrentWeapon().update();
+        this.target.update();
 
     }
 
     draw(ctx)
     {
         this.team.getWeaponManager().getCurrentWeapon().draw(ctx);
+        this.target.draw(ctx);
 
         ctx.save()
 

@@ -142,4 +142,16 @@ module Physics
         return meters * worldScale;
     }
 
+     //Converts a vector in pixels to physic world measurement
+    export function vectorPixelToMeters(vPixels)
+    {
+        return new b2Vec2(vPixels.x / worldScale, vPixels.y / worldScale);
+    }
+
+    //Converts a vector in physic world measurement to pixels;
+    export function vectorMetersToPixels(vMeters)
+    {
+        return new b2Vec2(vMeters.x * worldScale,vMeters.y * worldScale);
+    }
+
 }

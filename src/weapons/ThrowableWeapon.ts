@@ -50,6 +50,8 @@ class ThrowableWeapon extends BaseWeapon
 
         // set default values
         this.reset();
+
+    
     }
 
     reset()
@@ -152,13 +154,16 @@ class ThrowableWeapon extends BaseWeapon
 
     draw(ctx)
     {
+      
         if (this.getIsActive() && this.timeToLive > 0)
         {
             ctx.save()
+            
+            var wormPosInPixels = Physics.vectorMetersToPixels(this.body.GetPosition());
 
             ctx.translate(
-            this.body.GetPosition().x * Physics.worldScale,
-            this.body.GetPosition().y * Physics.worldScale
+                wormPosInPixels.x,
+                wormPosInPixels.y
             )
 
             ctx.save()
