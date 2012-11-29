@@ -17,6 +17,8 @@
 ///<reference path="system/Utilies.ts" />
 ///<reference path="system/NameGenerator.ts" />
 ///<reference path="Terrain.ts" />
+///<reference path="Main.ts" />
+///<reference path="WormAnimationManger.ts" />
 
 class Worm extends Sprite
 {
@@ -44,6 +46,7 @@ class Worm extends Sprite
     health;
     team: Team;
     footSensor;
+    stateAnimationMgmt: WormAnimationManger;
 
     constructor (team, x, y)
     {
@@ -84,6 +87,8 @@ class Worm extends Sprite
 
 
         this.body.SetUserData(this);
+        this.stateAnimationMgmt = new WormAnimationManger(this);
+
         this.canJump = 0;
  
     }
@@ -124,10 +129,7 @@ class Worm extends Sprite
             var currentPos = this.body.GetPosition();
 
             this.direction = this.DIRECTION.left;
-            if (Sprites.worms.falling != this.spriteDef)
-            {
-                super.setSpriteDef(Sprites.worms.walking);
-            }
+            this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
             this.body.SetPosition(new b2Vec2(currentPos.x - this.speed / Physics.worldScale, currentPos.y));
@@ -150,6 +152,7 @@ class Worm extends Sprite
 
     jump()
     {
+        
         if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
         {
             if (this.canJump > 0)
@@ -194,11 +197,7 @@ class Worm extends Sprite
         {
             var currentPos = this.body.GetPosition();
             this.direction = this.DIRECTION.right;
-
-            if (Sprites.worms.falling != this.spriteDef)
-            {
-                super.setSpriteDef(Sprites.worms.walking);
-            }
+            this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
 
@@ -207,24 +206,17 @@ class Worm extends Sprite
 
     }
 
+
     update()
     {
+        
+        this.stateAnimationMgmt.update();
 
-        if (this.spriteDef != Sprites.worms.walking)
-            super.setSpriteDef(Sprites.worms.lookAround);
+        super.update();
 
-        if (!Utilies.isBetweenRange(this.body.GetLinearVelocity().y, 2, -2))
-        {
-            super.setSpriteDef(Sprites.worms.falling);
-        }
-
+        this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
 
         this.team.getWeaponManager().getCurrentWeapon().update();
-
-        if (this.spriteDef != Sprites.worms.walking)
-        {
-            super.update();
-        }
 
     }
 

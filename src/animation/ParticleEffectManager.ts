@@ -43,13 +43,13 @@ class ParticleEffectManager
     {
         for (var pEffect in this.particleEffects)
         {
-        
-            if (this.particleEffects[pEffect].finshed == true)
+            this.particleEffects[pEffect].update();
+
+            if (this.particleEffects[pEffect].finished == true)
             {
                 Utilies.deleteFromCollection(this.particleEffects, pEffect);
             }
 
-            this.particleEffects[pEffect].update();
         }
 
 

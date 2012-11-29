@@ -21,6 +21,7 @@
 ///<reference path="CountDownTimer.ts" />
 ///<reference path="animation/SpriteDefinitions.ts" />
 ///<reference path="animation/ParticleEffect.ts"/>
+///<reference path="animation/ParticleEffectManager.ts"/>
 
 class Game
 {

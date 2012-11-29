@@ -22,13 +22,12 @@ class CountDownTimer
     {
         this.timer = new Timer(Settings.PLAYER_TURN_TIME);
         this.previousSecound = this.timer.timePeriod;
-
-        if(Settings.DEVELOPMENT_MODE)
-            this.timer.pause();
     }
 
     update(players)
     {
+        if(Settings.DEVELOPMENT_MODE)
+            this.timer.pause();
 
         this.timer.update();
         var timeLeft = Math.floor(this.timer.getTimeLeft() / 1000);

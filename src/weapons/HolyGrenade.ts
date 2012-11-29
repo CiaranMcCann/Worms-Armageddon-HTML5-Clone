@@ -11,7 +11,9 @@ class HolyGrenade extends ThrowableWeapon
             "Holy Grenade", // Weapon name
             5, // ammo
             Sprites.weaponIcons.holyGernade, //Icon for menu
-            Sprites.weapons.holyGernade //Inital weapon object state
+            Sprites.weapons.holyGernade, //Inital weapon object state
+            Sprites.worms.takeOutHolyGernade,
+            Sprites.worms.aimHolyGernade
         );
 
         this.explosionRadius = 100;

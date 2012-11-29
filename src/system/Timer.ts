@@ -43,6 +43,7 @@ class Timer
     {
         this.delta = 0;
         this.timeSinceLastUpdate = Date.now();
+        this.isTimerPaused = false;
     }
 
     getTimeLeft()

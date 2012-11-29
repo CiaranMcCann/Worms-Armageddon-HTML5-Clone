@@ -27,12 +27,14 @@ class ThrowableWeapon extends BaseWeapon
     sprite: Sprite;
     explosionRadius: number;
 
-    constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition)
+    constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation : SpriteDefinition,takeAimAnimation : SpriteDefinition)
     {
         super(
             name,
             ammo,
-          iconSpriteDef
+          iconSpriteDef,
+          takeOutAnimation,
+          takeAimAnimation
         );
 
         this.sprite = new Sprite(weaponSpriteDef);

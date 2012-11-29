@@ -88,9 +88,56 @@ module Sprites
             imageName: "wfall",
             frameY: 0,
             frameCount: 2,
-            msPerFrame: 50,
+            msPerFrame: 100,
+
+        },
+
+        jumpBegin: {
+
+            imageName: "wflyup",
+            frameY: 0,
+            frameCount: 2,
+            msPerFrame: 100,
+
+        },
+
+        takeOutHolyGernade: {
+
+            imageName: "whgrlnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 100,
+
+        },
+
+        aimHolyGernade: {
+
+            imageName: "wthrhgr",
+            frameY: 30/2,
+            frameCount: 32,
+            msPerFrame: 100,
+
+        },
+
+         takeOutDrill: {
+
+            imageName: "wdrllnk",
+            frameY: 0,
+            frameCount: 13,
+            msPerFrame: 100,
+
+        },
+
+         die: {
+
+            imageName: "wdie",
+            frameY: 0,
+            frameCount: 40,
+            msPerFrame: 100,
 
         }
+
+
     }
 
 
@@ -127,7 +174,18 @@ module Sprites
             frameY: 0,
             frameCount: 36,
             msPerFrame: 50,
+        },
+
+        
+       smoke75: {
+
+            imageName: "smklt75",
+            frameY: 0,
+            frameCount: 28,
+            msPerFrame: 50,
         }
+
+
 
     }
    

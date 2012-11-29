@@ -21,6 +21,7 @@ class Sprite
     lastUpdateTime;
     accumulateDelta;
     isSpriteLocked;
+    onFinishFunc;
     
 
     constructor (spriteDef: SpriteDefinition, noLoop = false)
@@ -52,6 +53,12 @@ class Sprite
                     if (this.noLoop)
                     {
                         this.finished = true;
+
+                        if (this.onFinishFunc != null)
+                        {
+                            this.onFinishFunc();
+                            this.onFinishFunc = null;
+                        }
                     }
 
                     this.currentFrameY = this.spriteDef.frameY; //reset to start
@@ -70,7 +77,7 @@ class Sprite
     //Draws this sprite at the center of another
     drawOnCenter(ctx, x, y, spriteToCenterOn: Sprite)
     {
-        if (this.finished == false)
+        //if (this.finished == false)
         {
             ctx.save();
             ctx.translate(
@@ -84,7 +91,7 @@ class Sprite
 
     draw(ctx, x, y)
     {
-        if (this.finished == false)
+        //if (this.finished == false)
         {
             var img = AssetManager.images[this.spriteDef.imageName];
             var frameHeight = img.height / this.spriteDef.frameCount;
@@ -128,21 +135,26 @@ class Sprite
         return this.spriteDef.frameCount;
     }
 
-    setSpriteDef(spriteDef: SpriteDefinition, lockSprite = false)
+    onFinish(func)
     {
+        this.onFinishFunc = func;
+    }
 
+    setSpriteDef(spriteDef: SpriteDefinition, lockSprite = false, noLoop = false)
+    {
+        this.noLoop = noLoop;
+        this.finished = false;
         if (spriteDef != this.spriteDef)
         {
             if (this.isSpriteLocked == false)
             {
                 this.spriteDef = spriteDef;
-                //Logger.debug("SpriteDef " + this.spriteDef.imageName + " LockSprite " + lockSprite);
                 this.currentFrameY = this.spriteDef.frameY;
                 this.isSpriteLocked = lockSprite;
             }
         }
 
-        if (this.isSpriteLocked == true && this.spriteDef == spriteDef && lockSprite == false)
+        if (this.spriteDef == spriteDef)
         {
             this.isSpriteLocked = lockSprite;
         }

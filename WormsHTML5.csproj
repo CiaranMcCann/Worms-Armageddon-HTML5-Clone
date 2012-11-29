@@ -68,6 +68,13 @@
     <Content Include="src\animation\SpriteDefinitions.min.js">
       <DependentUpon>SpriteDefinitions.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\StateAnimationManger.ts" />
+    <Content Include="src\StateAnimationManger.js">
+      <DependentUpon>StateAnimationManger.ts</DependentUpon>
+    </Content>
+    <Content Include="src\StateAnimationManger.min.js">
+      <DependentUpon>StateAnimationManger.ts</DependentUpon>
+    </Content>
     <Content Include="src\CountDownTimer.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>

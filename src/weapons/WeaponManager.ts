@@ -28,7 +28,7 @@ class WeaponManager
             new HolyGrenade()
         ];
 
-        this.currentWeaponIndex = 0;
+        this.currentWeaponIndex = 1;
     }
 
  
