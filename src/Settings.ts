@@ -13,6 +13,9 @@ module Settings
     //Game vars
     export var PLAYER_TURN_TIME = 60 * 1000; // 60 secounds
     export var TURN_TIME_WARING = 5; // after 10 secounds warn player they are running out of time
+   
+    //General game settings
+    export var SOUND = true;
 
     // development vars
     export var DEVELOPMENT_MODE = false; 
@@ -20,12 +23,14 @@ module Settings
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
 
+    
+
 
     //Pasers commandline type arguments from the page url like this ?argName=value
     export function getSettingsFromUrl()
     {
         var argv = Utilies.getUrlVars();
-        var commands = ["physicsDebugDraw","devMode","unitTest"]
+        var commands = ["physicsDebugDraw","devMode","unitTest","sound"]
 
         if (argv[commands[0]] == "true")
         {
@@ -42,6 +47,11 @@ module Settings
            var testWindow = window.open('test.html', '|UnitTests', 'height=1000,width=700,top:100%');
            testWindow.location.reload(); // This is so if the window was left open it refreshs
             
+        }
+
+        if (argv[commands[3]] == "false")
+        {
+            SOUND = false;
         }
 
         Logger.log(" Notice: argv are as follows " + commands);

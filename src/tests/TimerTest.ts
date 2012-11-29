@@ -36,3 +36,18 @@ asyncTest( "Reset", function() {
         start();
     }, timePeroid);
 });
+
+
+QUnit.module( "Utitlies" );
+test( " remove item from array ", function() {
+     
+    var arr = [1,2,3,4,5];
+     
+    Utilies.deleteFromCollection(arr, 1);
+    Utilies.deleteFromCollection(arr, 3);
+    var t = arr[1] == 3 && arr[3] == null;
+
+
+    ok(t);
+});
+

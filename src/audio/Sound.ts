@@ -14,7 +14,6 @@ declare var webkitAudioContext; //TODO implement support for other browsers
 class Sound
 {
     static context = new webkitAudioContext();
-    static soundOn = true;
 
     buffer;
     private playing;
@@ -32,7 +31,7 @@ class Sound
 
     play(volume = 1, time = 0)
     {
-        if (Sound.soundOn)
+        if (Settings.SOUND)
         {
             // if sound is playing don't replay it
             if (this.playing == false)

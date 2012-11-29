@@ -103,6 +103,27 @@ class ThrowableWeapon extends BaseWeapon
         }
     }
 
+    detonate()
+    {
+        var posX = Physics.metersToPixels(this.body.GetPosition().x);
+        var posY = Physics.metersToPixels(this.body.GetPosition().y);
+
+        GameInstance.terrain.addToDeformBatch(
+                  posX,
+                  posY,
+              50);
+
+        this.timeToLive = -1;
+
+        Physics.applyForceToNearByObjects(this.body.GetPosition(), this.effectedRadius, this.explosiveForce);
+        GameInstance.particleEffectMgmt.add(new ParticleEffect(posX, posY));
+        AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+
+        //The bomb has exploded so remove it from the world
+        this.reset();
+        Physics.world.DestroyBody(this.body);
+    }
+
     update()
     {
         if (this.getIsActive())
@@ -117,20 +138,7 @@ class ThrowableWeapon extends BaseWeapon
             //Checks if its time for the bomb to explode
             if (this.detonationCounter <= 1 && this.timeToLive > 0)
             {
-
-                GameInstance.terrain.addToDeformBatch(
-                    this.body.GetPosition().x * Physics.worldScale,
-                    this.body.GetPosition().y * Physics.worldScale,
-                50);
-
-                this.timeToLive = -1;
-
-                Physics.applyForceToNearByObjects(this.body.GetPosition(), this.effectedRadius, this.explosiveForce);
-                AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
-
-                //The bomb has exploded so remove it from the world
-                this.reset();
-                Physics.world.DestroyBody(this.body);
+                this.detonate();
             }
         }
     }

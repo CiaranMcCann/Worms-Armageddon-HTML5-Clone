@@ -4,10 +4,6 @@
 
 class HolyGrenade extends ThrowableWeapon
 {
-    // icon
-    // sprites for worm
-    // sprites for explosions
-    // possibly other sprites
 
     constructor ()
     {
@@ -19,20 +15,14 @@ class HolyGrenade extends ThrowableWeapon
         );
     }
 
+    update()
+    {
+        if (this.detonationCounter <= 3.5 && this.timeToLive > 0)
+        {
+            AssetManager.sounds["HOLYGRENADE"].play();
+        }
 
-    //activate(worm) 
-    //{ 
-    //    super.activate(worm);
-    //};
-
-
-    //update()
-    //{   
-    //    super.update();
-    //}
-
-    //draw(ctx) { 
-    //    super.draw(ctx);
-    //}
+        super.update();
+    }
 
 }

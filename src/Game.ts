@@ -20,7 +20,7 @@
 ///<reference path="Settings.ts" />
 ///<reference path="CountDownTimer.ts" />
 ///<reference path="animation/SpriteDefinitions.ts" />
-
+///<reference path="animation/ParticleEffect.ts"/>
 
 class Game
 {
@@ -31,25 +31,20 @@ class Game
     actionCanvasContext;
 
     terrain: Terrain;
-    weapons;
     players: Player[];
 
     weaponMenu: WeaponsMenu;
-
     gameTimer: CountDownTimer;
-
-    soundOn: bool;
     currentPlayerIndex: number;
 
     isStarted: bool;
-    pEffect: ParticleSystem;
+    particleEffectMgmt: ParticleEffectManager;
 
 
     constructor ()
     {
         Graphics.init();
 
-        this.soundOn = true;
         this.currentPlayerIndex = 0;
 
 
@@ -75,14 +70,14 @@ class Game
         }
 
         this.isStarted = false;
-        window.addEventListener("click", function (evt: any) =>
-        {
-            //this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
-            this.pEffect = new ParticleSystem(evt.pageX, evt.pageY);
+        //window.addEventListener("click", function (evt: any) =>
+        //{
+        //    //this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
+        //    this.particleEffectMgmt.add(new ParticleEffect(evt.pageX, evt.pageY));
 
-        }, false);
+        //}, false);
 
-        this.pEffect = new ParticleSystem(100, 100);
+        this.particleEffectMgmt = new ParticleEffectManager();
     }
 
     start()
@@ -123,7 +118,7 @@ class Game
 
             this.gameTimer.update(this.players);
 
-            this.pEffect.update();
+            this.particleEffectMgmt.update();
         }
 
     }
@@ -154,7 +149,7 @@ class Game
             this.players[player].draw(this.actionCanvasContext);
         }
 
-         this.pEffect.draw(this.actionCanvasContext);
+         this.particleEffectMgmt.draw(this.actionCanvasContext);
     }
 
 }

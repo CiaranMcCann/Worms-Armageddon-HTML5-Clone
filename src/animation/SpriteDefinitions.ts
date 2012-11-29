@@ -35,7 +35,7 @@ module Sprites
 
             imageName: "hgrenade",
             frameY: 0,
-            frameCount: 31,
+            frameCount: 32,
             msPerFrame: 10,
 
         }

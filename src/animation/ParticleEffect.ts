@@ -15,7 +15,7 @@
 ///<reference path="../Settings.ts" />
 
 
-class ParticleSystem
+class ParticleEffect
 {
     private x: number;
     private y: number;
@@ -25,6 +25,7 @@ class ParticleSystem
     word: Sprite;
     particles: Particle[];
     center;
+    finished;
 
 
     constructor (x, y)
@@ -35,6 +36,7 @@ class ParticleSystem
         this.cirlce = new Sprite(Sprites.particleEffects.cirlce1,true);
         this.word = new Sprite(Sprites.particleEffects.wordBiff,true);
         this.center = new b2Vec2(this.eclipse.getImage().width/2,this.eclipse.getFrameHeight()/2)
+        this.finished = false;
 
         this.particles = [];
       
@@ -53,6 +55,10 @@ class ParticleSystem
 
     draw(ctx)
     {
+        
+        ctx.save();
+        //Center it on the position instead of from the left top hand conor
+        ctx.translate(-this.eclipse.getImage().width / 2, -this.eclipse.getFrameHeight() / 2);
         
         for (var p in this.particles)
         {
@@ -77,7 +83,7 @@ class ParticleSystem
            this.eclipse
         );
 
-
+        ctx.restore();
         // this.eclipse.draw(ctx,this.x, this.y);
     }
 
@@ -92,6 +98,11 @@ class ParticleSystem
         {
              this.particles[p].update();
         }
+
+         if (this.eclipse.finished)
+         {
+             this.finished = true;
+         }
     }
 
 
