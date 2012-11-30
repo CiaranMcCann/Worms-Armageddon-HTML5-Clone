@@ -35,7 +35,10 @@ class Target extends PhysicsSprite
     draw(ctx)
     {
         
-        if (this.worm.isActiveWorm()  &&  this.worm.team.getWeaponManager().getCurrentWeapon().requiresAiming )
+        if (this.worm.isActiveWorm()  && 
+            this.worm.team.getWeaponManager().getCurrentWeapon().requiresAiming 
+            //this.worm.stateAnimationMgmt.getState() == WormAnimationManger.WORM_STATE.aiming
+             )
         {
             var radius = this.worm.fixture.GetShape().GetRadius() * Physics.worldScale;
             var wormPos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());

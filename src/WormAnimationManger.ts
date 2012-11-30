@@ -50,6 +50,11 @@ class WormAnimationManger
         this.currentState = state;
     }
 
+
+    getState()
+    {
+        return this.currentState;
+    }
     
     setIdleAnimation()
     {
@@ -59,13 +64,14 @@ class WormAnimationManger
             //If the worm is the current worm its idel will be to take out its weapon
 
             this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeOutAnimations, false,true);
-
+            
             // Once the animation to take out the weapon is finished then display this still image, which is the aiming image 
             // most of the time, depending on the type or weapon or tool.
             this.worm.onFinish(function () =>
             {
                 this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeAimAnimations);
                 this.worm.finished = true;
+                this.currentState = WormAnimationManger.WORM_STATE.aiming;
             });
 
 

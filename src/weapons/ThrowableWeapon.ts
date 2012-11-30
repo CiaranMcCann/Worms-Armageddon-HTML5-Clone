@@ -160,10 +160,20 @@ class ThrowableWeapon extends BaseWeapon
                     direction.Normalize();
                     direction.Multiply(this.explosiveForce);
                     fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
-
-                    //TODO reduce based on lenght
+               
                     if (fixture.GetBody() != this.body)
-                        fixture.GetBody().GetUserData().hit(this.maxDamage)
+                    {
+                         //TODO reduce damage based on lenght
+                        //var wormDistance = this.body.GetPosition() 
+                        //wormDistance.Subtract(fixture.GetBody().GetUserData().body.GetPosition());
+                        //var diff = this.effectedRadius - wormDistance.Length();
+
+                        //var damage = diff / this.effectedRadius;
+                        var damage = 1;
+
+                        fixture.GetBody().GetUserData().hit(this.maxDamage*damage)
+
+                    }
                 }
             }
          );

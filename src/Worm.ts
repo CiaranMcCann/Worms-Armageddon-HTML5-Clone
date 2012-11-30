@@ -239,6 +239,8 @@ class Worm extends Sprite
     draw(ctx)
     {
         this.team.getWeaponManager().getCurrentWeapon().draw(ctx);
+
+       
         this.target.draw(ctx);
 
         ctx.save()
@@ -270,7 +272,7 @@ class Worm extends Sprite
         ctx.fillStyle = this.team.color;
         ctx.textAlign = 'center';
         ctx.fillText(this.name, 0, -radius * 2.8);
-        ctx.fillText(this.health, 0, -radius * 1.5);
+        ctx.fillText(Math.floor(this.health), 0, -radius * 1.5);
 
         ctx.restore()
     }
