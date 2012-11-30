@@ -108,7 +108,7 @@ module Physics
         }
     }
 
-    export function applyForceToNearByObjects(epicenter,effectedRadius,force, funcToApplyToEach)
+    export function applyToNearByObjects(epicenter,effectedRadius,funcToApplyToEach)
     {
         var aabb = new b2AABB();
         aabb.lowerBound.Set(epicenter.x - effectedRadius, epicenter.y - effectedRadius);
@@ -116,22 +116,9 @@ module Physics
 
         Physics.world.QueryAABB(function (fixture) =>
         {
-            if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
-            {
-
-                var direction = fixture.GetBody().GetPosition().Copy();
-                direction.Subtract(epicenter);
-                direction.Normalize();
-                direction.Multiply(force);
-                fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
-                
-                if (funcToApplyToEach != null)
-                {
-                    funcToApplyToEach(fixture.GetBody());
-                }
-            }
-
+            funcToApplyToEach(fixture,epicenter);           
             return true;
+
         }, aabb);
     }
 

@@ -28,7 +28,7 @@ class ThrowableWeapon extends BaseWeapon
     explosionRadius: number;
     maxDamage: number;
 
-    constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation : SpriteDefinition,takeAimAnimation : SpriteDefinition)
+    constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
         super(
             name,
@@ -107,30 +107,30 @@ class ThrowableWeapon extends BaseWeapon
 
     //Gets the direction of aim from the target and inital velocity
     // The creates the box2d physics body at that pos with that inital v
-    setupDirectionAndForce(worm : Worm)
+    setupDirectionAndForce(worm: Worm)
     {
-            var initalVelocity = worm.target.getTargetDirection().Copy();
+        var initalVelocity = worm.target.getTargetDirection().Copy();
 
-            //if(this.worm.direction 
-            initalVelocity.Multiply(1.5);
+        //if(this.worm.direction 
+        initalVelocity.Multiply(1.5);
 
-            var initalPosition = worm.body.GetPosition();
-            initalPosition.Add(initalVelocity);
+        var initalPosition = worm.body.GetPosition();
+        initalPosition.Add(initalVelocity);
 
-            initalVelocity = worm.target.getTargetDirection().Copy();
-            initalVelocity.Multiply(20);
+        initalVelocity = worm.target.getTargetDirection().Copy();
+        initalVelocity.Multiply(20);
 
-            this.setupPhysicsBodies(initalPosition, initalVelocity);
+        this.setupPhysicsBodies(initalPosition, initalVelocity);
 
     }
 
-    activate(worm : Worm)
+    activate(worm: Worm)
     {
-       if (this.ammo > 0)
+        if (this.ammo > 0)
         {
             super.activate(worm);
             this.setupDirectionAndForce(worm);
-            
+
         }
     }
 
@@ -146,15 +146,25 @@ class ThrowableWeapon extends BaseWeapon
 
         this.timeToLive = -1;
 
-        Physics.applyForceToNearByObjects(
-            this.body.GetPosition(), 
-            this.effectedRadius, 
-            this.explosiveForce,
-            function (body) =>
+
+        Physics.applyToNearByObjects(
+            this.body.GetPosition(),
+            this.effectedRadius,
+            function (fixture, epicenter) =>
             {
-                //TODO reduce based on lenght
-                if( body != this.body)
-                body.GetUserData().hit(this.maxDamage)
+                // Applys force to all the bodies in the radius
+                if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
+                {
+                    var direction = fixture.GetBody().GetPosition().Copy();
+                    direction.Subtract(epicenter);
+                    direction.Normalize();
+                    direction.Multiply(this.explosiveForce);
+                    fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+
+                    //TODO reduce based on lenght
+                    if (fixture.GetBody() != this.body)
+                        fixture.GetBody().GetUserData().hit(this.maxDamage)
+                }
             }
          );
 
@@ -188,11 +198,11 @@ class ThrowableWeapon extends BaseWeapon
 
     draw(ctx)
     {
-      
+
         if (this.getIsActive() && this.timeToLive > 0)
         {
             ctx.save()
-            
+
             var wormPosInPixels = Physics.vectorMetersToPixels(this.body.GetPosition());
 
             ctx.translate(
