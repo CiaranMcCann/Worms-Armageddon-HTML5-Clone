@@ -101,12 +101,11 @@ class ThrowableWeapon extends BaseWeapon
         }
     }
 
-    activate(worm : Worm)
-    {
-       if (this.ammo > 0)
-        {
-            super.activate(worm);
 
+    //Gets the direction of aim from the target and inital velocity
+    // The creates the box2d physics body at that pos with that inital v
+    setupDirectionAndForce(worm : Worm)
+    {
             var initalVelocity = worm.target.getTargetDirection().Copy();
 
             //if(this.worm.direction 
@@ -119,6 +118,16 @@ class ThrowableWeapon extends BaseWeapon
             initalVelocity.Multiply(20);
 
             this.setupPhysicsBodies(initalPosition, initalVelocity);
+
+    }
+
+    activate(worm : Worm)
+    {
+       if (this.ammo > 0)
+        {
+            super.activate(worm);
+            this.setupDirectionAndForce(worm);
+            
         }
     }
 

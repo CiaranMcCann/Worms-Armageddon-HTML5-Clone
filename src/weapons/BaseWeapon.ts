@@ -11,6 +11,8 @@ class BaseWeapon
     takeOutAnimations : SpriteDefinition;
     takeAimAnimations : SpriteDefinition ;
 
+    requiresAiming: bool;
+
     constructor (name: string, ammo: number, iconSprite, takeOutAnimation : SpriteDefinition, takeAimAnimation : SpriteDefinition)
     {
         this.name = name;
@@ -22,6 +24,8 @@ class BaseWeapon
         this.takeAimAnimations = takeAimAnimation;
         //Setup the icon used in the weapon menu
         this.iconImage = AssetManager.images[iconSprite.imageName];
+
+        this.requiresAiming = true;
 
         this.setIsActive(false);
     }

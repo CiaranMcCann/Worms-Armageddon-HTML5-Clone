@@ -27,6 +27,9 @@ module Sprites
 
         holyGernade: {imageName: "iconhgrenade"},
         drill: {imageName: "drill"},
+       dynamite: {imageName: "icondynamite"}
+
+         
 
     };
 
@@ -37,6 +40,15 @@ module Sprites
             frameY: 0,
             frameCount: 32,
             msPerFrame: 10,
+
+        },
+
+         dynamite: {
+
+            imageName: "dynamite",
+            frameY: 0,
+            frameCount: 129,
+            msPerFrame: 50,
 
         },
          //TODO Move aiming things to misulaous 
@@ -118,6 +130,15 @@ module Sprites
 
         },
 
+        takeOutDynamite: {
+
+            imageName: "wdynlnkd",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 50,
+
+        },
+
         aimHolyGernade: {
 
             imageName: "wthrhgr",
@@ -132,7 +153,7 @@ module Sprites
             imageName: "wdrllnk",
             frameY: 0,
             frameCount: 13,
-            msPerFrame: 100,
+            msPerFrame: 60,
 
         },
 
