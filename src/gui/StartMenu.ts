@@ -24,10 +24,13 @@ class StartMenu
         //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
         this.controlsView = '<div style="text-align:center">' +
             ' <p>Just incase you have never played the original worms armageddon, its a turn base deathmatch game. Where you control a team of worms. Use whatever weapons you have to destroy the enemy. <p><br>' +
-            '<p><kbd>' + String.fromCharCode(Controls.jump.keyboard) +
-            '</kbd> <kbd> ' + String.fromCharCode(Controls.walkLeft.keyboard) +
+            '<p><kbd> Space' +
+            '</kbd>  <kbd> ' + String.fromCharCode(Controls.walkLeft.keyboard) +
             '</kbd> <kbd> ' + String.fromCharCode(Controls.walkRight.keyboard) +
             '</kbd> - Jump, Left, Right. <br> <br>' +
+             ' <kbd>'+  String.fromCharCode(Controls.aimUp.keyboard)  +'</kbd> ' +
+             ' <kbd>'+  String.fromCharCode(Controls.aimDown.keyboard)  +'</kbd> ' +
+             ' - Aim up and down. </p><br>' +        
             ' <kbd>'+  String.fromCharCode(Controls.toggleWeaponMenu.keyboard)  +'</kbd> - Weapon Menu. </p><br>' +        
             ' <kbd>Enter</kbd> or left mouse - Fire weapon. </p><p></p><br><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
