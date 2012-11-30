@@ -26,6 +26,7 @@ class ThrowableWeapon extends BaseWeapon
     explosiveForce;
     sprite: Sprite;
     explosionRadius: number;
+    maxDamage: number;
 
     constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation : SpriteDefinition,takeAimAnimation : SpriteDefinition)
     {
@@ -48,10 +49,12 @@ class ThrowableWeapon extends BaseWeapon
         // force scaler
         this.explosiveForce = 150
 
+        //hit damage at center
+        this.maxDamage = 20;
+
         // set default values
         this.reset();
 
-    
     }
 
     reset()
@@ -143,7 +146,18 @@ class ThrowableWeapon extends BaseWeapon
 
         this.timeToLive = -1;
 
-        Physics.applyForceToNearByObjects(this.body.GetPosition(), this.effectedRadius, this.explosiveForce);
+        Physics.applyForceToNearByObjects(
+            this.body.GetPosition(), 
+            this.effectedRadius, 
+            this.explosiveForce,
+            function (body) =>
+            {
+                //TODO reduce based on lenght
+                if( body != this.body)
+                body.GetUserData().hit(this.maxDamage)
+            }
+         );
+
         GameInstance.particleEffectMgmt.add(new ParticleEffect(posX, posY));
         AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
 

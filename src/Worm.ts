@@ -194,6 +194,11 @@ class Worm extends Sprite
         }
     }
 
+    hit(damage)
+    {
+        this.health -= damage;
+    }
+
     walkRight()
     {
         if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
