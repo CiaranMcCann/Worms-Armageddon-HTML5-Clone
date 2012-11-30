@@ -77,7 +77,7 @@ class Sprite
     //Draws this sprite at the center of another
     drawOnCenter(ctx, x, y, spriteToCenterOn: Sprite)
     {
-        //if (this.finished == false)
+        if (this.finished == false)
         {
             ctx.save();
             ctx.translate(

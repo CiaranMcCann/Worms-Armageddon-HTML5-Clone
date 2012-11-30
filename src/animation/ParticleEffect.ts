@@ -71,10 +71,14 @@ class ParticleEffect
            this.eclipse
         );
 
-        this.eclipse.draw(ctx,
-           this.x,
-           this.y
-        );
+        //hack, to do with the sprite draw() method not using the isfinished var, fix later
+        if (this.eclipse.finished == false) 
+        {
+            this.eclipse.draw(ctx,
+               this.x,
+               this.y
+            );
+        }
 
 
         this.word.drawOnCenter(ctx,
@@ -84,7 +88,6 @@ class ParticleEffect
         );
 
         ctx.restore();
-        // this.eclipse.draw(ctx,this.x, this.y);
     }
 
 
@@ -99,10 +102,8 @@ class ParticleEffect
              this.particles[p].update();
         }
 
-         if (this.eclipse.finished)
-         {
-             this.finished = true;
-         }
+        //Particles have the longest animation so once they are finished we can make the effect for deletion
+         this.finished = this.particles[0].finished;
     }
 
 

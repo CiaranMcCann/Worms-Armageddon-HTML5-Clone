@@ -101,13 +101,24 @@ class ThrowableWeapon extends BaseWeapon
         }
     }
 
-    activate(worm)
+    activate(worm : Worm)
     {
-        super.activate(worm);
-
-        if (this.ammo >= 0)
+       if (this.ammo > 0)
         {
-            this.setupPhysicsBodies(worm.body.GetPosition(), new b2Vec2(20, 20));
+            super.activate(worm);
+
+            var initalVelocity = worm.target.getTargetDirection().Copy();
+
+            //if(this.worm.direction 
+            initalVelocity.Multiply(1.5);
+
+            var initalPosition = worm.body.GetPosition();
+            initalPosition.Add(initalVelocity);
+
+            initalVelocity = worm.target.getTargetDirection().Copy();
+            initalVelocity.Multiply(20);
+
+            this.setupPhysicsBodies(initalPosition, initalVelocity);
         }
     }
 

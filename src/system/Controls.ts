@@ -34,7 +34,21 @@ module Controls
     export var jump =
     {
         gamepad: -1,
+        keyboard: 32,
+        mouse: -1
+    }
+
+    export var aimUp =
+    {
+        gamepad: -1,
         keyboard: 87,
+        mouse: -1
+    }
+
+    export var aimDown =
+    {
+        gamepad: -1,
+        keyboard: 83,
         mouse: -1
     }
 

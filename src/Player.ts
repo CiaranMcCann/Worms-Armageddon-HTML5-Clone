@@ -59,6 +59,16 @@ class Player
             this.team.getCurrentWorm().walkRight();
         }
 
+        if (keyboard.isKeyDown(Controls.aimUp.keyboard))
+        {
+            this.team.getCurrentWorm().target.aim(1);
+        }
+
+        if (keyboard.isKeyDown(Controls.aimDown.keyboard))
+        {
+            this.team.getCurrentWorm().target.aim(-1);
+        }
+
         if (keyboard.isKeyDown(Controls.fire.keyboard) && !this.hasPlayerFiredWeapon)
         {
             this.hasPlayerFiredWeapon = true;

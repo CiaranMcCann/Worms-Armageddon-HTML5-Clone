@@ -209,6 +209,11 @@ class Worm extends Sprite
 
     }
 
+    isActiveWorm()
+    {
+        return this.team.getCurrentWorm() == this && GameInstance.getCurrentPlayerObject().getTeam() == this.team;
+    }
+
 
     update()
     {

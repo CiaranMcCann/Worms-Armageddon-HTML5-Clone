@@ -54,7 +54,7 @@ class WormAnimationManger
     setIdleAnimation()
     {
         // If this worm is the worm of the current player
-        if (this.worm.team.getCurrentWorm() == this.worm && GameInstance.getCurrentPlayerObject().getTeam() == this.worm.team)
+        if (this.worm.isActiveWorm())
         {   
             //If the worm is the current worm its idel will be to take out its weapon
 

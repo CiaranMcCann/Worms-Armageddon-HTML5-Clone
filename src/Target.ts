@@ -19,35 +19,48 @@
 class Target extends PhysicsSprite
 {
     // Aiming
-    targetDirection;
+    private targetDirection;
     rotationRate;
     worm : Worm; 
 
     constructor (worm : Worm)
     {
-        super(new b2Vec2(2, 2), Physics.vectorMetersToPixels(worm.body.GetPosition()), Sprites.weapons.redTarget);
+        super(new b2Vec2(20, 20), Physics.vectorMetersToPixels(worm.body.GetPosition()), Sprites.weapons.redTarget);
         //The direction in which the worm is aiming
         this.targetDirection = new b2Vec2(0.7, 0.7);
-        this.rotationRate = 5;
+        this.rotationRate = 4;
         this.worm = worm;
     }
 
     draw(ctx)
     {
-        var wormPos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
-        var targetDir = this.targetDirection.Copy();
-        targetDir.Multiply(10);
-        targetDir.Add(wormPos);
+        if (this.worm.isActiveWorm())
+        {
+            var radius = this.worm.fixture.GetShape().GetRadius() * Physics.worldScale;
+            var wormPos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
+            var targetDir = this.targetDirection.Copy();
+            targetDir.Multiply(50);
+            targetDir.Add(wormPos);
 
-
-        super.draw(ctx, targetDir.x , targetDir.y);
+            super.draw(ctx, targetDir.x - radius, targetDir.y - (radius * 2));
+        }
     }
 
-
-    aim(upOrDown: number)
+    getTargetDirection()
     {
-        var currentAngle = (this.rotationRate * upOrDown) + Utilies.vectorToAngle(this.targetDirection);
+        return this.targetDirection;
+    }
+
+    // Allows the player to increase the aiming angle or decress
+    aim(upOrDown: number)
+    {      
+       // Logger.debug(Utilies.toDegrees(Utilies.vectorToAngle(this.targetDirection)));
+        var td = this.targetDirection.Copy();
+        //td.Add(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
+
+        var currentAngle = Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td);
         this.targetDirection = Utilies.angleToVector(currentAngle);
+        
     }
 
 }
