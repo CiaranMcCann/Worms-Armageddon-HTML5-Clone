@@ -19,12 +19,20 @@ class Team
     currentWorm: number;
     weaponManager: WeaponManager;
     color;
+    name;
+
+    static teamCount = 0;
 
 
     constructor ()
     {
+
         //Random color - Credit Paul Irish
         this.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+
+        this.name = "Team " + Team.teamCount;
+        Team.teamCount++;
 
         this.weaponManager = new WeaponManager();
 
@@ -34,6 +42,18 @@ class Team
         {
             this.worms.push(new Worm(this, Utilies.random(200, 1300), -2));
         }
+    }
+
+    getPercentageHealth()
+    {
+        var totalHealth = 0;
+
+        for (var worm in this.worms)
+        {
+            totalHealth += this.worms[worm].health;
+        }
+
+        return totalHealth/this.worms.length;
     }
 
     getCurrentWorm()

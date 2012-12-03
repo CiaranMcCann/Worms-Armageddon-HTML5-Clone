@@ -22,6 +22,7 @@
 ///<reference path="animation/SpriteDefinitions.ts" />
 ///<reference path="animation/ParticleEffect.ts"/>
 ///<reference path="animation/ParticleEffectManager.ts"/>
+///<reference path="gui/HealthMenu.ts"/>
 
 class Game
 {
@@ -35,6 +36,8 @@ class Game
     players: Player[];
 
     weaponMenu: WeaponsMenu;
+    healthMenu: HealthMenu;
+
     gameTimer: CountDownTimer;
     currentPlayerIndex: number;
 
@@ -79,6 +82,8 @@ class Game
         //}, false);
 
         this.particleEffectMgmt = new ParticleEffectManager();
+
+        this.healthMenu = new HealthMenu(this.players);
     }
 
     start()

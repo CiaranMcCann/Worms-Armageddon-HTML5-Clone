@@ -51,7 +51,7 @@ class CountDownTimer
 
             } else
             {
-                $('#turnTimeCounter').css("background", "#808080");
+                $('#turnTimeCounter').css("background", "black");
             }
 
             if (this.timer.hasTimePeriodPassed())

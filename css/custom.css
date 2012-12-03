@@ -67,15 +67,15 @@
 }
 
 #startMenu {
-position: absolute;
-left: 50%;
-top: 50%;
-margin-left: -360px;
-margin-top: -280px;
-width: 600px;
-height: 450px;
-z-index: 1;
-display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -360px;
+    margin-top: -280px;
+    width: 600px;
+    height: 450px;
+    z-index: 1;
+    display: none;
 }
 
 
@@ -97,38 +97,39 @@ display: none;
     height: 500px;
     margin-top: -500px;
     z-index: 1;
-    background: #eee;
-    border: 2px solid black;
+    background: black;
+     border: 1px white solid;
     padding: 10px;
     padding-left: 2px;
     padding-right: 2px;
+     border-radius: 3px;
 }
 
-#weaponsMenu .thumbnail:active{
-    transform: scale(0.7,0.7);
--ms-transform: scale(0.7,0.7); /* IE 9 */
--webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
--o-transform: scale(0.7,0.7); /* Opera */
--moz-transform: scale(0.7,0.7); /* Firefox */
-}
+    #weaponsMenu .thumbnail:active {
+        transform: scale(0.7,0.7);
+        -ms-transform: scale(0.7,0.7); /* IE 9 */
+        -webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
+        -o-transform: scale(0.7,0.7); /* Opera */
+        -moz-transform: scale(0.7,0.7); /* Firefox */
+    }
 
     #weaponsMenu .noAmmo {
         -moz-opacity: 0.4;
         opacity: 0.4;
     }
 
-   a.noAmmo:hover{
-        border-color: none;
-   }
+a.noAmmo:hover {
+    border-color: none;
+}
 
 
 .span1 {
     width: auto;
 }
 
-a.thumbnail.ammo{
-    background:black;
-} 
+a.thumbnail.ammo {
+    background: black;
+}
 
 .ammoCount {
     position: absolute;
@@ -140,20 +141,21 @@ a.thumbnail.ammo{
 }
 
 #turnTimeCounter {
-    background: #808080;
-    border: black 2px solid;
-    width: 80px;
-    height: 80px;
+    background: black;
+    border: white 1px solid;
+    width: 70px;
+    height: 70px;
     position: absolute;
     top: 100%;
-    margin-top: -88px;
-    margin-left: 5px;
+    margin-top: -78px;
+    margin-left: 10px;
     color: white;
     font-size: 40px;
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
     -webkit-box-align: center;
+    border-radius: 3px;
 }
 
 kbd {
@@ -165,3 +167,37 @@ kbd {
     padding: 2px 4px;
     border-width: 1px 3px 3px 1px;
 }
+
+.healthMenu {
+    position: absolute;
+    left: 50%;
+    top: 93%;
+    width: 150px;
+    z-index: 1;
+    margin-left: -200px;
+}
+
+    .healthMenu li {
+        list-style: none;
+        padding: 5px;
+    }
+
+        .healthMenu li span {
+            margin-left: 10px;
+            margin-right: 10px;
+            background: black;
+            color: white;
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px white solid;
+        }
+
+
+
+    .healthMenu span.health {
+        position: absolute;
+        background: green;
+        width: 100%;
+        height: 15px;
+    }
