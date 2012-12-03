@@ -196,6 +196,7 @@ class Worm extends Sprite
 
     hit(damage)
     {
+        GameInstance.healthMenu.update(this.team);
         this.health -= damage;
     }
 

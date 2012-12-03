@@ -20,6 +20,7 @@ class Team
     weaponManager: WeaponManager;
     color;
     name;
+    teamId;
 
     static teamCount = 0;
 
@@ -32,6 +33,7 @@ class Team
 
 
         this.name = "Team " + Team.teamCount;
+        this.teamId = Team.teamCount;
         Team.teamCount++;
 
         this.weaponManager = new WeaponManager();

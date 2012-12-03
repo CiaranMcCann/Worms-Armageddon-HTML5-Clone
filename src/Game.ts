@@ -83,13 +83,13 @@ class Game
 
         this.particleEffectMgmt = new ParticleEffectManager();
 
-        this.healthMenu = new HealthMenu(this.players);
     }
 
     start()
     {
         this.gameTimer.timer.reset();
         this.isStarted = true;
+        this.healthMenu = new HealthMenu(this.players);
     }
 
     getCurrentPlayerObject()

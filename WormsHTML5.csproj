@@ -69,6 +69,13 @@
       <DependentUpon>SpriteDefinitions.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\WormAnimationManger.ts" />
+    <TypeScriptCompile Include="src\gui\HealthMenu.ts" />
+    <Content Include="src\gui\HealthMenu.js">
+      <DependentUpon>HealthMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\HealthMenu.min.js">
+      <DependentUpon>HealthMenu.ts</DependentUpon>
+    </Content>
     <Content Include="src\StateAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>

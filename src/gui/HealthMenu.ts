@@ -23,12 +23,19 @@ class HealthMenu
 
             html +=  "<li><span> " + team.name + " </span><img src="+ 
                     Settings.REMOTE_ASSERT_SERVER  +"data/images/Ireland.png> " +
-                    "<span class=health style=width:" + team.getPercentageHealth() + 
+                    "<span id='" +team.teamId+ "' class=health style=width:" + team.getPercentageHealth() + 
                     "%;background:" + team.color + "  ></span></li>";
 
         }
         $('.healthMenu').html(html);
 
+    }
+
+    update(teamRef : Team)
+    {       
+        $('#' + teamRef.teamId).animate({
+            width: teamRef.getPercentageHealth() + "%",
+        }, 300);
     }
 
 }
