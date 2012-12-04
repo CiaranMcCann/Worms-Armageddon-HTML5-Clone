@@ -50,7 +50,7 @@ class ThrowableWeapon extends BaseWeapon
         this.explosiveForce = 150
 
         //hit damage at center
-        this.maxDamage = 20;
+        this.maxDamage = 30;
 
         // set default values
         this.reset();
@@ -157,20 +157,21 @@ class ThrowableWeapon extends BaseWeapon
                 {
                     var direction = fixture.GetBody().GetPosition().Copy();
                     direction.Subtract(epicenter);
-                    direction.Normalize();
-                    direction.Multiply(this.explosiveForce);
-                    fixture.GetBody().ApplyImpulse(direction, fixture.GetBody().GetPosition());
+                    var forceVec = direction.Copy();
+                    forceVec.Normalize();
+                    forceVec.Multiply(this.explosiveForce);
+                    fixture.GetBody().ApplyImpulse(forceVec, fixture.GetBody().GetPosition());
                
                     if (fixture.GetBody() != this.body)
                     {
-                         //TODO reduce damage based on lenght
-                        //var wormDistance = this.body.GetPosition() 
-                        //wormDistance.Subtract(fixture.GetBody().GetUserData().body.GetPosition());
-                        //var diff = this.effectedRadius - wormDistance.Length();
+                        var diff = this.effectedRadius - direction.Length();
+                        if (diff < 0)
+                        {
+                            diff = 0;
+                        }
 
-                        //var damage = diff / this.effectedRadius;
-                        var damage = 1;
-
+                        var damage = diff / this.effectedRadius;
+                        //Logger.debug(" Dir l " + direction.Length() + " Effect " + this.effectedRadius +" damage " + damage + " diff " + diff);
                         fixture.GetBody().GetUserData().hit(this.maxDamage*damage)
 
                     }
