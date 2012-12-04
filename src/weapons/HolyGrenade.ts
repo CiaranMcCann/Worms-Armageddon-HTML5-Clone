@@ -16,13 +16,17 @@ class HolyGrenade extends ThrowableWeapon
             Sprites.worms.aimHolyGernade
         );
 
+        // The area in pxiels that get cut out of the terrain
         this.explosionRadius = 100;
 
-         // Force/worm damge radius
-        this.effectedRadius = Physics.pixelToMeters(this.explosionRadius*1.8);
+        // Force/worm damge radius
+        this.effectedRadius = Physics.pixelToMeters(250);
 
-          // force scaler
-        this.explosiveForce = this.explosionRadius * 2;
+        // force scaler
+        this.explosiveForce = 120
+
+        //hit damage at center
+        this.maxDamage = 40;
     }
 
     update()

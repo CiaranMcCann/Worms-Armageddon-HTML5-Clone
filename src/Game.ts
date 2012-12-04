@@ -99,6 +99,8 @@ class Game
 
     nextPlayer()
     {
+        //if(this.getCurrentPlayerObject().
+
         if (this.currentPlayerIndex + 1 == this.players.length)
         {
             this.currentPlayerIndex = 0;

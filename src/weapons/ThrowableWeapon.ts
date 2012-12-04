@@ -153,28 +153,26 @@ class ThrowableWeapon extends BaseWeapon
             function (fixture, epicenter) =>
             {
                 // Applys force to all the bodies in the radius
-                if (fixture.GetBody().GetType() != b2Body.b2_staticBody)
+                if (fixture.GetBody().GetType() != b2Body.b2_staticBody && fixture.GetBody() != this.body)
                 {
                     var direction = fixture.GetBody().GetPosition().Copy();
                     direction.Subtract(epicenter);
                     var forceVec = direction.Copy();
-                    forceVec.Normalize();
-                    forceVec.Multiply(this.explosiveForce);
-                    fixture.GetBody().ApplyImpulse(forceVec, fixture.GetBody().GetPosition());
-               
-                    if (fixture.GetBody() != this.body)
+
+
+                    var diff = this.effectedRadius - direction.Length();
+                    if (diff < 0)
                     {
-                        var diff = this.effectedRadius - direction.Length();
-                        if (diff < 0)
-                        {
-                            diff = 0;
-                        }
-
-                        var damage = diff / this.effectedRadius;
-                        //Logger.debug(" Dir l " + direction.Length() + " Effect " + this.effectedRadius +" damage " + damage + " diff " + diff);
-                        fixture.GetBody().GetUserData().hit(this.maxDamage*damage)
-
+                        diff = 0;
                     }
+
+                    var distanceFromEpicenter = diff / this.effectedRadius;
+                    //Logger.debug(" Dir l " + direction.Length() + " Effect " + this.effectedRadius +" damage " + damage + " diff " + diff);
+                    fixture.GetBody().GetUserData().hit(this.maxDamage * distanceFromEpicenter)
+
+                    forceVec.Normalize();
+                    forceVec.Multiply(this.explosiveForce*distanceFromEpicenter);
+                    fixture.GetBody().ApplyImpulse(forceVec, fixture.GetBody().GetPosition());
                 }
             }
          );

@@ -171,7 +171,7 @@ kbd {
 .healthMenu {
     position: absolute;
     left: 50%;
-    top: 93%;
+    bottom: 1%;
     width: 150px;
     z-index: 1;
     margin-left: -200px;
