@@ -28,13 +28,6 @@ class Worm extends Sprite
         right: 1
     }
 
-    STATE = {
-        FALLING: 0,
-        IDEL: 1,
-        WALKING: 2,
-        USING_TOOL: 3,
-    }
-
     body;
     fixture;
     direction;
@@ -52,7 +45,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.lookAround);     
         this.name = NameGenerator.randomName();
-        this.health = 100;
+        this.health = 10;
         this.team = team;
 
         x = Physics.pixelToMeters(x);
@@ -197,7 +190,15 @@ class Worm extends Sprite
     hit(damage)
     {
         GameInstance.healthMenu.update(this.team);
+        
         this.health -= damage;
+
+        if (this.health - damage <= 0)
+        {
+            this.health = 0;        
+        }
+
+        
     }
 
     walkRight()

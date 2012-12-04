@@ -32,6 +32,7 @@ module AssetManager
         "data/sounds/JUMP1.WAV",
         "data/sounds/TIMERTICK.WAV",
         "data/sounds/Speech/Irish/hurry.wav",
+        "data/sounds/Speech/Irish/ohdear.wav",
         "data/sounds/HOLYGRENADE.wav"
     ]
 

@@ -73,8 +73,30 @@ class Team
         this.currentWorm = wormIndex;
     }
 
+    // Beware using this inside the update will case problems
+    removeWorm(predicate)
+    {
+        var cachedLenght = this.worms.length;
+        for (var i = 0; i < cachedLenght; i++)
+        {
+            if ( predicate(this.worms[i]) )
+            {
+                Utilies.deleteFromCollection(this.worms, i);
+                return true;
+            }
+        }   
+        
+         return false;    
+    }
+
     update()
     {
+        //TODO: You could pobly remove in the update just manipluate i, will do late anyway. 
+        this.removeWorm(function (worm : Worm)
+        {
+            return worm.health == 0 && worm.finished == true && worm.spriteDef == Sprites.worms.die;
+        });
+
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {

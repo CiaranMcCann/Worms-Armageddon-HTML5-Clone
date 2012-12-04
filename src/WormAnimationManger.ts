@@ -59,7 +59,7 @@ class WormAnimationManger
     setIdleAnimation()
     {
         // If this worm is the worm of the current player
-        if (this.worm.isActiveWorm())
+        if (this.worm.isActiveWorm() && this.worm.spriteDef != Sprites.worms.die)
         {   
             //If the worm is the current worm its idel will be to take out its weapon
 
@@ -84,6 +84,36 @@ class WormAnimationManger
 
     update()
     {
+
+        //Only play the death animation if the player is die first
+        // Also they have come to a stop 
+        if (this.worm.health == 0 &&  
+            Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y,0.2,-0.2) && 
+            Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x,0.2,-0.2) &&
+            this.worm.spriteDef != Sprites.worms.die)
+        {
+            this.worm.setSpriteDef(Sprites.worms.die, true,true);
+            this.worm.setNoLoop(true);
+            this.worm.onFinish(function () =>
+            {
+
+                // Once the players death animated is finished then we most create
+                // a particle explision effect and pay an explosion sound.
+                var posX = Physics.metersToPixels(this.worm.body.GetPosition().x);
+                var posY = Physics.metersToPixels(this.worm.body.GetPosition().y);
+                GameInstance.particleEffectMgmt.add(new ParticleEffect(posX, posY));
+                AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+
+            });
+        }
+
+            if (this.worm.finished == true)
+            {
+                //explosion
+                // Remove from team
+                Logger.debug("Death animation finished ");
+            }
+       
 
         //If the players weapon has changed since the last update we need to reply the animation of him taking it out
         if (this.previouslySelectedWeapon != this.worm.team.getWeaponManager().getCurrentWeapon())
