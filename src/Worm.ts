@@ -44,7 +44,7 @@ class Worm extends Sprite
 
     constructor (team, x, y)
     {
-        super(Sprites.worms.lookAround);
+        super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
         this.health = 100;
         this.team = team;
@@ -97,6 +97,11 @@ class Worm extends Sprite
             if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
             {
                 this.canJump++;
+                
+                if (this.body.GetLinearVelocity().Length() > 10)
+                {
+                    this.hit(5);
+                }
             }
         }
     }
@@ -189,7 +194,7 @@ class Worm extends Sprite
         }
     }
 
-    hit(damage)
+    hit(damage, worm = null)
     {
         GameInstance.healthMenu.update(this.team);
 
@@ -199,6 +204,20 @@ class Worm extends Sprite
         {
             this.health = 0;
         }
+
+        AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
+       
+
+        //if from same team call the player a tratitor :)
+        if (worm && worm != this && worm.team == this.team)
+        {
+            AssetManager.sounds["traitor"].play(0.8, 10);
+
+        } else if( worm ) // if there was a worm envolved in the damage
+        {
+            //Utilies.pickRandomSound(["justyouwait","youllregretthat"]).play(0.8,10);         
+        }
+
     }
 
     walkRight()
@@ -226,16 +245,18 @@ class Worm extends Sprite
     // a particle explision effect and pay an explosion sound.
     onDeath()
     {     
-        var posX = Physics.metersToPixels(this.body.GetPosition().x);
-        var posY = Physics.metersToPixels(this.body.GetPosition().y);
-        GameInstance.particleEffectMgmt.add(new ParticleEffect(posX, posY));
-        AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+        var effectedRadius = Physics.pixelToMeters(50);
+        var maxDamage = 10;
+        var explosiveForce = 20;
+        var explosionRadius = 40;
 
-        // Destory some terrain
-        GameInstance.terrain.addToDeformBatch(
-          posX,
-          posY,
-        50);
+       Effects.explosion(
+            this.body.GetPosition(),
+            explosionRadius,
+            effectedRadius,
+            explosiveForce,
+            maxDamage
+        );
 
         //flag to let the team know this worm can be deleted
         this.isReadyToBeDeleted = true;

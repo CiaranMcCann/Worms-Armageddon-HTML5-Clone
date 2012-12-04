@@ -66,7 +66,7 @@ class Drill extends BaseWeapon
                 this.setIsActive(false);
                 Logger.debug(" deactivedate ");
                 this.worm.setSpriteDef(Sprites.worms.drilling, false); //unlocks sprite
-                this.worm.setSpriteDef(Sprites.worms.lookAround);
+                this.worm.setSpriteDef(Sprites.worms.idle1);
             }
 
             AssetManager.sounds["DRILL"].play();

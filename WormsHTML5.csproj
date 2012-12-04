@@ -70,6 +70,16 @@
     </Content>
     <TypeScriptCompile Include="src\WormAnimationManger.ts" />
     <TypeScriptCompile Include="src\gui\HealthMenu.ts" />
+    <TypeScriptCompile Include="src\animation\Effects.ts" />
+    <Content Include="src\animation\Effects.js">
+      <DependentUpon>Effects.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Effects.min.js">
+      <DependentUpon>Effects.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ExplosionEffect.js">
+      <DependentUpon>Effects.ts</DependentUpon>
+    </Content>
     <Content Include="src\gui\HealthMenu.js">
       <DependentUpon>HealthMenu.ts</DependentUpon>
     </Content>

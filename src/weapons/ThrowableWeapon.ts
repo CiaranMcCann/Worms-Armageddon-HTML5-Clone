@@ -136,52 +136,17 @@ class ThrowableWeapon extends BaseWeapon
 
     detonate()
     {
-        var posX = Physics.metersToPixels(this.body.GetPosition().x);
-        var posY = Physics.metersToPixels(this.body.GetPosition().y);
-
-        GameInstance.terrain.addToDeformBatch(
-                  posX,
-                  posY,
-               this.explosionRadius);
-
-        this.timeToLive = -1;
-
-
-        Physics.applyToNearByObjects(
+        Effects.explosion(
             this.body.GetPosition(),
+            this.explosionRadius,
             this.effectedRadius,
-            function (fixture, epicenter) =>
-            {
-                // Applys force to all the bodies in the radius
-                if (fixture.GetBody().GetType() != b2Body.b2_staticBody && fixture.GetBody() != this.body)
-                {
-                    var direction = fixture.GetBody().GetPosition().Copy();
-                    direction.Subtract(epicenter);
-                    var forceVec = direction.Copy();
+            this.explosiveForce,
+            this.maxDamage,
+            this.worm
+        );
 
-
-                    var diff = this.effectedRadius - direction.Length();
-                    if (diff < 0)
-                    {
-                        diff = 0;
-                    }
-
-                    var distanceFromEpicenter = diff / this.effectedRadius;
-                    //Logger.debug(" Dir l " + direction.Length() + " Effect " + this.effectedRadius +" damage " + damage + " diff " + diff);
-                    fixture.GetBody().GetUserData().hit(this.maxDamage * distanceFromEpicenter)
-
-                    forceVec.Normalize();
-                    forceVec.Multiply(this.explosiveForce*distanceFromEpicenter);
-                    fixture.GetBody().ApplyImpulse(forceVec, fixture.GetBody().GetPosition());
-                }
-            }
-         );
-
-        GameInstance.particleEffectMgmt.add(new ParticleEffect(posX, posY));
-        AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
-
-        //The bomb has exploded so remove it from the world
         this.reset();
+        //The bomb has exploded so remove it from the world
         Physics.world.DestroyBody(this.body);
     }
 

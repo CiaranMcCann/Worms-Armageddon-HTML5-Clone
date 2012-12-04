@@ -27,6 +27,16 @@ module Utilies
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    export function pickRandom(collection:string[])
+    {
+        return collection[random(0, collection.length)];
+    }
+
+    export function pickRandomSound(collection :string[])
+    {
+        return AssetManager.sounds[collection[random(0, collection.length-1)]];
+    }
+
     export function deleteFromCollection(collection, indexToRemove)
     {
         delete collection[indexToRemove];
@@ -52,14 +62,10 @@ module Utilies
     {
             return new b2Vec2(Math.cos(angle), Math.sin(angle));
      }
-        /// <summary>
-        /// adds 90% to answer because in XNA 0 is up :-(
-        /// </summary>
-        /// <param name="vector">vector we need to convert</param>
-        /// <returns>angle of vector in radians</returns>
+
      export function vectorToAngle(vector)
      {
-         return Math.atan2(vector.y, vector.x) //+(float)Math.PI/2;
+         return Math.atan2(vector.y, vector.x);
      }
 
      export function toRadians(angleInDegrees: number)

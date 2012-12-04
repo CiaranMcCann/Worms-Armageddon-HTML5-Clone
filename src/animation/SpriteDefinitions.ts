@@ -66,7 +66,7 @@ module Sprites
     // These are defined frames for said animations
     export var worms = {
 
-        lookAround: {
+        idle1: {
 
             imageName: "wselbak",
             frameY: 0,
@@ -172,6 +172,15 @@ module Sprites
             frameY: 0,
             frameCount: 14,
             msPerFrame: 25,
+
+        },
+
+        hurt: {
+
+            imageName: "wbrth2",
+            frameY: 0,
+            frameCount: 13,
+            msPerFrame: 150,
 
         },
 

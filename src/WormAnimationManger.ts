@@ -78,7 +78,13 @@ class WormAnimationManger
         } else
         {
             // If not current worm just normal idel.
-            this.worm.setSpriteDef(Sprites.worms.lookAround);
+            if (this.worm.health > 50)
+            {
+                this.worm.setSpriteDef(Sprites.worms.idle1);
+            } else
+            {
+                this.worm.setSpriteDef(Sprites.worms.hurt);
+            }
         }
     }
 
@@ -95,7 +101,8 @@ class WormAnimationManger
             this.worm.setSpriteDef(Sprites.worms.die, true,true);
             this.worm.setNoLoop(true);
             this.worm.onFinish(this.worm.onDeath);
-            AssetManager.sounds["ohdear"].play(1,5);
+
+            Utilies.pickRandomSound(["byebye","ohdear"]).play(1,2);
         }
        
 

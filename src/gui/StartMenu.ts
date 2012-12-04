@@ -61,7 +61,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 1000); //TODO: remove once all sprites are in articifal load delay
+            }, 100); //TODO: remove once all sprites are in articifal load delay
         } else
         {
             $('#splashScreen').remove();

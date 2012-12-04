@@ -31,11 +31,22 @@ module AssetManager
         "data/sounds/DRILL.WAV",
         "data/sounds/JUMP1.WAV",
         "data/sounds/TIMERTICK.WAV",
-        "data/sounds/Speech/Irish/hurry.wav",
+        "data/sounds/HOLYGRENADE.wav",
+         "data/sounds/Speech/Irish/hurry.wav",
         "data/sounds/Speech/Irish/ohdear.wav",
         "data/sounds/Speech/Irish/fire.wav",
         "data/sounds/Speech/Irish/victory.wav",
-        "data/sounds/HOLYGRENADE.wav"
+         "data/sounds/Speech/Irish/ow1.wav",
+         "data/sounds/Speech/Irish/ow2.wav",
+         "data/sounds/Speech/Irish/ow3.wav",
+         "data/sounds/Speech/Irish/byebye.wav",
+         "data/sounds/Speech/Irish/traitor.wav",
+         "data/sounds/Speech/Irish/youllregretthat.wav",
+        "data/sounds/Speech/Irish/justyouwait.wav"
+    ]
+
+    var nonPriorityAudio = [
+      
     ]
 
     export var images = [];
@@ -111,6 +122,8 @@ module AssetManager
         {
             loadSounds(priorityAudio, callback);
         });
+
+        loadSounds(nonPriorityAudio, function () { Logger.debug("Non proity audio loaded ") });
     }
 
     export function loadSounds(sources, callback)
