@@ -39,13 +39,14 @@ class Worm extends Sprite
     footSensor;
     stateAnimationMgmt: WormAnimationManger;
     target: Target;
-    
+    isReadyToBeDeleted: bool;
+
 
     constructor (team, x, y)
     {
-        super(Sprites.worms.lookAround);     
+        super(Sprites.worms.lookAround);
         this.name = NameGenerator.randomName();
-        this.health = 10;
+        this.health = 100;
         this.team = team;
 
         x = Physics.pixelToMeters(x);
@@ -85,7 +86,7 @@ class Worm extends Sprite
         this.canJump = 0;
 
         this.target = new Target(this);
-
+        this.isReadyToBeDeleted = false;
     }
 
     // What happens when a worm collies with another object
@@ -115,6 +116,7 @@ class Worm extends Sprite
     fire()
     {
         this.team.getWeaponManager().getCurrentWeapon().activate(this);
+        AssetManager.sounds["fire"].play();
     }
 
     walkLeft()
@@ -148,7 +150,7 @@ class Worm extends Sprite
 
     jump()
     {
-        
+
         if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
         {
             if (this.canJump > 0)
@@ -190,15 +192,13 @@ class Worm extends Sprite
     hit(damage)
     {
         GameInstance.healthMenu.update(this.team);
-        
+
         this.health -= damage;
 
         if (this.health - damage <= 0)
         {
-            this.health = 0;        
+            this.health = 0;
         }
-
-        
     }
 
     walkRight()
@@ -216,9 +216,30 @@ class Worm extends Sprite
 
     }
 
+    //Is this the current worm of the current player
     isActiveWorm()
     {
         return this.team.getCurrentWorm() == this && GameInstance.getCurrentPlayerObject().getTeam() == this.team;
+    }
+
+    // Once the players death animated is finished then we most create
+    // a particle explision effect and pay an explosion sound.
+    onDeath()
+    {     
+        var posX = Physics.metersToPixels(this.body.GetPosition().x);
+        var posY = Physics.metersToPixels(this.body.GetPosition().y);
+        GameInstance.particleEffectMgmt.add(new ParticleEffect(posX, posY));
+        AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+
+        // Destory some terrain
+        GameInstance.terrain.addToDeformBatch(
+          posX,
+          posY,
+        50);
+
+        //flag to let the team know this worm can be deleted
+        this.isReadyToBeDeleted = true;
+        
     }
 
 
@@ -242,8 +263,8 @@ class Worm extends Sprite
     {
         this.team.getWeaponManager().getCurrentWeapon().draw(ctx);
 
-       
-        this.target.draw(ctx);
+        if (Sprites.worms.weWon != this.spriteDef)
+            this.target.draw(ctx);
 
         ctx.save()
 

@@ -29,12 +29,12 @@ class Sound
         }
     }
 
-    play(volume = 1, time = 0)
+    play(volume = 1, time = 0, allowSoundOverLay = false)
     {
         if (Settings.SOUND)
         {
             // if sound is playing don't replay it
-            if (this.playing == false)
+            if (this.playing == false || allowSoundOverLay == true)
             {
                 var source = Sound.context.createBufferSource();
                 source.buffer = this.buffer;

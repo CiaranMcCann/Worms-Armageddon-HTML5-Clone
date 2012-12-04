@@ -42,7 +42,7 @@ class Team
         this.worms = [];
         for (var i = 0; i < 2; i++)
         {
-            this.worms.push(new Worm(this, Utilies.random(200, 1300), -2));
+            this.worms.push(new Worm(this, Utilies.random(1100, 1300), -2));
         }
     }
 
@@ -58,9 +58,26 @@ class Team
         return totalHealth/this.worms.length;
     }
 
+    isTeamDie()
+    {
+        return this.worms.length == 0;
+    }
+
     getCurrentWorm()
     {
         return this.worms[this.currentWorm];
+    }
+
+    updateCurrentWorm()
+    {
+        if (this.currentWorm + 1 == this.worms.length)
+        {
+            this.currentWorm = 0;
+        }
+        else
+        {
+            this.currentWorm++;
+        }
     }
 
     getWeaponManager()
@@ -81,6 +98,9 @@ class Team
         {
             if ( predicate(this.worms[i]) )
             {
+                //Clean up the worms physics body
+                Physics.world.DestroyBody(this.worms[i].body);
+
                 Utilies.deleteFromCollection(this.worms, i);
                 return true;
             }
@@ -89,12 +109,29 @@ class Team
          return false;    
     }
 
+    //Sets all worms sprites to winning state
+    winner()
+    {
+        // If already in winning animation no need to reset it
+        if (this.worms[0].spriteDef != Sprites.worms.weWon)
+        {
+            for (var w in this.worms)
+            {
+                var worm: Worm = this.worms[w];
+                worm.setSpriteDef(Sprites.worms.weWon, true);
+            }
+            AssetManager.sounds["victory"].play(1,10);
+        }
+
+    }
+
+
     update()
     {
         //TODO: You could pobly remove in the update just manipluate i, will do late anyway. 
         this.removeWorm(function (worm : Worm)
         {
-            return worm.health == 0 && worm.finished == true && worm.spriteDef == Sprites.worms.die;
+            return worm.isReadyToBeDeleted;
         });
 
         var cachedLenght = this.worms.length;

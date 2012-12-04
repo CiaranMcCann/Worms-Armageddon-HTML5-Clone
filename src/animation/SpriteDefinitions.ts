@@ -19,13 +19,6 @@ interface SpriteDefinition
     msPerFrame: number;
 }
 
-interface SpriteDefinitionAndSound extends SpriteDefinition
-{
-    sound: {
-        name: string;
-        time: number;
-    };
-}
 
 // -1 for msPerFrame means no animation
 module Sprites
@@ -171,12 +164,18 @@ module Sprites
             frameY: 0,
             frameCount: 60,
             msPerFrame: 40,
-            sound: {
-                name: "ohdear",
-                time: 30
-            }
+        },
 
-        }
+        weWon: {
+
+            imageName: "wwinner",
+            frameY: 0,
+            frameCount: 14,
+            msPerFrame: 25,
+
+        },
+
+         
 
 
     }

@@ -33,6 +33,8 @@ module AssetManager
         "data/sounds/TIMERTICK.WAV",
         "data/sounds/Speech/Irish/hurry.wav",
         "data/sounds/Speech/Irish/ohdear.wav",
+        "data/sounds/Speech/Irish/fire.wav",
+        "data/sounds/Speech/Irish/victory.wav",
         "data/sounds/HOLYGRENADE.wav"
     ]
 

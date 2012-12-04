@@ -106,25 +106,51 @@ class Game
         else
         {
             this.currentPlayerIndex++;
+            this.getCurrentPlayerObject().getTeam().updateCurrentWorm();
         }
+    }
+
+    checkForEndGame()
+    {
+        var playersStillLive = [];
+        for (var player in this.players)
+        {
+            if (this.players[player].getTeam().isTeamDie() == false)
+            {
+                playersStillLive.push(this.players[player]);
+            }
+        }
+
+        if (playersStillLive.length == 1)
+        {
+           playersStillLive[0].getTeam().winner();
+           playersStillLive[0].getTeam().update();
+           return true;
+        }
+
+        return false;
     }
 
     update()
     {
         if (this.isStarted)
         {
-            this.getCurrentPlayerObject().update();
-
-            for (var player in this.players)
+            //if the game has ended don't update anything but the
+            // winning player and the particle effects.
+            if (this.checkForEndGame() == false)
             {
-                this.players[player].team.update();
+
+                this.getCurrentPlayerObject().update();
+                for (var player in this.players)
+                {
+                    this.players[player].getTeam().update();
+                }
+
+                this.terrain.update();
+                this.gameTimer.update(this.players);
             }
 
-            this.terrain.update();
-
-            this.gameTimer.update(this.players);
-
-            this.particleEffectMgmt.update();
+           this.particleEffectMgmt.update();
         }
 
     }
@@ -155,7 +181,7 @@ class Game
             this.players[player].draw(this.actionCanvasContext);
         }
 
-         this.particleEffectMgmt.draw(this.actionCanvasContext);
+        this.particleEffectMgmt.draw(this.actionCanvasContext);
     }
 
 }
