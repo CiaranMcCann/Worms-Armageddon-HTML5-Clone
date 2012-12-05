@@ -64,7 +64,7 @@ class Target extends PhysicsSprite
 
         var currentAngle = Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td);
         this.targetDirection = Utilies.angleToVector(currentAngle);
-        
+ 
     }
 
 }

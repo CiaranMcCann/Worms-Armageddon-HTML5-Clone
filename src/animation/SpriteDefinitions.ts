@@ -27,6 +27,7 @@ module Sprites
      export var weaponIcons = {
 
         holyGernade: {imageName: "iconhgrenade"},
+         gernade: {imageName: "icongrenade"},
         drill: {imageName: "drill"},
        dynamite: {imageName: "icondynamite"}
 
@@ -38,6 +39,15 @@ module Sprites
          holyGernade: {
 
             imageName: "hgrenade",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 10,
+
+        },
+
+        gernade: {
+
+            imageName: "grenade",
             frameY: 0,
             frameCount: 32,
             msPerFrame: 10,
@@ -184,6 +194,23 @@ module Sprites
 
         },
 
+         takeOutGernade: {
+
+            imageName: "wgrnlnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 50,
+
+        },
+
+         aimGernade: {
+
+            imageName: "wthrgrnu",
+            frameY: 30/2,
+            frameCount: 32,
+            msPerFrame: 100,
+
+        },
          
 
 

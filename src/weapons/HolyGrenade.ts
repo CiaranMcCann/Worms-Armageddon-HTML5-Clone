@@ -31,7 +31,7 @@ class HolyGrenade extends ThrowableWeapon
 
     update()
     {
-        if (this.detonationCounter <= 3.5 && this.timeToLive > 0)
+        if (this.detonationCounter <= 3)
         {
             AssetManager.sounds["HOLYGRENADE"].play();
         }

@@ -21,6 +21,7 @@ class Team
     color;
     name;
     teamId;
+    initalNumberOfWorms: number;
 
     static teamCount = 0;
 
@@ -39,8 +40,9 @@ class Team
         this.weaponManager = new WeaponManager();
 
         this.currentWorm = 0;
+        this.initalNumberOfWorms = 4;
         this.worms = [];
-        for (var i = 0; i < 2; i++)
+        for (var i = 0; i < this.initalNumberOfWorms; i++)
         {
             this.worms.push(new Worm(this, Utilies.random(1100, 1300), -2));
         }
@@ -55,7 +57,7 @@ class Team
             totalHealth += this.worms[worm].health;
         }
 
-        return totalHealth/this.worms.length;
+        return totalHealth/this.initalNumberOfWorms ;
     }
 
     isTeamDie()

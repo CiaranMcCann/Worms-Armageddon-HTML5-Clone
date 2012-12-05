@@ -15,6 +15,7 @@
 ///<reference path="../Game.ts"/>
 ///<reference path="../Main.ts"/>
 ///<reference path="../animation/Sprite.ts"/>
+///<reference path="../animation/Effects.ts"/>
 
 class ThrowableWeapon extends BaseWeapon
 {

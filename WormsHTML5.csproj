@@ -241,6 +241,10 @@
     <Content Include="src\weapons\Dynamite.min.js">
       <DependentUpon>Dynamite.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\weapons\HandGrenade.ts" />
+    <Content Include="src\weapons\HandGrenade.js">
+      <DependentUpon>HandGrenade.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\HolyGrenade.js">
       <DependentUpon>HolyGrenade.ts</DependentUpon>
     </Content>

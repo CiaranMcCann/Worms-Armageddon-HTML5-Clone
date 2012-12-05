@@ -13,6 +13,7 @@
 ///<reference path="../animation/Sprite.ts"/>
 ///<reference path="../weapons/Drill.ts"/>
 ///<reference path="../weapons/HolyGrenade.ts"/>
+///<reference path="../weapons/HandGrenade.ts"/>
 ///<reference path="../weapons/Dynamite.ts"/>
 
 class WeaponManager
@@ -27,7 +28,8 @@ class WeaponManager
         [
             new Drill(),
             new HolyGrenade(),
-            new Dynamite()
+            new Dynamite(),
+            new HandGrenade(),
         ];
 
         this.currentWeaponIndex = 1;
