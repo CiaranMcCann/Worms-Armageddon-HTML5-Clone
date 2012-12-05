@@ -76,7 +76,7 @@ class Game
 
         this.terrain = new Terrain(this.terrainCanvas, lvl, Physics.world, Physics.worldScale);
 
-        this.camera = new Camera(lvl.width * 1.4, lvl.height * 1.4, this.terrainCanvas.width, this.terrainCanvas.height);
+        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(),  this.terrainCanvas.width, this.terrainCanvas.height);
 
 
 
@@ -96,13 +96,14 @@ class Game
 
          $("#action").mousemove(function(e) => {
              
-             this.camera.setX( e.pageX );
-             this.camera.setY(e.pageY);
-              Logger.log("X " + this.x + " Y " + this.y);
-              //var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
-              //var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
-              //$("span:first").text("( e.pageX, e.pageY ) : " + pageCoords);
-             // $("span:last").text("( e.clientX, e.clientY ) : " + clientCoords);
+             if (this.weaponMenu.isVisable == false)
+             {
+                 this.camera.panToX(Math.floor(e.pageX) * 2);
+                 this.camera.panToY(Math.floor(e.pageY) * 2);
+             }
+
+
+             
         });
 
         this.particleEffectMgmt = new ParticleEffectManager();
@@ -174,6 +175,8 @@ class Game
 
                 this.terrain.update();
                 this.gameTimer.update(this.players);
+
+                this.camera.update();
             }
 
            this.particleEffectMgmt.update();

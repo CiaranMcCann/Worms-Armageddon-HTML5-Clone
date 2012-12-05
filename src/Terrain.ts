@@ -24,6 +24,7 @@ class Terrain
     terrainData;
     x; 
     y;
+    skyOffset: number;
 
     //Used to batch the deforms to one draw and one box2d regen
     deformTerrainBatchList = []; 
@@ -33,7 +34,7 @@ class Terrain
     constructor (canvas, terrainImage, world, scale)
     {
 
-
+        //this.skyOffset = 350;
         this.world = world;
         this.scale = scale;
 
@@ -58,7 +59,7 @@ class Terrain
 
 
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain
-        this.bufferCanvasContext.drawImage(terrainImage, 0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
+        this.bufferCanvasContext.drawImage(terrainImage, 0,  0, this.bufferCanvas.width, this.bufferCanvas.height);
 
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, world, scale)
@@ -66,6 +67,16 @@ class Terrain
         this.draw();
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
+    }
+
+    getWidth()
+    {
+       return this.bufferCanvas.width;    
+    }
+
+     getHeight()
+    {
+       return this.bufferCanvas.height;    
     }
 
     // This setup physical bodies from image data 
@@ -178,7 +189,6 @@ class Terrain
         this.bufferCanvasContext.closePath();
         this.bufferCanvasContext.fill();
 
-
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
 
         // for each explision in batch find what rects its radius interects and destory them.
@@ -239,6 +249,8 @@ class Terrain
     draw()
     {
         this.drawingCanvasContext.clearRect(0, 0, this.drawingCanvas.width, this.drawingCanvas.height);
+
+ 
 
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas

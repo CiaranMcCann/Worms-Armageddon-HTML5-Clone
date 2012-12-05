@@ -7,6 +7,9 @@ class Camera
     levelHeight;
     vpWidth;
     vpHeight;
+    panX;
+    panY;
+    panSpeed;
 
     constructor (levelWidth, levelHeight, vpWidth, vpHeight)
     {
@@ -18,7 +21,62 @@ class Camera
 
         this.x = 0;
         this.y = 0;
+        this.panX = 0;
+        this.panY = 0;
+        this.panSpeed = 12;
 
+    }
+
+    update()
+    {
+        //Logger.log("before Update this.panX = " + this.panX + "  this.x = " + this.x);
+        Logger.log("before Update this.panY = " + this.panY + "  this.y = " + this.y);
+
+        if (this.panX > this.x)
+        {
+            this.incrementX(this.panSpeed);
+        }
+        else if (this.panX < this.x)
+        {
+            this.incrementX(-this.panSpeed);
+        }
+
+        if (this.panY > this.y)
+        {
+            this.incrementY(this.panSpeed);
+        }
+        else if (this.panY < this.y)
+        {
+            this.incrementY(-this.panSpeed);
+        }
+
+       // Logger.log("after Update this.panX = " + this.panX + "  this.x = " + this.x);
+       Logger.log("after Update this.panY = " + this.panY + "  this.y = " + this.y);
+
+    }
+
+    panToX(x: number)
+    {
+        if (x > this.vpWidth / 2 && x > this.x)
+        {
+            this.panX = x;
+        }
+        else if (x < this.x)
+        {
+            this.panX = x;
+        }
+    }
+
+    panToY(y: number)
+    {
+        if (y > this.vpHeight / 2 && y > this.y)
+        {
+            this.panY = y;
+        }
+        else if (y <= this.y)
+        {
+            this.panY = y;
+        }
     }
 
     getX() { return this.x; }
@@ -26,34 +84,26 @@ class Camera
 
     setX(x: number)
     {
-        if (x > this.vpWidth/2)
+        if (this.vpWidth + x <= this.levelWidth && x >= 0)
         {
-            x = (x - this.vpWidth / 2);
-            if (this.vpWidth + x <= this.levelWidth && x >= 0)
-            {
-                this.x = x;
-            }
+            this.x = x;
         }
     }
 
     setY(y: number)
     {
-       // if (y > this.vpHeight / 2)
-        //{
-            //y = (y - this.vpHeight / 4);
-            if (this.vpHeight + y <= this.levelHeight && y >= 0)
-            {
-                this.y = y;
-            }
-       // }
+        if (this.vpHeight + y <= this.levelHeight && y >= 0)
+        {
+            this.y = y;
+        }
     }
 
-    incrementX( x : number)
+    incrementX(x: number)
     {
         this.setX(this.x + x);
     }
 
-    incrementY( y : number)
+    incrementY(y: number)
     {
         this.setY(this.y + y);
     }
