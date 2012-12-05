@@ -41,10 +41,13 @@ class Team
 
         this.currentWorm = 0;
         this.initalNumberOfWorms = 4;
+
         this.worms = [];
         for (var i = 0; i < this.initalNumberOfWorms; i++)
         {
-            this.worms.push(new Worm(this, Utilies.random(1100, 1300), -2));
+            var tmp = Game.map.getNextSpawnPoint();
+            this.worms.push(new Worm(this, tmp.x,tmp.y));
+
         }
     }
 

@@ -1,3 +1,13 @@
+/**
+ * Camera.js
+ * This controls the viewport
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
+///<reference path="Utilies.ts"/>
+
 class Camera
 {
 
@@ -30,13 +40,14 @@ class Camera
     update()
     {
         //Logger.log("before Update this.panX = " + this.panX + "  this.x = " + this.x);
-        Logger.log("before Update this.panY = " + this.panY + "  this.y = " + this.y);
+        //Logger.log("before Update this.panY = " + this.panY + "  this.y = " + this.y);
 
         if (this.panX > this.x)
         {
             this.incrementX(this.panSpeed);
         }
-        else if (this.panX < this.x)
+        
+        if (this.panX < this.x)
         {
             this.incrementX(-this.panSpeed);
         }
@@ -45,19 +56,20 @@ class Camera
         {
             this.incrementY(this.panSpeed);
         }
-        else if (this.panY < this.y)
+       
+        if (this.panY < this.y)
         {
             this.incrementY(-this.panSpeed);
         }
 
        // Logger.log("after Update this.panX = " + this.panX + "  this.x = " + this.x);
-       Logger.log("after Update this.panY = " + this.panY + "  this.y = " + this.y);
+       //Logger.log("after Update this.panY = " + this.panY + "  this.y = " + this.y);
 
     }
 
     panToX(x: number)
     {
-        if (x > this.vpWidth / 2 && x > this.x)
+        if (x > (this.vpWidth / 2)-this.x && x > this.x)
         {
             this.panX = x;
         }
@@ -69,11 +81,11 @@ class Camera
 
     panToY(y: number)
     {
-        if (y > this.vpHeight / 2 && y > this.y)
+        if (y > (this.vpHeight / 2)-this.y && y > this.y)
         {
             this.panY = y;
         }
-        else if (y <= this.y)
+        else if (y < this.y)
         {
             this.panY = y;
         }

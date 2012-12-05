@@ -24,6 +24,7 @@
 ///<reference path="animation/ParticleEffect.ts"/>
 ///<reference path="animation/ParticleEffectManager.ts"/>
 ///<reference path="gui/HealthMenu.ts"/>
+///<reference path="Maps.ts"/>
 
 class Game
 {
@@ -45,10 +46,12 @@ class Game
     isStarted: bool;
     particleEffectMgmt: ParticleEffectManager;
 
-    x;
-    y;
+    // TODO clean this up -just made it static to get it working
+    static map: Map = new Map(Maps.priates);
 
     camera: Camera;
+
+    spawns; 
 
 
     constructor ()
@@ -72,9 +75,9 @@ class Game
         this.actionCanvasContext.font = 'bold 14px Sans-Serif';
 
         Physics.init(this.actionCanvasContext);
-        var lvl = AssetManager.images["level2"];
+        
 
-        this.terrain = new Terrain(this.terrainCanvas, lvl, Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.terrainCanvas,  Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
 
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(),  this.terrainCanvas.width, this.terrainCanvas.height);
 
@@ -87,23 +90,27 @@ class Game
         }
 
         this.isStarted = false;
-        //window.addEventListener("click", function (evt: any) =>
-        //{
-        //    //this.terrain.addToDeformBatch(evt.pageX, evt.pageY, 35)
-        //    this.particleEffectMgmt.add(new ParticleEffect(evt.pageX, evt.pageY));
 
-        //}, false);
+        this.spawns = [];
 
-         $("#action").mousemove(function(e) => {
+        if (Settings.DEVELOPMENT_MODE)
+        {
+            window.addEventListener("click", function (evt: any) =>
+            {
+                this.particleEffectMgmt.add(new ParticleEffect(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY));
+                this.spawns.push(new b2Vec2(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY));
+                Logger.log(JSON.stringify(this.spawns));
+
+            }, false);
+        }
+
+        $("#action").mousemove(function(e) => {
              
              if (this.weaponMenu.isVisable == false)
              {
                  this.camera.panToX(Math.floor(e.pageX) * 2);
                  this.camera.panToY(Math.floor(e.pageY) * 2);
              }
-
-
-             
         });
 
         this.particleEffectMgmt = new ParticleEffectManager();
@@ -124,7 +131,6 @@ class Game
 
     nextPlayer()
     {
-        //if(this.getCurrentPlayerObject().
 
         if (this.currentPlayerIndex + 1 == this.players.length)
         {
@@ -196,10 +202,7 @@ class Game
 
             if (Settings.PHYSICS_DEBUG_MODE)
             {
-              //  this.actionCanvasContext.save();
-              //  this.actionCanvasContext.translate(-this.x, -this.y);
                 Physics.world.DrawDebugData();
-               // this.actionCanvasContext.restore();
             }
         }
 

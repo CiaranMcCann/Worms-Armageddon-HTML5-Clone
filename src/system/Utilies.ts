@@ -27,9 +27,9 @@ module Utilies
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    export function pickRandom(collection:string[])
+    export function pickRandom(collection)
     {
-        return collection[random(0, collection.length)];
+        return collection[random(0, collection.length-1)];
     }
 
     export function pickRandomSound(collection :string[])
