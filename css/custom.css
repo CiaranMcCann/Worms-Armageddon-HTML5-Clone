@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     background: #fff;
+    cursor: none;
 }
 
 
@@ -76,12 +77,14 @@
     height: 450px;
     z-index: 1;
     display: none;
+    cursor:  default;
 }
 
 
 .btn-large {
     margin-left: 10px;
     margin-right: 10px;
+
 }
 
 .thumbnails {
@@ -103,6 +106,7 @@
     padding-left: 2px;
     padding-right: 2px;
      border-radius: 3px;
+     cursor:  default;
 }
 
     #weaponsMenu .thumbnail:active {
@@ -111,6 +115,7 @@
         -webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
         -o-transform: scale(0.7,0.7); /* Opera */
         -moz-transform: scale(0.7,0.7); /* Firefox */
+        cursor:  default;
     }
 
     #weaponsMenu .noAmmo {

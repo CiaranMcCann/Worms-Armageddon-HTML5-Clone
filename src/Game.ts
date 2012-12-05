@@ -6,6 +6,7 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
+///<reference path="system/Camera.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
@@ -44,10 +45,16 @@ class Game
     isStarted: bool;
     particleEffectMgmt: ParticleEffectManager;
 
+    x;
+    y;
+
+    camera: Camera;
+
 
     constructor ()
     {
         Graphics.init();
+        
 
         this.currentPlayerIndex = 0;
 
@@ -64,8 +71,14 @@ class Game
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
         this.actionCanvasContext.font = 'bold 14px Sans-Serif';
 
-        Physics.init(this.terrainCanvasContext);
-        this.terrain = new Terrain(this.terrainCanvas, AssetManager.images["level2"], Physics.world, Physics.worldScale);
+        Physics.init(this.actionCanvasContext);
+        var lvl = AssetManager.images["level2"];
+
+        this.terrain = new Terrain(this.terrainCanvas, lvl, Physics.world, Physics.worldScale);
+
+        this.camera = new Camera(lvl.width * 1.4, lvl.height * 1.4, this.terrainCanvas.width, this.terrainCanvas.height);
+
+
 
         this.players = [];
         for (var i = 0; i < 2; i++)
@@ -80,6 +93,17 @@ class Game
         //    this.particleEffectMgmt.add(new ParticleEffect(evt.pageX, evt.pageY));
 
         //}, false);
+
+         $("#action").mousemove(function(e) => {
+             
+             this.camera.setX( e.pageX );
+             this.camera.setY(e.pageY);
+              Logger.log("X " + this.x + " Y " + this.y);
+              //var pageCoords = "( " + e.pageX + ", " + e.pageY + " )";
+              //var clientCoords = "( " + e.clientX + ", " + e.clientY + " )";
+              //$("span:first").text("( e.pageX, e.pageY ) : " + pageCoords);
+             // $("span:last").text("( e.clientX, e.clientY ) : " + clientCoords);
+        });
 
         this.particleEffectMgmt = new ParticleEffectManager();
 
@@ -168,7 +192,12 @@ class Game
             );
 
             if (Settings.PHYSICS_DEBUG_MODE)
+            {
+              //  this.actionCanvasContext.save();
+              //  this.actionCanvasContext.translate(-this.x, -this.y);
                 Physics.world.DrawDebugData();
+               // this.actionCanvasContext.restore();
+            }
         }
 
         //Physics.world.ClearForces();
@@ -176,14 +205,22 @@ class Game
 
     draw()
     {
-        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+       if (!Settings.PHYSICS_DEBUG_MODE)
+       this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+
+        this.actionCanvasContext.save();
+        this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
         for (var player in this.players)
         {
             this.players[player].draw(this.actionCanvasContext);
         }
 
+        this.terrain.draw();
+
         this.particleEffectMgmt.draw(this.actionCanvasContext);
+
+        this.actionCanvasContext.restore();
     }
 
 }

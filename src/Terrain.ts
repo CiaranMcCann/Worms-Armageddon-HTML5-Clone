@@ -22,6 +22,8 @@ class Terrain
     scale;
     groundbodiesList;
     terrainData;
+    x; 
+    y;
 
     //Used to batch the deforms to one draw and one box2d regen
     deformTerrainBatchList = []; 
@@ -46,8 +48,8 @@ class Terrain
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
-        this.bufferCanvas.width = canvas.width; //*1.5;
-        this.bufferCanvas.height = canvas.height;  //*1.5;
+        this.bufferCanvas.width = terrainImage.width*1.4;
+        this.bufferCanvas.height =  terrainImage.height*1.4;
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 
@@ -229,6 +231,8 @@ class Terrain
         {
             this.deformRegionBatch();
         }
+        this.x = GameInstance.camera.getX();
+        this.y = GameInstance.camera.getY();
 
     }
 
@@ -238,7 +242,18 @@ class Terrain
 
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
-        this.drawingCanvasContext.drawImage(this.bufferCanvas, 0, -5);
+        this.drawingCanvasContext.drawImage(this.bufferCanvas, 
+            this.x,
+            this.y,
+            this.drawingCanvas.width,
+            this.drawingCanvas.height,
+             0, 
+            -5,
+            this.drawingCanvas.width,
+            this.drawingCanvas.height
+
+            
+            );
         // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
 

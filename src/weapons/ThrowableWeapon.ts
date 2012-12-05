@@ -186,7 +186,7 @@ class ThrowableWeapon extends BaseWeapon
             )
 
             ctx.save()
-            ctx.rotate(this.body.GetAngle())
+            //ctx.rotate(this.body.GetAngle())
 
             var radius = this.fixture.GetShape().GetRadius() * 2 * Physics.worldScale;
 
