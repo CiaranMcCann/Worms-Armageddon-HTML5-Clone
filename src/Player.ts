@@ -41,8 +41,8 @@ class Player
     }
 
     update()
-    {       
-        
+    {
+
 
         if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
         {
@@ -75,10 +75,37 @@ class Player
             window.setTimeout(function () =>
             {
                 this.hasPlayerFiredWeapon = false;
-            },5000);
+            }, 5000);
             this.team.getCurrentWorm().fire();
-             //GameInstance.nextPlayer();
+            //GameInstance.nextPlayer();
 
+        }
+
+
+        if (keyboard.isKeyDown(38)) //up
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(-15)
+        }
+
+        if (keyboard.isKeyDown(40)) //down
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(15)
+        }
+
+
+        if (keyboard.isKeyDown(37)) //left
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(-15)
+        }
+
+
+        if (keyboard.isKeyDown(39)) //right
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(15)
         }
 
 
@@ -93,7 +120,7 @@ class Player
         //}
 
         //this.team.update();
-      
+
     }
 
     draw(ctx)

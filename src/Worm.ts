@@ -266,6 +266,10 @@ class Worm extends Sprite
 
     update()
     {
+        if (this.body.GetLinearVelocity().Length() > 2)
+        {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.team.getCurrentWorm().body.GetPosition()));
+        }
         //Manages the different states of the animation
         this.stateAnimationMgmt.update();
 
@@ -285,7 +289,9 @@ class Worm extends Sprite
         this.team.getWeaponManager().getCurrentWeapon().draw(ctx);
 
         if (Sprites.worms.weWon != this.spriteDef)
+        {
             this.target.draw(ctx);
+        }
 
         ctx.save()
 
@@ -312,14 +318,18 @@ class Worm extends Sprite
         //TODO Optimize the shit out of the, maybe pre-render? 
         ctx.fillStyle = '#1A1110';
         ctx.strokeStyle = "#eee";
-        ctx.roundRect(-radius*this.name.length/2.6, -radius*6, this.name.length*9.5 , 20, 4).fill();
-        ctx.roundRect(-radius*this.name.length/2.6, -radius*6, this.name.length*9.5, 20, 4).stroke();
 
-        ctx.roundRect(-radius*1.5, -radius*4, 39 , 18, 4).fill();
-        ctx.roundRect(-radius*1.5, -radius*4, 39, 18, 4).stroke();
+        var nameBoxX = -radius * this.name.length / 2.6;
+        var nameBoxY = -radius * 6;
+        var nameBoxWidth = this.name.length * 9.5;
+
+        Graphics.roundRect(ctx,nameBoxX, nameBoxY, nameBoxWidth, 20, 4).fill();
+        Graphics.roundRect(ctx,nameBoxX, nameBoxY, nameBoxWidth, 20, 4).stroke();
+
+        Graphics.roundRect(ctx,-radius*1.5, -radius*4, 39 , 18, 4).fill();
+        Graphics.roundRect(ctx,-radius*1.5, -radius*4, 39, 18, 4).stroke();
 
         ctx.fillStyle = this.team.color;
-        ctx.textAlign = 'center';
         ctx.fillText(this.name, 0, -radius * 4.7);
         ctx.fillText(Math.floor(this.health), 0, -radius * 2.8);
 

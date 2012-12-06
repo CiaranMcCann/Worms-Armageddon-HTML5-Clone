@@ -43,7 +43,7 @@ class Target extends PhysicsSprite
             var radius = this.worm.fixture.GetShape().GetRadius() * Physics.worldScale;
             var wormPos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
             var targetDir = this.targetDirection.Copy();
-            targetDir.Multiply(50);
+            targetDir.Multiply(95);
             targetDir.Add(wormPos);
 
             super.draw(ctx, targetDir.x - radius, targetDir.y - (radius * 2));

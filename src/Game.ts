@@ -72,7 +72,10 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
+
+        //Set canvas font stuff
         this.actionCanvasContext.font = 'bold 16.5px Sans-Serif';
+        this.actionCanvasContext.textAlign = 'center';
 
         Physics.init(this.actionCanvasContext);
         
@@ -104,15 +107,19 @@ class Game
             }, false);
         }
 
-        $("#action").mousemove(function(e) => {
-             
-             if (this.weaponMenu.isVisable == false)
-             {
-             
-                 this.camera.panToX(Math.floor(e.pageX) * 2);
-                 this.camera.panToY(Math.floor(e.pageY) * 2);
-             }
-        });
+
+        //$("#action").click(function (e) => {
+
+        //    $("#action").mousemove(function (e) => {
+
+        //        if (this.weaponMenu.isVisable == false)
+        //        {
+
+                    
+        //        }
+        //    });
+
+        //});
 
         this.particleEffectMgmt = new ParticleEffectManager();
 

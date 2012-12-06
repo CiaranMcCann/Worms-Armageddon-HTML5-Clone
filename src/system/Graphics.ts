@@ -31,10 +31,10 @@ module Graphics
         // requestAnim shim layer by Paul Irish
         window.requestAnimationFrame = (function ()
         {
-            return window.requestAnimationFrame || 
-                (<any>window).webkitRequestAnimationFrame || 
-                (<any>window).mozRequestAnimationFrame || 
-                (<any>window).oRequestAnimationFrame || 
+            return window.requestAnimationFrame ||
+                (<any>window).webkitRequestAnimationFrame ||
+                (<any>window).mozRequestAnimationFrame ||
+                (<any>window).oRequestAnimationFrame ||
                 window.msRequestAnimationFrame ||
             function ( /* function */ callback, /* DOMElement */ element)
             {
@@ -43,20 +43,21 @@ module Graphics
 
         })();
 
-        // may be useful in the furture for drawing rounded conor boxes for over the players head
-        CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r)
-        {
-            if (w < 2 * r) r = w / 2;
-            if (h < 2 * r) r = h / 2;
-            this.beginPath();
-            this.moveTo(x + r, y);
-            this.arcTo(x + w, y, x + w, y + h, r);
-            this.arcTo(x + w, y + h, x, y + h, r);
-            this.arcTo(x, y + h, x, y, r);
-            this.arcTo(x, y, x + w, y, r);
-            this.closePath();
-            return this;
-        }
+    }
+
+    // may be useful in the furture for drawing rounded conor boxes for over the players head
+    export function roundRect(ctx, x, y, w, h, r)
+    {
+        if (w < 2 * r) r = w / 2;
+        if (h < 2 * r) r = h / 2;
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+        return ctx;
     }
 
     export function createCanvas(name: string)
@@ -72,7 +73,8 @@ module Graphics
         window.document.body.appendChild(canvas);
 
         //Disable context menu so I can use right click for game controls
-         $('body').on('contextmenu', "#"+name, function (e){ 
+        $('body').on('contextmenu', "#" + name, function (e)
+        {
             return false;
         });
 
