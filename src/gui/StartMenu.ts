@@ -61,6 +61,11 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
+                 $('#startTutorial').click(function =>
+                {
+                    _this.controlsMenu(callback);
+                });
+
             }, 100); //TODO: remove once all sprites are in articifal load delay
         } else
         {

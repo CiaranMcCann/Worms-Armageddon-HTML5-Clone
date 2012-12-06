@@ -41,6 +41,8 @@ class Worm extends Sprite
     target: Target;
     isReadyToBeDeleted: bool;
 
+    soundDelayTimer: Timer;
+
 
     constructor (team, x, y)
     {
@@ -88,6 +90,7 @@ class Worm extends Sprite
         this.target = new Target(this);
         this.isReadyToBeDeleted = false;
 
+        this.soundDelayTimer = new Timer(200);
        
     }
 
@@ -126,6 +129,23 @@ class Worm extends Sprite
         AssetManager.sounds["fire"].play();
     }
 
+    playWalkingSound()
+    {
+        if (this.soundDelayTimer.hasTimePeriodPassed())
+        {
+            if (this.spriteDef == Sprites.worms.walking)
+            {
+                if (super.getCurrentFrame() % 5 == 0)
+                {
+                    AssetManager.sounds["WalkCompress"].play(0.5);
+                } else
+                {
+                    AssetManager.sounds["WalkExpand"].play(0.5);
+                }
+            }
+        }
+    }
+
     walkLeft()
     {
         if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
@@ -137,22 +157,28 @@ class Worm extends Sprite
 
             super.update();
             this.body.SetPosition(new b2Vec2(currentPos.x - this.speed / Physics.worldScale, currentPos.y));
-            //this.body.SetLinearVelocity(new b2Vec2(-5,0));
-
-
-            if (AssetManager.sounds["WalkExpand"].isPlaying() == false)
-            {
-                if (super.getCurrentFrame() % 5 == 0)
-                {
-                    AssetManager.sounds["WalkCompress"].play();
-                } else
-                {
-                    AssetManager.sounds["WalkExpand"].play();
-                }
-            }
+            
+            this.playWalkingSound();
         }
 
     }
+
+     walkRight()
+    {
+        if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
+        {
+            var currentPos = this.body.GetPosition();
+            this.direction = this.DIRECTION.right;
+            this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
+
+            super.update();
+            this.body.SetPosition(new b2Vec2(currentPos.x + this.speed / Physics.worldScale, currentPos.y));
+
+            this.playWalkingSound();
+        }
+
+    }
+
 
 
     jump()
@@ -162,43 +188,18 @@ class Worm extends Sprite
         {
             if (this.canJump > 0)
             {
-                // this.canJump--;
-                //AssetManager.sounds["JUMP1"].play();
 
-                // this.body.SetFixedRotation(false);
                 var currentPos = this.body.GetPosition();
-                // 
-
-                // var forces = new b2Vec2(this.direction * 2, 2);
-                // forces.Multiply(18);
                 var forces = new b2Vec2(0, 1);
                 forces.Multiply(40);
 
-
-                //this.body.SetPosition(new b2Vec2(currentPos.x + this.direction*this.body.GetFixtureList().m_next.GetShape().GetRadius()/2, currentPos.y - this.body.GetFixtureList().m_next.GetShape().GetRadius()/2 ));
-                //this.body.SetLinearVelocity(forces);
-
-                // window.setTimeout(function() => {
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
-                // this.body.SetLinearVelocity(forces);
-                //      Logger.debug("Jump");
-                //},20 );
-
-
-                //window.setTimeout(function () => {
-                //    this.canJump++;
-                //}, 2000);
-
-
-                //window.setTimeout(function () => { this.kTest = true }, 2000);
-                //this.body.SetFixedRotation(true);
             }
         }
     }
 
     hit(damage, worm = null)
     {
-        GameInstance.healthMenu.update(this.team);
 
         this.health -= damage;
 
@@ -207,6 +208,7 @@ class Worm extends Sprite
             this.health = 0;
         }
 
+        GameInstance.healthMenu.update(this.team);
         AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
        
 
@@ -222,21 +224,7 @@ class Worm extends Sprite
 
     }
 
-    walkRight()
-    {
-        if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
-        {
-            var currentPos = this.body.GetPosition();
-            this.direction = this.DIRECTION.right;
-            this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
-
-            super.update();
-
-            this.body.SetPosition(new b2Vec2(currentPos.x + this.speed / Physics.worldScale, currentPos.y));
-        }
-
-    }
-
+   
     //Is this the current worm of the current player
     isActiveWorm()
     {
@@ -268,7 +256,9 @@ class Worm extends Sprite
 
     update()
     {
-        if (this.team.getCurrentWorm().body.GetLinearVelocity().Length() > 1)
+        this.soundDelayTimer.update();
+
+        if (this.team.getCurrentWorm().body && this.team.getCurrentWorm().body.GetLinearVelocity().Length() > 1)
         {
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.team.getCurrentWorm().body.GetPosition()));
         }
