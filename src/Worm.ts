@@ -87,6 +87,8 @@ class Worm extends Sprite
 
         this.target = new Target(this);
         this.isReadyToBeDeleted = false;
+
+       
     }
 
     // What happens when a worm collies with another object
@@ -266,7 +268,7 @@ class Worm extends Sprite
 
     update()
     {
-        if (this.body.GetLinearVelocity().Length() > 2)
+        if (this.team.getCurrentWorm().body.GetLinearVelocity().Length() > 1)
         {
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.team.getCurrentWorm().body.GetPosition()));
         }

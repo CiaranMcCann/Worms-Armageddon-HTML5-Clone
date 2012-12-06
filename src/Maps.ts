@@ -39,7 +39,7 @@ module Maps
     export var priates = {
         terrainImage: "level2",
         spawnPionts: [
-        { "x": 2039, "y": 578 }, 
+        { "x": 2039, "y": 478 }, 
         { "x": 704, "y": 1679 }, 
         { "x": 401, "y": 761 }, 
         { "x": 1498, "y": 1099 }, 
