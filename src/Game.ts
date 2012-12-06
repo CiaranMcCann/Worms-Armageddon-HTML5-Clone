@@ -107,20 +107,6 @@ class Game
             }, false);
         }
 
-
-        //$("#action").click(function (e) => {
-
-        //    $("#action").mousemove(function (e) => {
-
-        //        if (this.weaponMenu.isVisable == false)
-        //        {
-
-                    
-        //        }
-        //    });
-
-        //});
-
         this.particleEffectMgmt = new ParticleEffectManager();
 
     }
@@ -148,6 +134,7 @@ class Game
         {
             this.currentPlayerIndex++;
             this.getCurrentPlayerObject().getTeam().updateCurrentWorm();
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
         }
     }
 
