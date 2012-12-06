@@ -20,6 +20,7 @@ class Camera
     panX;
     panY;
     panSpeed;
+    toPanOrNotToPan;
 
     constructor (levelWidth, levelHeight, vpWidth, vpHeight)
     {
@@ -33,7 +34,8 @@ class Camera
         this.y = 0;
         this.panX = 0;
         this.panY = 0;
-        this.panSpeed = 12;
+        this.panSpeed = 8;
+        this.toPanOrNotToPan = false;
 
     }
 
@@ -42,52 +44,62 @@ class Camera
         //Logger.log("before Update this.panX = " + this.panX + "  this.x = " + this.x);
         //Logger.log("before Update this.panY = " + this.panY + "  this.y = " + this.y);
 
-        if (this.panX > this.x)
+        if (this.toPanOrNotToPan)
         {
-            this.incrementX(this.panSpeed);
-        }
-        
-        if (this.panX < this.x)
-        {
-            this.incrementX(-this.panSpeed);
-        }
+            if (this.panX >= this.x)
+            {
+                this.incrementX(this.panSpeed);
+            }
 
-        if (this.panY > this.y)
-        {
-            this.incrementY(this.panSpeed);
-        }
-       
-        if (this.panY < this.y)
-        {
-            this.incrementY(-this.panSpeed);
-        }
+            if (this.panX <= this.x)
+            {
+                this.incrementX(-this.panSpeed);
+            }
+
+            if (this.panY > this.y)
+            {
+                this.incrementY(this.panSpeed);
+              
+            }
+
+            if (this.panY < this.y)
+            {
+                this.incrementY(-this.panSpeed);
+            }
+        } 
+
 
        // Logger.log("after Update this.panX = " + this.panX + "  this.x = " + this.x);
        //Logger.log("after Update this.panY = " + this.panY + "  this.y = " + this.y);
 
     }
 
+    cancelPan()
+    {
+        this.toPanOrNotToPan = false;
+    }
+
+    panToPosition(vector)
+    {
+        this.panToX(vector.x - this.vpWidth/2);
+        this.panToY(vector.y - this.vpHeight/2 );
+    }
+
     panToX(x: number)
     {
-        if (x > (this.vpWidth / 2)-this.x && x > this.x)
+        if (x > this.x + 50 || x < this.x - 50)
         {
             this.panX = x;
-        }
-        else if (x < this.x)
-        {
-            this.panX = x;
+            this.toPanOrNotToPan = true;
         }
     }
 
     panToY(y: number)
     {
-        if (y > (this.vpHeight / 2)-this.y && y > this.y)
+        if (y > this.y + 50 || y < this.y - 50)
         {
             this.panY = y;
-        }
-        else if (y < this.y)
-        {
-            this.panY = y;
+            this.toPanOrNotToPan = true;
         }
     }
 
@@ -99,7 +111,9 @@ class Camera
         if (this.vpWidth + x <= this.levelWidth && x >= 0)
         {
             this.x = x;
+            return true;
         }
+      return false;
     }
 
     setY(y: number)
@@ -107,17 +121,20 @@ class Camera
         if (this.vpHeight + y <= this.levelHeight && y >= 0)
         {
             this.y = y;
+            return true;
         }
+
+        return false;
     }
 
     incrementX(x: number)
     {
-        this.setX(this.x + x);
+       return this.setX(this.x + x);
     }
 
     incrementY(y: number)
     {
-        this.setY(this.y + y);
+       return this.setY(this.y + y);
     }
 
 }
