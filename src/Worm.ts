@@ -293,7 +293,7 @@ class Worm extends Sprite
 
         ctx.translate(
             Physics.metersToPixels(this.body.GetPosition().x),
-            Physics.metersToPixels(this.body.GetPosition().y) - radius * 1.1
+            Physics.metersToPixels(this.body.GetPosition().y)
         )
 
         ctx.save()
@@ -305,18 +305,23 @@ class Worm extends Sprite
 
         super.draw(ctx,
             -radius,
-            -radius);
+            -radius*2.5);
 
         ctx.restore()
 
-        // ctx.fillStyle = '#1A1110';
-        // ctx.strokeStyle = "#eee";
-        // ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).fill();
-        //ctx.roundRect(-radius*3, -radius*3, 55, 15, 5).stroke();
+        //TODO Optimize the shit out of the, maybe pre-render? 
+        ctx.fillStyle = '#1A1110';
+        ctx.strokeStyle = "#eee";
+        ctx.roundRect(-radius*this.name.length/2.6, -radius*6, this.name.length*9.5 , 20, 4).fill();
+        ctx.roundRect(-radius*this.name.length/2.6, -radius*6, this.name.length*9.5, 20, 4).stroke();
+
+        ctx.roundRect(-radius*1.5, -radius*4, 39 , 18, 4).fill();
+        ctx.roundRect(-radius*1.5, -radius*4, 39, 18, 4).stroke();
+
         ctx.fillStyle = this.team.color;
         ctx.textAlign = 'center';
-        ctx.fillText(this.name, 0, -radius * 2.8);
-        ctx.fillText(Math.floor(this.health), 0, -radius * 1.5);
+        ctx.fillText(this.name, 0, -radius * 4.7);
+        ctx.fillText(Math.floor(this.health), 0, -radius * 2.8);
 
         ctx.restore()
     }

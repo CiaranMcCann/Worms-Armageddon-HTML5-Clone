@@ -72,7 +72,7 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-        this.actionCanvasContext.font = 'bold 14px Sans-Serif';
+        this.actionCanvasContext.font = 'bold 16.5px Sans-Serif';
 
         Physics.init(this.actionCanvasContext);
         
@@ -108,6 +108,7 @@ class Game
              
              if (this.weaponMenu.isVisable == false)
              {
+             
                  this.camera.panToX(Math.floor(e.pageX) * 2);
                  this.camera.panToY(Math.floor(e.pageY) * 2);
              }
@@ -202,7 +203,12 @@ class Game
 
             if (Settings.PHYSICS_DEBUG_MODE)
             {
+
+                this.actionCanvasContext.save();
+                this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
                 Physics.world.DrawDebugData();
+
+                this.actionCanvasContext.restore();
             }
         }
 
@@ -211,11 +217,12 @@ class Game
 
     draw()
     {
+      
        if (!Settings.PHYSICS_DEBUG_MODE)
        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
 
-        this.actionCanvasContext.save();
-        this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
+       this.actionCanvasContext.save();
+       this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
         for (var player in this.players)
         {

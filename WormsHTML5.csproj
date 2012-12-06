@@ -86,6 +86,16 @@
     <Content Include="src\gui\HealthMenu.min.js">
       <DependentUpon>HealthMenu.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Maps.ts" />
+    <Content Include="src\Levels.js">
+      <DependentUpon>Maps.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Maps.js">
+      <DependentUpon>Maps.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Maps.min.js">
+      <DependentUpon>Maps.ts</DependentUpon>
+    </Content>
     <Content Include="src\StateAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
