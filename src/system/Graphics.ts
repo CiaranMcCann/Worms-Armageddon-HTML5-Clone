@@ -9,11 +9,55 @@
  */
 declare var Stats;
 
+class PreRenderer
+{
+
+    private createPreRenderCanvas(width,height)
+    {
+        var bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
+        bufferCanvas.width = width;
+        bufferCanvas.height = height;
+        return bufferCanvas.getContext("2d");
+    }
+
+    render(drawFunc,width,height)
+    {   
+        width += 2;
+        height += 2;
+        var ctx = this.createPreRenderCanvas(width, height);
+        ctx.translate(1, 1);
+
+        drawFunc(ctx);
+        return ctx.canvas;
+    }
+
+    reRender(drawFunc, ctx)
+    {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        drawFunc(ctx);
+    }
+
+    renderAnimation(drawFuncsCollection, width, height)
+    {
+        var ctx = this.createPreRenderCanvas(width, height);
+        for (var i in drawFuncsCollection)
+        {
+            drawFuncsCollection[i].call(ctx);
+            ctx.translate(0, height);
+        }
+
+        return ctx.canvas;
+    }
+
+}
 
 module Graphics
 {
 
-    export var stats;
+    export var stats;    
+
+    export var preRenderer = new PreRenderer();
+
     export function init()
     {
         if (Settings.DEVELOPMENT_MODE)

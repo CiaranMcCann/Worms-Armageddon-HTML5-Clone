@@ -28,6 +28,26 @@ class ThrowableWeapon extends BaseWeapon
     sprite: Sprite;
     explosionRadius: number;
     maxDamage: number;
+    
+    // pre-render box around countdown number
+    static preRender()
+    {
+        var healthBoxWidth = 13;
+        var healthBoxHeight = 15
+        return Graphics.preRenderer.render(function (ctx) =>
+        {
+
+            ctx.fillStyle = '#1A1110';
+            ctx.strokeStyle = "#eee";
+
+            Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).fill();
+            Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).stroke();
+
+
+         }, 39, 20);
+
+    }
+    static numberBox = ThrowableWeapon.preRender();
 
     constructor (name, ammo, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
@@ -65,7 +85,7 @@ class ThrowableWeapon extends BaseWeapon
         this.setIsActive(false);
 
         // Counter till bomb explodes
-        this.detonationCounter = 6;
+        this.detonationCounter = 9;
         this.timeToLive = 1000;
 
     }
@@ -199,8 +219,10 @@ class ThrowableWeapon extends BaseWeapon
             // ctx.fillStyle = 'rgba(0,0,0,255)';
             // ctx.fillRect(radius/2, -radius / 2, 10, 10);
 
+            ctx.drawImage(ThrowableWeapon.numberBox, radius/2, -radius*1.5);
             ctx.fillStyle = 'rgba(255,0,0,255)';
-            ctx.fillText(Math.floor(this.detonationCounter), radius / 2, 0);
+            ctx.fillText(Math.floor(this.detonationCounter), radius*0.95, -radius/1.4);
+            
 
             ctx.restore()
         }

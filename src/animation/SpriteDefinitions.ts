@@ -248,7 +248,7 @@ module Sprites
 
             imageName: "flame1",
             frameY: 0,
-            frameCount: 36,
+            frameCount: 32,
             msPerFrame: 50,
         },
 

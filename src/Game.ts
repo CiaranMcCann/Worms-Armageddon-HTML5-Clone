@@ -74,16 +74,14 @@ class Game
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
 
         //Set canvas font stuff
-        this.actionCanvasContext.font = 'bold 16.5px Sans-Serif';
+        this.actionCanvasContext.font = 'bold 16px Sans-Serif';
         this.actionCanvasContext.textAlign = 'center';
 
         Physics.init(this.actionCanvasContext);
         
 
         this.terrain = new Terrain(this.actionCanvas,  Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
-
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(),  this.actionCanvas.width, this.actionCanvas.height);
-
 
 
         this.players = [];

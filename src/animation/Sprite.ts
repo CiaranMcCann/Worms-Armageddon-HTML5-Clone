@@ -144,7 +144,7 @@ class Sprite
     }
 
     // Allows for func to be called once this sprite animation has finished
-    onFinish(func)
+    onAnimationFinish(func)
     {
         this.onFinishFunc = func;
     }

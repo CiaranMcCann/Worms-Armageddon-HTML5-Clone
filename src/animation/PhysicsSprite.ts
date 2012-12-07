@@ -25,7 +25,7 @@ class PhysicsSprite extends Sprite
         super(spriteDef);
         this.position = initalPos;
         this.velocity = initalVelocity;
-       // this.gravity = new b2Vec2(0, 9.81);
+       
     }
 
     draw(ctx,x = this.position.x, y  = this.position.y)
@@ -39,17 +39,11 @@ class PhysicsSprite extends Sprite
         var g = new b2Vec2(0, 9.81);
 
         var at = g.Copy();
-        g.Multiply(t);
         this.velocity.Add(at);
 
         var vt = this.velocity.Copy();
         vt.Multiply(t);
         this.position.Add(vt);
-        //u * t + 0.5 * a * (t * t);
-
-        //v += a * t;
-        // p += v * t;
- 
 
         super.update();
     }

@@ -26,7 +26,7 @@ class HolyGrenade extends ThrowableWeapon
         this.explosiveForce = 120
 
         //hit damage at center
-        this.maxDamage = 40;
+        this.maxDamage = 400;
     }
 
     update()

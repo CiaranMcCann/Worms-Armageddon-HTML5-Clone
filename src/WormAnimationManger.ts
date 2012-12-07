@@ -32,6 +32,9 @@ class WormAnimationManger
 
     }
 
+    // When greater then zero the users attention is in use by another sprite
+    static playerAttentionSemaphore = 0;
+
     worm: Worm;
     idleTimer: Timer;
     currentState;
@@ -67,7 +70,7 @@ class WormAnimationManger
             
             // Once the animation to take out the weapon is finished then display this still image, which is the aiming image 
             // most of the time, depending on the type or weapon or tool.
-            this.worm.onFinish(function () =>
+            this.worm.onAnimationFinish(function () =>
             {
                 this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeAimAnimations);
                 this.worm.finished = true;
@@ -78,7 +81,7 @@ class WormAnimationManger
         } else
         {
             // If not current worm just normal idel.
-            if (this.worm.health > 50)
+            if (this.worm.health > 30)
             {
                 this.worm.setSpriteDef(Sprites.worms.idle1);
             } else
@@ -91,16 +94,35 @@ class WormAnimationManger
     update()
     {
 
+        var hasComeToRest = Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x, 0.001, -0.001);
+
+        if (hasComeToRest &&
+           this.worm.damageTake > 0)
+            // while partle effects empty
+        {
+           // var 
+        }
+           
+
+
         //Only play the death animation if the player is die first
         // Also they have come to a stop 
-        if (this.worm.health == 0 &&  
-            Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y,0.01,-0.01) && 
-            Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x,0.01,-0.01) &&
-            this.worm.spriteDef != Sprites.worms.die)
+        if (hasComeToRest &&  
+            this.worm.health == 0 &&
+            this.worm.spriteDef != Sprites.worms.die &&
+            WormAnimationManger.playerAttentionSemaphore == 0)
         {
+            WormAnimationManger.playerAttentionSemaphore++;
+
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
             this.worm.setSpriteDef(Sprites.worms.die, true,true);
             this.worm.setNoLoop(true);
-            this.worm.onFinish(this.worm.onDeath);
+            this.worm.onAnimationFinish(function () =>
+            {
+                this.worm.onDeath();
+                WormAnimationManger.playerAttentionSemaphore--;
+
+            });
 
             Utilies.pickRandomSound(["byebye","ohdear"]).play(1,2);
         }

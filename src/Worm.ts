@@ -34,7 +34,14 @@ class Worm extends Sprite
     speed;
     canJump: number;
     name;
+
+    damageTake;
     health;
+
+    //Pre-render shapes for text
+    nameBox;
+    healthBox;
+
     team: Team;
     footSensor;
     stateAnimationMgmt: WormAnimationManger;
@@ -49,6 +56,7 @@ class Worm extends Sprite
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
         this.health = 100;
+        this.damageTake = 0;
         this.team = team;
 
         x = Physics.pixelToMeters(x);
@@ -91,8 +99,54 @@ class Worm extends Sprite
         this.isReadyToBeDeleted = false;
 
         this.soundDelayTimer = new Timer(200);
+
+        this.preRendering();
        
     }
+
+    // Pre-renders the boxes above their heads with name and health
+    preRendering()
+    {
+        var nameBoxWidth = this.name.length * 10;
+        var healthBoxWidth = 39;
+        var healthBoxHeight = 18
+        this.nameBox = Graphics.preRenderer.render(function (ctx) =>
+        {
+
+            ctx.fillStyle = '#1A1110';
+            ctx.strokeStyle = "#eee";
+            ctx.font = 'bold 16.5px Sans-Serif';
+            ctx.textAlign = 'center';
+
+            Graphics.roundRect(ctx, 0,0, nameBoxWidth, 20, 4).fill();
+            Graphics.roundRect(ctx, 0,0, nameBoxWidth, 20, 4).stroke();
+
+            ctx.fillStyle = this.team.color;
+            ctx.fillText(this.name, (this.name.length * 10)/2, 15);
+
+         },nameBoxWidth , 20);
+
+        this.healthBox = Graphics.preRenderer.render(function (ctx) =>
+        {
+
+            ctx.fillStyle = '#1A1110';
+            ctx.strokeStyle = "#eee";
+            ctx.font = 'bold 16.5px Sans-Serif';
+            ctx.textAlign = 'center';
+
+            Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).fill();
+            Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).stroke();
+
+            ctx.fillStyle = this.team.color;
+            ctx.fillText(Math.floor(this.health), healthBoxWidth/2, healthBoxHeight-3);
+
+         }, 39, 20);
+
+
+    }
+
+
+   
 
     // What happens when a worm collies with another object
     beginContact(contact)
@@ -201,14 +255,10 @@ class Worm extends Sprite
     hit(damage, worm = null)
     {
 
+        this.damageTake += damage;
+
         this.health -= damage;
-
-        if (this.health - damage <= 0)
-        {
-            this.health = 0;
-        }
-
-        GameInstance.healthMenu.update(this.team);
+        this.preRendering();
         AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
        
 
@@ -219,7 +269,7 @@ class Worm extends Sprite
 
         } else if( worm ) // if there was a worm envolved in the damage
         {
-            //Utilies.pickRandomSound(["justyouwait","youllregretthat"]).play(0.8,10);         
+            Utilies.pickRandomSound(["justyouwait","youllregretthat"]).play(0.8,10);         
         }
 
     }
@@ -256,6 +306,7 @@ class Worm extends Sprite
 
     update()
     {
+        
         this.soundDelayTimer.update();
 
         if (this.team.getCurrentWorm().body && this.team.getCurrentWorm().body.GetLinearVelocity().Length() > 1)
@@ -308,24 +359,28 @@ class Worm extends Sprite
         ctx.restore()
 
         //TODO Optimize the shit out of the, maybe pre-render? 
-        ctx.fillStyle = '#1A1110';
-        ctx.strokeStyle = "#eee";
+          var nameBoxX = -radius * this.name.length / 2.6;
+            var nameBoxY = -radius * 6;
+           // var nameBoxWidth = ;
 
-        var nameBoxX = -radius * this.name.length / 2.6;
-        var nameBoxY = -radius * 6;
-        var nameBoxWidth = this.name.length * 9.5;
+       
 
-        Graphics.roundRect(ctx,nameBoxX, nameBoxY, nameBoxWidth, 20, 4).fill();
-        Graphics.roundRect(ctx,nameBoxX, nameBoxY, nameBoxWidth, 20, 4).stroke();
+        ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
+        ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
 
-        Graphics.roundRect(ctx,-radius*1.5, -radius*4, 39 , 18, 4).fill();
-        Graphics.roundRect(ctx,-radius*1.5, -radius*4, 39, 18, 4).stroke();
+            //Graphics.roundRect(ctx, -radius * 1.5, -radius * 4, 39, 18, 4).fill();
+            //Graphics.roundRect(ctx, -radius * 1.5, -radius * 4, 39, 18, 4).stroke();
 
-        ctx.fillStyle = this.team.color;
-        ctx.fillText(this.name, 0, -radius * 4.7);
-        ctx.fillText(Math.floor(this.health), 0, -radius * 2.8);
+            //ctx.fillStyle = this.team.color;
+            //ctx.fillText(this.name, 0, -radius * 4.7);
+            //ctx.fillText(Math.floor(this.health), 0, -radius * 2.8);
+
+      
+
+     
 
         ctx.restore()
+
     }
 
 }
