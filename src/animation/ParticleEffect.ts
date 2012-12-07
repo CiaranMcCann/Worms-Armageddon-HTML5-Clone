@@ -40,7 +40,7 @@ class ParticleEffect
 
         this.particles = [];
       
-        for (var p = 9; p > 0; p--)
+        for (var p = 9; p >= 0; p--)
         {
             this.particles.push(
                 new Particle(
@@ -60,7 +60,7 @@ class ParticleEffect
         //Center it on the position instead of from the left top hand conor
         ctx.translate(-this.eclipse.getImage().width / 2, -this.eclipse.getFrameHeight() / 2);
         
-        for (var p = this.particles.length - 1; p > 0; p--)
+        for (var p = this.particles.length - 1; p >= 0; p--)
         {
             this.particles[p].draw(ctx);
         }
@@ -97,7 +97,7 @@ class ParticleEffect
         this.cirlce.update();
         this.word.update();
 
-        for (var p = this.particles.length - 1; p > 0; p--)
+        for (var p = this.particles.length - 1; p >= 0; p--)
         {
              this.particles[p].update();
         }

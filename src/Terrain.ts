@@ -20,10 +20,7 @@ class Terrain
     bufferCanvasContext: CanvasRenderingContext2D;
     world;
     scale;
-    groundbodiesList;
     terrainData;
-    x; 
-    y;
     skyOffset: number;
 
     //Used to batch the deforms to one draw and one box2d regen
@@ -37,9 +34,6 @@ class Terrain
         //this.skyOffset = 350;
         this.world = world;
         this.scale = scale;
-
-        //Used to easly delete all the ground bodies
-        this.groundbodiesList = []; 
 
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
@@ -64,7 +58,6 @@ class Terrain
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, world, scale)
 
-        //this.draw();
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
     }
@@ -108,9 +101,8 @@ class Terrain
             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
             bodyDef.position.y = ((yPos - rectheight) / worldScale);
 
-            this.groundbodiesList.push(world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody());
-            this.groundbodiesList[this.groundbodiesList.length - 1].SetUserData(this);
-
+            var b = world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
+            b.SetUserData(this);
         }
 
         //Loops though the image pixel data, looking
@@ -198,17 +190,18 @@ class Terrain
 
             var tmp = this.deformTerrainBatchList[i];
             var normalizedRadis = Math.floor(tmp.radius / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT;
+            var y = Math.floor(tmp.yPos / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT;
 
             //Setup bounding box, to check which terrain rects intercest the box and need to be removed and recreated.
             var aabb = new b2AABB();
             aabb.lowerBound.Set(
                 0,
-                Physics.pixelToMeters((Math.floor(tmp.yPos / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT) - normalizedRadis)
+                Physics.pixelToMeters(y - normalizedRadis)
             );
 
             aabb.upperBound.Set(
                 Physics.pixelToMeters(this.bufferCanvas.width),
-                Physics.pixelToMeters((Math.floor(tmp.yPos / this.TERRAIN_RECT_HEIGHT) * this.TERRAIN_RECT_HEIGHT) + normalizedRadis)
+                Physics.pixelToMeters(y + normalizedRadis)
             );
 
             Physics.world.QueryAABB(function (fixture) =>
@@ -231,29 +224,25 @@ class Terrain
         }
 
         this.deformTerrainBatchList = [];
-        //this.draw();
     }
 
     update()
     {
-
         if (this.deformTerrainBatchList.length > 0)
         {
             this.deformRegionBatch();
         }
-        this.x = GameInstance.camera.getX();
-        this.y = GameInstance.camera.getY();
-
     }
 
     draw(ctx)
     {
-        
+        //this.drawingCanvasContext.clearRect(0, 0, this.drawingCanvas.width, this.drawingCanvas.height);
+
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
         ctx.drawImage(this.bufferCanvas, 
-            this.x,
-            this.y,
+            GameInstance.camera.getX(),
+            GameInstance.camera.getY(),
             this.drawingCanvas.width,
             this.drawingCanvas.height,
              0, 

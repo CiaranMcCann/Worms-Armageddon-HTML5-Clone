@@ -98,7 +98,7 @@ module Utilies
 module Logger
 {
 
-    export var loggingActive = true; // !Settings.DEVELOPMENT_MODE;
+    export var loggingActive =  Settings.DEVELOPMENT_MODE;
 
     export function log(message)
     {

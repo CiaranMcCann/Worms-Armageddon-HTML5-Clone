@@ -33,7 +33,7 @@ class ParticleEffectManager
 
     draw(ctx)
     {
-        for (var i = this.particleEffects.length - 1; i > 0; i--)
+        for (var i = this.particleEffects.length - 1; i >= 0; i--)
         {
             this.particleEffects[i].draw(ctx);
         }
@@ -41,7 +41,7 @@ class ParticleEffectManager
 
     update()
     {
-        for (var i = this.particleEffects.length - 1; i > 0; i--)
+        for (var i = this.particleEffects.length - 1; i >= 0; i--)
         {
             this.particleEffects[i].update();
 
