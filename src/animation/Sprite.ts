@@ -22,18 +22,19 @@ class Sprite
     accumulateDelta;
     isSpriteLocked;
     onFinishFunc;
+    frameHeight;
+    image;
     
 
     constructor (spriteDef: SpriteDefinition, noLoop = false)
     {
         
-        this.spriteDef = spriteDef;
         this.lastUpdateTime = 0;
         this.accumulateDelta = 0;
-        this.noLoop = noLoop;
-        this.finished = false;
-        this.currentFrameY = this.spriteDef.frameY;
         this.isSpriteLocked = false;
+        this.setSpriteDef(spriteDef);
+         this.noLoop = noLoop;
+
     }
 
     update()
@@ -95,23 +96,22 @@ class Sprite
     {
         //if (this.finished == false)
         {
-            var img = AssetManager.images[this.spriteDef.imageName];
-            var frameHeight = img.height / this.spriteDef.frameCount;
+         
 
             ctx.drawImage(
-                   img,
-                   0, this.currentFrameY * frameHeight, img.width, frameHeight,
-                   x,
-                   y,
-                  img.width,
-                  frameHeight
+                   this.image,
+                   0, this.currentFrameY * this.frameHeight, this.image.width, this.frameHeight,
+                   Math.round(x),
+                   Math.round(y),
+                  this.image.width,
+                  this.frameHeight
             );
         }
     }
 
     getImage()
     {
-        return AssetManager.images[this.spriteDef.imageName];
+        return this.image;
     }
 
     getCurrentFrame()
@@ -125,11 +125,8 @@ class Sprite
     }
 
     getFrameHeight()
-    {
-        var img = AssetManager.images[this.spriteDef.imageName];
-        var frameHeight = img.height / this.spriteDef.frameCount;
-
-        return frameHeight;
+    {       
+        return this.frameHeight;
     }
 
     getTotalFrames()
@@ -154,7 +151,7 @@ class Sprite
 
     setSpriteDef(spriteDef: SpriteDefinition, lockSprite = false, noLoop = false)
     {
-   
+
         if (spriteDef != this.spriteDef)
         {
             if (this.isSpriteLocked == false)
@@ -162,8 +159,11 @@ class Sprite
                 this.noLoop = noLoop;
                 this.finished = false;
                 this.spriteDef = spriteDef;
-                this.currentFrameY = this.spriteDef.frameY;
+                this.currentFrameY = spriteDef.frameY;
                 this.isSpriteLocked = lockSprite;
+
+                this.image = AssetManager.images[spriteDef.imageName];
+                this.frameHeight = this.image.height / spriteDef.frameCount;
             }
         }
 

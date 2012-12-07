@@ -66,8 +66,8 @@ class Game
         this.gameTimer = new CountDownTimer();
 
         //Create Terrain canvas
-        this.terrainCanvas = Graphics.createCanvas("terrain");
-        this.terrainCanvasContext = this.terrainCanvas.getContext("2d");
+        //this.terrainCanvas = Graphics.createCanvas("terrain");
+        //this.terrainCanvasContext = this.terrainCanvas.getContext("2d");
 
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
@@ -80,9 +80,9 @@ class Game
         Physics.init(this.actionCanvasContext);
         
 
-        this.terrain = new Terrain(this.terrainCanvas,  Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.actionCanvas,  Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
 
-        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(),  this.terrainCanvas.width, this.terrainCanvas.height);
+        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(),  this.actionCanvas.width, this.actionCanvas.height);
 
 
 
@@ -141,11 +141,11 @@ class Game
     checkForEndGame()
     {
         var playersStillLive = [];
-        for (var player in this.players)
+        for (var i = this.players.length - 1; i >= 0; --i)
         {
-            if (this.players[player].getTeam().isTeamDie() == false)
+            if (this.players[i].getTeam().isTeamDie() == false)
             {
-                playersStillLive.push(this.players[player]);
+                playersStillLive.push(this.players[i]);
             }
         }
 
@@ -169,9 +169,9 @@ class Game
             {
 
                 this.getCurrentPlayerObject().update();
-                for (var player in this.players)
+                 for (var i = this.players.length - 1; i >= 0; --i)
                 {
-                    this.players[player].getTeam().update();
+                    this.players[i].getTeam().update();
                 }
 
                 this.terrain.update();
@@ -194,36 +194,27 @@ class Game
                , 10       //velocity iterations
                , 10       //position iterations
             );
-
-            if (Settings.PHYSICS_DEBUG_MODE)
-            {
-
-                this.actionCanvasContext.save();
-                this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
-                Physics.world.DrawDebugData();
-
-                this.actionCanvasContext.restore();
-            }
         }
-
         //Physics.world.ClearForces();
     }
 
     draw()
     {
       
-       if (!Settings.PHYSICS_DEBUG_MODE)
        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+       //this.actionCanvas.width = this.actionCanvas.width;
+       this.terrain.draw(this.actionCanvasContext);
 
        this.actionCanvasContext.save();
        this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-        for (var player in this.players)
-        {
-            this.players[player].draw(this.actionCanvasContext);
-        }
+        if (Settings.PHYSICS_DEBUG_MODE)
+        Physics.world.DrawDebugData();
 
-        this.terrain.draw();
+        for (var i = this.players.length - 1; i >= 0; --i)
+        {
+            this.players[i].draw(this.actionCanvasContext);
+        }
 
         this.particleEffectMgmt.draw(this.actionCanvasContext);
 

@@ -33,21 +33,22 @@ class ParticleEffectManager
 
     draw(ctx)
     {
-        for (var pEffect in this.particleEffects)
+        for (var i = this.particleEffects.length - 1; i > 0; i--)
         {
-            this.particleEffects[pEffect].draw(ctx);
+            this.particleEffects[i].draw(ctx);
         }
     }
 
     update()
     {
-        for (var pEffect in this.particleEffects)
+        for (var i = this.particleEffects.length - 1; i > 0; i--)
         {
-            this.particleEffects[pEffect].update();
+            this.particleEffects[i].update();
 
-            if (this.particleEffects[pEffect].finished == true)
+            //TODO deleting while looping??
+            if (this.particleEffects[i].finished == true)
             {
-                Utilies.deleteFromCollection(this.particleEffects, pEffect);
+                Utilies.deleteFromCollection(this.particleEffects, i);
             }
 
         }

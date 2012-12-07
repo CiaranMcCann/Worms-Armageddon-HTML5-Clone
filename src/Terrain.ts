@@ -64,7 +64,7 @@ class Terrain
         this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, world, scale)
 
-        this.draw();
+        //this.draw();
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
     }
@@ -231,7 +231,7 @@ class Terrain
         }
 
         this.deformTerrainBatchList = [];
-        this.draw();
+        //this.draw();
     }
 
     update()
@@ -246,15 +246,12 @@ class Terrain
 
     }
 
-    draw()
+    draw(ctx)
     {
-        this.drawingCanvasContext.clearRect(0, 0, this.drawingCanvas.width, this.drawingCanvas.height);
-
- 
-
+        
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
-        this.drawingCanvasContext.drawImage(this.bufferCanvas, 
+        ctx.drawImage(this.bufferCanvas, 
             this.x,
             this.y,
             this.drawingCanvas.width,
