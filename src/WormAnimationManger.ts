@@ -34,6 +34,7 @@ class WormAnimationManger
 
     // When greater then zero the users attention is in use by another sprite
     static playerAttentionSemaphore = 0;
+    static areAllWormsAtRest = true;
 
     worm: Worm;
     idleTimer: Timer;
@@ -96,8 +97,8 @@ class WormAnimationManger
 
         var hasComeToRest = Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x, 0.001, -0.001);
 
+        WormAnimationManger.areAllWormsAtRest = WormAnimationManger.areAllWormsAtRest != false && hasComeToRest == true;
 
-  
 
         //Only play the death animation if the player is die first
         // Also they have come to a stop 
@@ -134,16 +135,11 @@ class WormAnimationManger
                     //All animations to do with death are finished so derement semaphore
                     WormAnimationManger.playerAttentionSemaphore--;
 
-                    if (GameInstance.getCurrentPlayerObject().turnFinished)
-                    {
-                        GameInstance.nextPlayer();
-                        GameInstance.getCurrentPlayerObject().turnFinished = false;
-                    }
-
                 });
 
-                //flag to let the team know this worm can be deleted
-                this.worm.isReadyToBeDeleted = true;
+               
+                     //flag to let the team know to not update it
+                      this.worm.isDead = true;
 
             });
 
@@ -153,31 +149,30 @@ class WormAnimationManger
 
             // Once the player comes to a rest then we trigger the reduce health animation
             // if they have been hurt 
-         if (hasComeToRest &&
-           this.worm.damageTake > 0)
+            if (hasComeToRest && this.worm.damageTake > 0)
             {
-            WormAnimationManger.playerAttentionSemaphore++;
-            var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
-            animation.onFinishAnimation(function () =>
-            {
-                WormAnimationManger.playerAttentionSemaphore--;
-                GameInstance.healthMenu.update(this.worm.team);
 
-                if (GameInstance.getCurrentPlayerObject().turnFinished)
+                WormAnimationManger.playerAttentionSemaphore++;
+                var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
+                animation.onFinishAnimation(function () =>
                 {
-                    GameInstance.nextPlayer();
-                    GameInstance.getCurrentPlayerObject().turnFinished = false;
-                }
-            });
+                    WormAnimationManger.playerAttentionSemaphore--;
+                    GameInstance.healthMenu.update(this.worm.team);
 
-            GameInstance.particleEffectMgmt.add(animation);
+                    
+                    //If the worm hurt himself his go is over
+                    if (GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.worm)
+                    {
+                        GameInstance.getCurrentPlayerObject().turnFinished = true;
+                    }
 
-            this.worm.setHealth(this.worm.getHealth() - this.worm.damageTake);
-            this.worm.damageTake = 0;
-        }
+                });
 
+                GameInstance.particleEffectMgmt.add(animation);
 
-           
+                this.worm.setHealth(this.worm.getHealth() - this.worm.damageTake);
+                this.worm.damageTake = 0;
+            }
 
 
 

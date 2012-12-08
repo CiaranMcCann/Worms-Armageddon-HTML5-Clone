@@ -73,15 +73,16 @@ class ThrowableWeapon extends BaseWeapon
         //hit damage at center
         this.maxDamage = 30;
 
-        // set default values
-        this.reset();
+        // Counter till bomb explodes
+        this.detonationCounter = 9;
+        this.timeToLive = 1000;
 
     }
 
-    reset()
+    deactivate()
     {
 
-        Logger.debug(this + " was deactivated ");
+       // Logger.debug(this + " was deactivated ");
         this.setIsActive(false);
 
         // Counter till bomb explodes
@@ -157,7 +158,7 @@ class ThrowableWeapon extends BaseWeapon
 
     detonate()
     {
-        Effects.explosion(
+        var animation = Effects.explosion(
             this.body.GetPosition(),
             this.explosionRadius,
             this.effectedRadius,
@@ -166,7 +167,13 @@ class ThrowableWeapon extends BaseWeapon
             this.worm
         );
 
-        this.reset();
+        //Once the weapons explostion animation has finished then we can move to the next players turn
+        animation.onAnimationFinish(function () =>
+        {
+            GameInstance.getCurrentPlayerObject().turnFinished = true;
+        });
+
+        this.deactivate();
         //The bomb has exploded so remove it from the world
         Physics.world.DestroyBody(this.body);
     }

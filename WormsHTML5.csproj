@@ -50,10 +50,7 @@
       <DependentUpon>ParticleEffect.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\animation\PhysicsSprite.ts" />
-    <TypeScriptCompile Include="src\animation\ParticleEffectManager.ts" />
-    <Content Include="src\animation\ParticleSystemManager.js">
-      <DependentUpon>ParticleEffectManager.ts</DependentUpon>
-    </Content>
+    <TypeScriptCompile Include="src\animation\EffectsManager.ts" />
     <Content Include="src\animation\PhysicsSprite.js">
       <DependentUpon>PhysicsSprite.ts</DependentUpon>
     </Content>

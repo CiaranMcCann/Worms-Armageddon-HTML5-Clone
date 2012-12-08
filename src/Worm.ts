@@ -12,6 +12,7 @@
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="animation/HealthReduction.ts"/>
 ///<reference path="weapons/Drill.ts"/>
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts" />
@@ -46,7 +47,7 @@ class Worm extends Sprite
     footSensor;
     stateAnimationMgmt: WormAnimationManger;
     target: Target;
-    isReadyToBeDeleted: bool;
+    isDead: bool;
 
     soundDelayTimer: Timer;
 
@@ -96,7 +97,7 @@ class Worm extends Sprite
         this.canJump = 0;
 
         this.target = new Target(this);
-        this.isReadyToBeDeleted = false;
+        this.isDead = false;
 
         this.soundDelayTimer = new Timer(200);
 
@@ -145,6 +146,21 @@ class Worm extends Sprite
 
     }
 
+    getHealth() { return this.health; }
+
+    setHealth(health: number)
+    {
+        if (health > 0)
+        {
+            this.health = health;
+
+        } else
+        {
+            this.health = 0;
+        }
+
+        this.preRendering();
+    }
 
    
 
@@ -181,6 +197,7 @@ class Worm extends Sprite
     {
         this.team.getWeaponManager().getCurrentWeapon().activate(this);
         AssetManager.sounds["fire"].play();
+        
     }
 
     playWalkingSound()
@@ -254,14 +271,9 @@ class Worm extends Sprite
 
     hit(damage, worm = null)
     {
-
         this.damageTake += damage;
-
-        this.health -= damage;
-        this.preRendering();
         AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
-       
-
+  
         //if from same team call the player a tratitor :)
         if (worm && worm != this && worm.team == this.team)
         {
@@ -271,7 +283,6 @@ class Worm extends Sprite
         {
             Utilies.pickRandomSound(["justyouwait","youllregretthat"]).play(0.8,10);         
         }
-
     }
 
    
@@ -279,28 +290,6 @@ class Worm extends Sprite
     isActiveWorm()
     {
         return this.team.getCurrentWorm() == this && GameInstance.getCurrentPlayerObject().getTeam() == this.team;
-    }
-
-    // Once the players death animated is finished then we most create
-    // a particle explision effect and pay an explosion sound.
-    onDeath()
-    {     
-        var effectedRadius = Physics.pixelToMeters(50);
-        var maxDamage = 10;
-        var explosiveForce = 20;
-        var explosionRadius = 40;
-
-       Effects.explosion(
-            this.body.GetPosition(),
-            explosionRadius,
-            effectedRadius,
-            explosiveForce,
-            maxDamage
-        );
-
-        //flag to let the team know this worm can be deleted
-        this.isReadyToBeDeleted = true;
-        
     }
 
 

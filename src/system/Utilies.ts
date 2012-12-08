@@ -43,16 +43,6 @@ module Utilies
         collection.splice(indexToRemove, 1);
     }
 
-    export function getUrlVars()
-    {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value)
-        {
-            vars[key] = value;
-        });
-        return vars;
-    }
-
     export function isBetweenRange(value, rangeMax, rangeMin)
     {
         return value >= rangeMin && value <= rangeMax;
@@ -100,29 +90,27 @@ module Utilies
 module Logger
 {
 
-    export var loggingActive =  Settings.DEVELOPMENT_MODE;
-
     export function log(message)
     {
-        if (loggingActive)
+        if (Settings.DEVELOPMENT_MODE)
             console.info(message);
     }
 
     export function warn(message)
     {
-        if (loggingActive)
+        if (Settings.DEVELOPMENT_MODE)
             console.warn(message);
     }
 
     export function debug(message)
     {
-        if (loggingActive)
+        if (Settings.DEVELOPMENT_MODE)
             console.log(message);
     }
 
     export function error(message)
     {
-        if (loggingActive)
+        if (Settings.DEVELOPMENT_MODE)
             console.error(message);
     }
 }

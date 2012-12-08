@@ -29,9 +29,9 @@ class HandGrenade extends ThrowableWeapon
         this.maxDamage = 20;
     }
 
-    reset()
+    deactivate()
     {
-        super.reset();
+        super.deactivate();
 
         this.detonationCounter = 3;
     }

@@ -26,6 +26,7 @@ class ParticleEffect
     particles: Particle[];
     center;
     finished;
+    onFinished;
 
 
     constructor (x, y)
@@ -104,6 +105,19 @@ class ParticleEffect
 
         //Particles have the longest animation so once they are finished we can make the effect for deletion
          this.finished = this.particles[0].finished;
+
+         if (this.finished)
+         {
+             if (this.onFinished)
+             {
+                 this.onFinished();
+             }
+         }
+    }
+
+    onAnimationFinish(func)
+    {
+        this.onFinished = func;
     }
 
 

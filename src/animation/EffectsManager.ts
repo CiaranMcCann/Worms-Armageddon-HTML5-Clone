@@ -16,17 +16,17 @@
 ///<reference path="../system/Timer.ts" />
 ///<reference path="../Settings.ts" />
 
-class ParticleEffectManager
+class EffectsManager
 {
 
-    particleEffects: ParticleEffect[];
+    particleEffects;
 
     constructor ()
     {
         this.particleEffects = [];
     }
 
-    add(effect : ParticleEffect)
+    add(effect)
     {
         this.particleEffects.push(effect);
     }

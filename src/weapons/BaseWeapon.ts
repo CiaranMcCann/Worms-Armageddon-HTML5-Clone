@@ -8,12 +8,12 @@ class BaseWeapon
     isActive;
     timeToLive;
     worm;
-    takeOutAnimations : SpriteDefinition;
-    takeAimAnimations : SpriteDefinition ;
+    takeOutAnimations: SpriteDefinition;
+    takeAimAnimations: SpriteDefinition;
 
     requiresAiming: bool;
 
-    constructor (name: string, ammo: number, iconSprite, takeOutAnimation : SpriteDefinition, takeAimAnimation : SpriteDefinition)
+    constructor (name: string, ammo: number, iconSprite, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
         this.name = name;
         this.ammo = ammo;
@@ -42,8 +42,7 @@ class BaseWeapon
 
         Logger.debug(this + " was activated ");
 
-    };
-
+    }
 
     update() { }
     draw(ctx) { }

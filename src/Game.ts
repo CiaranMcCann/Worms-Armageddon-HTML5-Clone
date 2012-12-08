@@ -22,7 +22,7 @@
 ///<reference path="CountDownTimer.ts" />
 ///<reference path="animation/SpriteDefinitions.ts" />
 ///<reference path="animation/ParticleEffect.ts"/>
-///<reference path="animation/ParticleEffectManager.ts"/>
+///<reference path="animation/EffectsManager.ts"/>
 ///<reference path="gui/HealthMenu.ts"/>
 ///<reference path="Maps.ts"/>
 
@@ -44,30 +44,25 @@ class Game
     currentPlayerIndex: number;
 
     isStarted: bool;
-    particleEffectMgmt: ParticleEffectManager;
+    particleEffectMgmt: EffectsManager;
 
     // TODO clean this up -just made it static to get it working
     static map: Map = new Map(Maps.priates);
 
     camera: Camera;
 
+    //Using in dev mode to collect spawn positions
     spawns; 
 
 
     constructor ()
     {
-        Graphics.init();
-        
+        Graphics.init();       
 
         this.currentPlayerIndex = 0;
 
-
         this.weaponMenu = new WeaponsMenu();
         this.gameTimer = new CountDownTimer();
-
-        //Create Terrain canvas
-        //this.terrainCanvas = Graphics.createCanvas("terrain");
-        //this.terrainCanvasContext = this.terrainCanvas.getContext("2d");
 
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
@@ -105,7 +100,7 @@ class Game
             }, false);
         }
 
-        this.particleEffectMgmt = new ParticleEffectManager();
+        this.particleEffectMgmt = new EffectsManager();
 
     }
 
@@ -123,17 +118,19 @@ class Game
 
     nextPlayer()
     {
-
         if (this.currentPlayerIndex + 1 == this.players.length)
         {
             this.currentPlayerIndex = 0;
         }
         else
         {
-            this.currentPlayerIndex++;
-            this.getCurrentPlayerObject().getTeam().updateCurrentWorm();
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
+            this.currentPlayerIndex++;                
         }
+
+        this.getCurrentPlayerObject().getTeam().updateCurrentWorm();    
+        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
+
+        Logger.debug("next player ");
     }
 
     checkForEndGame()
@@ -141,7 +138,7 @@ class Game
         var playersStillLive = [];
         for (var i = this.players.length - 1; i >= 0; --i)
         {
-            if (this.players[i].getTeam().isTeamDie() == false)
+            if (this.players[i].getTeam().getPercentageHealth() == 0)
             {
                 playersStillLive.push(this.players[i]);
             }
@@ -166,16 +163,20 @@ class Game
             if (this.checkForEndGame() == false)
             {
 
-                this.getCurrentPlayerObject().update();
-                 for (var i = this.players.length - 1; i >= 0; --i)
+                
+                for (var i = this.players.length - 1; i >= 0; --i)
                 {
                     this.players[i].getTeam().update();
                 }
+
+                this.getCurrentPlayerObject().update();
 
                 this.terrain.update();
                 this.gameTimer.update(this.players);
 
                 this.camera.update();
+
+                Logger.log(WormAnimationManger.areAllWormsAtRest);
             }
 
            this.particleEffectMgmt.update();
@@ -209,12 +210,11 @@ class Game
         if (Settings.PHYSICS_DEBUG_MODE)
         Physics.world.DrawDebugData();
 
+         this.particleEffectMgmt.draw(this.actionCanvasContext);
         for (var i = this.players.length - 1; i >= 0; --i)
         {
             this.players[i].draw(this.actionCanvasContext);
         }
-
-        this.particleEffectMgmt.draw(this.actionCanvasContext);
 
         this.actionCanvasContext.restore();
     }

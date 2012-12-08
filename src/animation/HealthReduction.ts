@@ -54,7 +54,7 @@ class HealthReduction
         this.pos.x -= HealthReduction.numberBox.width/2;
         this.pos.y -= HealthReduction.numberBox.height*2;
 
-        this.timer = new Timer(4000);
+        this.timer = new Timer(2700);
     }
 
     draw(ctx)
@@ -84,7 +84,7 @@ class HealthReduction
             }
         }
 
-        this.pos.y -= 0.8;
+        this.pos.y -= 0.85;
     }
 
 

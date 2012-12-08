@@ -29,7 +29,7 @@ module Settings
     //Pasers commandline type arguments from the page url like this ?argName=value
     export function getSettingsFromUrl()
     {
-        var argv = Utilies.getUrlVars();
+        var argv = getUrlVars();
         var commands = ["physicsDebugDraw","devMode","unitTest","sound"]
 
         if (argv[commands[0]] == "true")
@@ -55,5 +55,15 @@ module Settings
         }
 
         Logger.log(" Notice: argv are as follows " + commands);
+    }
+
+    export function getUrlVars()
+    {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value)
+        {
+            vars[key] = value;
+        });
+        return vars;
     }
 }

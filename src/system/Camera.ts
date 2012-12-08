@@ -90,17 +90,17 @@ class Camera
         this.panSpeed = diff;
        // Logger.log(this.panSpeed);
 
-        if (vector.x > this.position.x + 50 || vector.x < this.position.x - 50)
-        {
+        //if (vector.x > this.position.x + 20 || vector.x < this.position.x - 20)
+        //{
             this.panPosition.x = vector.x;
             this.toPanOrNotToPan = true;
-        }
+       // }
 
-        if (vector.y > this.position.y + 50 || vector.y < this.position.y - 50)
-        {
+       // if (vector.y > this.position.y + 20 || vector.y < this.position.y - 20)
+       // {
             this.panPosition.y = vector.y;
-            this.toPanOrNotToPan = true;
-        }
+          //  this.toPanOrNotToPan = true;
+       // }
     }
 
     getX() { return this.position.x; }

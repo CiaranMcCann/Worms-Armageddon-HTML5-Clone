@@ -46,7 +46,7 @@ class Team
         for (var i = 0; i < this.initalNumberOfWorms; i++)
         {
             var tmp = Game.map.getNextSpawnPoint();
-            this.worms.push(new Worm(this, tmp.x,tmp.y));
+            this.worms.push(new Worm(this, tmp.x, tmp.y));
 
         }
     }
@@ -60,12 +60,7 @@ class Team
             totalHealth += this.worms[worm].health;
         }
 
-        return totalHealth/this.initalNumberOfWorms ;
-    }
-
-    isTeamDie()
-    {
-        return this.worms.length == 0;
+        return totalHealth / this.initalNumberOfWorms;
     }
 
     getCurrentWorm()
@@ -80,9 +75,15 @@ class Team
             this.currentWorm = 0;
         }
         else
-        {
+        {   
             this.currentWorm++;
         }
+
+        if (this.worms[this.currentWorm].isDead)
+        {
+            this.updateCurrentWorm();
+        }
+
     }
 
     getWeaponManager()
@@ -95,24 +96,6 @@ class Team
         this.currentWorm = wormIndex;
     }
 
-    // Beware using this inside the update will case problems
-    removeWorm(predicate)
-    {
-        var cachedLenght = this.worms.length;
-        for (var i = 0; i < cachedLenght; i++)
-        {
-            if ( predicate(this.worms[i]) )
-            {
-                //Clean up the worms physics body
-                Physics.world.DestroyBody(this.worms[i].body);
-
-                Utilies.deleteFromCollection(this.worms, i);
-                return true;
-            }
-        }   
-        
-         return false;    
-    }
 
     //Sets all worms sprites to winning state
     winner()
@@ -125,7 +108,7 @@ class Team
                 var worm: Worm = this.worms[w];
                 worm.setSpriteDef(Sprites.worms.weWon, true);
             }
-            AssetManager.sounds["victory"].play(1,10);
+            AssetManager.sounds["victory"].play(1, 10);
         }
 
     }
@@ -133,25 +116,33 @@ class Team
 
     update()
     {
-        //TODO: You could pobly remove in the update just manipluate i, will do late anyway. 
-        this.removeWorm(function (worm : Worm)
-        {
-            return worm.isReadyToBeDeleted;
-        });
-
+     
+        WormAnimationManger.areAllWormsAtRest = true;
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
+            if(this.worms[i].isDead == false)
             this.worms[i].update();
         }
+
+        if (GameInstance.getCurrentPlayerObject().turnFinished &&
+             WormAnimationManger.playerAttentionSemaphore == 0 &&
+            WormAnimationManger.areAllWormsAtRest)
+        {
+            GameInstance.nextPlayer();
+            GameInstance.getCurrentPlayerObject().turnFinished = false;
+        }
+
+
     }
 
     draw(ctx)
     {
-        
+
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
+            if(this.worms[i].isDead == false)
             this.worms[i].draw(ctx);
         }
 
