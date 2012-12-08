@@ -128,8 +128,12 @@ class Game
         }
 
         this.getCurrentPlayerObject().getTeam().updateCurrentWorm();    
-        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
 
+        var pos = Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition());
+        this.particleEffectMgmt.add(new BounceArrow(pos) );
+
+        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
+        this.gameTimer.timer.reset();
         Logger.debug("next player ");
     }
 
@@ -210,11 +214,12 @@ class Game
         if (Settings.PHYSICS_DEBUG_MODE)
         Physics.world.DrawDebugData();
 
-         this.particleEffectMgmt.draw(this.actionCanvasContext);
+        
         for (var i = this.players.length - 1; i >= 0; --i)
         {
             this.players[i].draw(this.actionCanvasContext);
         }
+         this.particleEffectMgmt.draw(this.actionCanvasContext);
 
         this.actionCanvasContext.restore();
     }

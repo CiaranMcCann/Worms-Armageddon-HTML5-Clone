@@ -33,7 +33,7 @@ class PhysicsSprite extends Sprite
         super.draw(ctx, x,y);
     }
 
-    update()
+    physics()
     {
         var t = 0.016;
         var g = new b2Vec2(0, 9.81);
@@ -45,6 +45,11 @@ class PhysicsSprite extends Sprite
         vt.Multiply(t);
         this.position.Add(vt);
 
+    }
+
+    update()
+    {
+        this.physics();
         super.update();
     }
 

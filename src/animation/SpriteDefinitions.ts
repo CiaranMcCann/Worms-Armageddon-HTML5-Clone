@@ -69,6 +69,15 @@ module Sprites
             frameCount: 32,
             msPerFrame: 50,
 
+        },
+
+
+          arrow: {
+            imageName: "arrowdnb",
+            frameY: 0,
+            frameCount: 30,
+            msPerFrame: 10,
+
         }
 
      }

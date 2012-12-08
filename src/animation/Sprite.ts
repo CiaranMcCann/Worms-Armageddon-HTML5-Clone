@@ -97,7 +97,6 @@ class Sprite
         //if (this.finished == false)
         {
          
-
             ctx.drawImage(
                    this.image,
                    0, this.currentFrameY * this.frameHeight, this.image.width, this.frameHeight,
