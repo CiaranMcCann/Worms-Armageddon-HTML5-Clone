@@ -96,16 +96,9 @@ class WormAnimationManger
 
         var hasComeToRest = Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x, 0.001, -0.001);
 
-        if (hasComeToRest &&
-           this.worm.damageTake > 0)
-            // while partle effects empty
-        {
-           // var 
-        }
-           
-
-
-        //Only play the death animation if the player is die first
+    
+       
+          //Only play the death animation if the player is die first
         // Also they have come to a stop 
         if (hasComeToRest &&  
             this.worm.health == 0 &&
@@ -126,7 +119,38 @@ class WormAnimationManger
 
             Utilies.pickRandomSound(["byebye","ohdear"]).play(1,2);
         }
-       
+
+
+          // Once the player comes to a rest then we trigger the reduce health animation
+        // if they have been hurt 
+        else if (hasComeToRest &&
+           this.worm.damageTake > 0)
+        {         
+            WormAnimationManger.playerAttentionSemaphore++;
+            var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
+            animation.onFinishAnimation(function () =>
+            {
+                WormAnimationManger.playerAttentionSemaphore--;
+                GameInstance.healthMenu.update(this.worm.team);
+            });
+
+            GameInstance.particleEffectMgmt.add(animation);
+
+            this.worm.setHealth(this.worm.getHealth() - this.worm.damageTake);
+            this.worm.damageTake = 0;
+        }
+
+
+                //Once the player comes to a reset and their turn is finished and the semaphore is zero then we can switch to next player
+        else if (hasComeToRest &&
+            GameInstance.getCurrentPlayerObject().turnFinished &&
+            WormAnimationManger.playerAttentionSemaphore == 0)
+        {
+            window.setTimeout(function () => { GameInstance.nextPlayer() }, 1000);
+            GameInstance.getCurrentPlayerObject().turnFinished = false;
+        }
+
+           
 
         //If the players weapon has changed since the last update we need to reply the animation of him taking it out
         if (this.previouslySelectedWeapon != this.worm.team.getWeaponManager().getCurrentWeapon())
