@@ -24,11 +24,11 @@ class WormAnimationManger
 {
     static WORM_STATE = {
 
-    idle: 0,
-    walking: 1,
-    jumping: 2,
-    failing: 3,
-    aiming: 4
+        idle: 0,
+        walking: 1,
+        jumping: 2,
+        failing: 3,
+        aiming: 4
 
     }
 
@@ -40,7 +40,7 @@ class WormAnimationManger
     currentState;
     previouslySelectedWeapon;
 
-    constructor (worm : Worm)
+    constructor (worm: Worm)
     {
         this.worm = worm;
         this.currentState = WormAnimationManger.WORM_STATE.idle;
@@ -58,16 +58,16 @@ class WormAnimationManger
     {
         return this.currentState;
     }
-    
+
     setIdleAnimation()
     {
         // If this worm is the worm of the current player and its not in a dieing state
         if (this.worm.isActiveWorm() && this.worm.spriteDef != Sprites.worms.die)
-        {   
+        {
             //If the worm is the current worm its idel will be to take out its weapon
 
-            this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeOutAnimations, false,true);
-            
+            this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeOutAnimations, false, true);
+
             // Once the animation to take out the weapon is finished then display this still image, which is the aiming image 
             // most of the time, depending on the type or weapon or tool.
             this.worm.onAnimationFinish(function () =>
@@ -96,11 +96,12 @@ class WormAnimationManger
 
         var hasComeToRest = Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x, 0.001, -0.001);
 
-    
-       
-          //Only play the death animation if the player is die first
+
+  
+
+        //Only play the death animation if the player is die first
         // Also they have come to a stop 
-        if (hasComeToRest &&  
+        if (hasComeToRest &&
             this.worm.health == 0 &&
             this.worm.spriteDef != Sprites.worms.die &&
             WormAnimationManger.playerAttentionSemaphore == 0)
@@ -108,30 +109,65 @@ class WormAnimationManger
             WormAnimationManger.playerAttentionSemaphore++;
 
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
-            this.worm.setSpriteDef(Sprites.worms.die, true,true);
+            this.worm.setSpriteDef(Sprites.worms.die, true, true);
             this.worm.setNoLoop(true);
             this.worm.onAnimationFinish(function () =>
             {
-                this.worm.onDeath();
-                WormAnimationManger.playerAttentionSemaphore--;
+                // Once the players death animated is finished then we most create
+                // a particle explision effect and pay an explosion sound.
+
+                var effectedRadius = Physics.pixelToMeters(50);
+                var maxDamage = 10;
+                var explosiveForce = 20;
+                var explosionRadius = 40;
+
+                var animation = Effects.explosion(
+                     this.worm.body.GetPosition(),
+                     explosionRadius,
+                     effectedRadius,
+                     explosiveForce,
+                     maxDamage
+                 );
+
+                animation.onAnimationFinish(function () =>
+                {
+                    //All animations to do with death are finished so derement semaphore
+                    WormAnimationManger.playerAttentionSemaphore--;
+
+                    if (GameInstance.getCurrentPlayerObject().turnFinished)
+                    {
+                        GameInstance.nextPlayer();
+                        GameInstance.getCurrentPlayerObject().turnFinished = false;
+                    }
+
+                });
+
+                //flag to let the team know this worm can be deleted
+                this.worm.isReadyToBeDeleted = true;
 
             });
 
-            Utilies.pickRandomSound(["byebye","ohdear"]).play(1,2);
-        }
+            Utilies.pickRandomSound(["byebye", "ohdear"]).play(1, 2);
+        } 
+           
 
-
-          // Once the player comes to a rest then we trigger the reduce health animation
-        // if they have been hurt 
-        else if (hasComeToRest &&
+            // Once the player comes to a rest then we trigger the reduce health animation
+            // if they have been hurt 
+         if (hasComeToRest &&
            this.worm.damageTake > 0)
-        {         
+            {
             WormAnimationManger.playerAttentionSemaphore++;
             var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
             animation.onFinishAnimation(function () =>
             {
                 WormAnimationManger.playerAttentionSemaphore--;
                 GameInstance.healthMenu.update(this.worm.team);
+
+                if (GameInstance.getCurrentPlayerObject().turnFinished)
+                {
+                    GameInstance.nextPlayer();
+                    GameInstance.getCurrentPlayerObject().turnFinished = false;
+                }
             });
 
             GameInstance.particleEffectMgmt.add(animation);
@@ -141,16 +177,9 @@ class WormAnimationManger
         }
 
 
-                //Once the player comes to a reset and their turn is finished and the semaphore is zero then we can switch to next player
-        else if (hasComeToRest &&
-            GameInstance.getCurrentPlayerObject().turnFinished &&
-            WormAnimationManger.playerAttentionSemaphore == 0)
-        {
-            window.setTimeout(function () => { GameInstance.nextPlayer() }, 1000);
-            GameInstance.getCurrentPlayerObject().turnFinished = false;
-        }
-
            
+
+
 
         //If the players weapon has changed since the last update we need to reply the animation of him taking it out
         if (this.previouslySelectedWeapon != this.worm.team.getWeaponManager().getCurrentWeapon())
@@ -173,15 +202,15 @@ class WormAnimationManger
             this.currentState = WormAnimationManger.WORM_STATE.failing;
             this.idleTimer.reset();
 
-        } 
+        }
         else if (this.worm.canJump == 0 && this.worm.body.GetLinearVelocity().y < 0)
-        {
+            {
             this.worm.setSpriteDef(Sprites.worms.jumpBegin);
             this.currentState = WormAnimationManger.WORM_STATE.jumping;
             this.idleTimer.reset();
-        } 
+        }
 
-        
+
         //Once the idel timer has run out we which to idel animation and pause the timer
         // as some of the idel animations are animated and some are not. 
         if (this.idleTimer.hasTimePeriodPassed())
@@ -190,7 +219,7 @@ class WormAnimationManger
             this.setIdleAnimation();
         }
 
-        
+
         this.idleTimer.update();
 
     }
