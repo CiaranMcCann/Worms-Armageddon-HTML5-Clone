@@ -96,7 +96,6 @@ class WormAnimationManger
     {
 
         var hasComeToRest = Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x, 0.001, -0.001);
-
         WormAnimationManger.areAllWormsAtRest = WormAnimationManger.areAllWormsAtRest != false && hasComeToRest == true;
 
 
