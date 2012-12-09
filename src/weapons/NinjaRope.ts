@@ -30,13 +30,9 @@ class NinjaRope extends BaseWeapon
     activate(worm : Worm)
     {
         super.activate(worm);
-        
-    }
 
-    draw(ctx)
-    {
-        if (this.getIsActive())
-        {
+         if (this.getIsActive())
+       {
 
             var dir = this.worm.target.getTargetDirection().Copy();
             dir.Multiply(20);
@@ -45,8 +41,42 @@ class NinjaRope extends BaseWeapon
             if (contact)
             {
 
+                var fixDef = new b2FixtureDef;
+                fixDef.density = 1.0;
+                fixDef.friction = 1.0;
+                fixDef.restitution = 0.0;
+                fixDef.shape = new b2PolygonShape;
+
+                var bodyDef = new b2BodyDef;
+                bodyDef.type = b2Body.b2_staticBody;
+
+		        fixDef.shape.SetAsBox(Physics.pixelToMeters(30/2),Physics.pixelToMeters(30/2));
+
+		        bodyDef.position.x =  contact.x;
+		        bodyDef.position.y =  contact.y;
+
+                var b = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
+
+                var joint = new b2DistanceJointDef();
+                var p1, p2, d;
+
+                joint.frequencyHz = 2.0;
+                joint.dampingRatio = 10.0;
+
+                joint.bodyA = b;
+                joint.bodyB = this.worm.body;
+                joint.localAnchorA.Set(0, 0.0);
+                joint.localAnchorB.Set(0, 0.0);
+                Physics.world.CreateJoint(joint)
+               
             }
-        }
+       }
+        
+    }
+
+    draw(ctx)
+    {
+      
     }
 
 }

@@ -28,10 +28,11 @@ class WeaponManager
         this.weaponsAndTools = 
         [
             new Drill(),
+            new NinjaRope(),
             new HolyGrenade(),
             new Dynamite(),
-            new HandGrenade(),
-            new NinjaRope()
+            new HandGrenade()
+            
         ];
 
         this.currentWeaponIndex = 1;

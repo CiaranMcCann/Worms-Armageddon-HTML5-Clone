@@ -146,7 +146,7 @@ module Physics
                         closestFraction = output.fraction;
                          intersectionNormal = output.normal;
                          bodyFound = true;
-                         Logger.log("collision");
+                         //Logger.log("collision");
                     }
                 }
 
