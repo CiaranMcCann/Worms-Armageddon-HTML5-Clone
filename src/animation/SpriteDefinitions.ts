@@ -29,7 +29,8 @@ module Sprites
         holyGernade: {imageName: "iconhgrenade"},
          gernade: {imageName: "icongrenade"},
         drill: {imageName: "drill"},
-       dynamite: {imageName: "icondynamite"}
+       dynamite: {imageName: "icondynamite"},
+         ninjaRope: {imageName: "iconrope"}
 
          
 
@@ -208,6 +209,24 @@ module Sprites
             imageName: "wgrnlnk",
             frameY: 0,
             frameCount: 10,
+            msPerFrame: 50,
+
+        },
+
+         takeNinjaRope: {
+
+            imageName: "wbatlnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 50,
+
+        },
+
+          aimNinjaRope: {
+
+            imageName: "wbataim",
+            frameY: 32/2,
+            frameCount: 32,
             msPerFrame: 50,
 
         },

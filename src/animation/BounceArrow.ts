@@ -16,12 +16,25 @@
 
 class BounceArrow extends PhysicsSprite
 {
+    timer: Timer;
 
     constructor (initalPos)
     {
         initalPos.x -= 15;
         initalPos.y -= 100;
+        this.timer = new Timer(4000);
         super(initalPos, null, Sprites.weapons.arrow);    
+    }
+
+    update()
+    {
+        super.update();
+        this.timer.update();
+
+        if (this.timer.hasTimePeriodPassed())
+        {
+            this.finished = true;
+        }
     }
 
     physics()

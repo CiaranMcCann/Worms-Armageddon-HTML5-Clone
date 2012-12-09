@@ -21,7 +21,10 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
     b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
     b2AABB = Box2D.Collision.b2AABB,
-    b2ContactListener = Box2D.Dynamics.b2ContactListener;
+    b2ContactListener = Box2D.Dynamics.b2ContactListener,
+    b2RayCastInput = Box2D.Collision.b2RayCastInput,
+    b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef,
+    b2RayCastOutput = Box2D.Collision.b2RayCastOutput;
 
 
 module Physics
@@ -49,7 +52,7 @@ module Physics
         debugDraw.SetDrawScale(Physics.worldScale);
         debugDraw.SetFillAlpha(0.3);
         debugDraw.SetLineThickness(1.0);
-        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
         world.SetDebugDraw(debugDraw);
 
 
@@ -106,6 +109,79 @@ module Physics
         {
             return false;
         }
+    }
+
+    export function shotRay(p1,p2)
+    {
+
+            var input = new b2RayCastInput();
+            var output = new b2RayCastOutput();
+            var intersectionPoint = new b2Vec2();
+            var rayLength = 30; //long enough to hit the walls
+
+            var normalEnd = new b2Vec2();
+            var intersectionNormal = new b2Vec2();
+
+            //calculate points of ray
+           // p2.x = p1.x + rayLength;
+            //p2.y = p1.y + rayLength;
+
+            p2.Multiply(30);
+        var context = GameInstance.actionCanvasContext;
+
+
+            input.p1 = p1;
+            input.p2 = p2;
+            input.maxFraction = 1;
+            var closestFraction = 1;
+            var bodyFound = false;
+
+            var b = new b2BodyDef();
+            var f = new b2FixtureDef();
+            for(b = Physics.world.GetBodyList(); b; b = b.GetNext())    {           
+                for(f = b.GetFixtureList(); f; f = f.GetNext()) {
+                    if(!f.RayCast(output, input))
+                        continue;
+                    else if(output.fraction < closestFraction)  {
+                        closestFraction = output.fraction;
+                         intersectionNormal = output.normal;
+                         bodyFound = true;
+                         Logger.log("collision");
+                    }
+                }
+
+            }
+            intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
+            intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
+                    
+
+            normalEnd.x = intersectionPoint.x + intersectionNormal.x;
+            normalEnd.y = intersectionPoint.y + intersectionNormal.y;
+
+            
+            context.strokeStyle = "rgb(25, 25, 25)";
+
+            context.beginPath(); // Start the path
+            context.moveTo(p1.x*30,p1.y*30); // Set the path origin
+            context.lineTo(intersectionPoint.x*30, intersectionPoint.y*30); // Set the path destination
+            context.closePath(); // Close the path
+            context.stroke();
+
+            
+         
+           context.strokeStyle = "rgb(0, 255, 255)";
+            context.beginPath(); // Start the path
+            context.moveTo(intersectionPoint.x*30, intersectionPoint.y*30); // Set the path origin
+            context.lineTo(normalEnd.x*30, normalEnd.y*30); // Set the path destination
+            context.closePath(); // Close the path
+            context.stroke(); // Outline the path
+
+            if (bodyFound)
+            {
+                return intersectionPoint;
+            }
+
+            return null;
     }
 
     export function applyToNearByObjects(epicenter,effectedRadius,funcToApplyToEach)

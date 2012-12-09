@@ -1,4 +1,6 @@
 ///<reference path="../Settings.ts" />
+///<reference path="../animation/SpriteDefinitions.ts" />
+///<reference path="../system/AssetManager.ts" />
 
 class BaseWeapon
 {
@@ -7,7 +9,7 @@ class BaseWeapon
     iconImage;
     isActive;
     timeToLive;
-    worm;
+    worm : Worm;
     takeOutAnimations: SpriteDefinition;
     takeAimAnimations: SpriteDefinition;
 

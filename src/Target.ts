@@ -46,6 +46,15 @@ class Target extends PhysicsSprite
             targetDir.Multiply(95);
             targetDir.Add(wormPos);
 
+            if (Settings.DEVELOPMENT_MODE)
+            {
+                ctx.beginPath(); // Start the path
+                ctx.moveTo(wormPos.x, wormPos.y); // Set the path origin
+                ctx.lineTo(targetDir.x, targetDir.y); // Set the path destination
+                ctx.closePath(); // Close the path
+                ctx.stroke();
+            }
+
             super.draw(ctx, targetDir.x - radius, targetDir.y - (radius * 2));
         }
     }

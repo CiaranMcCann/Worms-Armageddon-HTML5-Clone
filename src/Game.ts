@@ -14,7 +14,7 @@
 ///<reference path="weapons/ThrowableWeapon.ts"/>
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
-///<reference path="weapons/ProjectileWeapon.ts"/>
+///<reference path="weapons/NinjaRope.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
 ///<reference path="Player.ts" />
 ///<reference path="system/Timer.ts" />
@@ -53,7 +53,6 @@ class Game
 
     //Using in dev mode to collect spawn positions
     spawns; 
-
 
     constructor ()
     {
@@ -184,6 +183,8 @@ class Game
             }
 
            this.particleEffectMgmt.update();
+
+           
         }
 
     }
@@ -222,6 +223,7 @@ class Game
          this.particleEffectMgmt.draw(this.actionCanvasContext);
 
         this.actionCanvasContext.restore();
+        
     }
 
 }
