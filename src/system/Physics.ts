@@ -24,7 +24,9 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2ContactListener = Box2D.Dynamics.b2ContactListener,
     b2RayCastInput = Box2D.Collision.b2RayCastInput,
     b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef,
-    b2RayCastOutput = Box2D.Collision.b2RayCastOutput;
+    b2RayCastOutput = Box2D.Collision.b2RayCastOutput,
+    b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
+	b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint;
 
 
 module Physics
@@ -64,28 +66,46 @@ module Physics
         var listener = new b2ContactListener();
         listener.BeginContact = function (contact) =>
         {
-            if (contact.GetFixtureA().GetBody().GetUserData().beginContact != null)
+            if (contact.GetFixtureA().GetBody().GetUserData() != null &&
+                contact.GetFixtureA().GetBody().GetUserData().beginContact != null)
             {
-                 contact.GetFixtureA().GetBody().GetUserData().beginContact(contact);
+                contact.GetFixtureA().GetBody().GetUserData().beginContact(contact);
+            } else
+            {
+                Logger.warn(" Body does not have beginContact method");
             }
 
-             if (contact.GetFixtureB().GetBody().GetUserData().beginContact != null)
+            if (contact.GetFixtureB().GetBody().GetUserData() != null &&
+                contact.GetFixtureB().GetBody().GetUserData().beginContact != null)
             {
-                 contact.GetFixtureB().GetBody().GetUserData().beginContact(contact);
+                contact.GetFixtureB().GetBody().GetUserData().beginContact(contact);
+            } else
+            {
+                Logger.warn(" Body does not have beginContact method");
             }
         }
 
 
         listener.EndContact = function (contact) =>
         {
-            if (contact.GetFixtureA().GetBody().GetUserData().endContact != null)
+            if (contact.GetFixtureA().GetBody().GetUserData() != null &&
+                contact.GetFixtureA().GetBody().GetUserData().endContact != null)
             {
-                 contact.GetFixtureA().GetBody().GetUserData().endContact(contact);
+                contact.GetFixtureA().GetBody().GetUserData().endContact(contact);
+            }
+            else
+            {
+                Logger.warn(" Body does not have endContact method");
             }
 
-             if (contact.GetFixtureB().GetBody().GetUserData().endContact != null)
+             if (contact.GetFixtureB().GetBody().GetUserData() != null &&
+                 contact.GetFixtureB().GetBody().GetUserData().endContact != null)
             {
                  contact.GetFixtureB().GetBody().GetUserData().endContact(contact);
+            }
+            else
+            {
+                Logger.warn(" Body does not have endContact method");
             }
         }
 
