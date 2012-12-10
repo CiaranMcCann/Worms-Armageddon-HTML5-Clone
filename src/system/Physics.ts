@@ -27,7 +27,8 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2RayCastOutput = Box2D.Collision.b2RayCastOutput,
     b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
 	b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint,
-    b2SimplexVertex = Box2D.Collision.b2SimplexVertex;
+    b2SimplexVertex = Box2D.Collision.b2SimplexVertex,
+    b2WorldManifold = Box2D.Collision.b2WorldManifold;
 
 
 module Physics
@@ -148,7 +149,7 @@ module Physics
             //p2.y = p1.y + rayLength;
 
             p2.Multiply(30);
-        var context = GameInstance.actionCanvasContext;
+            var context = GameInstance.actionCanvasContext;
 
 
             input.p1 = p1;

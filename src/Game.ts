@@ -182,7 +182,7 @@ class Game
 
                 this.camera.update();
 
-                Logger.log(WormAnimationManger.areAllWormsAtRest);
+               // Logger.log(WormAnimationManger.areAllWormsAtRest);
             }
 
            this.particleEffectMgmt.update();

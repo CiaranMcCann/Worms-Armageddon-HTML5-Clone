@@ -98,8 +98,8 @@ module Logger
 
     export function warn(message)
     {
-        if (Settings.DEVELOPMENT_MODE)
-            console.warn(message);
+        //if (Settings.DEVELOPMENT_MODE)
+           // console.warn(message);
     }
 
     export function debug(message)

@@ -177,7 +177,14 @@ class Worm extends Sprite
             {
                 this.canJump++;
 
-                if (this.body.GetLinearVelocity().Length() > 5)
+                var worldManifold = new b2WorldManifold();
+                var normalLength = 5;
+                    var manAfold = contact.GetWorldManifold(worldManifold);
+                  var normalStart = worldManifold.m_points[0] - normalLength * worldManifold.m_normal;
+                  var normalEnd = worldManifold.m_points[0] + normalLength * worldManifold.m_normal;
+
+                  console.log(" ON HIT "  + this.body.GetLinearVelocity().y);
+                if (this.body.GetLinearVelocity().y < 0)
                 {
                     this.hit(5);
                 }
@@ -307,7 +314,8 @@ class Worm extends Sprite
         }
     }
 
-
+    //Sets the current worm to active by placing a bouncing arrow
+    // over their head and panning the camera toward him.
     activeWorm()
     {
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
@@ -328,10 +336,11 @@ class Worm extends Sprite
 
         this.soundDelayTimer.update();
 
-       // if (this.team.getCurrentWorm().body && this.team.getCurrentWorm().body.GetLinearVelocity().Length() >= 0.1)
-        //{
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
-       // }
+        var currentWorm = GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm();
+        if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
+        {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
+       }
         //Manages the different states of the animation
         this.stateAnimationMgmt.update();
 

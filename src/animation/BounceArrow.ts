@@ -17,17 +17,26 @@
 class BounceArrow extends Sprite
 {
     initalPos;
+    timer: Timer;
 
     constructor (initalPos)
     {
         initalPos.x -= 15;
         initalPos.y -= 120;
         this.initalPos = initalPos;
+        this.timer = new Timer(5000);
         super(Sprites.weapons.arrow);    
     }
 
     draw(ctx)
     {
+        this.timer.update();
+
+        if (this.timer.hasTimePeriodPassed())
+        {
+            this.finished = true;
+        }
+
         if (this.finished == false)
         {
             super.draw(ctx, this.initalPos.x, this.initalPos.y);
