@@ -35,6 +35,7 @@
     <TypeScriptCompile Include="src\animation\Particle.ts" />
     <TypeScriptCompile Include="src\animation\HealthReduction.ts" />
     <TypeScriptCompile Include="src\animation\BounceArrow.ts" />
+    <Content Include="LICENSE.txt" />
     <Content Include="src\animation\BounceArrow.js">
       <DependentUpon>BounceArrow.ts</DependentUpon>
     </Content>

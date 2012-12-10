@@ -69,8 +69,11 @@ class Player
             if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope&&
                 GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.team.getCurrentWorm())
             {
-                if(this.team.getWeaponManager().getCurrentWeapon().isActive)
-                this.team.getWeaponManager().getCurrentWeapon().contract();
+                var currentWeapon = <NinjaRope>this.team.getWeaponManager().getCurrentWeapon();
+                if ( currentWeapon.isActive)
+                {
+                     currentWeapon.contract();
+                }
             }
         }
 
@@ -82,8 +85,11 @@ class Player
             if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope &&
                 GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.team.getCurrentWorm())
             {
-                if(this.team.getWeaponManager().getCurrentWeapon().isActive)
-                this.team.getWeaponManager().getCurrentWeapon().expand();
+                var currentWeapon = <NinjaRope>this.team.getWeaponManager().getCurrentWeapon();
+                if ( currentWeapon.isActive)
+                {
+                    currentWeapon.expand();
+                }
             }
         }
 

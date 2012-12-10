@@ -26,7 +26,7 @@ class Drill extends BaseWeapon
     {
         super(
             "Drill", // Weapon name
-            1, // ammo
+            4, // ammo
             Sprites.weaponIcons.drill, //Icon for menu
             Sprites.worms.takeOutDrill, //animation fro worm taking out drill
             Sprites.worms.drilling //animation fro worm taking out drill
