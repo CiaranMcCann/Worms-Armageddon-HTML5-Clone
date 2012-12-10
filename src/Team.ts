@@ -11,6 +11,7 @@
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="weapons/WeaponManager.ts"/>
+///<reference path="animation/BounceArrow.ts"/>
 
 
 class Team
@@ -82,6 +83,11 @@ class Team
         if (this.worms[this.currentWorm].isDead)
         {
             this.updateCurrentWorm();
+        } else
+        {
+             var pos = Physics.vectorMetersToPixels(this.getCurrentWorm().body.GetPosition());
+             GameInstance.particleEffectMgmt.add(new BounceArrow(pos) );
+             GameInstance.camera.panToPosition(pos);
         }
 
     }

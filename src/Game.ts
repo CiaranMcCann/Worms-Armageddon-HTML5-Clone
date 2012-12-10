@@ -128,10 +128,7 @@ class Game
 
         this.getCurrentPlayerObject().getTeam().updateCurrentWorm();    
 
-        var pos = Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition());
-        this.particleEffectMgmt.add(new BounceArrow(pos) );
-
-        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
+       
         this.gameTimer.timer.reset();
         Logger.debug("next player ");
     }
@@ -165,6 +162,12 @@ class Game
             // winning player and the particle effects.
             if (this.checkForEndGame() == false)
             {
+
+                //TODO remove temp fix
+                if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
+                {
+                    this.getCurrentPlayerObject().getTeam().updateCurrentWorm();
+                }
 
                 
                 for (var i = this.players.length - 1; i >= 0; --i)

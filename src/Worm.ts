@@ -173,7 +173,7 @@ class Worm extends Sprite
             {
                 this.canJump++;
 
-                if (this.body.GetLinearVelocity().Length() > 10)
+                if (this.body.GetLinearVelocity().Length() > 5)
                 {
                     this.hit(5);
                 }
