@@ -15,7 +15,9 @@
 class NinjaRope extends BaseWeapon
 {
     ropeJoints;
+    ropeNots;
     anchor;
+    lastRopeDef;
 
     constructor ()
     {
@@ -26,6 +28,10 @@ class NinjaRope extends BaseWeapon
          Sprites.worms.takeNinjaRope,
          Sprites.worms.aimNinjaRope
        );
+
+        this.ropeJoints = [];
+        this.ropeNots = [];
+        this.lastRopeDef;
 
     }
 
@@ -94,7 +100,7 @@ class NinjaRope extends BaseWeapon
                     var nextBody;
                     if (i == distance-1)
                     {
-                        //ropeDef.frequencyHz = 8.0;
+                        ropeDef.frequencyHz = 25.0;
                        // ropeDef.dampingRatio = 25.0;
                         nextBody = worm.body;
                     }
@@ -103,14 +109,17 @@ class NinjaRope extends BaseWeapon
                         nextBody = Physics.world.CreateBody(bd)
                         nextBody.CreateFixture(fixDef);
                         nextBody.SetFixedRotation(true);
+                        this.lastRopeDef = ropeDef;
+                        this.ropeNots.push( nextBody );
                     }
                     ropeDef.bodyA = prevBody;
                     ropeDef.bodyB = nextBody;
                     
 
-
-                    var j = Physics.world.CreateJoint(ropeDef);
-                    j.SetLength(0.2);
+                    var joint = Physics.world.CreateJoint(ropeDef);
+                   this.ropeJoints.push( joint );
+                  
+                    joint.SetLength(0.2);
                     prevBody = nextBody;
                 }
 
@@ -120,16 +129,41 @@ class NinjaRope extends BaseWeapon
         } else
         {
             //Physics.world.DestroyJoint(this.ropeJoint);
-           Physics.world.DestroyBody(this.anchor);
+          // Physics.world.DestroyBody(this.anchor);
+           this.contract();
             
         }
 
         super.activate(worm);
     }
 
+    contract()
+    {
+        if (this.ropeJoints.length > 3 && this.ropeNots.length > 3)
+        {
+
+            var lastJoint = this.ropeJoints[this.ropeJoints.length - 2];
+            var lastBody = this.ropeNots.pop();
+            Physics.world.DestroyBody(lastBody);
+
+
+            this.lastRopeDef.bodyA = this.ropeNots[this.ropeNots.length - 1];
+            this.lastRopeDef.bodyB = this.worm.body;
+
+            var joint = Physics.world.CreateJoint(this.lastRopeDef);
+            Physics.world.DestroyJoint(this.ropeJoints.pop());
+            Physics.world.DestroyJoint(this.ropeJoints.pop());
+            this.ropeJoints.push(joint);
+
+            joint.SetLength(0.2);
+        }
+    }
+
+   
+
     draw(ctx)
     {
-
+        
     }
 
 }

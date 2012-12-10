@@ -26,7 +26,8 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef,
     b2RayCastOutput = Box2D.Collision.b2RayCastOutput,
     b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
-	b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint;
+	b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint,
+    b2SimplexVertex = Box2D.Collision.b2SimplexVertex;
 
 
 module Physics
