@@ -244,6 +244,12 @@
     </Content>
     <TypeScriptCompile Include="src\weapons\Drill.ts" />
     <TypeScriptCompile Include="src\tests\AllTest.ts" />
+    <Content Include="src\TerrainBoundary.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
+    <Content Include="src\TerrainBoundary.min.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
     <Content Include="src\tests\AllTest.js">
       <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
@@ -277,6 +283,16 @@
     <TypeScriptCompile Include="src\weapons\NinjaRope.ts" />
     <Content Include="src\weapons\NinjaRope.js">
       <DependentUpon>NinjaRope.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\TerrainBoundary.ts" />
+    <Content Include="src\weapons\NinjaRope.min.js">
+      <DependentUpon>NinjaRope.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WorldBoundary.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WorldBoundary.min.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
     <Content Include="src\tests\TimerTest.js">

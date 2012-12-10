@@ -11,10 +11,8 @@
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
 ///<reference path="Terrain.ts"/>
-///<reference path="weapons/ThrowableWeapon.ts"/>
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
-///<reference path="weapons/NinjaRope.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
 ///<reference path="Player.ts" />
 ///<reference path="system/Timer.ts" />
@@ -209,7 +207,6 @@ class Game
     {
       
        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
-       //this.actionCanvas.width = this.actionCanvas.width;
        this.terrain.draw(this.actionCanvasContext);
 
        this.actionCanvasContext.save();

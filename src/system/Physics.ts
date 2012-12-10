@@ -8,6 +8,9 @@
  *  url: http://www.ciaranmccann.me/
  */
 
+///<reference path="../Game.ts"/>
+///<reference path="Utilies.ts" />
+
 declare var Box2D;
 //Global defining of shortened names for box2d types
 var b2Vec2 = Box2D.Common.Math.b2Vec2,
@@ -133,24 +136,16 @@ module Physics
         }
     }
 
-    export function shotRay(p1,p2)
+    export function shotRay(p1,p2, )
     {
-
             var input = new b2RayCastInput();
             var output = new b2RayCastOutput();
             var intersectionPoint = new b2Vec2();
-            var rayLength = 30; //long enough to hit the walls
-
             var normalEnd = new b2Vec2();
             var intersectionNormal = new b2Vec2();
 
-            //calculate points of ray
-           // p2.x = p1.x + rayLength;
-            //p2.y = p1.y + rayLength;
-
             p2.Multiply(30);
-            var context = GameInstance.actionCanvasContext;
-
+            p2.Add(p1);
 
             input.p1 = p1;
             input.p2 = p2;
@@ -175,30 +170,6 @@ module Physics
             }
             intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
             intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
-                    
-            if (Settings.DEVELOPMENT_MODE)
-            {
-                normalEnd.x = intersectionPoint.x + intersectionNormal.x;
-                normalEnd.y = intersectionPoint.y + intersectionNormal.y;
-
-
-                context.strokeStyle = "rgb(25, 25, 25)";
-
-                context.beginPath(); // Start the path
-                context.moveTo(p1.x * 30, p1.y * 30); // Set the path origin
-                context.lineTo(intersectionPoint.x * 30, intersectionPoint.y * 30); // Set the path destination
-                context.closePath(); // Close the path
-                context.stroke();
-
-
-
-                context.strokeStyle = "rgb(0, 255, 255)";
-                context.beginPath(); // Start the path
-                context.moveTo(intersectionPoint.x * 30, intersectionPoint.y * 30); // Set the path origin
-                context.lineTo(normalEnd.x * 30, normalEnd.y * 30); // Set the path destination
-                context.closePath(); // Close the path
-                context.stroke(); // Outline the path
-            }
 
             if (bodyFound)
             {

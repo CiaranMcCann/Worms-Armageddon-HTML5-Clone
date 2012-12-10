@@ -10,6 +10,7 @@
  */
 ///<reference path="system/Physics.ts"/>
 ///<reference path="system/Utilies.ts" />
+///<reference path="TerrainBoundary.ts"/>
 
 class Terrain
 {
@@ -22,6 +23,8 @@ class Terrain
     scale;
     terrainData;
     skyOffset: number;
+
+    boundary: TerrainBoundary;
 
     //Used to batch the deforms to one draw and one box2d regen
     deformTerrainBatchList = []; 
@@ -45,6 +48,7 @@ class Terrain
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
         this.bufferCanvas.width = terrainImage.width*1.42;
         this.bufferCanvas.height =  terrainImage.height*1.42;
+        this.boundary = new TerrainBoundary(this.bufferCanvas.width, this.bufferCanvas.height);
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 
@@ -206,7 +210,7 @@ class Terrain
 
             Physics.world.QueryAABB(function (fixture) =>
             {
-                if (fixture.GetBody().GetType() == b2Body.b2_staticBody)
+                if (fixture.GetBody().GetType() == b2Body.b2_staticBody && fixture.GetBody().GetUserData() instanceof Terrain)
                 {
                     this.world.DestroyBody(fixture.GetBody());
                 }
