@@ -64,11 +64,23 @@ class Player
         if (keyboard.isKeyDown(Controls.aimUp.keyboard))
         {
             this.team.getCurrentWorm().target.aim(1);
+
+            if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope)
+            {
+                if(this.team.getWeaponManager().getCurrentWeapon().isActive)
+                this.team.getWeaponManager().getCurrentWeapon().contract();
+            }
         }
 
         if (keyboard.isKeyDown(Controls.aimDown.keyboard))
         {
             this.team.getCurrentWorm().target.aim(-1);
+
+             if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope)
+            {
+                if(this.team.getWeaponManager().getCurrentWeapon().isActive)
+                this.team.getWeaponManager().getCurrentWeapon().expand();
+            }
         }
 
         if (keyboard.isKeyDown(Controls.fire.keyboard) && !this.hasPlayerFiredWeapon)
