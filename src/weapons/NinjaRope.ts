@@ -144,7 +144,7 @@ class NinjaRope extends BaseWeapon
     {
         if (this.ropeJoints.length > 3 && this.ropeNots.length > 3)
         {
-
+           // var p =  this.ropeJoints.pop();
             var lastJoint = this.ropeJoints[this.ropeJoints.length - 2];
             var lastBody = this.ropeNots.pop();
             Physics.world.DestroyBody(lastBody);
@@ -159,7 +159,7 @@ class NinjaRope extends BaseWeapon
             Physics.world.DestroyJoint(this.ropeJoints.pop());
             Physics.world.DestroyJoint(this.ropeJoints.pop());
             this.ropeJoints.push(joint);
-
+           // this.ropeJoints.push(p);
             joint.SetLength(0.2);
         }
     }
@@ -198,8 +198,8 @@ class NinjaRope extends BaseWeapon
             this.ropeNots.push(nextBody);
 
             var joint = Physics.world.CreateJoint(this.lastRopeDef);
-            this.ropeJoints.push();
-             joint.SetLength(0.3);
+            this.ropeJoints.push(joint);
+            joint.SetLength(0.3);
             this.lastRopeDef.bodyA = nextBody;
             this.lastRopeDef.bodyB = this.worm.body;
             this.playerJoint = Physics.world.CreateJoint(this.lastRopeDef)
@@ -214,7 +214,19 @@ class NinjaRope extends BaseWeapon
 
     draw(ctx)
     {
-
+        //var context = ctx;
+        //for (var i = 0; i < this.ropeNots.length-2; i += 2)
+        //{
+        //        var p1 = Physics.vectorMetersToPixels(this.ropeNots[i].GetPosition());
+        //        var p2 = Physics.vectorMetersToPixels(this.ropeNots[i+2].GetPosition());
+        //        context.strokeStyle = "rgb(0, 25, 25)";
+        //        context.lineWidth = 8;
+        //        context.beginPath(); // Start the path
+        //        context.moveTo(p1.x, p1.y); // Set the path origin
+        //        context.lineTo(p2.x, p2.y); // Set the path destination
+        //        context.closePath(); // Close the path
+        //        context.stroke();
+        //}
     }
 
 }
