@@ -18,6 +18,7 @@ class NinjaRope extends BaseWeapon
     ropeNots;
     anchor;
     lastRopeDef;
+    playerJoint;
 
     constructor ()
     {
@@ -103,6 +104,7 @@ class NinjaRope extends BaseWeapon
                         ropeDef.frequencyHz = 25.0;
                        // ropeDef.dampingRatio = 25.0;
                         nextBody = worm.body;
+                        
                     }
                     else
                     {
@@ -117,7 +119,8 @@ class NinjaRope extends BaseWeapon
                     
 
                     var joint = Physics.world.CreateJoint(ropeDef);
-                   this.ropeJoints.push( joint );
+                    this.playerJoint = joint
+                    this.ropeJoints.push( joint );
                   
                     joint.SetLength(0.2);
                     prevBody = nextBody;
@@ -130,7 +133,7 @@ class NinjaRope extends BaseWeapon
         {
             //Physics.world.DestroyJoint(this.ropeJoint);
           // Physics.world.DestroyBody(this.anchor);
-           this.contract();
+            this.expand();
             
         }
 
@@ -156,6 +159,47 @@ class NinjaRope extends BaseWeapon
             this.ropeJoints.push(joint);
 
             joint.SetLength(0.2);
+        }
+    }
+
+
+    expand()
+    {
+       // if (this.ropeJoints.length < 30 && this.ropeNots.length < 30)
+        {
+            //Physics.world.DestroyJoint(this.ropeJoints.pop());
+            var lastBody = this.ropeNots[this.ropeNots.length - 2];
+
+                 var fixDef = new b2FixtureDef;
+                fixDef.density = 0.5;
+                fixDef.friction = 1.0;
+                fixDef.restitution = 0.0;
+                 fixDef.shape = new b2CircleShape(0.15);
+
+                    var bd = new b2BodyDef();
+                    bd.type = b2Body.b2_dynamicBody;
+              bd.position.SetV(lastBody.GetPosition());
+
+                        var nextBody = Physics.world.CreateBody(bd)
+                        nextBody.CreateFixture(fixDef);
+                        nextBody.SetFixedRotation(true);
+
+            this.lastRopeDef.bodyA = lastBody;
+            this.lastRopeDef.bodyB =  nextBody;
+
+               Physics.world.DestroyBody(this.playerJoint);
+               Physics.world.DestroyBody(this.ropeJoints.pop());
+               this.ropeJoints.push(Physics.world.CreateJoint(this.lastRopeDef));
+             this.ropeNots.push(nextBody);
+
+            //this.lastRopeDef.bodyA =  nextBody;
+            //this.lastRopeDef.bodyB = this.worm.body;
+
+               // this.playerJoint = Physics.world.CreateJoint(this.lastRopeDef)
+               //this.ropeJoints.push(this.playerJoint);
+              
+
+           
         }
     }
 
