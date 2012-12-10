@@ -85,11 +85,11 @@ class Player
 
         if (keyboard.isKeyDown(Controls.fire.keyboard) && !this.hasPlayerFiredWeapon)
         {
-            //this.hasPlayerFiredWeapon = true;
-            //window.setTimeout(function () =>
-            //{
-            //    this.hasPlayerFiredWeapon = false;
-            //}, 50);
+            this.hasPlayerFiredWeapon = true;
+            window.setTimeout(function () =>
+            {
+                this.hasPlayerFiredWeapon = false;
+            }, 5000);
             this.team.getCurrentWorm().fire();
             //GameInstance.nextPlayer();
 

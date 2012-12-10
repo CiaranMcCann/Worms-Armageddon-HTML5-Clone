@@ -20,6 +20,8 @@ class NinjaRope extends BaseWeapon
     lastRopeDef;
     playerJoint;
 
+    ropeTip: Sprite;
+
     constructor ()
     {
         super(
@@ -30,6 +32,7 @@ class NinjaRope extends BaseWeapon
          Sprites.worms.aimNinjaRope
        );
 
+        this.ropeTip = new Sprite(Sprites.weapons.ninjaRopeTip);
         this.ropeJoints = [];
         this.ropeNots = [];
         this.lastRopeDef;
@@ -40,6 +43,7 @@ class NinjaRope extends BaseWeapon
     activate(worm: Worm)
     {
         this.worm = worm;
+        
 
         if (!this.getIsActive())
         {
@@ -50,6 +54,7 @@ class NinjaRope extends BaseWeapon
 
             if (contact)
             {
+                this.ammo--;
                 this.isActive = true;
                 var fixDef = new b2FixtureDef;
                 fixDef.density = 0.5;
@@ -125,26 +130,45 @@ class NinjaRope extends BaseWeapon
                     prevBody = nextBody;
                 }
 
-                //var joint  = Physics.world.CreateJoint(ropeDef);
-                //this.ropeJoints.push( joint );
-
             }
         } else
         {
-            //Physics.world.DestroyJoint(this.ropeJoint);
-            // Physics.world.DestroyBody(this.anchor);
-            //this.contract();
-
+            this.deactivate();
         }
 
         //super.activate(worm);
+    }
+
+    deactivate()
+    {   
+        this.setIsActive(false);
+        this.destory();
+    }
+
+    destory()
+    {
+        for (var i = 0; i < this.ropeNots.length; i++)
+        {
+            if ( (this.ropeNots[i].GetUserData()instanceof Worm) == false)
+            {
+                Physics.world.DestroyBody(this.ropeNots[i]);
+            }
+        }
+
+        for (var i = 0; i < this.ropeJoints.length; i++)
+        {
+                Physics.world.DestroyJoint(this.ropeJoints[i]);
+        }
+
+        this.ropeNots = [];
+        this.ropeJoints = [];
+
     }
 
     contract()
     {
         if (this.ropeJoints.length > 3 && this.ropeNots.length > 3)
         {
-           // var p =  this.ropeJoints.pop();
             var lastJoint = this.ropeJoints[this.ropeJoints.length - 2];
             var lastBody = this.ropeNots.pop();
             Physics.world.DestroyBody(lastBody);
@@ -159,7 +183,6 @@ class NinjaRope extends BaseWeapon
             Physics.world.DestroyJoint(this.ropeJoints.pop());
             Physics.world.DestroyJoint(this.ropeJoints.pop());
             this.ropeJoints.push(joint);
-           // this.ropeJoints.push(p);
             joint.SetLength(0.2);
         }
     }
@@ -214,19 +237,43 @@ class NinjaRope extends BaseWeapon
 
     draw(ctx)
     {
-        //var context = ctx;
-        //for (var i = 0; i < this.ropeNots.length-2; i += 2)
-        //{
-        //        var p1 = Physics.vectorMetersToPixels(this.ropeNots[i].GetPosition());
-        //        var p2 = Physics.vectorMetersToPixels(this.ropeNots[i+2].GetPosition());
-        //        context.strokeStyle = "rgb(0, 25, 25)";
-        //        context.lineWidth = 8;
-        //        context.beginPath(); // Start the path
-        //        context.moveTo(p1.x, p1.y); // Set the path origin
-        //        context.lineTo(p2.x, p2.y); // Set the path destination
-        //        context.closePath(); // Close the path
-        //        context.stroke();
-        //}
+        if (this.getIsActive())
+        {
+            var pos = Physics.vectorMetersToPixels(this.ropeNots[1].GetPosition());
+            ctx.save();
+            ctx.rotate(Utilies.vectorToAngle(pos));
+            this.ropeTip.draw(ctx, pos.x, pos.y);
+
+            ctx.restore();
+
+            var context = ctx;
+            context.strokeStyle = "rgb(0, 25, 25)";
+            context.lineWidth = 8;
+
+            //TODO Optimize this draw
+            for (var i = 0; i < this.ropeNots.length - 2; i += 2)
+            {
+                var p1 = Physics.vectorMetersToPixels(this.ropeNots[i].GetPosition());
+                var p2 = Physics.vectorMetersToPixels(this.ropeNots[i + 2].GetPosition());
+         
+                context.beginPath(); // Start the path
+                context.moveTo(p1.x, p1.y); // Set the path origin
+                context.lineTo(p2.x, p2.y); // Set the path destination
+                context.closePath(); // Close the path
+                context.stroke();
+            }
+                
+                var p1 = Physics.vectorMetersToPixels(this.ropeNots[this.ropeNots.length-1].GetPosition());
+                var p2 = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
+                context.beginPath(); // Start the path
+                context.moveTo(p1.x, p1.y); // Set the path origin
+                context.lineTo(p2.x, p2.y); // Set the path destination
+                context.closePath(); // Close the path
+                context.stroke();
+
+
+            super.draw(ctx);
+        }
     }
 
 }

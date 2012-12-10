@@ -29,7 +29,7 @@ module Sprites
         holyGernade: {imageName: "iconhgrenade"},
          gernade: {imageName: "icongrenade"},
         drill: {imageName: "drill"},
-       dynamite: {imageName: "icondynamite"},
+        dynamite: {imageName: "icondynamite"},
          ninjaRope: {imageName: "iconrope"}
 
          
@@ -73,10 +73,18 @@ module Sprites
         },
 
 
-          arrow: {
-            imageName: "arrowdnb",
+         arrow: {
+             imageName: "arrowdnb",
+             frameY: 0,
+             frameCount: 30,
+             msPerFrame: 10,
+
+         },
+
+          ninjaRopeTip: {
+            imageName: "ropecuff",
             frameY: 0,
-            frameCount: 30,
+            frameCount: 112,
             msPerFrame: 10,
 
         }
@@ -91,6 +99,15 @@ module Sprites
             imageName: "wselbak",
             frameY: 0,
             frameCount: 12,
+            msPerFrame: 200,
+
+        },
+
+          hitground: {
+
+            imageName: "wtwangd",
+            frameY: 0,
+            frameCount: 36,
             msPerFrame: 200,
 
         },
@@ -239,6 +256,25 @@ module Sprites
             msPerFrame: 100,
 
         },
+
+        takeOutJetPack: {
+
+            imageName: "wjetlnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 50,
+
+        },
+
+         aimingShotgun: {
+
+            imageName: "wshotp",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 50,
+
+        },
+
          
 
 
