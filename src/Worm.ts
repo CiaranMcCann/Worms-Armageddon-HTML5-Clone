@@ -69,7 +69,7 @@ class Worm extends Sprite
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
         fixDef.shape = new b2CircleShape(circleRadius);
-        fixDef.shape.SetLocalPosition(new b2Vec2(0, (circleRadius) * -1));
+        fixDef.shape.SetLocalPosition(new b2Vec2(0, (circleRadius) * -1)); //TODO WHAT is this???
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
@@ -102,7 +102,7 @@ class Worm extends Sprite
         this.soundDelayTimer = new Timer(200);
 
         this.preRendering();
-       
+
     }
 
     // Pre-renders the boxes above their heads with name and health
@@ -119,13 +119,13 @@ class Worm extends Sprite
             ctx.font = 'bold 16.5px Sans-Serif';
             ctx.textAlign = 'center';
 
-            Graphics.roundRect(ctx, 0,0, nameBoxWidth, 20, 4).fill();
-            Graphics.roundRect(ctx, 0,0, nameBoxWidth, 20, 4).stroke();
+            Graphics.roundRect(ctx, 0, 0, nameBoxWidth, 20, 4).fill();
+            Graphics.roundRect(ctx, 0, 0, nameBoxWidth, 20, 4).stroke();
 
             ctx.fillStyle = this.team.color;
-            ctx.fillText(this.name, (this.name.length * 10)/2, 15);
+            ctx.fillText(this.name, (this.name.length * 10) / 2, 15);
 
-         },nameBoxWidth , 20);
+        }, nameBoxWidth, 20);
 
         this.healthBox = Graphics.preRenderer.render(function (ctx) =>
         {
@@ -139,9 +139,9 @@ class Worm extends Sprite
             Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).stroke();
 
             ctx.fillStyle = this.team.color;
-            ctx.fillText(Math.floor(this.health), healthBoxWidth/2, healthBoxHeight-3);
+            ctx.fillText(Math.floor(this.health), healthBoxWidth / 2, healthBoxHeight - 3);
 
-         }, 39, 20);
+        }, 39, 20);
 
 
     }
@@ -162,7 +162,7 @@ class Worm extends Sprite
         this.preRendering();
     }
 
-   
+
 
     // What happens when a worm collies with another object
     beginContact(contact)
@@ -172,7 +172,7 @@ class Worm extends Sprite
             if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
             {
                 this.canJump++;
-                
+
                 if (this.body.GetLinearVelocity().Length() > 10)
                 {
                     this.hit(5);
@@ -197,7 +197,7 @@ class Worm extends Sprite
     {
         this.team.getWeaponManager().getCurrentWeapon().activate(this);
         AssetManager.sounds["fire"].play();
-        
+
     }
 
     playWalkingSound()
@@ -228,13 +228,13 @@ class Worm extends Sprite
 
             super.update();
             this.body.SetPosition(new b2Vec2(currentPos.x - this.speed / Physics.worldScale, currentPos.y));
-            
+
             this.playWalkingSound();
         }
 
     }
 
-     walkRight()
+    walkRight()
     {
         if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
         {
@@ -273,19 +273,19 @@ class Worm extends Sprite
     {
         this.damageTake += damage;
         AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
-  
+
         //if from same team call the player a tratitor :)
         if (worm && worm != this && worm.team == this.team)
         {
             AssetManager.sounds["traitor"].play(0.8, 10);
 
-        } else if( worm ) // if there was a worm envolved in the damage
+        } else if (worm) // if there was a worm envolved in the damage
         {
-            Utilies.pickRandomSound(["justyouwait","youllregretthat"]).play(0.8,10);         
+            Utilies.pickRandomSound(["justyouwait", "youllregretthat"]).play(0.8, 10);
         }
     }
 
-   
+
     //Is this the current worm of the current player
     isActiveWorm()
     {
@@ -295,7 +295,7 @@ class Worm extends Sprite
 
     update()
     {
-        
+
         this.soundDelayTimer.update();
 
         if (this.team.getCurrentWorm().body && this.team.getCurrentWorm().body.GetLinearVelocity().Length() > 1)
@@ -343,30 +343,15 @@ class Worm extends Sprite
 
         super.draw(ctx,
             -radius,
-            -radius*2.5);
+            -radius * 2.5);
 
         ctx.restore()
 
-        //TODO Optimize the shit out of the, maybe pre-render? 
-          var nameBoxX = -radius * this.name.length / 2.6;
-            var nameBoxY = -radius * 6;
-           // var nameBoxWidth = ;
-
-       
+        var nameBoxX = -radius * this.name.length / 2.6;
+        var nameBoxY = -radius * 6;
 
         ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
         ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
-
-            //Graphics.roundRect(ctx, -radius * 1.5, -radius * 4, 39, 18, 4).fill();
-            //Graphics.roundRect(ctx, -radius * 1.5, -radius * 4, 39, 18, 4).stroke();
-
-            //ctx.fillStyle = this.team.color;
-            //ctx.fillText(this.name, 0, -radius * 4.7);
-            //ctx.fillText(Math.floor(this.health), 0, -radius * 2.8);
-
-      
-
-     
 
         ctx.restore()
 

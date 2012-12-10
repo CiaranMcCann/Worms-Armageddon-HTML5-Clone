@@ -174,27 +174,29 @@ module Physics
             intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
             intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
                     
+            if (Settings.DEVELOPMENT_MODE)
+            {
+                normalEnd.x = intersectionPoint.x + intersectionNormal.x;
+                normalEnd.y = intersectionPoint.y + intersectionNormal.y;
 
-            normalEnd.x = intersectionPoint.x + intersectionNormal.x;
-            normalEnd.y = intersectionPoint.y + intersectionNormal.y;
 
-            
-            context.strokeStyle = "rgb(25, 25, 25)";
+                context.strokeStyle = "rgb(25, 25, 25)";
 
-            context.beginPath(); // Start the path
-            context.moveTo(p1.x*30,p1.y*30); // Set the path origin
-            context.lineTo(intersectionPoint.x*30, intersectionPoint.y*30); // Set the path destination
-            context.closePath(); // Close the path
-            context.stroke();
+                context.beginPath(); // Start the path
+                context.moveTo(p1.x * 30, p1.y * 30); // Set the path origin
+                context.lineTo(intersectionPoint.x * 30, intersectionPoint.y * 30); // Set the path destination
+                context.closePath(); // Close the path
+                context.stroke();
 
-            
-         
-           context.strokeStyle = "rgb(0, 255, 255)";
-            context.beginPath(); // Start the path
-            context.moveTo(intersectionPoint.x*30, intersectionPoint.y*30); // Set the path origin
-            context.lineTo(normalEnd.x*30, normalEnd.y*30); // Set the path destination
-            context.closePath(); // Close the path
-            context.stroke(); // Outline the path
+
+
+                context.strokeStyle = "rgb(0, 255, 255)";
+                context.beginPath(); // Start the path
+                context.moveTo(intersectionPoint.x * 30, intersectionPoint.y * 30); // Set the path origin
+                context.lineTo(normalEnd.x * 30, normalEnd.y * 30); // Set the path destination
+                context.closePath(); // Close the path
+                context.stroke(); // Outline the path
+            }
 
             if (bodyFound)
             {

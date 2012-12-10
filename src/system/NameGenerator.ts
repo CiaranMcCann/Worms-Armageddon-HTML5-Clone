@@ -25,25 +25,26 @@ module NameGenerator
     export function init(callback)
     {
 
-        $.ajax({
-            url: nameDataSrc,
-            dataType: 'jsonp',
-            success: function (data) =>
-            {
-                randomNamesList = [];
-                randomNamesList = JSON.stringify(data).match(new RegExp("\\*\\[\\[[A-Z,a-z, ]+]]", "g"))
+        callback();
+        //$.ajax({
+        //    url: nameDataSrc,
+        //    dataType: 'jsonp',
+        //    success: function (data) =>
+        //    {
+        //        randomNamesList = [];
+        //        randomNamesList = JSON.stringify(data).match(new RegExp("\\*\\[\\[[A-Z,a-z, ]+]]", "g"))
 
-                for (var name in randomNamesList)
-                {
-                    randomNamesList[name] = randomNamesList[name].replace("*", "");
-                    randomNamesList[name] = randomNamesList[name].replace(/\[/g, "")
-                    randomNamesList[name] = randomNamesList[name].replace(/]/g, "");
-                }
+        //        for (var name in randomNamesList)
+        //        {
+        //            randomNamesList[name] = randomNamesList[name].replace("*", "");
+        //            randomNamesList[name] = randomNamesList[name].replace(/\[/g, "")
+        //            randomNamesList[name] = randomNamesList[name].replace(/]/g, "");
+        //        }
 
-                callback();
-            }
+        //        callback();
+        //    }
             
-        });
+        //});
 
     }
 
