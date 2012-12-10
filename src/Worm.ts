@@ -177,14 +177,10 @@ class Worm extends Sprite
             {
                 this.canJump++;
 
-                var worldManifold = new b2WorldManifold();
-                var normalLength = 5;
-                    var manAfold = contact.GetWorldManifold(worldManifold);
-                  var normalStart = worldManifold.m_points[0] - normalLength * worldManifold.m_normal;
-                  var normalEnd = worldManifold.m_points[0] + normalLength * worldManifold.m_normal;
-
-                  console.log(" ON HIT "  + this.body.GetLinearVelocity().y);
-                if (this.body.GetLinearVelocity().y < 0)
+                var force = new b2Vec2(0, this.body.GetLinearVelocity().y);
+                force = force.Length();
+                console.log(" ON HIT " + force);
+                if (force > 9.5)
                 {
                     this.hit(5);
                 }
@@ -340,7 +336,7 @@ class Worm extends Sprite
         if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
         {
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
-       }
+        }
         //Manages the different states of the animation
         this.stateAnimationMgmt.update();
 

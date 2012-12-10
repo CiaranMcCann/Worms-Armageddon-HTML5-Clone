@@ -43,8 +43,8 @@ class Terrain
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
-        this.bufferCanvas.width = terrainImage.width*1.4;
-        this.bufferCanvas.height =  terrainImage.height*1.4;
+        this.bufferCanvas.width = terrainImage.width*1.42;
+        this.bufferCanvas.height =  terrainImage.height*1.42;
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 
