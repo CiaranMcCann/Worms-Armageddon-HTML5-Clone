@@ -190,7 +190,7 @@ class NinjaRope extends BaseWeapon
 
     expand()
     {
-         if (this.ropeJoints.length < 50 && this.ropeNots.length < 50)
+         if (this.ropeJoints.length < 30 && this.ropeNots.length < 30)
         {
             Physics.world.DestroyJoint(this.ropeJoints.pop());
             var lastBody = this.ropeNots[this.ropeNots.length - 1];

@@ -32,7 +32,7 @@ class Camera
         this.position = new b2Vec2(0, 0);
         this.panPosition = new b2Vec2(0, 0);
 
-        this.panSpeed = 8;
+        this.panSpeed = 6.1;
         this.toPanOrNotToPan = false;
 
     }

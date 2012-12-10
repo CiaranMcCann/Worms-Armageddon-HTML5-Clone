@@ -14,26 +14,23 @@
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Physics.ts" />
 
-class BounceArrow extends PhysicsSprite
+class BounceArrow extends Sprite
 {
-    timer: Timer;
+    initalPos;
 
     constructor (initalPos)
     {
         initalPos.x -= 15;
         initalPos.y -= 100;
-        this.timer = new Timer(4000);
-        super(initalPos, null, Sprites.weapons.arrow);    
+        this.initalPos = initalPos;
+        super(Sprites.weapons.arrow);    
     }
 
-    update()
+    draw(ctx)
     {
-        super.update();
-        this.timer.update();
-
-        if (this.timer.hasTimePeriodPassed())
+        if (this.finished == false)
         {
-            this.finished = true;
+            super.draw(ctx, this.initalPos.x, this.initalPos.y);
         }
     }
 

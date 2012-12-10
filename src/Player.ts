@@ -65,7 +65,9 @@ class Player
         {
             this.team.getCurrentWorm().target.aim(1);
 
-            if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope)
+            //TODO Remove once movement code is refacted
+            if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope&&
+                GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.team.getCurrentWorm())
             {
                 if(this.team.getWeaponManager().getCurrentWeapon().isActive)
                 this.team.getWeaponManager().getCurrentWeapon().contract();
@@ -76,7 +78,9 @@ class Player
         {
             this.team.getCurrentWorm().target.aim(-1);
 
-             if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope)
+            //TODO Remove once movement code is refacted
+            if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope &&
+                GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.team.getCurrentWorm())
             {
                 if(this.team.getWeaponManager().getCurrentWeapon().isActive)
                 this.team.getWeaponManager().getCurrentWeapon().expand();

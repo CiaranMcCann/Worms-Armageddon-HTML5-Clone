@@ -85,9 +85,7 @@ class Team
             this.updateCurrentWorm();
         } else
         {
-             var pos = Physics.vectorMetersToPixels(this.getCurrentWorm().body.GetPosition());
-             GameInstance.particleEffectMgmt.add(new BounceArrow(pos) );
-             GameInstance.camera.panToPosition(pos);
+            this.worms[this.currentWorm].activeWorm();
         }
 
     }
