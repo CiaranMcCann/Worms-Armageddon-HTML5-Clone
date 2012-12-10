@@ -14,7 +14,7 @@
 
 class NinjaRope extends BaseWeapon
 {
-    ropeJoint;
+    ropeJoints;
     anchor;
 
     constructor ()
@@ -29,25 +29,6 @@ class NinjaRope extends BaseWeapon
 
     }
 
-    createAnchor(contact)
-    {
-        var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
-        fixDef.friction = 1.0;
-        fixDef.restitution = 0.0;
-        fixDef.shape = new b2PolygonShape;
-        fixDef.shape.SetAsBox(0.03, 0.03);
-
-        var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_staticBody;
-        bodyDef.position.x = contact.x;
-        bodyDef.position.y = contact.y;
-
-        this.anchor = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody()
-
-        fixDef.shape = new b2CircleShape(0.15);
-
-    }
 
     activate(worm: Worm)
     {
@@ -63,38 +44,58 @@ class NinjaRope extends BaseWeapon
             if (contact)
             {
 
+                var fixDef = new b2FixtureDef;
+                fixDef.density = 0.5;
+                fixDef.friction = 1.0;
+                fixDef.restitution = 0.0;
+                fixDef.shape = new b2PolygonShape;
+                fixDef.shape.SetAsBox(0.2, 0.2);
+
+                var bodyDef = new b2BodyDef;
+                bodyDef.type = b2Body.b2_staticBody;
+                bodyDef.position.x = contact.x;
+                bodyDef.position.y = contact.y;
+
+                this.anchor = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody()
+                fixDef.shape.SetAsBox(0.2, 0.2);
+                fixDef.shape = new b2CircleShape(0.15);
 
 
-
-                var joint = new b2DistanceJointDef();
-                joint.frequencyHz = 10.0;
-                joint.dampingRatio = 50.0;
+                var ropeDef = new b2DistanceJointDef();
+                ropeDef.frequencyHz = 10.0;
+                ropeDef.dampingRatio = 50.0;
 
                 var prevBody = this.anchor;
                 var direction = this.anchor.GetPosition().Copy();
                 var wormPos = worm.body.GetPosition().Copy();
                 wormPos.Subtract(direction);
+
+                var distance = 10;
+
+                if(wormPos.Length() > distance)
+                distance = Math.floor(wormPos.Length()/0.5);
+
                 wormPos.Normalize();
                 direction = wormPos;
 
-                for (var i = 1; i < 6; ++i)
+                for (var i = 1; i < distance; ++i)
                 {
                     var bd = new b2BodyDef();
                     bd.type = b2Body.b2_dynamicBody;
 
                     var pos = this.anchor.GetPosition().Copy();
                     var dScaled = direction.Copy();
-                    dScaled.Multiply(1.5 * i);
+                    dScaled.Multiply(0.5 * i);
                     pos.Add(dScaled);
 
 
                     bd.position.SetV(pos);
 
                     var nextBody;
-                    if (i == 5)
+                    if (i == distance-1)
                     {
-                        //joint.frequencyHz = 1.0;
-                        joint.dampingRatio = 25.0;
+                        //ropeDef.frequencyHz = 8.0;
+                       // ropeDef.dampingRatio = 25.0;
                         nextBody = worm.body;
                     }
                     else
@@ -103,22 +104,24 @@ class NinjaRope extends BaseWeapon
                         nextBody.CreateFixture(fixDef);
                         nextBody.SetFixedRotation(true);
                     }
-                    joint.bodyA = prevBody;
-                    joint.bodyB = nextBody;
+                    ropeDef.bodyA = prevBody;
+                    ropeDef.bodyB = nextBody;
+                    
 
 
-                    Physics.world.CreateJoint(joint);
+                    var j = Physics.world.CreateJoint(ropeDef);
+                    j.SetLength(0.2);
                     prevBody = nextBody;
                 }
 
-                Physics.world.CreateJoint(joint);
+                Physics.world.CreateJoint(ropeDef);
 
             }
         } else
         {
-
-            Physics.world.DestroyBody(this.anchor);
-            // Physics.world.DestroyJoint(this.ropeJoint);
+            //Physics.world.DestroyJoint(this.ropeJoint);
+           Physics.world.DestroyBody(this.anchor);
+            
         }
 
         super.activate(worm);
