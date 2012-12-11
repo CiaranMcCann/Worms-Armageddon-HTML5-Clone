@@ -38,6 +38,21 @@ class NinjaRope extends BaseWeapon
 
     }
 
+    onKeyDown(key)
+    {
+        if (this.isActive)
+        {
+            if (key == Controls.aimUp.keyboard)
+            {
+                this.contract();
+
+            } else if (key == Controls.aimDown.keyboard)
+            {
+                this.expand();
+            }
+        }
+    }
+
 
     activate(worm: Worm)
     {
@@ -128,7 +143,7 @@ class NinjaRope extends BaseWeapon
                 }
 
             }
-        } else if(this.getIsActive())
+        } else if (this.getIsActive())
         {
             this.deactivate();
         }

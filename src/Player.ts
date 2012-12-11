@@ -43,7 +43,6 @@ class Player
     update()
     {
 
-
         if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
         {
             this.team.getCurrentWorm().walkLeft();
@@ -62,33 +61,13 @@ class Player
         if (keyboard.isKeyDown(Controls.aimUp.keyboard))
         {
             this.team.getCurrentWorm().target.aim(1);
-
-            //TODO Remove once movement code is refacted
-            if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope&&
-                GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.team.getCurrentWorm())
-            {
-                var currentWeapon = <NinjaRope>this.team.getWeaponManager().getCurrentWeapon();
-                if ( currentWeapon.isActive)
-                {
-                     currentWeapon.contract();
-                }
-            }
+            this.team.getWeaponManager().getCurrentWeapon().onKeyDown(Controls.aimUp.keyboard);
         }
 
         if (keyboard.isKeyDown(Controls.aimDown.keyboard))
         {
             this.team.getCurrentWorm().target.aim(-1);
-
-            //TODO Remove once movement code is refacted
-            if (this.team.getWeaponManager().getCurrentWeapon() instanceof NinjaRope &&
-                GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.team.getCurrentWorm())
-            {
-                var currentWeapon = <NinjaRope>this.team.getWeaponManager().getCurrentWeapon();
-                if ( currentWeapon.isActive)
-                {
-                    currentWeapon.expand();
-                }
-            }
+            this.team.getWeaponManager().getCurrentWeapon().onKeyDown(Controls.aimDown.keyboard);
         }
 
         if (keyboard.isKeyDown(Controls.fire.keyboard))

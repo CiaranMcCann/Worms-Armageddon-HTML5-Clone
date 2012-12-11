@@ -28,11 +28,12 @@ class WeaponManager
         this.weaponsAndTools = 
         [
             new Drill(),
+            new JetPack(),           
             new NinjaRope(),
             new HolyGrenade(),
             new Dynamite(),
-            new HandGrenade(),
-            new JetPack()
+            new HandGrenade()
+            
             
         ];
 

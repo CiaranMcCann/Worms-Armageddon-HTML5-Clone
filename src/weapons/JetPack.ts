@@ -25,13 +25,33 @@ class JetPack extends BaseWeapon
          Sprites.worms.defualtJetPack
        );
 
-        this.thurstScaler = 10;
+        this.thurstScaler = 100;
     }
 
-    thurst(forceDir)
+    onKeyDown(key)
     {
-        forceDir.Mulitply(this.thurstScaler);
-        this.worm.body.ApplyImpulse(forceDir, this.worm.body.GetPosition());
+        if (this.isActive)
+        {
+            var forceDir = new b2Vec2(0, 0);
+
+            if (key == Controls.aimUp.keyboard)
+            {
+                forceDir.y = 1;
+            }
+
+            if (key == Controls.walkLeft.keyboard)
+            {
+                forceDir.x = -1;
+            }
+
+            if (key == Controls.walkRight.keyboard)
+            {
+                forceDir.x = 1;
+            }
+            
+            forceDir.Multiply(this.thurstScaler);
+            this.worm.footSensor.GetBody().ApplyImpulse(forceDir, this.worm.body.GetPosition());
+        }
     }
 
 }

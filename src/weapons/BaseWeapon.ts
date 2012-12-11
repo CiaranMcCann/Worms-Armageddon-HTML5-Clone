@@ -35,6 +35,8 @@ class BaseWeapon
     getIsActive() { return this.isActive; }
     setIsActive(val) { this.isActive = val; }
 
+    //Some weapons need acesses to player controls
+    onKeyDown(key) { }
 
     activate(worm)
     {
