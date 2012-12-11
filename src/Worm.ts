@@ -106,6 +106,8 @@ class Worm extends Sprite
 
         this.preRendering();
 
+        
+
 
     }
 
@@ -179,7 +181,11 @@ class Worm extends Sprite
 
                 var force = new b2Vec2(0, this.body.GetLinearVelocity().y);
                 force = force.Length();
-                console.log(" ON HIT " + force);
+
+                //console.log(" ON HIT " + force);
+                //if(this.team == GameInstance.getCurrentPlayerObject().getTeam())
+                //this.hit(500);
+
                 if (force > 9.5)
                 {
                     this.hit(5);

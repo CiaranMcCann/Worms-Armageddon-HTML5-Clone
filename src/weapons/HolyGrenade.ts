@@ -17,7 +17,7 @@ class HolyGrenade extends ThrowableWeapon
         );
 
         // The area in pxiels that get cut out of the terrain
-        this.explosionRadius = 100;
+        this.explosionRadius = 125;
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(250);
@@ -26,7 +26,7 @@ class HolyGrenade extends ThrowableWeapon
         this.explosiveForce = 120
 
         //hit damage at center
-        this.maxDamage = 400;
+        this.maxDamage = 50;
     }
 
     update()

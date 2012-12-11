@@ -136,7 +136,7 @@ class Game
         var playersStillLive = [];
         for (var i = this.players.length - 1; i >= 0; --i)
         {
-            if (this.players[i].getTeam().getPercentageHealth() == 0)
+            if (this.players[i].getTeam().getPercentageHealth() > 0)
             {
                 playersStillLive.push(this.players[i]);
             }
@@ -145,7 +145,7 @@ class Game
         if (playersStillLive.length == 1)
         {
            playersStillLive[0].getTeam().winner();
-           playersStillLive[0].getTeam().update();
+           //playersStillLive[0].getTeam().update();
            return true;
         }
 
@@ -158,8 +158,7 @@ class Game
         {
             //if the game has ended don't update anything but the
             // winning player and the particle effects.
-            if (this.checkForEndGame() == false)
-            {
+            var gameWinner = this.checkForEndGame();
 
                 //TODO remove temp fix
                 if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
@@ -176,12 +175,11 @@ class Game
                 this.getCurrentPlayerObject().update();
 
                 this.terrain.update();
+
+                if(gameWinner == false)
                 this.gameTimer.update(this.players);
 
                 this.camera.update();
-
-               // Logger.log(WormAnimationManger.areAllWormsAtRest);
-            }
 
            this.particleEffectMgmt.update();
 

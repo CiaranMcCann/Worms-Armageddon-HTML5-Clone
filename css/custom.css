@@ -202,7 +202,6 @@ kbd {
 
     .healthMenu span.health {
         position: absolute;
-        background: green;
         width: 100%;
         height: 15px;
     }

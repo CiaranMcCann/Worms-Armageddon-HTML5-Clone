@@ -200,7 +200,7 @@ module Sprites
             imageName: "wdie",
             frameY: 0,
             frameCount: 60,
-            msPerFrame: 40,
+            msPerFrame: 5,
         },
 
         weWon: {

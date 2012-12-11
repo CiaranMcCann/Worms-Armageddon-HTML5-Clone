@@ -11,7 +11,6 @@
 ///<reference path="../Terrain.ts"/>
 ///<reference path="BaseWeapon.ts"/>
 
-
 class NinjaRope extends BaseWeapon
 {
     ropeJoints;
