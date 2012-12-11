@@ -142,7 +142,7 @@ class WormAnimationManger
 
             });
 
-            Utilies.pickRandomSound(["byebye", "ohdear"]).play(1, 2);
+            Utilies.pickRandomSound(["byebye", "ohdear","fatality"]).play(1, 2);
         } 
            
 

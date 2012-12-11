@@ -42,7 +42,13 @@ module AssetManager
          "data/sounds/Speech/Irish/byebye.wav",
          "data/sounds/Speech/Irish/traitor.wav",
          "data/sounds/Speech/Irish/youllregretthat.wav",
-        "data/sounds/Speech/Irish/justyouwait.wav"
+        "data/sounds/Speech/Irish/justyouwait.wav",
+        "data/sounds/Speech/Irish/watchthis.wav",
+        "data/sounds/Speech/Irish/fatality.wav",
+        "data/sounds/Speech/Irish/laugh.wav",
+        "data/sounds/Speech/Irish/incoming.wav",
+        "data/sounds/Speech/Irish/grenade.wav"
+        
     ]
 
     var nonPriorityAudio = [

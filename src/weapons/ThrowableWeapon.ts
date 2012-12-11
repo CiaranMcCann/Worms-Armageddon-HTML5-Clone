@@ -146,11 +146,17 @@ class ThrowableWeapon extends BaseWeapon
 
     }
 
+    playWormVoice()
+    {
+        Utilies.pickRandomSound(["watchthis","fire","grenade","incoming","laugh"]).play();
+    }
+
     activate(worm: Worm)
     {
-        if (this.ammo > 0)
-        {
-            super.activate(worm);
+        if (this.ammo > 0 && this.getIsActive() == false)
+        {           
+            this.playWormVoice();
+            super.activate(worm);        
             this.setupDirectionAndForce(worm);
 
         }

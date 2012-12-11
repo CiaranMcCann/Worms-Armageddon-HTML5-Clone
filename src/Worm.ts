@@ -208,9 +208,8 @@ class Worm extends Sprite
 
     fire()
     {
-        this.team.getWeaponManager().getCurrentWeapon().activate(this);
-        AssetManager.sounds["fire"].play();
-
+        var weapon = this.team.getWeaponManager().getCurrentWeapon();
+        weapon.activate(this);
     }
 
     playWalkingSound()

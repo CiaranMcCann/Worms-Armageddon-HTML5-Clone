@@ -16,14 +16,12 @@ class Player
 {
     private team: Team;
     private timer: Timer;
-    private hasPlayerFiredWeapon;
     turnFinished;
 
     constructor ()
     {
         this.team = new Team();
         this.timer = new Timer(2000);
-        this.hasPlayerFiredWeapon = false;
         this.turnFinished = false;
 
 
@@ -93,16 +91,10 @@ class Player
             }
         }
 
-        if (keyboard.isKeyDown(Controls.fire.keyboard) && !this.hasPlayerFiredWeapon)
+        if (keyboard.isKeyDown(Controls.fire.keyboard))
         {
-            this.hasPlayerFiredWeapon = true;
-            window.setTimeout(function () =>
-            {
-                this.hasPlayerFiredWeapon = false;
-            }, 5000);
             this.team.getCurrentWorm().fire();
-            //GameInstance.nextPlayer();
-
+            GameInstance.weaponMenu.update();
         }
 
 

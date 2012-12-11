@@ -29,6 +29,11 @@ class Dynamite extends ThrowableWeapon
 
     }
 
+     playWormVoice()
+    {
+        Utilies.pickRandomSound(["laugh"]).play();
+    }
+
 
     //Gets the direction of aim from the target and inital velocity
     // The creates the box2d physics body at that pos with that inital v

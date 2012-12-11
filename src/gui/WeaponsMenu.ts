@@ -61,12 +61,16 @@ class WeaponsMenu
 
     }
 
+    update()
+    {
+            var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
+            this.populateMenu(weaponMgmt.getListOfWeapons());
+    }
+
     toggle()
     {
         // populate
-        var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
-        this.populateMenu(weaponMgmt.getListOfWeapons());
-
+        this.update();
         var moveAmountInPx;
 
         if (this.isVisable)

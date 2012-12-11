@@ -43,9 +43,9 @@ class NinjaRope extends BaseWeapon
     {
         this.worm = worm;
 
-        if (!this.getIsActive())
+        if (this.ammo > 0 && !this.getIsActive())
         {
-
+            AssetManager.sounds["fire"].play();
             var dir = worm.target.getTargetDirection().Copy();
             var contact = Physics.shotRay(worm.body.GetPosition(), dir);
 
@@ -128,7 +128,7 @@ class NinjaRope extends BaseWeapon
                 }
 
             }
-        } else
+        } else if(this.getIsActive())
         {
             this.deactivate();
         }

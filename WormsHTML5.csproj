@@ -294,6 +294,12 @@
     <Content Include="src\WorldBoundary.min.js">
       <DependentUpon>TerrainBoundary.ts</DependentUpon>
     </Content>
+    <Content Include="src\WormAnimationManger.js">
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WormAnimationManger.min.js">
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
     <Content Include="test.html" />
     <Content Include="src\tests\TimerTest.js">
       <DependentUpon>AllTest.ts</DependentUpon>
