@@ -31,7 +31,8 @@ class WeaponManager
             new NinjaRope(),
             new HolyGrenade(),
             new Dynamite(),
-            new HandGrenade()
+            new HandGrenade(),
+            new JetPack()
             
         ];
 
