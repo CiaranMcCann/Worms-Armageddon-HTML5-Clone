@@ -15,6 +15,7 @@ class JetPack extends BaseWeapon
 {
     thurstScaler: number;
     flame: Sprite;
+    forceDir;
 
     constructor ()
     {
@@ -26,13 +27,14 @@ class JetPack extends BaseWeapon
          Sprites.worms.defualtJetPack
        );
 
-        this.thurstScaler = 0.2;
+        this.thurstScaler = 0.1;
+        this.forceDir = new b2Vec2(0, 0);
         this.flame = new Sprite(Sprites.weapons.jetPackFlamesDown);
     }
 
     draw(ctx)
     {      
-        if (this.isActive)
+        if (this.isActive && this.forceDir.Length() > 0)
         {
             var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());       
             pos.x -= (this.flame.getImage().width / 2) + this.worm.direction * 10;
@@ -45,29 +47,30 @@ class JetPack extends BaseWeapon
     {
         if (this.isActive)
         {
-            var forceDir = new b2Vec2(0, 0);
+            this.forceDir = new b2Vec2(0, 0);
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
-                forceDir.y = -1;               
+                this.forceDir.y = -1;               
             }
 
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
-                forceDir.x = -1.2;
+                this.forceDir.x = -1.2;
                 this.worm.direction = -1;
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
-                forceDir.x = 1.2;
+                this.forceDir.x = 1.2;
                 this.worm.direction = 1;
             }
             
-            if (forceDir.Length() > 0)
+            if (this.forceDir.Length() > 0)
             {
-                forceDir.Multiply(this.thurstScaler);
-                this.worm.body.ApplyImpulse(forceDir, this.worm.body.GetWorldCenter());
+                Utilies.pickRandomSound(["JetPackLoop1", "JetPackLoop2"]).play();
+                this.forceDir.Multiply(this.thurstScaler);
+                this.worm.body.ApplyImpulse(this.forceDir, this.worm.body.GetWorldCenter());
             }
 
             this.worm.setSpriteDef(Sprites.worms.defualtJetPack);

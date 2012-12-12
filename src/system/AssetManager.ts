@@ -49,7 +49,9 @@ module AssetManager
         "data/sounds/Speech/Irish/incoming.wav",
         "data/sounds/Speech/Irish/grenade.wav",
         "data/sounds/cantclickhere.wav",
-        "data/sounds/StartRound.wav"
+        "data/sounds/StartRound.wav",
+        "data/sounds/JetPackLoop1.wav",
+        "data/sounds/JetPackLoop2.wav"
         
     ]
 

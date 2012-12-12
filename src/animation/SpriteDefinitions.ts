@@ -44,7 +44,7 @@ module Sprites
             imageName: "wjetflmd",
             frameY: 0,
             frameCount: 6,
-            msPerFrame: 60,
+            msPerFrame: 100,
 
         },
 

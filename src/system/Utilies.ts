@@ -34,7 +34,14 @@ module Utilies
 
     export function pickRandomSound(collection :string[])
     {
-        return AssetManager.sounds[collection[random(0, collection.length-1)]];
+        var sound : Sound = AssetManager.sounds[collection[random(0, collection.length - 1)]];
+
+        if (!sound.play)
+        {
+            Logger.warn(" Somthing looks dogoy with the sound object " + sound);
+        }
+
+        return sound;
     }
 
     export function deleteFromCollection(collection, indexToRemove)
