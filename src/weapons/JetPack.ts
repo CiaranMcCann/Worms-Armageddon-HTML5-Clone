@@ -32,6 +32,9 @@ class JetPack extends BaseWeapon
         this.forceDir = new b2Vec2(0, 0);
         this.bottomflame = new Sprite(Sprites.weapons.jetPackFlamesDown);
         this.sideflame = new Sprite(Sprites.weapons.jetPackFlamesSide);
+
+          // No requirement for crosshairs aiming
+        this.requiresAiming = false;
     }
 
     activate(worm : Worm)

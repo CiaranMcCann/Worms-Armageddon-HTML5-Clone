@@ -52,7 +52,8 @@ module AssetManager
         "data/sounds/StartRound.wav",
         "data/sounds/JetPackLoop1.wav",
         "data/sounds/JetPackLoop2.wav",
-        "data/sounds/CursorSelect.wav"
+        "data/sounds/CursorSelect.wav",
+        "data/sounds/FUSE.wav"
         
     ]
 

@@ -32,8 +32,6 @@ class HandGrenade extends ThrowableWeapon
     deactivate()
     {
         super.deactivate();
-
-        this.detonationCounter = 3;
     }
 
 }

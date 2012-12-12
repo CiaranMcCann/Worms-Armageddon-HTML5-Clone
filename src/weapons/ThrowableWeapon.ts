@@ -22,13 +22,15 @@ class ThrowableWeapon extends BaseWeapon
 
     body;
     fixture;
-    detonationCounter;
+
+    detonationTimer: Timer;
+
     effectedRadius;
     explosiveForce;
     sprite: Sprite;
     explosionRadius: number;
     maxDamage: number;
-    
+
     // pre-render box around countdown number
     static preRender()
     {
@@ -44,7 +46,7 @@ class ThrowableWeapon extends BaseWeapon
             Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).stroke();
 
 
-         }, 39, 20);
+        }, 39, 20);
 
     }
     static numberBox = ThrowableWeapon.preRender();
@@ -74,7 +76,7 @@ class ThrowableWeapon extends BaseWeapon
         this.maxDamage = 30;
 
         // Counter till bomb explodes
-        this.detonationCounter = 9;
+        this.detonationTimer = new Timer(5000);
         this.timeToLive = 1000;
 
     }
@@ -82,11 +84,10 @@ class ThrowableWeapon extends BaseWeapon
     deactivate()
     {
 
-       // Logger.debug(this + " was deactivated ");
+        // Logger.debug(this + " was deactivated ");
         this.setIsActive(false);
 
         // Counter till bomb explodes
-        this.detonationCounter = 9;
         this.timeToLive = 1000;
 
     }
@@ -148,16 +149,18 @@ class ThrowableWeapon extends BaseWeapon
 
     playWormVoice()
     {
-        Utilies.pickRandomSound(["watchthis","fire","grenade","incoming","laugh"]).play();
+        Utilies.pickRandomSound(["watchthis", "fire", "grenade", "incoming", "laugh"]).play();
     }
 
     activate(worm: Worm)
     {
         if (this.ammo > 0 && this.getIsActive() == false)
-        {           
+        {
+             this.detonationTimer.reset();
             this.playWormVoice();
-            super.activate(worm);        
+            super.activate(worm);
             this.setupDirectionAndForce(worm);
+           
 
         }
     }
@@ -189,24 +192,21 @@ class ThrowableWeapon extends BaseWeapon
         if (this.getIsActive())
         {
 
-            // Decrements the timers on the bomb
-            if (this.detonationCounter > 0)
-            {
-                this.detonationCounter -= 1 / 60;
-            }
-
             //Checks if its time for the bomb to explode
-            if (this.detonationCounter <= 1 && this.timeToLive > 0)
+            if (this.detonationTimer.hasTimePeriodPassed() && this.timeToLive > 0)
             {
                 this.detonate();
             }
+            
         }
+
+        this.detonationTimer.update();
     }
 
 
     draw(ctx)
     {
-        
+
         if (this.getIsActive() && this.timeToLive > 0)
         {
             ctx.save()
@@ -231,10 +231,10 @@ class ThrowableWeapon extends BaseWeapon
             // ctx.fillStyle = 'rgba(0,0,0,255)';
             // ctx.fillRect(radius/2, -radius / 2, 10, 10);
 
-            ctx.drawImage(ThrowableWeapon.numberBox, radius/2, -radius*1.5);
+            ctx.drawImage(ThrowableWeapon.numberBox, radius / 2, -radius * 1.5);
             ctx.fillStyle = 'rgba(255,0,0,255)';
-            ctx.fillText(Math.floor(this.detonationCounter), radius*0.95, -radius/1.4);
-            
+            ctx.fillText(Math.floor(this.detonationTimer.getTimeLeftInSec()/10), radius * 0.95, -radius / 1.4);
+
 
             ctx.restore()
         }

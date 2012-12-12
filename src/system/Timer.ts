@@ -51,6 +51,11 @@ class Timer
         return this.timePeriod - this.delta;
     }
 
+    getTimeLeftInSec()
+    {
+        return (this.timePeriod - this.delta) / 60;
+    }
+
     update()
     {
         if (this.isTimerPaused == false)

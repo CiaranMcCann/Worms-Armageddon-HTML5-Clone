@@ -16,6 +16,7 @@
 ///<reference path="../weapons/HandGrenade.ts"/>
 ///<reference path="../weapons/Dynamite.ts"/>
 ///<reference path="../weapons/NinjaRope.ts"/>
+///<reference path="../weapons/JetPack.ts"/>
 
 class WeaponManager
 {

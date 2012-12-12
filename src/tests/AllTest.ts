@@ -37,6 +37,22 @@ asyncTest( "Reset", function() {
     }, timePeroid);
 });
 
+asyncTest( "time lenght", function() {
+     
+    var timePeroid = 5000;
+    var t = new Timer(timePeroid+1);
+     
+    
+    setTimeout(function() => {
+        t.update();
+        equal(t.getTimeLeft(), 0 , "getTimeLeft()");
+
+
+        start();
+    }, timePeroid);
+});
+
+
 
 QUnit.module( "Utitlies" );
 test( " remove item from array ", function() {
