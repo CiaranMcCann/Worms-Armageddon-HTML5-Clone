@@ -14,7 +14,8 @@
 class JetPack extends BaseWeapon
 {
     thurstScaler: number;
-    flame: Sprite;
+    bottomflame: Sprite;
+    sideflame: Sprite;
     forceDir;
 
     constructor ()
@@ -27,19 +28,41 @@ class JetPack extends BaseWeapon
          Sprites.worms.defualtJetPack
        );
 
-        this.thurstScaler = 0.1;
+        this.thurstScaler = 0.15;
         this.forceDir = new b2Vec2(0, 0);
-        this.flame = new Sprite(Sprites.weapons.jetPackFlamesDown);
+        this.bottomflame = new Sprite(Sprites.weapons.jetPackFlamesDown);
+        this.sideflame = new Sprite(Sprites.weapons.jetPackFlamesSide);
     }
 
     draw(ctx)
     {      
-        if (this.isActive && this.forceDir.Length() > 0)
+        if (this.isActive)
         {
-            var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());       
-            pos.x -= (this.flame.getImage().width / 2) + this.worm.direction * 10;
-            pos.y -= 4;
-            this.flame.draw(ctx, pos.x, pos.y);
+            if (this.forceDir.y != 0)
+            {
+                var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
+                pos.x -= (this.bottomflame.getImage().width / 2) + this.worm.direction * 10;
+                pos.y -= 4;
+                this.bottomflame.draw(ctx, pos.x, pos.y);
+            }
+
+            if (this.forceDir.x != 0)
+            {
+                var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
+                //pos.x -= (this.bottomflame.getImage().width / 2);
+                pos.x -= this.worm.direction * 13;
+                pos.y -= 15;
+
+                ctx.save()
+                ctx.translate(pos.x, pos.y);
+                if (this.worm.direction == this.worm.DIRECTION.right)
+                {
+                    // Used to flip the sprites       
+                    ctx.scale(-1, 1);
+                }
+                this.sideflame.draw(ctx, 0,0);
+                ctx.restore();
+            }
         }
     }
 
@@ -75,7 +98,12 @@ class JetPack extends BaseWeapon
 
             this.worm.setSpriteDef(Sprites.worms.defualtJetPack);
             this.worm.finished = true;
-            this.flame.update();
+
+            if (this.forceDir.y != 0)
+            this.bottomflame.update();
+
+            if (this.forceDir.x != 0)
+            this.sideflame.update();
         }
     }
 
