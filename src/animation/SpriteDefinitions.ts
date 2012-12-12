@@ -38,6 +38,16 @@ module Sprites
     };
 
     export var weapons = {
+
+        jetPackFlamesDown : {
+
+            imageName: "wjetflmd",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 10,
+
+        },
+
         holyGernade: {
 
             imageName: "hgrenade",
@@ -283,7 +293,9 @@ module Sprites
             frameCount: 32,
             msPerFrame: 50,
 
-        },
+        }
+
+        
 
 
 

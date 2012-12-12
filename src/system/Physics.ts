@@ -217,4 +217,15 @@ module Physics
         return new b2Vec2(vMeters.x * worldScale,vMeters.y * worldScale);
     }
 
+    export function bodyToDrawingPixelCoordinates(body)
+    {
+        var pos = body.GetPosition();
+        var radius = body.GetFixtureList().GetShape().GetRadius();
+
+        pos.x -= radius;
+        pos.y -= radius;
+
+        return Physics.vectorMetersToPixels(pos);
+        
+    }
 }

@@ -351,7 +351,9 @@ class Worm extends Sprite
         // Always reset to idle
         this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
 
+        if(this.isActiveWorm())
         this.team.getWeaponManager().getCurrentWeapon().update();
+
         this.target.update();
 
     }
