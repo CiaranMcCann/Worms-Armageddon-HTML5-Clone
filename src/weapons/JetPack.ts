@@ -15,7 +15,6 @@ class JetPack extends BaseWeapon
 {
     thurstScaler: number;
     flame: Sprite;
-    forceDir;
 
     constructor ()
     {
@@ -27,19 +26,17 @@ class JetPack extends BaseWeapon
          Sprites.worms.defualtJetPack
        );
 
-        this.thurstScaler = 0.8;
-        this.forceDir = new b2Vec2(0, 0);
+        this.thurstScaler = 0.2;
         this.flame = new Sprite(Sprites.weapons.jetPackFlamesDown);
     }
 
     draw(ctx)
     {      
-        //if (this.forceDir.Length() > 0)
         if (this.isActive)
         {
-            var pos = this.worm.body.GetFixtureList().GetBody().GetPosition();
-            pos = Physics.vectorMetersToPixels(pos);
-
+            var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());       
+            pos.x -= (this.flame.getImage().width / 2) + this.worm.direction * 10;
+            pos.y -= 4;
             this.flame.draw(ctx, pos.x, pos.y);
         }
     }
@@ -48,29 +45,29 @@ class JetPack extends BaseWeapon
     {
         if (this.isActive)
         {
-            this.forceDir = new b2Vec2(0, 0);
+            var forceDir = new b2Vec2(0, 0);
 
-            if (keyboard.isKeyDown(Controls.aimUp.keyboard,true))
+            if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
-                this.forceDir.y = -1;               
+                forceDir.y = -1;               
             }
 
-            if (keyboard.isKeyDown(Controls.walkLeft.keyboard,true))
+            if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
-                this.forceDir.x = -1;
+                forceDir.x = -1.2;
                 this.worm.direction = -1;
             }
 
-            if (keyboard.isKeyDown(Controls.walkRight.keyboard,true))
+            if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
-                this.forceDir.x = 1;
+                forceDir.x = 1.2;
                 this.worm.direction = 1;
             }
             
-            if (this.forceDir.Length() > 0)
+            if (forceDir.Length() > 0)
             {
-                this.forceDir.Multiply(this.thurstScaler);
-                this.worm.body.ApplyImpulse(this.forceDir, this.worm.body.GetWorldCenter());
+                forceDir.Multiply(this.thurstScaler);
+                this.worm.body.ApplyImpulse(forceDir, this.worm.body.GetWorldCenter());
             }
 
             this.worm.setSpriteDef(Sprites.worms.defualtJetPack);

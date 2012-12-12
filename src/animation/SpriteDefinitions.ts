@@ -44,9 +44,19 @@ module Sprites
             imageName: "wjetflmd",
             frameY: 0,
             frameCount: 6,
-            msPerFrame: 10,
+            msPerFrame: 60,
 
         },
+
+         jetPackFlamesSide : {
+
+            imageName: "wjetflmb",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 60,
+
+        },
+
 
         holyGernade: {
 

@@ -206,11 +206,10 @@ class ThrowableWeapon extends BaseWeapon
 
     draw(ctx)
     {
-
+        
         if (this.getIsActive() && this.timeToLive > 0)
         {
             ctx.save()
-
             var wormPosInPixels = Physics.vectorMetersToPixels(this.body.GetPosition());
 
             ctx.translate(

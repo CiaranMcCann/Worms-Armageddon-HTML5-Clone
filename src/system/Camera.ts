@@ -44,12 +44,12 @@ class Camera
 
         if (this.toPanOrNotToPan)
         {
-            if (this.panPosition.x >= this.position.x)
+            if (this.panPosition.x > this.position.x)
             {
                 this.incrementX(this.panSpeed);
             }
 
-            if (this.panPosition.x <= this.position.x)
+            if (this.panPosition.x < this.position.x)
             {
                 this.incrementX(-this.panSpeed);
             }
