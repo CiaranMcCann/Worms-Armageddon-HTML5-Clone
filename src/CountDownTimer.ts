@@ -21,11 +21,14 @@ class CountDownTimer
     constructor ()
     {
         this.timer = new Timer(Settings.PLAYER_TURN_TIME);
-        this.previousSecound = this.timer.timePeriod;
+        this.previousSecound = this.timer.timePeriod;  
+             $('#turnTimeCounter').hide();     
     }
 
     update(players)
     {
+        $('#turnTimeCounter').show();
+
         if(Settings.DEVELOPMENT_MODE)
             this.timer.pause();
 

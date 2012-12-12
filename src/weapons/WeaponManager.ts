@@ -58,7 +58,10 @@ class WeaponManager
 
     setCurrentWeapon(index)
     {
-        this.currentWeaponIndex = index;
+        if (this.getCurrentWeapon().getIsActive() == false)
+        {
+            this.currentWeaponIndex = index;
+        }
     }
 
     getListOfWeapons()

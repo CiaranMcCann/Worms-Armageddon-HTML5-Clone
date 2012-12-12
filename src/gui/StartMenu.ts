@@ -38,15 +38,15 @@ class StartMenu
     }
 
     onGameReady(callback)
-    {
+    {       
         var _this = this;
         if (this.menuActive)
         {
 
             setTimeout(function =>
             {
+                $('#splashScreen').remove();
                 $('#startMenu').fadeIn('fast');
-                $('#splashScreen').css({ opacity: '0.8' })
 
                 $('#startLocal').click(function =>
                 {
@@ -60,7 +60,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 100); //TODO: remove once all sprites are in articifal load delay
+            }, 1000); //TODO: remove once all sprites are in articifal load delay
         } else
         {
             $('#splashScreen').remove();

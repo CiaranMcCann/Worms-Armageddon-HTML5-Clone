@@ -191,8 +191,8 @@ class Worm extends Sprite
                     var diff = this.body.GetPosition().y - this.fallHeight;
                     var f = diff;
 
-                    console.log(force*f);
-                    if (force*f > 38)
+                    Logger.log(force*f);
+                    if (force*f > 35)
                     {
                         this.hit(5);
                     }    
@@ -222,8 +222,11 @@ class Worm extends Sprite
 
     fire()
     {
-        var weapon = this.team.getWeaponManager().getCurrentWeapon();
-        weapon.activate(this);
+        if (WormAnimationManger.playerAttentionSemaphore == 0)
+        {
+            var weapon = this.team.getWeaponManager().getCurrentWeapon();
+            weapon.activate(this);
+        }
     }
 
     playWalkingSound()
@@ -245,7 +248,7 @@ class Worm extends Sprite
 
     walkLeft()
     {
-        // if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
+        if (WormAnimationManger.playerAttentionSemaphore == 0)
         {
             var currentPos = this.body.GetPosition();
 
@@ -268,7 +271,7 @@ class Worm extends Sprite
 
     walkRight()
     {
-        //if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
+        if (WormAnimationManger.playerAttentionSemaphore == 0)
         {
             var currentPos = this.body.GetPosition();
             this.direction = this.DIRECTION.right;
@@ -293,14 +296,14 @@ class Worm extends Sprite
     jump()
     {
 
-        // if (this.team.getWeaponManager().getCurrentWeapon().getIsActive() == false)
+        if (WormAnimationManger.playerAttentionSemaphore == 0)
         {
             if (this.canJump > 0)
             {
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction, -2);
-                forces.Multiply(2);
+                forces.Multiply(1.5);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }
