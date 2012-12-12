@@ -34,6 +34,17 @@ class JetPack extends BaseWeapon
         this.sideflame = new Sprite(Sprites.weapons.jetPackFlamesSide);
     }
 
+    activate(worm : Worm)
+    {
+        if (this.getIsActive())
+        {
+            this.setIsActive(false);
+        } else
+        {
+            super.activate(worm);
+        }
+    }
+
     draw(ctx)
     {      
         if (this.isActive)
@@ -49,7 +60,6 @@ class JetPack extends BaseWeapon
             if (this.forceDir.x != 0)
             {
                 var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
-                //pos.x -= (this.bottomflame.getImage().width / 2);
                 pos.x -= this.worm.direction * 13;
                 pos.y -= 15;
 

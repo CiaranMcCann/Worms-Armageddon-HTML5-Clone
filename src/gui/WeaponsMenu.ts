@@ -126,6 +126,7 @@ class WeaponsMenu
                 return;
             }
 
+            AssetManager.sounds["CursorSelect"].play();
             _this.selectWeapon(weaponId);
             _this.toggle();
         });

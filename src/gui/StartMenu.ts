@@ -50,11 +50,13 @@ class StartMenu
 
                 $('#startLocal').click(function =>
                 {
+                    AssetManager.sounds["CursorSelect"].play();
                     _this.controlsMenu(callback);
                 });
 
                  $('#startTutorial').click(function =>
                 {
+                     AssetManager.sounds["CursorSelect"].play();
                     _this.controlsMenu(callback);
                 });
 
@@ -81,6 +83,7 @@ class StartMenu
                 $('#startLocal').unbind();
                 $('#splashScreen').remove();
                 $('#startMenu').fadeOut('normal');
+                AssetManager.sounds["CursorSelect"].play();
                 AssetManager.sounds["StartRound"].play(1, 0.5);
                 callback();
             })
