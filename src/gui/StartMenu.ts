@@ -42,14 +42,6 @@ class StartMenu
         var _this = this;
         if (this.menuActive)
         {
-             $(window).one("keydown",function (e)
-             {
-                 if (e.which == 13)
-                 {
-                     _this.controlsMenu(callback);
-                 }
-
-             });
 
             setTimeout(function =>
             {
@@ -76,16 +68,7 @@ class StartMenu
 
     controlsMenu(callback)
     {
-         $(window).one("keydown",function (e)
-             {
-                 if (e.which == 13)
-                 {
-                     $('#splashScreen').remove();
-                     $('#startMenu').fadeOut('normal');
-                     callback();
-                 }
 
-             });
 
         $('.slide').fadeOut('normal', function =>
         {
@@ -98,6 +81,7 @@ class StartMenu
                 $('#startLocal').unbind();
                 $('#splashScreen').remove();
                 $('#startMenu').fadeOut('normal');
+                AssetManager.sounds["StartRound"].play(1, 0.5);
                 callback();
             })
         });

@@ -47,7 +47,9 @@ module AssetManager
         "data/sounds/Speech/Irish/fatality.wav",
         "data/sounds/Speech/Irish/laugh.wav",
         "data/sounds/Speech/Irish/incoming.wav",
-        "data/sounds/Speech/Irish/grenade.wav"
+        "data/sounds/Speech/Irish/grenade.wav",
+        "data/sounds/cantclickhere.wav",
+        "data/sounds/StartRound.wav"
         
     ]
 

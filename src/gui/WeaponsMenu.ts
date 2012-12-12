@@ -99,11 +99,13 @@ class WeaponsMenu
             var currentWeapon: BaseWeapon = listOfWeapons[weapon];
             var cssClassType = "ammo";
 
-            html += "<li class=span1 id=" + weapon + ">";
             if (currentWeapon.ammo <= 0)
             {
                 cssClassType = "noAmmo";
+                weapon = "-1";
             }
+
+            html += "<li class=span1 id=" + weapon + ">";         
             html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " ><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }
@@ -112,10 +114,19 @@ class WeaponsMenu
         this.htmlElement.empty();
         this.htmlElement.append(html);
 
+
         var _this = this;
         $("#" + this.cssId + " .span1").click(function ()
         {
-            _this.selectWeapon(parseInt($(this).attr('id')));
+            var weaponId = parseInt($(this).attr('id'));
+
+            if (weaponId == -1)
+            {
+                AssetManager.sounds["cantclickhere"].play();
+                return;
+            }
+
+            _this.selectWeapon(weaponId);
             _this.toggle();
         });
 
