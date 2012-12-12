@@ -27,6 +27,8 @@ class HandGrenade extends ThrowableWeapon
 
         //hit damage at center
         this.maxDamage = 20;
+
+        this.detonationTimer = new Timer(3000);
     }
 
     deactivate()

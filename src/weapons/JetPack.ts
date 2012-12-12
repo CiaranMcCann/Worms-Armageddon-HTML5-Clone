@@ -18,6 +18,10 @@ class JetPack extends BaseWeapon
     sideflame: Sprite;
     forceDir;
 
+    fuel: number;
+    
+    INITAL_FUEL: number;
+
     constructor ()
     {
         super(
@@ -33,11 +37,14 @@ class JetPack extends BaseWeapon
         this.bottomflame = new Sprite(Sprites.weapons.jetPackFlamesDown);
         this.sideflame = new Sprite(Sprites.weapons.jetPackFlamesSide);
 
-          // No requirement for crosshairs aiming
+        // No requirement for crosshairs aiming
         this.requiresAiming = false;
+
+        this.INITAL_FUEL = 15;
+        this.fuel = this.INITAL_FUEL;
     }
 
-    activate(worm : Worm)
+    activate(worm: Worm)
     {
         if (this.getIsActive())
         {
@@ -49,7 +56,7 @@ class JetPack extends BaseWeapon
     }
 
     draw(ctx)
-    {      
+    {
         if (this.isActive)
         {
             if (this.forceDir.y != 0)
@@ -68,26 +75,43 @@ class JetPack extends BaseWeapon
 
                 ctx.save()
                 ctx.translate(pos.x, pos.y);
+
                 if (this.worm.direction == this.worm.DIRECTION.right)
                 {
                     // Used to flip the sprites       
                     ctx.scale(-1, 1);
                 }
-                this.sideflame.draw(ctx, 0,0);
+                this.sideflame.draw(ctx, 0, 0);
                 ctx.restore();
+
             }
+
+            var pos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
+            ctx.save()
+            ctx.translate(pos.x, pos.y);
+            ctx.drawImage(ThrowableWeapon.numberBox, 30, -40);
+            ctx.fillStyle = 'rgba(255,0,0,255)';
+            ctx.fillText(Math.floor(this.fuel), 42, -20);
+            ctx.restore();
+
         }
     }
 
     update()
     {
+        if (this.fuel <= 0)
+        {
+            this.setIsActive(false);
+            this.fuel = this.INITAL_FUEL;
+        }
+
         if (this.isActive)
         {
             this.forceDir = new b2Vec2(0, 0);
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
-                this.forceDir.y = -1;               
+                this.forceDir.y = -1;
             }
 
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
@@ -101,10 +125,11 @@ class JetPack extends BaseWeapon
                 this.forceDir.x = 1.2;
                 this.worm.direction = 1;
             }
-            
+
             if (this.forceDir.Length() > 0)
             {
                 Utilies.pickRandomSound(["JetPackLoop1", "JetPackLoop2"]).play();
+                this.fuel -= 0.1;
                 this.forceDir.Multiply(this.thurstScaler);
                 this.worm.body.ApplyImpulse(this.forceDir, this.worm.body.GetWorldCenter());
             }
@@ -113,10 +138,10 @@ class JetPack extends BaseWeapon
             this.worm.finished = true;
 
             if (this.forceDir.y != 0)
-            this.bottomflame.update();
+                this.bottomflame.update();
 
             if (this.forceDir.x != 0)
-            this.sideflame.update();
+                this.sideflame.update();
         }
     }
 

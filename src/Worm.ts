@@ -389,11 +389,12 @@ class Worm extends Sprite
 
         ctx.restore()
 
-        var nameBoxX = -radius * this.name.length / 2.6;
-        var nameBoxY = -radius * 6;
+            var nameBoxX = -radius * this.name.length / 2.6;
+            var nameBoxY = -radius * 6;
 
-        ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
-        ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
+            ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
+            ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
+        
 
         ctx.restore()
 

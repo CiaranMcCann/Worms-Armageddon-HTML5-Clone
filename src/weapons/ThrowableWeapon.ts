@@ -34,19 +34,19 @@ class ThrowableWeapon extends BaseWeapon
     // pre-render box around countdown number
     static preRender()
     {
-        var healthBoxWidth = 13;
-        var healthBoxHeight = 15
+        var timerBoxWidth = 20;
+        var timerBoxHeight = 22
         return Graphics.preRenderer.render(function (ctx) =>
         {
 
             ctx.fillStyle = '#1A1110';
             ctx.strokeStyle = "#eee";
 
-            Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).fill();
-            Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).stroke();
+            Graphics.roundRect(ctx, 0, 0, timerBoxWidth, timerBoxHeight, 4).fill();
+            Graphics.roundRect(ctx, 0, 0, timerBoxWidth, timerBoxHeight, 4).stroke();
 
 
-        }, 39, 20);
+        }, timerBoxWidth+3, timerBoxHeight+3);
 
     }
     static numberBox = ThrowableWeapon.preRender();
@@ -228,12 +228,17 @@ class ThrowableWeapon extends BaseWeapon
 
             ctx.restore()
 
-            // ctx.fillStyle = 'rgba(0,0,0,255)';
-            // ctx.fillRect(radius/2, -radius / 2, 10, 10);
-
-            ctx.drawImage(ThrowableWeapon.numberBox, radius / 2, -radius * 1.5);
+            ctx.drawImage(ThrowableWeapon.numberBox, 10,-40);
             ctx.fillStyle = 'rgba(255,0,0,255)';
-            ctx.fillText(Math.floor(this.detonationTimer.getTimeLeftInSec()/10), radius * 0.95, -radius / 1.4);
+
+            var secoundsLeft = Math.floor(this.detonationTimer.getTimeLeftInSec() / 10);
+
+            if (secoundsLeft < 0)
+            {
+                secoundsLeft = 0;
+            }
+
+            ctx.fillText(secoundsLeft, 22,-22);
 
 
             ctx.restore()
