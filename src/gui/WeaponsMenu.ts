@@ -106,7 +106,7 @@ class WeaponsMenu
             }
 
             html += "<li class=span1 id=" + weapon + ">";         
-            html += "<a  class=\"thumbnail " + cssClassType + "\" value=" + currentWeapon.name + " ><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
+            html += "<a  class=\"thumbnail " + cssClassType + "\" id=" + weapon + " value=" + currentWeapon.name + " ><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }
         html += "</ul>";
