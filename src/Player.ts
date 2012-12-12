@@ -71,7 +71,7 @@ class Player
         if (keyboard.isKeyDown(Controls.fire.keyboard,true))
         {
             this.team.getCurrentWorm().fire();
-            GameInstance.weaponMenu.update();
+            GameInstance.weaponMenu.refresh();
         }
 
 

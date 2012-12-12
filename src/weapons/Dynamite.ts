@@ -9,7 +9,7 @@ class Dynamite extends ThrowableWeapon
 
         super(
             "Dynamite", // Weapon name
-            2, // ammo
+            5, // ammo
             Sprites.weaponIcons.dynamite, //Icon for menu
             Sprites.weapons.dynamite, //Inital weapon object state
             Sprites.worms.takeOutDynamite,

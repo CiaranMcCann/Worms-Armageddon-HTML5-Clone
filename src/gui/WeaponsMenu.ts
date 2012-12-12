@@ -61,7 +61,7 @@ class WeaponsMenu
 
     }
 
-    update()
+    refresh()
     {
             var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
             this.populateMenu(weaponMgmt.getListOfWeapons());
@@ -70,7 +70,7 @@ class WeaponsMenu
     toggle()
     {
         // populate
-        this.update();
+        this.refresh();
         var moveAmountInPx;
 
         if (this.isVisable)

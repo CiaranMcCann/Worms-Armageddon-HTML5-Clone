@@ -9,7 +9,7 @@ class HolyGrenade extends ThrowableWeapon
     {
         super(
             "Holy Grenade", // Weapon name
-            0, // ammo
+            3, // ammo
             Sprites.weaponIcons.holyGernade, //Icon for menu
             Sprites.weapons.holyGernade, //Inital weapon object state
             Sprites.worms.takeOutHolyGernade,
@@ -31,7 +31,7 @@ class HolyGrenade extends ThrowableWeapon
 
     update()
     {
-        if (this.detonationTimer.getTimeLeftInSec()/10 <= 3)
+        if (this.getIsActive() && this.detonationTimer.getTimeLeftInSec()/10 <= 2)
         {
             AssetManager.sounds["HOLYGRENADE"].play();
         }

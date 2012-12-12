@@ -55,7 +55,8 @@ class Worm extends Sprite
     soundDelayTimer: Timer;
 
     //Acumlated force at which worm hits ground
-    force: number;
+    //force: number;
+    fallHeight: number;
 
     constructor (team, x, y)
     {
@@ -108,7 +109,7 @@ class Worm extends Sprite
 
         this.preRendering();
 
-        this.force = 0;
+        this.fallHeight = this.body.GetPosition().y;
     }
 
     // Pre-renders the boxes above their heads with name and health
@@ -182,16 +183,22 @@ class Worm extends Sprite
                 var force = new b2Vec2(this.body.GetLinearVelocity().x, this.body.GetLinearVelocity().y);
                 force = force.Length();
 
-                this.force += force;
-
-                console.log(" ON HIT " + force + " CanJump " + this.canJump + " Acumlated force " + this.force);
+                //console.log(" ON HIT " + force + " CanJump " + this.canJump + " Acumlated force " + this.force);
                 //if(this.team == GameInstance.getCurrentPlayerObject().getTeam())
                 //this.hit(500);
-
-                if (this.force > 4.5)
+                if (this.body.GetPosition().y > this.fallHeight)
                 {
-                    this.hit(5);
+                    var diff = this.body.GetPosition().y - this.fallHeight;
+                    var f = diff;
+
+                    console.log(force*f);
+                    if (force*f > 38)
+                    {
+                        this.hit(5);
+                    }    
                 }
+
+                
             }
         }
     }
@@ -204,7 +211,11 @@ class Worm extends Sprite
             if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
             {
                 this.canJump--;
-                this.force = 0;
+
+                if (this.canJump <= 0)
+                {
+                    this.fallHeight = this.body.GetPosition().y;
+                } 
             }
         }
     }

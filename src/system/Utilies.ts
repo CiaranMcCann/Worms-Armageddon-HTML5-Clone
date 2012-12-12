@@ -19,6 +19,7 @@
 ///<reference path="Physics.ts" />
 declare var $;
 
+
 module Utilies
 {
 
@@ -30,7 +31,33 @@ module Utilies
     export function pickRandom(collection)
     {
         return collection[random(0, collection.length-1)];
-    }
+    }  
+
+    var pickUnqineCollection = [];
+    export function pickUnqine(collection, stringId : string)
+    {
+        if (pickUnqineCollection[stringId])
+        {
+            var items = pickUnqineCollection[stringId];
+
+            if (items.length <= 0)
+            {
+                Logger.error("Out of unqine items in collection " + stringId);
+                return;
+            }
+
+            var index = random(0, items.length-1)
+            var unqineItem = items[index];
+            deleteFromCollection(items, index);
+            return unqineItem;
+
+        } else
+        {
+            pickUnqineCollection[stringId] = collection;
+            return pickUnqine(collection, stringId);
+        }
+    }  
+
 
     export function pickRandomSound(collection :string[])
     {
