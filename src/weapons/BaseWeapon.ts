@@ -40,6 +40,7 @@ class BaseWeapon
 
     activate(worm)
     {
+        
         this.setIsActive(true);
         this.ammo--;
         this.worm = worm;

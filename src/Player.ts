@@ -48,7 +48,7 @@ class Player
             this.team.getCurrentWorm().walkLeft();
         }
 
-        if (keyboard.isKeyDown(Controls.jump.keyboard))
+        if (keyboard.isKeyDown(Controls.jump.keyboard,true))
         {
             this.team.getCurrentWorm().jump();
         }
@@ -61,16 +61,14 @@ class Player
         if (keyboard.isKeyDown(Controls.aimUp.keyboard))
         {
             this.team.getCurrentWorm().target.aim(1);
-            this.team.getWeaponManager().getCurrentWeapon().onKeyDown(Controls.aimUp.keyboard);
         }
 
         if (keyboard.isKeyDown(Controls.aimDown.keyboard))
         {
             this.team.getCurrentWorm().target.aim(-1);
-            this.team.getWeaponManager().getCurrentWeapon().onKeyDown(Controls.aimDown.keyboard);
         }
 
-        if (keyboard.isKeyDown(Controls.fire.keyboard))
+        if (keyboard.isKeyDown(Controls.fire.keyboard,true))
         {
             this.team.getCurrentWorm().fire();
             GameInstance.weaponMenu.update();

@@ -38,18 +38,19 @@ class NinjaRope extends BaseWeapon
 
     }
 
-    onKeyDown(key)
+    update()
     {
         if (this.isActive)
         {
-            if (key == Controls.aimUp.keyboard)
+            if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.contract();
 
-            } else if (key == Controls.aimDown.keyboard)
+            } else if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.expand();
             }
+
         }
     }
 

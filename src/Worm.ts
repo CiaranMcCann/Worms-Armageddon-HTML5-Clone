@@ -285,8 +285,8 @@ class Worm extends Sprite
             {
 
                 var currentPos = this.body.GetPosition();
-                var forces = new b2Vec2(0, 1);
-                forces.Multiply(40);
+                var forces = new b2Vec2(this.direction, -2);
+                forces.Multiply(2);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }

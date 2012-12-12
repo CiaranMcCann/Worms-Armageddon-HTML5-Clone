@@ -135,12 +135,19 @@ module keyboard
 
     })();
 
-    export function isKeyDown(keyCode)
+    export function isKeyDown(keyCode, actLikeKeyPress = false)
     {
         for (var key in keys)
         {
             if (key == keyCode)
+            {
+                if (actLikeKeyPress)
+                {
+                    delete keys[key]
+                }
+
                 return true;
+            }
         }
 
         return false;

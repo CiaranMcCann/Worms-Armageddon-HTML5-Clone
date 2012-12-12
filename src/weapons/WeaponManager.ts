@@ -33,8 +33,7 @@ class WeaponManager
             new HolyGrenade(),
             new Dynamite(),
             new HandGrenade()
-            
-            
+                     
         ];
 
         this.currentWeaponIndex = 1;
