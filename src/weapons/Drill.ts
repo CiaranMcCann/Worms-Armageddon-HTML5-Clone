@@ -26,14 +26,14 @@ class Drill extends BaseWeapon
     {
         super(
             "Drill", // Weapon name
-            4, // ammo
+            2, // ammo
             Sprites.weaponIcons.drill, //Icon for menu
             Sprites.worms.takeOutDrill, //animation fro worm taking out drill
             Sprites.worms.drilling //animation fro worm taking out drill
         );
 
-        this.timeBetweenExploisionsTimer = new Timer(200);
-        this.useDurationTimer = new Timer(4000);
+        this.timeBetweenExploisionsTimer = new Timer(500);
+        this.useDurationTimer = new Timer(7000);
 
          // No requirement for crosshairs aiming
         this.requiresAiming = false;

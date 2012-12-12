@@ -31,8 +31,8 @@ class StartMenu
              ' <kbd>'+  String.fromCharCode(Controls.aimUp.keyboard)  +'</kbd> ' +
              ' <kbd>'+  String.fromCharCode(Controls.aimDown.keyboard)  +'</kbd> ' +
              ' - Aim up and down. </p><br>' +        
-            ' <kbd>'+  String.fromCharCode(Controls.toggleWeaponMenu.keyboard)  +'</kbd> - Weapon Menu. </p><br>' +        
-            ' <kbd>Enter</kbd> or left mouse - Fire weapon. </p><p></p><br><br>' +
+            ' <kbd>'+  String.fromCharCode(Controls.toggleWeaponMenu.keyboard)  +'</kbd> or right mouse - Weapon Menu. </p><br>' +        
+            ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
 
     }
