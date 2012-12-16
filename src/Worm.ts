@@ -29,6 +29,11 @@ class Worm extends Sprite
         right: 1
     }
 
+    STATE = {
+
+
+    }
+
     body;
     fixture;
     direction;
@@ -62,7 +67,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
-        this.health = 100;
+        this.health = 10;
         this.damageTake = 0;
         this.team = team;
 
@@ -166,6 +171,7 @@ class Worm extends Sprite
             this.health = 0;
         }
 
+        //Update worm heading with the health
         this.preRendering();
     }
 
@@ -220,12 +226,25 @@ class Worm extends Sprite
         }
     }
 
+    //Ask the worm for it state
+    readyForNextTurn()
+    {
+       
+        if (this.body.GetLinearVelocity().Length() >= 0.1 && this.finished)
+        {
+            return true;
+        }
+
+        return false
+    }
+
     fire()
     {
-        if (WormAnimationManger.playerAttentionSemaphore == 0)
+        if (GameInstance.getCurrentPlayerObject().turnFinished == false)
         {
             var weapon = this.team.getWeaponManager().getCurrentWeapon();
             weapon.activate(this);
+            GameInstance.getCurrentPlayerObject().turnFinished = true;
         }
     }
 
@@ -348,17 +367,11 @@ class Worm extends Sprite
         return this.team.getCurrentWorm() == this && GameInstance.getCurrentPlayerObject().getTeam() == this.team;
     }
 
-
     update()
     {
 
-        this.soundDelayTimer.update();
+        this.soundDelayTimer.update();     
 
-        var currentWorm = GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm();
-        if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
-        {
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
-        }
         //Manages the different states of the animation
         this.stateAnimationMgmt.update();
 

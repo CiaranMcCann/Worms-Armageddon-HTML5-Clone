@@ -70,7 +70,7 @@ class Team
         return this.worms[this.currentWorm];
     }
 
-    updateCurrentWorm()
+    nextWorm()
     {
         if (this.currentWorm + 1 == this.worms.length)
         {
@@ -83,7 +83,7 @@ class Team
 
         if (this.worms[this.currentWorm].isDead)
         {
-            this.updateCurrentWorm();
+            this.nextWorm();
         } else
         {
             this.worms[this.currentWorm].activeWorm();
@@ -131,12 +131,15 @@ class Team
         }
 
         if (GameInstance.getCurrentPlayerObject().turnFinished &&
+            GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager().getCurrentWeapon().getIsActive() == false &&
              WormAnimationManger.playerAttentionSemaphore == 0 &&
             WormAnimationManger.areAllWormsAtRest)
         {
             GameInstance.nextPlayer();
             GameInstance.getCurrentPlayerObject().turnFinished = false;
         }
+
+       
 
 
     }

@@ -115,6 +115,7 @@ class Game
 
     nextPlayer()
     {
+
         if (this.currentPlayerIndex + 1 == this.players.length)
         {
             this.currentPlayerIndex = 0;
@@ -124,7 +125,7 @@ class Game
             this.currentPlayerIndex++;                
         }
 
-        this.getCurrentPlayerObject().getTeam().updateCurrentWorm();    
+        this.getCurrentPlayerObject().getTeam().nextWorm();    
 
        
         this.gameTimer.timer.reset();
@@ -163,16 +164,14 @@ class Game
                 //TODO remove temp fix
                 if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
                 {
-                    this.getCurrentPlayerObject().getTeam().updateCurrentWorm();
+                    this.getCurrentPlayerObject().getTeam().nextWorm();
                 }
 
                 
                 for (var i = this.players.length - 1; i >= 0; --i)
                 {
-                    this.players[i].getTeam().update();
+                        this.players[i].update();
                 }
-
-                this.getCurrentPlayerObject().update();
 
                 this.terrain.update();
 

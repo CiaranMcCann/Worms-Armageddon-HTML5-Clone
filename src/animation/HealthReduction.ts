@@ -65,7 +65,7 @@ class HealthReduction
         ctx.fillText(Math.floor(this.health), this.pos.x+(HealthReduction.numberBox.width/2), this.pos.y+(HealthReduction.numberBox.height/1.4));
     }
 
-    onFinishAnimation(func)
+    onAnimationFinish(func)
     {
         this.onFinishFunc = func;
     }

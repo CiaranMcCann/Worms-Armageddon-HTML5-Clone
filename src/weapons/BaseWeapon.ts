@@ -8,7 +8,6 @@ class BaseWeapon
     name;
     iconImage;
     isActive;
-    timeToLive;
     worm : Worm;
     takeOutAnimations: SpriteDefinition;
     takeAimAnimations: SpriteDefinition;
@@ -19,8 +18,6 @@ class BaseWeapon
     {
         this.name = name;
         this.ammo = ammo;
-
-        this.timeToLive = 0;
 
         this.takeOutAnimations = takeOutAnimation;
         this.takeAimAnimations = takeAimAnimation;

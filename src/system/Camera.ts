@@ -77,30 +77,26 @@ class Camera
         this.toPanOrNotToPan = false;
     }
 
+ 
     panToPosition(vector)
     {
-        // Center on said position
-        vector.x -= this.vpWidth / 2;
-        vector.y -= this.vpHeight / 2;
+        //var currentCamPos = this.position.Copy();
+       // currentCamPos.Subtract(vector);
 
-        // 
-        var currentPos = this.position.Copy();
-        currentPos.Subtract(vector);
-        var diff = currentPos.Length()/25;
-        this.panSpeed = diff;
-       // Logger.log(this.panSpeed);
+            // Center on said position
+            vector.x -= this.vpWidth / 2;
+            vector.y -= this.vpHeight / 2;
 
-        //if (vector.x > this.position.x + 20 || vector.x < this.position.x - 20)
-        //{
+            var currentPos = this.position.Copy();
+            currentPos.Subtract(vector);
+            var diff = currentPos.Length() / 25;
+            this.panSpeed = diff;
+
             this.panPosition.x = vector.x;
             this.toPanOrNotToPan = true;
-       // }
 
-       // if (vector.y > this.position.y + 20 || vector.y < this.position.y - 20)
-       // {
             this.panPosition.y = vector.y;
-          //  this.toPanOrNotToPan = true;
-       // }
+        
     }
 
     getX() { return this.position.x; }

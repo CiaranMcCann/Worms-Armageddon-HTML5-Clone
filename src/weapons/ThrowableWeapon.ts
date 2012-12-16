@@ -77,25 +77,18 @@ class ThrowableWeapon extends BaseWeapon
 
         // Counter till bomb explodes
         this.detonationTimer = new Timer(5000);
-        this.timeToLive = 1000;
 
     }
 
     deactivate()
     {
-
-        // Logger.debug(this + " was deactivated ");
+        Logger.debug(this + " was deactivated ");
         this.setIsActive(false);
-
-        // Counter till bomb explodes
-        this.timeToLive = 1000;
-
     }
 
     setupPhysicsBodies(initalPosition, initalVelocity)
     {
         // Setup of physical body
-
         var image = this.sprite.getImage();
 
         var fixDef = new b2FixtureDef;
@@ -114,19 +107,6 @@ class ThrowableWeapon extends BaseWeapon
 
         this.body.SetUserData(this);
     }
-
-    isLive()
-    {
-        if (this.timeToLive < 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
 
     //Gets the direction of aim from the target and inital velocity
     // The creates the box2d physics body at that pos with that inital v
@@ -156,12 +136,11 @@ class ThrowableWeapon extends BaseWeapon
     {
         if (this.ammo > 0 && this.getIsActive() == false)
         {
-             this.detonationTimer.reset();
+            this.detonationTimer.reset();
             this.playWormVoice();
             super.activate(worm);
             this.setupDirectionAndForce(worm);
            
-
         }
     }
 
@@ -176,38 +155,35 @@ class ThrowableWeapon extends BaseWeapon
             this.worm
         );
 
-        //Once the weapons explostion animation has finished then we can move to the next players turn
-        animation.onAnimationFinish(function () =>
+        animation.onAnimationFinish(function ()
         {
             GameInstance.getCurrentPlayerObject().turnFinished = true;
+
         });
 
-        this.deactivate();
-        //The bomb has exploded so remove it from the world
         Physics.world.DestroyBody(this.body);
+        this.deactivate();
     }
 
     update()
     {
         if (this.getIsActive())
         {
-
             //Checks if its time for the bomb to explode
-            if (this.detonationTimer.hasTimePeriodPassed() && this.timeToLive > 0)
+            if (this.detonationTimer.hasTimePeriodPassed())
             {
                 this.detonate();
-            }
-            
-        }
+            }  
 
-        this.detonationTimer.update();
+             this.detonationTimer.update();
+        }     
     }
 
 
     draw(ctx)
     {
 
-        if (this.getIsActive() && this.timeToLive > 0)
+        if (this.getIsActive())
         {
             ctx.save()
             var wormPosInPixels = Physics.vectorMetersToPixels(this.body.GetPosition());
@@ -231,7 +207,7 @@ class ThrowableWeapon extends BaseWeapon
             ctx.drawImage(ThrowableWeapon.numberBox, 10,-40);
             ctx.fillStyle = 'rgba(255,0,0,255)';
 
-            var secoundsLeft = Math.floor(this.detonationTimer.getTimeLeftInSec() / 10);
+            var secoundsLeft =  Math.floor(this.detonationTimer.getTimeLeftInSec() / 10);
 
             if (secoundsLeft < 0)
             {
