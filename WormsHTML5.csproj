@@ -410,11 +410,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web.config" />
     <Content Include="README.md" />
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
