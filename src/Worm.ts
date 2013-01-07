@@ -29,11 +29,6 @@ class Worm extends Sprite
         right: 1
     }
 
-    STATE = {
-
-
-    }
-
     body;
     fixture;
     direction;

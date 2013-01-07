@@ -157,16 +157,15 @@ class Game
     {
         if (this.isStarted)
         {
-            //if the game has ended don't update anything but the
-            // winning player and the particle effects.
-            var gameWinner = this.checkForEndGame();
+                //if the game has ended don't update anything but the
+                // winning player and the particle effects.
+                var gameWinner = this.checkForEndGame();
 
                 //TODO remove temp fix
                 if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
                 {
                     this.getCurrentPlayerObject().getTeam().nextWorm();
                 }
-
                 
                 for (var i = this.players.length - 1; i >= 0; --i)
                 {
@@ -174,14 +173,13 @@ class Game
                 }
 
                 this.terrain.update();
-
-                if(gameWinner == false)
-                this.gameTimer.update(this.players);
-
                 this.camera.update();
+                this.particleEffectMgmt.update();
 
-           this.particleEffectMgmt.update();
-
+                if (gameWinner == false)
+                {
+                    this.gameTimer.update();
+                }
            
         }
 

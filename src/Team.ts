@@ -30,10 +30,7 @@ class Team
     constructor ()
     {
 
-        //Random color - Credit Paul Irish
-        //this.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
         this.color = Utilies.pickUnqine(["#FA6C1D", "#12AB00", "#B46DD2", "#B31A35", "#23A3C6","#9A4C44"], "colors");
-
 
         this.name = "Team " + Team.teamCount;
         this.teamId = Team.teamCount;

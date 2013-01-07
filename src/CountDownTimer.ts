@@ -25,7 +25,7 @@ class CountDownTimer
              $('#turnTimeCounter').hide();     
     }
 
-    update(players)
+    update()
     {
         $('#turnTimeCounter').show();
 
