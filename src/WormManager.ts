@@ -16,14 +16,15 @@
 
 class WormManager
 {
-    // This allows for global acess to all the worms in the game.
-    // as each one is pushed onto it in their constructor
+
     allWorms: Worm[];
 
     constructor (players : Player[])
     {
         this.allWorms = [];
 
+        // Get a reference to all the worms from each team
+        // for fast acessing, when asking quetions of all them.
         for (var i = 0; i < players.length; i++)
         {
             var worms = players[i].getTeam().getWorms();
@@ -80,6 +81,7 @@ class WormManager
                 return false;
             }
 
+            // May have taken the health away but are now waiting for the death squence to start, so contine to return false
             if (this.allWorms[i].getHealth() == 0 && this.allWorms[i].damageTake == 0 && this.allWorms[i].isDead == false)
             {
                 return false;

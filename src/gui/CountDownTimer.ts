@@ -7,10 +7,10 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
-///<reference path="Main.ts"/>
-///<reference path="Game.ts"/>
-///<reference path="system/Timer.ts" />
-///<reference path="Settings.ts" />
+///<reference path="../Main.ts"/>
+///<reference path="../Game.ts"/>
+///<reference path="../system/Timer.ts" />
+///<reference path="../Settings.ts" />
 
 class CountDownTimer
 {
@@ -22,13 +22,17 @@ class CountDownTimer
     {
         this.timer = new Timer(Settings.PLAYER_TURN_TIME);
         this.previousSecound = this.timer.timePeriod;  
-             $('#turnTimeCounter').hide();     
+        $('#turnTimeCounter').hide();     
+    }
+
+    show()
+    {
+        $('#turnTimeCounter').show();
     }
 
     update()
     {
-        $('#turnTimeCounter').show();
-
+        
         if(Settings.DEVELOPMENT_MODE)
             this.timer.pause();
 
@@ -59,7 +63,7 @@ class CountDownTimer
 
             if (this.timer.hasTimePeriodPassed())
             {
-                GameInstance.gameState.tiggerNextTurn();
+                GameInstance.state.tiggerNextTurn();
             }
         }
 

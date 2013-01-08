@@ -147,7 +147,7 @@ class ThrowableWeapon extends BaseWeapon
 
     detonate()
     {
-        GameInstance.gameState.tiggerNextTurn();
+        GameInstance.state.tiggerNextTurn();
         var animation = Effects.explosion(
             this.body.GetPosition(),
             this.explosionRadius,

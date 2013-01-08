@@ -28,7 +28,7 @@ class WeaponsMenu
         var _this = this;
         $(window).keypress(function (event)
         {
-            if (Controls.checkControls( Controls.toggleWeaponMenu, event.which))
+            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 _this.toggle();
             }
@@ -36,22 +36,24 @@ class WeaponsMenu
 
         $('body').mousedown(function (event) =>
         {
-            if (Controls.checkControls( Controls.toggleWeaponMenu, event.which))
+            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }
         });
-        
-         $('body').on('contextmenu', "#"+this.cssId, function (e){ 
+
+        $('body').on('contextmenu', "#" + this.cssId, function (e)
+        {
             return false;
         });
 
         this.isVisable = false;
     }
 
+
     selectWeapon(weaponId)
     {
-        var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
+        var weaponMgmt = GameInstance.state.getCurrentPlayerObject().getTeam().getWeaponManager();
 
         //Checks if the weapon has ammo to provide the html been hacked and a weaponid passed that doesn't have ammo
         if (weaponMgmt.checkWeaponHasAmmo(weaponId))
@@ -61,10 +63,16 @@ class WeaponsMenu
 
     }
 
+
+    show()
+    {
+        this.htmlElement.show();
+    }
+
     refresh()
     {
-            var weaponMgmt = GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager();
-            this.populateMenu(weaponMgmt.getListOfWeapons());
+        var weaponMgmt = GameInstance.state.getCurrentPlayerObject().getTeam().getWeaponManager();
+        this.populateMenu(weaponMgmt.getListOfWeapons());
     }
 
     toggle()
@@ -105,7 +113,7 @@ class WeaponsMenu
                 weapon = "-1";
             }
 
-            html += "<li class=span1 id=" + weapon + ">";         
+            html += "<li class=span1 id=" + weapon + ">";
             html += "<a  class=\"thumbnail " + cssClassType + "\" id=" + weapon + " value=" + currentWeapon.name + " ><span class=ammoCount> " + currentWeapon.ammo + "</span><img src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
             html += "</li>";
         }

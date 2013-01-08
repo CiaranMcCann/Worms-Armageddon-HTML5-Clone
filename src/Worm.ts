@@ -223,7 +223,7 @@ class Worm extends Sprite
 
     isStationary()
     {
-        var isStationary = this.body.GetLinearVelocity().Length() == 0 // Nearly Completely stopped
+        var isStationary = this.body.GetLinearVelocity().Length() == 0 // Completely stopped
         || // OR 
         Utilies.isBetweenRange(this.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.body.GetLinearVelocity().x, 0.001, -0.001); // near enough stopped
 
@@ -232,10 +232,16 @@ class Worm extends Sprite
 
     fire()
     {
-        if (GameInstance.gameState.hasNextTurnBeenTiggered() == false)
+        if (GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
             var weapon = this.team.getWeaponManager().getCurrentWeapon();
             weapon.activate(this);
+
+            //Once the player fires removed bouncing arrow
+            if (this.arrow)
+            {
+                this.arrow.finished = true;
+            }
         }
     }
 
@@ -352,13 +358,12 @@ class Worm extends Sprite
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
         this.arrow = new BounceArrow(pos);
         GameInstance.miscellaneousEffects.add(this.arrow);
-        GameInstance.camera.panToPosition(pos.Copy());
     }
 
     //Is this the current worm of the current player
     isActiveWorm()
     {
-        return this.team.getCurrentWorm() == this && GameInstance.getCurrentPlayerObject().getTeam() == this.team;
+        return this.team.getCurrentWorm() == this && GameInstance.state.getCurrentPlayerObject().getTeam() == this.team;
     }
 
     update()

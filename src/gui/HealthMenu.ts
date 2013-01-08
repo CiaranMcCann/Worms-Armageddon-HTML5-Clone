@@ -28,7 +28,18 @@ class HealthMenu
 
         }
         $('.healthMenu').html(html);
+        this.hide();
 
+    }
+
+    show()
+    {
+        $('.healthMenu').show();
+    }
+
+    hide()
+    {
+        $('.healthMenu').hide();
     }
 
     update(teamRef : Team)

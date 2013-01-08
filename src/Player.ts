@@ -41,7 +41,7 @@ class Player
     update()
     {
 
-        if (GameInstance.getCurrentPlayerObject() == this && GameInstance.gameState.hasNextTurnBeenTiggered() == false)
+        if (GameInstance.state.getCurrentPlayerObject() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
 
             //Player controls 

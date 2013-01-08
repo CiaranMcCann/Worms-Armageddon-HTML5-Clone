@@ -66,7 +66,7 @@
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Player.ts" />
-    <TypeScriptCompile Include="src\CountDownTimer.ts" />
+    <TypeScriptCompile Include="src\gui\CountDownTimer.ts" />
     <TypeScriptCompile Include="src\animation\SpriteDefinitions.ts" />
     <Content Include="src\animation\SpriteDefinitions.js">
       <DependentUpon>SpriteDefinitions.ts</DependentUpon>
@@ -115,10 +115,10 @@
     <Content Include="src\StateAnimationManger.min.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
-    <Content Include="src\CountDownTimer.js">
+    <Content Include="src\gui\CountDownTimer.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>
-    <Content Include="src\CountDownTimer.min.js">
+    <Content Include="src\gui\CountDownTimer.min.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>
     <Content Include="src\Player.js">

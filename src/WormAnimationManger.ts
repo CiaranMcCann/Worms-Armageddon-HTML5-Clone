@@ -146,9 +146,9 @@ class WormAnimationManger
                 GameInstance.healthMenu.update(this.worm.team);
 
                 //If the worm hurt himself his go is over
-                if (GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.worm)
+                if (GameInstance.state.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.worm)
                 {
-                    GameInstance.gameState.tiggerNextTurn();
+                    GameInstance.state.tiggerNextTurn();
                 }
 
             });

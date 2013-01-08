@@ -17,7 +17,7 @@
 ///<reference path="Player.ts" />
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
-///<reference path="CountDownTimer.ts" />
+///<reference path="gui/CountDownTimer.ts" />
 ///<reference path="animation/SpriteDefinitions.ts" />
 ///<reference path="animation/ParticleEffect.ts"/>
 ///<reference path="animation/EffectsManager.ts"/>
@@ -28,9 +28,6 @@
 
 class Game
 {
-    terrainCanvas;
-    terrainCanvasContext;
-
     actionCanvas;
     actionCanvasContext;
 
@@ -39,14 +36,11 @@ class Game
 
     weaponMenu: WeaponsMenu;
     healthMenu: HealthMenu;
+    gameTimer : CountDownTimer;
 
     wormManager: WormManager;
-    gameState: GameStateManager;
+    state: GameStateManager;
 
-    gameTimer: CountDownTimer;
-    currentPlayerIndex: number;
-
-    isStarted: bool;
     particleEffectMgmt: EffectsManager;
     miscellaneousEffects: EffectsManager;
 
@@ -62,11 +56,6 @@ class Game
     {
         Graphics.init();
 
-        this.currentPlayerIndex = 0;
-
-        this.weaponMenu = new WeaponsMenu();
-        this.gameTimer = new CountDownTimer();
-
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
@@ -77,10 +66,8 @@ class Game
 
         Physics.init(this.actionCanvasContext);
 
-
         this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
-
 
         this.players = [];
         for (var i = 0; i < 2; i++)
@@ -88,13 +75,31 @@ class Game
             this.players.push(new Player());
         }
 
+        // Allows for a easily accissble way of asking questions of all worms regardless of team
         this.wormManager = new WormManager(this.players);
-        this.gameState = new GameStateManager();
 
-        this.isStarted = false;
+        // Manages the state of the game, the player turns etc.
+        this.state = new GameStateManager(this.players);
 
+        // Initalizes UI elements
+        this.gameTimer = new CountDownTimer();
+        this.weaponMenu = new WeaponsMenu();
+        this.healthMenu = new HealthMenu(this.players);
+
+        // Initalizse the various animations/effect managers
+        this.particleEffectMgmt = new EffectsManager();
+        this.miscellaneousEffects = new EffectsManager();
+
+        // When the game starts run this function
+        this.state.onGameStart(function () =>{
+            this.healthMenu.show();
+            this.gameTimer.show();
+            this.weaponMenu.show();
+            this.gameTimer.timer.reset();
+        });
+
+        // Development stuff
         this.spawns = [];
-
         if (Settings.DEVELOPMENT_MODE)
         {
             window.addEventListener("click", function (evt: any) =>
@@ -105,83 +110,21 @@ class Game
 
             }, false);
         }
-
-        this.particleEffectMgmt = new EffectsManager();
-        this.miscellaneousEffects = new EffectsManager();
-
-    }
-
-    start()
-    {
-        this.gameTimer.timer.reset();
-        this.isStarted = true;
-        this.healthMenu = new HealthMenu(this.players);
-    }
-
-    getCurrentPlayerObject()
-    {
-        return this.players[this.currentPlayerIndex];
-    }
-
-    nextPlayer()
-    {
-
-        if (this.currentPlayerIndex + 1 == this.players.length)
-        {
-            this.currentPlayerIndex = 0;
-        }
-        else
-        {
-            this.currentPlayerIndex++;
-        }
-
-        this.getCurrentPlayerObject().getTeam().nextWorm();
-        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
-
-        this.gameTimer.timer.reset();
-
-    }
-
-    checkForEndGame()
-    {
-        var playersStillLive = [];
-        for (var i = this.players.length - 1; i >= 0; --i)
-        {
-            if (this.players[i].getTeam().getPercentageHealth() > 0)
-            {
-                playersStillLive.push(this.players[i]);
-            }
-        }
-
-        if (playersStillLive.length == 1)
-        {
-            playersStillLive[0].getTeam().winner();
-            //playersStillLive[0].getTeam().update();
-            return true;
-        }
-
-        return false;
     }
 
     update()
     {
-        if (this.isStarted)
+        if (this.state.isStarted)
         {
-            if (this.gameState.readyForNextTurn())
+            if (this.state.readyForNextTurn())
             {
-                this.nextPlayer();
+                this.state.nextPlayer();
+                this.gameTimer.timer.reset();
             }
-
 
             //if the game has ended don't update anything but the
             // winning player and the particle effects.
-            var gameWinner = this.checkForEndGame();
-
-            //TODO remove temp fix
-            //if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
-            //{
-            //    this.getCurrentPlayerObject().getTeam().nextWorm();
-            //}
+            var gameWinner = this.state.checkForEndGame();
 
             for (var i = this.players.length - 1; i >= 0; --i)
             {
@@ -197,16 +140,13 @@ class Game
             {
                 this.gameTimer.update();
             }
-
-            // Logger.log(this.wormManager.areAllWormsStationary());
-
         }
 
     }
 
     step()
     {
-        if (this.isStarted)
+        if (this.state.isStarted)
         {
             Physics.world.Step(
                   (1 / 60)
@@ -230,7 +170,6 @@ class Game
         {
             Physics.world.DrawDebugData();
         }
-
 
         for (var i = this.players.length - 1; i >= 0; --i)
         {

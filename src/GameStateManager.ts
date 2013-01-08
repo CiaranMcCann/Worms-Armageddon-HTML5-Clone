@@ -17,14 +17,29 @@
 class GameStateManager
 {
     private nextTurnTrigger: bool;
+    private currentPlayerIndex: number;
+    private players: Player[];
+    isStarted: bool;
+    private funcToBeRunOnGameStart;
 
-    constructor ()
+    constructor (players)
     {
+        this.players = players;
         this.nextTurnTrigger = false;
+        this.currentPlayerIndex = 0;
+        this.isStarted = false;
+    }
+
+    onGameStart(funcToRun)
+    {
+        this.funcToBeRunOnGameStart = funcToRun;
     }
 
     tiggerNextTurn()
     {
+        // Stop all game info based effects, eg bouncing arrow over worms head
+        GameInstance.miscellaneousEffects.stopAll(); 
+
         this.nextTurnTrigger = true;
     }
 
@@ -33,42 +48,79 @@ class GameStateManager
         return this.nextTurnTrigger;
     }
 
+    // Is everyone ready for the next turn, animations, the worms etc?
     readyForNextTurn()
     {
-        
-        if (this.nextTurnTrigger)
-        {
-            // Check states
-            if (
-                GameInstance.particleEffectMgmt.areAllAnimationsFinished() &&
-                GameInstance.wormManager.areAllWormsReadyForNextTurn()              
-                )
-            {
-                this.nextTurnTrigger = false;
-                GameInstance.miscellaneousEffects.stopAll();
-                return true;
-            }
-
-
-
-        }
-
-        return false;
-
-        // REQUIRED STATES 
-        // animations finished, which include particle effects.
-        // deaths if any
-        // players health reduced if any
-        // all players most be stationary.
-
-        // EVENTS which tigger next go
+        // EVENTS which tigger next go - Eg: Modify this.nextTurnTrigger
         // firing of player weapon in some cases
         // Using up the allowed shots/use of a weapon in a turn.
         // player hurting themsleves
         // turn time up 
-        
-        
 
+        if (this.nextTurnTrigger)
+        {
+            // REQUIRED STATES 
+            // animations finished, which include particle effects.
+            // deaths if any
+            // players health reduced if any
+            // all players most be stationary.
+            if (GameInstance.particleEffectMgmt.areAllAnimationsFinished() && GameInstance.wormManager.areAllWormsReadyForNextTurn())
+            {
+                this.nextTurnTrigger = false;
+                return true;
+            }
+        }
+
+        return false;
     }
 
+
+    getCurrentPlayerObject()
+    {
+        return this.players[this.currentPlayerIndex];
+    }
+
+    // Selects the next players to have a go and selects the next worm they use
+    nextPlayer()
+    {
+
+        if (this.currentPlayerIndex + 1 == this.players.length)
+        {
+            this.currentPlayerIndex = 0;
+        }
+        else
+        {
+            this.currentPlayerIndex++;
+        }
+
+        this.getCurrentPlayerObject().getTeam().nextWorm();
+        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
+    }
+
+    start()
+    {
+        this.funcToBeRunOnGameStart();
+        this.isStarted = true;      
+    }
+
+   
+    checkForEndGame()
+    {
+        var playersStillLive = [];
+        for (var i = this.players.length - 1; i >= 0; --i)
+        {
+            if (this.players[i].getTeam().getPercentageHealth() > 0)
+            {
+                playersStillLive.push(this.players[i]);
+            }
+        }
+
+        if (playersStillLive.length == 1)
+        {
+            playersStillLive[0].getTeam().winner();
+            return true;
+        }
+
+        return false;
+    }
 }
