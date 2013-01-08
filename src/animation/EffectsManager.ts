@@ -31,6 +31,14 @@ class EffectsManager
         this.particleEffects.push(effect);
     }
 
+    stopAll()
+    {
+        for (var i = this.particleEffects.length - 1; i >= 0; i--)
+        {
+            this.particleEffects[i].finished = true;
+        }
+    }
+
     draw(ctx)
     {
         for (var i = this.particleEffects.length - 1; i >= 0; i--)

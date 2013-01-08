@@ -45,6 +45,7 @@ class GameStateManager
                 )
             {
                 this.nextTurnTrigger = false;
+                GameInstance.miscellaneousEffects.stopAll();
                 return true;
             }
 

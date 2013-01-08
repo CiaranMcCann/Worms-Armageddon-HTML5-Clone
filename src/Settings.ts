@@ -23,8 +23,6 @@ module Settings
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
 
-    
-
 
     //Pasers commandline type arguments from the page url like this ?argName=value
     export function getSettingsFromUrl()

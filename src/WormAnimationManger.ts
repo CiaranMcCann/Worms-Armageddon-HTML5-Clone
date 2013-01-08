@@ -90,15 +90,14 @@ class WormAnimationManger
     update()
     {
    
-   
-
         //Only play the death animation if the player is die first
         // Also they have come to a stop 
         if (GameInstance.wormManager.areAllWormsStationary() &&
             this.worm.health == 0 &&
+            WormAnimationManger.playerAttentionSemaphore == 0 &&
             this.worm.spriteDef != Sprites.worms.die )
         {
-            //WormAnimationManger.playerAttentionSemaphore++;
+            WormAnimationManger.playerAttentionSemaphore++;
 
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
             this.worm.setSpriteDef(Sprites.worms.die, true, true);
@@ -128,10 +127,7 @@ class WormAnimationManger
                 {
                     //All animations to do with death are finished so derement semaphore
                     WormAnimationManger.playerAttentionSemaphore--;
-
-                });
-
-             
+                });           
             });
 
             Utilies.pickRandomSound(["byebye", "ohdear", "fatality"]).play(1, 2);
@@ -146,13 +142,7 @@ class WormAnimationManger
             var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
             animation.onAnimationFinish(function () =>
             {
-                if (this.worm.health != 0)
-                {
-                    //If the health is zero then we still have a death exploision animation to go
-                    // so don't unlock the semaphore
-                    WormAnimationManger.playerAttentionSemaphore--;
-                }
-
+                WormAnimationManger.playerAttentionSemaphore--;
                 GameInstance.healthMenu.update(this.worm.team);
 
                 //If the worm hurt himself his go is over

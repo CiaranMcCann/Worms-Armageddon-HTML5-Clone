@@ -48,6 +48,7 @@ class Game
 
     isStarted: bool;
     particleEffectMgmt: EffectsManager;
+    miscellaneousEffects: EffectsManager;
 
     // TODO clean this up -just made it static to get it working
     static map: Map = new Map(Maps.priates);
@@ -55,11 +56,11 @@ class Game
     camera: Camera;
 
     //Using in dev mode to collect spawn positions
-    spawns; 
+    spawns;
 
     constructor ()
     {
-        Graphics.init();       
+        Graphics.init();
 
         this.currentPlayerIndex = 0;
 
@@ -75,10 +76,10 @@ class Game
         this.actionCanvasContext.textAlign = 'center';
 
         Physics.init(this.actionCanvasContext);
-        
 
-        this.terrain = new Terrain(this.actionCanvas,  Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
-        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(),  this.actionCanvas.width, this.actionCanvas.height);
+
+        this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
+        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
 
 
         this.players = [];
@@ -106,6 +107,7 @@ class Game
         }
 
         this.particleEffectMgmt = new EffectsManager();
+        this.miscellaneousEffects = new EffectsManager();
 
     }
 
@@ -130,14 +132,14 @@ class Game
         }
         else
         {
-            this.currentPlayerIndex++;                
+            this.currentPlayerIndex++;
         }
 
-        this.getCurrentPlayerObject().getTeam().nextWorm();    
+        this.getCurrentPlayerObject().getTeam().nextWorm();
         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
-       
+
         this.gameTimer.timer.reset();
-        
+
     }
 
     checkForEndGame()
@@ -153,9 +155,9 @@ class Game
 
         if (playersStillLive.length == 1)
         {
-           playersStillLive[0].getTeam().winner();
-           //playersStillLive[0].getTeam().update();
-           return true;
+            playersStillLive[0].getTeam().winner();
+            //playersStillLive[0].getTeam().update();
+            return true;
         }
 
         return false;
@@ -171,32 +173,33 @@ class Game
             }
 
 
-                //if the game has ended don't update anything but the
-                // winning player and the particle effects.
-                var gameWinner = this.checkForEndGame();
+            //if the game has ended don't update anything but the
+            // winning player and the particle effects.
+            var gameWinner = this.checkForEndGame();
 
-                //TODO remove temp fix
-                //if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
-                //{
-                //    this.getCurrentPlayerObject().getTeam().nextWorm();
-                //}
-                
-                for (var i = this.players.length - 1; i >= 0; --i)
-                {
-                        this.players[i].update();
-                }
+            //TODO remove temp fix
+            //if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
+            //{
+            //    this.getCurrentPlayerObject().getTeam().nextWorm();
+            //}
 
-                this.terrain.update();
-                this.camera.update();
-                this.particleEffectMgmt.update();
+            for (var i = this.players.length - 1; i >= 0; --i)
+            {
+                this.players[i].update();
+            }
 
-                if (gameWinner == false)
-                {
-                    this.gameTimer.update();
-                }
+            this.terrain.update();
+            this.camera.update();
+            this.particleEffectMgmt.update();
+            this.miscellaneousEffects.update();
 
-               // Logger.log(this.wormManager.areAllWormsStationary());
-           
+            if (gameWinner == false)
+            {
+                this.gameTimer.update();
+            }
+
+            // Logger.log(this.wormManager.areAllWormsStationary());
+
         }
 
     }
@@ -216,25 +219,29 @@ class Game
 
     draw()
     {
-      
-       this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
-       this.terrain.draw(this.actionCanvasContext);
 
-       this.actionCanvasContext.save();
-       this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
+        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+        this.terrain.draw(this.actionCanvasContext);
+
+        this.actionCanvasContext.save();
+        this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
         if (Settings.PHYSICS_DEBUG_MODE)
-        Physics.world.DrawDebugData();
+        {
+            Physics.world.DrawDebugData();
+        }
 
-        
+
         for (var i = this.players.length - 1; i >= 0; --i)
         {
             this.players[i].draw(this.actionCanvasContext);
         }
-         this.particleEffectMgmt.draw(this.actionCanvasContext);
+
+        this.miscellaneousEffects.draw(this.actionCanvasContext);
+        this.particleEffectMgmt.draw(this.actionCanvasContext);
 
         this.actionCanvasContext.restore();
-        
+
     }
 
 }

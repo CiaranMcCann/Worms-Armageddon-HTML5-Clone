@@ -230,25 +230,12 @@ class Worm extends Sprite
         return isStationary;
     }
 
-    //Ask the worm for it state
-    readyForNextTurn()
-    {
-       
-        if (this.body.GetLinearVelocity().Length() >= 0.1 && this.finished)
-        {
-            return true;
-        }
-
-        return false
-    }
-
     fire()
     {
         if (GameInstance.gameState.hasNextTurnBeenTiggered() == false)
         {
             var weapon = this.team.getWeaponManager().getCurrentWeapon();
             weapon.activate(this);
-            GameInstance.gameState.tiggerNextTurn();
         }
     }
 
@@ -364,7 +351,7 @@ class Worm extends Sprite
     {
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
         this.arrow = new BounceArrow(pos);
-        GameInstance.particleEffectMgmt.add(this.arrow);
+        GameInstance.miscellaneousEffects.add(this.arrow);
         GameInstance.camera.panToPosition(pos.Copy());
     }
 

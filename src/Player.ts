@@ -41,12 +41,10 @@ class Player
     update()
     {
 
-        if (GameInstance.getCurrentPlayerObject() == this)
+        if (GameInstance.getCurrentPlayerObject() == this && GameInstance.gameState.hasNextTurnBeenTiggered() == false)
         {
 
             //Player controls 
-
-
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.team.getCurrentWorm().walkLeft();

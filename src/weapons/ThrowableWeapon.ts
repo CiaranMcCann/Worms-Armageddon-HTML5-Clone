@@ -127,6 +127,7 @@ class ThrowableWeapon extends BaseWeapon
 
     }
 
+    //This method is overloaded in sub-classes 
     playWormVoice()
     {
         Utilies.pickRandomSound(["watchthis", "fire", "grenade", "incoming", "laugh"]).play();
@@ -146,6 +147,7 @@ class ThrowableWeapon extends BaseWeapon
 
     detonate()
     {
+        GameInstance.gameState.tiggerNextTurn();
         var animation = Effects.explosion(
             this.body.GetPosition(),
             this.explosionRadius,
@@ -154,12 +156,6 @@ class ThrowableWeapon extends BaseWeapon
             this.maxDamage,
             this.worm
         );
-
-        animation.onAnimationFinish(function ()
-        {
-            GameInstance.gameState.tiggerNextTurn();
-
-        });
 
         Physics.world.DestroyBody(this.body);
         this.deactivate();
