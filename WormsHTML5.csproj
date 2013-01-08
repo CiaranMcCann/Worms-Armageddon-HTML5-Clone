@@ -86,6 +86,13 @@
     <Content Include="src\animation\ExplosionEffect.js">
       <DependentUpon>Effects.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\GameStateManager.ts" />
+    <Content Include="src\GameStateManager.js">
+      <DependentUpon>GameStateManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\GameStateManager.min.js">
+      <DependentUpon>GameStateManager.ts</DependentUpon>
+    </Content>
     <Content Include="src\gui\HealthMenu.js">
       <DependentUpon>HealthMenu.ts</DependentUpon>
     </Content>
@@ -306,6 +313,13 @@
     </Content>
     <Content Include="src\WormAnimationManger.min.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\WormManager.ts" />
+    <Content Include="src\WormManager.js">
+      <DependentUpon>WormManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WormManager.min.js">
+      <DependentUpon>WormManager.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
     <Content Include="src\tests\TimerTest.js">

@@ -16,20 +16,53 @@
 
 class GameStateManager
 {
-    nextTurnTrigger: bool;
+    private nextTurnTrigger: bool;
+
+    constructor ()
+    {
+        this.nextTurnTrigger = false;
+    }
+
+    tiggerNextTurn()
+    {
+        this.nextTurnTrigger = true;
+    }
+
+    hasNextTurnBeenTiggered()
+    {
+        return this.nextTurnTrigger;
+    }
 
     readyForNextTurn()
     {
+        
+        if (this.nextTurnTrigger)
+        {
+            // Check states
+            if (
+                GameInstance.particleEffectMgmt.areAllAnimationsFinished() &&
+                GameInstance.wormManager.areAllWormsReadyForNextTurn()              
+                )
+            {
+                this.nextTurnTrigger = false;
+                return true;
+            }
+
+
+
+        }
+
+        return false;
 
         // REQUIRED STATES 
-        // animations finished
+        // animations finished, which include particle effects.
         // deaths if any
         // players health reduced if any
         // all players most be stationary.
 
         // EVENTS which tigger next go
         // firing of player weapon in some cases
-        // Using up the allow shots/use of a weapon in a turn.
+        // Using up the allowed shots/use of a weapon in a turn.
         // player hurting themsleves
         // turn time up 
         
