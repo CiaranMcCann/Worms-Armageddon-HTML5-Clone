@@ -53,8 +53,11 @@ module AssetManager
         "data/sounds/JetPackLoop1.wav",
         "data/sounds/JetPackLoop2.wav",
         "data/sounds/CursorSelect.wav",
-        "data/sounds/FUSE.wav"
-        
+        "data/sounds/FUSE.wav",
+        "data/sounds/fanfare/Ireland.wav",
+        "data/sounds/NinjaRopeFire.wav",
+        "data/sounds/NinjaRopeImpact.wav"
+
     ]
 
     var nonPriorityAudio = [

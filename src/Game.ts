@@ -44,6 +44,8 @@ class Game
     particleEffectMgmt: EffectsManager;
     miscellaneousEffects: EffectsManager;
 
+    winner: Player;
+
     // TODO clean this up -just made it static to get it working
     static map: Map = new Map(Maps.priates);
 
@@ -116,15 +118,25 @@ class Game
     {
         if (this.state.isStarted)
         {
-            if (this.state.readyForNextTurn())
+            
+            // while no winner, check for one
+            if (this.winner == null)
+            {
+                this.winner = this.state.checkForWinner();
+
+                if (this.winner)
+                {
+                    this.gameTimer.timer.pause();
+                    this.winner.getTeam().celebrate();
+                }
+            }
+
+            // When ready to go to the next player and while no winner
+            if (this.state.readyForNextTurn() && this.winner == null)
             {
                 this.state.nextPlayer();
                 this.gameTimer.timer.reset();
             }
-
-            //if the game has ended don't update anything but the
-            // winning player and the particle effects.
-            var gameWinner = this.state.checkForEndGame();
 
             for (var i = this.players.length - 1; i >= 0; --i)
             {
@@ -135,11 +147,7 @@ class Game
             this.camera.update();
             this.particleEffectMgmt.update();
             this.miscellaneousEffects.update();
-
-            if (gameWinner == false)
-            {
-                this.gameTimer.update();
-            }
+            this.gameTimer.update();
         }
 
     }

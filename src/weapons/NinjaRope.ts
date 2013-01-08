@@ -61,12 +61,16 @@ class NinjaRope extends BaseWeapon
 
         if (this.ammo > 0 && !this.getIsActive())
         {
-            AssetManager.sounds["fire"].play();
+            
+            AssetManager.sounds["NinjaRopeFire"].play();
+            
             var dir = worm.target.getTargetDirection().Copy();
             var contact = Physics.shotRay(worm.body.GetPosition(), dir);
 
             if (contact)
             {
+                //AssetManager.sounds["NinjaRopeImpact"].play();
+                
                 this.ammo--;
                 this.isActive = true;
                 var fixDef = new b2FixtureDef;

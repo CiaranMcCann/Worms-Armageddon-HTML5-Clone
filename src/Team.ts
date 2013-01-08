@@ -39,7 +39,7 @@ class Team
         this.weaponManager = new WeaponManager();
 
         this.currentWorm = 0;
-        this.initalNumberOfWorms = 4;
+        this.initalNumberOfWorms = 1;
 
         this.worms = [];
         for (var i = 0; i < this.initalNumberOfWorms; i++)
@@ -60,6 +60,19 @@ class Team
         }
 
         return totalHealth / this.initalNumberOfWorms;
+    }
+
+    areAllWormsDead()
+    {
+        for (var worm in this.worms)
+        {
+            if (this.worms[worm].isDead == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     getCurrentWorm()
@@ -104,19 +117,17 @@ class Team
     }
 
     //Sets all worms sprites to winning state
-    winner()
+    celebrate()
     {
-        // If already in winning animation no need to reset it
-        if (this.worms[0].spriteDef != Sprites.worms.weWon)
-        {
             for (var w in this.worms)
             {
                 var worm: Worm = this.worms[w];
                 worm.setSpriteDef(Sprites.worms.weWon, true);
             }
-            AssetManager.sounds["victory"].play(1, 10);
-        }
-
+            
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worms[0].body.GetPosition()));
+            AssetManager.sounds["victory"].play(1, 15);
+            AssetManager.sounds["Ireland"].play(1, 16);
     }
 
 

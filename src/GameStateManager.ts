@@ -104,12 +104,12 @@ class GameStateManager
     }
 
    
-    checkForEndGame()
+    checkForWinner()
     {
         var playersStillLive = [];
         for (var i = this.players.length - 1; i >= 0; --i)
         {
-            if (this.players[i].getTeam().getPercentageHealth() > 0)
+            if (this.players[i].getTeam().areAllWormsDead() == false)
             {
                 playersStillLive.push(this.players[i]);
             }
@@ -117,10 +117,10 @@ class GameStateManager
 
         if (playersStillLive.length == 1)
         {
-            playersStillLive[0].getTeam().winner();
-            return true;
+            return playersStillLive[0];
+            
         }
 
-        return false;
+        return null;
     }
 }
