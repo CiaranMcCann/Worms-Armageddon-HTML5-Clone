@@ -27,12 +27,13 @@ class WormManager
         for (var i = 0; i < players.length; i++)
         {
             var worms = players[i].getTeam().getWorms();
-            for (var i = 0; i < worms.length; i++)
+            for (var j = 0; j < worms.length; j++)
             {
-                this.allWorms.push(worms[i]);
+                this.allWorms.push(worms[j]);
             }
         }
 
+        Logger.log( this.allWorms);
     }
 
     // are all the worms completely finished, animations, health reduction, actions etc.

@@ -23,6 +23,8 @@
 ///<reference path="animation/EffectsManager.ts"/>
 ///<reference path="gui/HealthMenu.ts"/>
 ///<reference path="Maps.ts"/>
+///<reference path="GameStateManager.ts"/>
+///<reference path="WormManager.ts"/>
 
 class Game
 {
@@ -37,6 +39,9 @@ class Game
 
     weaponMenu: WeaponsMenu;
     healthMenu: HealthMenu;
+
+    wormManager: WormManager;
+    gameState: GameStateManager;
 
     gameTimer: CountDownTimer;
     currentPlayerIndex: number;
@@ -82,6 +87,9 @@ class Game
             this.players.push(new Player());
         }
 
+        this.wormManager = new WormManager(this.players);
+        this.gameState = new GameStateManager();
+
         this.isStarted = false;
 
         this.spawns = [];
@@ -126,10 +134,10 @@ class Game
         }
 
         this.getCurrentPlayerObject().getTeam().nextWorm();    
-
+        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
        
         this.gameTimer.timer.reset();
-        Logger.debug("next player ");
+        
     }
 
     checkForEndGame()
@@ -157,15 +165,21 @@ class Game
     {
         if (this.isStarted)
         {
+            if (this.gameState.readyForNextTurn())
+            {
+                this.nextPlayer();
+            }
+
+
                 //if the game has ended don't update anything but the
                 // winning player and the particle effects.
                 var gameWinner = this.checkForEndGame();
 
                 //TODO remove temp fix
-                if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
-                {
-                    this.getCurrentPlayerObject().getTeam().nextWorm();
-                }
+                //if (this.getCurrentPlayerObject().getTeam().getCurrentWorm().isDead)
+                //{
+                //    this.getCurrentPlayerObject().getTeam().nextWorm();
+                //}
                 
                 for (var i = this.players.length - 1; i >= 0; --i)
                 {
@@ -180,6 +194,8 @@ class Game
                 {
                     this.gameTimer.update();
                 }
+
+               // Logger.log(this.wormManager.areAllWormsStationary());
            
         }
 

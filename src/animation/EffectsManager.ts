@@ -39,6 +39,11 @@ class EffectsManager
         }
     }
 
+    areAllAnimationsFinished()
+    {
+        return (this.particleEffects.length == 0);
+    }
+
     update()
     {
         for (var i = this.particleEffects.length - 1; i >= 0; i--)

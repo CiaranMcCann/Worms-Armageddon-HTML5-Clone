@@ -157,7 +157,7 @@ class ThrowableWeapon extends BaseWeapon
 
         animation.onAnimationFinish(function ()
         {
-            GameInstance.getCurrentPlayerObject().turnFinished = true;
+            GameInstance.gameState.tiggerNextTurn();
 
         });
 

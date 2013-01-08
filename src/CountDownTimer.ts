@@ -59,7 +59,7 @@ class CountDownTimer
 
             if (this.timer.hasTimePeriodPassed())
             {
-                GameInstance.nextPlayer();
+                GameInstance.gameState.tiggerNextTurn();
             }
         }
 

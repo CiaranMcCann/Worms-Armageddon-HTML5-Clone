@@ -71,6 +71,7 @@ module Utilies
         return sound;
     }
 
+
     export function deleteFromCollection(collection, indexToRemove)
     {
         delete collection[indexToRemove];

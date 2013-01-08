@@ -16,13 +16,11 @@ class Player
 {
     private team: Team;
     private timer: Timer;
-    turnFinished;
 
     constructor ()
     {
         this.team = new Team();
         this.timer = new Timer(2000);
-        this.turnFinished = false;
 
 
         //TODO refactor all control code into central Controls.ts when adding gamepad

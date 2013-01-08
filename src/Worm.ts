@@ -221,6 +221,15 @@ class Worm extends Sprite
         }
     }
 
+    isStationary()
+    {
+        var isStationary = this.body.GetLinearVelocity().Length() == 0 // Nearly Completely stopped
+        || // OR 
+        Utilies.isBetweenRange(this.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.body.GetLinearVelocity().x, 0.001, -0.001); // near enough stopped
+
+        return isStationary;
+    }
+
     //Ask the worm for it state
     readyForNextTurn()
     {
@@ -235,11 +244,11 @@ class Worm extends Sprite
 
     fire()
     {
-        if (GameInstance.getCurrentPlayerObject().turnFinished == false)
+        if (GameInstance.gameState.hasNextTurnBeenTiggered() == false)
         {
             var weapon = this.team.getWeaponManager().getCurrentWeapon();
             weapon.activate(this);
-            GameInstance.getCurrentPlayerObject().turnFinished = true;
+            GameInstance.gameState.tiggerNextTurn();
         }
     }
 
@@ -332,17 +341,20 @@ class Worm extends Sprite
 
     hit(damage, worm = null)
     {
-        this.damageTake += damage;
-        AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
-
-        //if from same team call the player a tratitor :)
-        if (worm && worm != this && worm.team == this.team)
+        if (this.isDead == false)
         {
-            AssetManager.sounds["traitor"].play(0.8, 10);
+            this.damageTake += damage;
+            AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
 
-        } else if (worm) // if there was a worm envolved in the damage
-        {
-            Utilies.pickRandomSound(["justyouwait", "youllregretthat"]).play(0.8, 10);
+            //if from same team call the player a tratitor :)
+            if (worm && worm != this && worm.team == this.team)
+            {
+                AssetManager.sounds["traitor"].play(0.8, 10);
+
+            } else if (worm) // if there was a worm envolved in the damage
+            {
+                Utilies.pickRandomSound(["justyouwait", "youllregretthat"]).play(0.8, 10);
+            }
         }
     }
 

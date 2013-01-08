@@ -98,6 +98,10 @@ class Team
         this.currentWorm = wormIndex;
     }
 
+    getWorms()
+    {
+        return this.worms;
+    }
 
     //Sets all worms sprites to winning state
     winner()
@@ -119,25 +123,12 @@ class Team
     update()
     {
      
-        WormAnimationManger.areAllWormsAtRest = true;
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
             if(this.worms[i].isDead == false)
             this.worms[i].update();
         }
-
-        if (GameInstance.getCurrentPlayerObject().turnFinished &&
-            GameInstance.getCurrentPlayerObject().getTeam().getWeaponManager().getCurrentWeapon().getIsActive() == false &&
-             WormAnimationManger.playerAttentionSemaphore == 0 &&
-            WormAnimationManger.areAllWormsAtRest)
-        {
-            GameInstance.nextPlayer();
-            GameInstance.getCurrentPlayerObject().turnFinished = false;
-        }
-
-       
-
 
     }
 

@@ -30,7 +30,6 @@ class WormAnimationManger
 
     // When greater then zero the users attention is in use by another sprite
     static playerAttentionSemaphore = 0;
-    static areAllWormsAtRest = true;
 
     worm: Worm;
     idleTimer: Timer;
@@ -90,19 +89,16 @@ class WormAnimationManger
 
     update()
     {
-
-        var hasComeToRest = this.worm.body.GetLinearVelocity().Length() == 0 || Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().y, 0.001, -0.001) && Utilies.isBetweenRange(this.worm.body.GetLinearVelocity().x, 0.001, -0.001);
-        WormAnimationManger.areAllWormsAtRest = WormAnimationManger.areAllWormsAtRest != false && hasComeToRest == true;
-
+   
+   
 
         //Only play the death animation if the player is die first
         // Also they have come to a stop 
-        if (hasComeToRest &&
+        if (GameInstance.wormManager.areAllWormsStationary() &&
             this.worm.health == 0 &&
-            this.worm.spriteDef != Sprites.worms.die &&
-            WormAnimationManger.playerAttentionSemaphore == 0)
+            this.worm.spriteDef != Sprites.worms.die )
         {
-            WormAnimationManger.playerAttentionSemaphore++;
+            //WormAnimationManger.playerAttentionSemaphore++;
 
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
             this.worm.setSpriteDef(Sprites.worms.die, true, true);
@@ -111,6 +107,9 @@ class WormAnimationManger
             {
                 // Once the players death animated is finished then we most create
                 // a particle explision effect and pay an explosion sound.
+
+                //flag to let the team know to not update it
+                this.worm.isDead = true;
 
                 var effectedRadius = Physics.pixelToMeters(50);
                 var maxDamage = 10;
@@ -132,31 +131,34 @@ class WormAnimationManger
 
                 });
 
-
-                //flag to let the team know to not update it
-                this.worm.isDead = true;
-
+             
             });
 
             Utilies.pickRandomSound(["byebye", "ohdear", "fatality"]).play(1, 2);
         }
 
             // Once the player comes to a rest then we trigger the reduce health animation
-            // if they have been hurt 
-        else if (hasComeToRest && this.worm.damageTake > 0)
-            {
-
+         // if they have been hurt 
+         if (GameInstance.wormManager.areAllWormsStationary() && this.worm.damageTake > 0)
+         {
+            
             WormAnimationManger.playerAttentionSemaphore++;
             var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
             animation.onAnimationFinish(function () =>
             {
-                WormAnimationManger.playerAttentionSemaphore--;
+                if (this.worm.health != 0)
+                {
+                    //If the health is zero then we still have a death exploision animation to go
+                    // so don't unlock the semaphore
+                    WormAnimationManger.playerAttentionSemaphore--;
+                }
+
                 GameInstance.healthMenu.update(this.worm.team);
 
                 //If the worm hurt himself his go is over
                 if (GameInstance.getCurrentPlayerObject().getTeam().getCurrentWorm() == this.worm)
                 {
-                    GameInstance.getCurrentPlayerObject().turnFinished = true;
+                    GameInstance.gameState.tiggerNextTurn();
                 }
 
             });
@@ -166,7 +168,6 @@ class WormAnimationManger
             this.worm.setHealth(this.worm.getHealth() - this.worm.damageTake);
             this.worm.damageTake = 0;
         }
-
 
 
         //If the players weapon has changed since the last update we need to reply the animation of him taking it out
