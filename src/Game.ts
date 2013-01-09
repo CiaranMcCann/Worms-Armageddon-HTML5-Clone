@@ -25,18 +25,28 @@
 ///<reference path="Maps.ts"/>
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
+///<reference path="networking/Client.ts"/>
+
+
 
 class Game
 {
+    static types = {
+        ONLINE_GAME: 0,
+        LOCAL_GAME: 1
+    };
+
     actionCanvas;
     actionCanvasContext;
 
     terrain: Terrain;
     players: Player[];
 
+    gameType: number;
+
     weaponMenu: WeaponsMenu;
     healthMenu: HealthMenu;
-    gameTimer : CountDownTimer;
+    gameTimer: CountDownTimer;
 
     wormManager: WormManager;
     state: GameStateManager;
@@ -71,34 +81,10 @@ class Game
         this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
 
-        this.players = [];
-        for (var i = 0; i < 2; i++)
-        {
-            this.players.push(new Player());
-        }
-
-        // Allows for a easily accissble way of asking questions of all worms regardless of team
-        this.wormManager = new WormManager(this.players);
-
         // Manages the state of the game, the player turns etc.
-        this.state = new GameStateManager(this.players);
+        this.state = new GameStateManager();
 
-        // Initalizes UI elements
-        this.gameTimer = new CountDownTimer();
-        this.weaponMenu = new WeaponsMenu();
-        this.healthMenu = new HealthMenu(this.players);
-
-        // Initalizse the various animations/effect managers
-        this.particleEffectMgmt = new EffectsManager();
-        this.miscellaneousEffects = new EffectsManager();
-
-        // When the game starts run this function
-        this.state.onGameStart(function () =>{
-            this.healthMenu.show();
-            this.gameTimer.show();
-            this.weaponMenu.show();
-            this.gameTimer.timer.reset();
-        });
+        this.players = [];
 
         // Development stuff
         this.spawns = [];
@@ -114,11 +100,56 @@ class Game
         }
     }
 
+    start(gameType = Game.types.ONLINE_GAME)
+    {
+        this.gameType = gameType;
+        if (this.gameType == Game.types.LOCAL_GAME)
+        {       
+            for (var i = 0; i < 2; i++)
+            {
+                this.players.push(new Player());
+            }
+
+        } else if (this.gameType == Game.types.ONLINE_GAME)
+        { 
+            Client.connectionToServer(Settings.NODE_SERVER_IP,Settings.NODE_SERVER_PORT);
+            Client.socket.on('createdNewPlayerId', function (playerId){
+                 this.players.push(new Player(playerId));
+            });
+        }
+
+        Client.socket.on('newPlayer', function (player){
+             Logger.error("New player " + player);
+            });
+       
+
+        this.state.init(this.players);
+
+        // Allows for a easily accissble way of asking questions of all worms regardless of team
+        this.wormManager = new WormManager(this.players);
+
+        // Initalizes UI elements
+        this.gameTimer = new CountDownTimer();
+        this.weaponMenu = new WeaponsMenu();
+        this.healthMenu = new HealthMenu(this.players);
+
+        // Initalizse the various animations/effect managers
+        this.particleEffectMgmt = new EffectsManager();
+        this.miscellaneousEffects = new EffectsManager();
+
+
+        this.healthMenu.show();
+        this.gameTimer.show();
+        this.weaponMenu.show();
+
+        this.gameTimer.timer.reset();
+    }
+
     update()
     {
         if (this.state.isStarted)
         {
-            
+
             // while no winner, check for one
             if (this.winner == null)
             {

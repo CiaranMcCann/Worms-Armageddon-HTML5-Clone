@@ -17,6 +17,10 @@ module Settings
     //General game settings
     export var SOUND = true;
 
+    //Server details
+    export var NODE_SERVER_IP = '96.126.111.211'; 
+    export var NODE_SERVER_PORT = '1337';
+
     // development vars
     export var DEVELOPMENT_MODE = false; 
     export var REMOTE_ASSERT_SERVER = "http://www.ciaranmccann.me/fyp/";

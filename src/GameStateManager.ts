@@ -19,20 +19,20 @@ class GameStateManager
     private nextTurnTrigger: bool;
     private currentPlayerIndex: number;
     private players: Player[];
-    isStarted: bool;
-    private funcToBeRunOnGameStart;
+     isStarted: bool;
 
-    constructor (players)
+    constructor ()
     {
-        this.players = players;
+        
         this.nextTurnTrigger = false;
         this.currentPlayerIndex = 0;
         this.isStarted = false;
     }
 
-    onGameStart(funcToRun)
+    init(players)
     {
-        this.funcToBeRunOnGameStart = funcToRun;
+        this.players = players;
+        this.isStarted = true;
     }
 
     tiggerNextTurn()
@@ -96,13 +96,6 @@ class GameStateManager
         this.getCurrentPlayerObject().getTeam().nextWorm();
         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
     }
-
-    start()
-    {
-        this.funcToBeRunOnGameStart();
-        this.isStarted = true;      
-    }
-
    
     checkForWinner()
     {

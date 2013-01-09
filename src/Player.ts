@@ -15,13 +15,17 @@
 class Player
 {
     private team: Team;
-    private timer: Timer;
+    id: number;
 
-    constructor ()
+    constructor (playerId = Utilies.pickUnqine([1,2,3,4], "playerids"))
     {
-        this.team = new Team();
-        this.timer = new Timer(2000);
+        this.id = playerId;
+        this.team = new Team(playerId);
 
+        if (GameInstance.gameType == Game.types.ONLINE_GAME)
+        {
+            Client.socket.emit('playerJoinedGame',playerId);
+        }
 
         //TODO refactor all control code into central Controls.ts when adding gamepad
         //$('body').mousedown(function (event) =>
