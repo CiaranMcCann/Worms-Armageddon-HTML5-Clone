@@ -70,7 +70,8 @@ class GameServer
                 {
                     newGameLobby.addPlayer(userId);
                 });
-                //socket.broadcast.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(newLobby));
+
+                socket.broadcast.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby));
 
             });
 

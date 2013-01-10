@@ -11,6 +11,9 @@
 ///<reference path="../Game.ts"/>
 ///<reference path="Utilies.ts" />
 
+// Throws to many errors to use
+//<reference path="../../external/box2dweb-2.1.d.ts" />
+
 declare var Box2D;
 //Global defining of shortened names for box2d types
 var b2Vec2 = Box2D.Common.Math.b2Vec2,
@@ -31,12 +34,14 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
 	b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint,
     b2SimplexVertex = Box2D.Collision.b2SimplexVertex,
-    b2WorldManifold = Box2D.Collision.b2WorldManifold;
+    b2WorldManifold = Box2D.Collision.b2WorldManifold,
+    b2Shape = Box2D.Collision.Shapes.b2Shape;
+
 
 
 module Physics
 {
-
+ 
     export var worldScale;
     export var world;
     export var debugDraw;
@@ -44,7 +49,7 @@ module Physics
 
     export function init(ctx)
     {
-
+        
         Physics.worldScale = 30;
 
         // Creating our physics world.

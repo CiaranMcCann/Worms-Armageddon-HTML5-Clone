@@ -27,13 +27,13 @@ class Team
     static teamCount = 0;
 
 
-    constructor ()
+    constructor (playerId)
     {
 
         this.color = Utilies.pickUnqine(["#FA6C1D", "#12AB00", "#B46DD2", "#B31A35", "#23A3C6","#9A4C44"], "colors");
 
-        this.name = "Team " + Team.teamCount;
-        this.teamId = Team.teamCount;
+        this.name = "Team " + playerId;
+        this.teamId = playerId;
         Team.teamCount++;
 
         this.weaponManager = new WeaponManager();

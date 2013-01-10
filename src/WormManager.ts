@@ -46,6 +46,11 @@ class WormManager
     // Are all the worms stop, not moving at all. 
     areAllWormsStationary()
     {
+
+        ////TODO should use this
+        //every Requires JavaScript 1.6
+        //Returns true if every element in this array satisfies the provided testing function.
+
         for (var i = 0; i < this.allWorms.length; i++)
         {
             if (this.allWorms[i].isStationary() == false)

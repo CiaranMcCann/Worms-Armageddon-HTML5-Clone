@@ -26,8 +26,7 @@
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
 ///<reference path="networking/Client.ts"/>
-
-
+///<reference path="networking/Lobby.ts"/>
 
 class Game
 {
@@ -53,6 +52,8 @@ class Game
 
     particleEffectMgmt: EffectsManager;
     miscellaneousEffects: EffectsManager;
+
+    lobby : Lobby;
 
     winner: Player;
 
@@ -98,30 +99,47 @@ class Game
 
             }, false);
         }
+
+         this.lobby = new Lobby();
+    
     }
 
-    start(gameType = Game.types.ONLINE_GAME)
+    start()
     {
-        this.gameType = gameType;
         if (this.gameType == Game.types.LOCAL_GAME)
-        {       
+        {
             for (var i = 0; i < 2; i++)
             {
                 this.players.push(new Player());
             }
 
         } else if (this.gameType == Game.types.ONLINE_GAME)
-        { 
-            Client.connectionToServer(Settings.NODE_SERVER_IP,Settings.NODE_SERVER_PORT);
-            Client.socket.on('createdNewPlayerId', function (playerId){
-                 this.players.push(new Player(playerId));
-            });
+            {
+           
+           
+
+            ////Once I recived an ID for the player
+            //Client.socket.on('createdNewPlayerId', function (playerId) =>
+            //{
+            //    // create player locally with ID
+            //    this.players.push(new Player(playerId));
+
+            //    // Send new player object to server
+            //    Client.socket.emit('addNewPlayerToGame', (function () =>
+            //    {
+
+            //        var packet = "";
+            //        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext())
+            //        {
+            //            packet += JSON.stringify(b);
+            //        }
+
+            //        return packet;
+            //    }).call(this));
+
+            //});
         }
 
-        Client.socket.on('newPlayer', function (player){
-             Logger.error("New player " + player);
-            });
-       
 
         this.state.init(this.players);
 

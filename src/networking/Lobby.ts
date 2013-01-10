@@ -24,7 +24,7 @@ try
 
 class Lobby
 {
-    gameLobbies;
+    private gameLobbies: GameLobby[];
     menu: LobbyMenu;
 
     constructor ()
@@ -43,6 +43,16 @@ class Lobby
     {
         Client.connectionToServer(Settings.NODE_SERVER_IP, Settings.NODE_SERVER_PORT);
         GameInstance.gameType = Game.types.ONLINE_GAME;
+
+        Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data)
+        {
+            console.log(data);
+        });
+    }
+
+    getGameLobbies() 
+    {
+        return this.gameLobbies;
     }
 
     findGameLobby(gameLobbyId)
