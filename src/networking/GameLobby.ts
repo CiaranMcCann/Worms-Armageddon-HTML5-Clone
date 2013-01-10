@@ -28,5 +28,5 @@ class GameLobby
 
 declare var exports: any;
 if (typeof exports != 'undefined') {
-  exports.GameLobby = GameLobby;
+  (module).exports = GameLobby;
 }

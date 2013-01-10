@@ -53,5 +53,6 @@ module ServerUtilies
 declare var exports: any;
 if (typeof exports != 'undefined')
 {
-    exports.ServerUtilies = ServerUtilies;
+    (module).exports = ServerUtilies;
+
 }

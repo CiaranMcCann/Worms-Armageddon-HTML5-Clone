@@ -32,7 +32,7 @@ module Events
 // Hack 
 declare var exports: any;
 if (typeof exports != 'undefined') {
-  exports = Events;
+  (module).exports = Events;
 }
 
 

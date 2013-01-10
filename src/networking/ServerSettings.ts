@@ -7,5 +7,5 @@
 //Hack
 declare var exports: any;
 if (typeof exports != 'undefined') {
-  exports.ServerSettings = ServerSettings;
+  (module).exports = ServerSettings;
 }

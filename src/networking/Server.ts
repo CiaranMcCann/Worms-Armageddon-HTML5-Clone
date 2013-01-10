@@ -1,6 +1,7 @@
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
 ///<reference path="ServerUtilies.ts"/>
 ///<reference path="GameLobby.ts"/>
+///<reference path="Events.ts"/>
 
 
 // HACK
@@ -8,9 +9,13 @@
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
-    var GameLobby = require('./GameLobby');
     var Events = require("./Events");
+    //console.log(Events);
     var ServerUtilies = require("./ServerUtilies");
+    //console.log(ServerUtilies);
+    var GameLobby = require('./GameLobby');
+    //console.log(GameLobby);
+
 } catch (e) { }
 
 
@@ -27,8 +32,8 @@ io.sockets.on('connection', function (socket: Socket)
     //so we can idefnitny them unqine in their dealings with the server
     socket.set(SOCKET_USERID, userCount, function () =>
     {
-         console.log(ServerUtilies);
-        console.log(exports.ServerUtilies);
+        Events.client.JOIN_GAME_LOBBY;
+        
         ServerUtilies.log(" User connected and assigned ID [" + userCount + "]");
     });
     userCount++;
