@@ -57,7 +57,7 @@ class StartMenu
                  $('#startOnline').click(function =>
                 {
                      //Setup multiplayer
-                     GameInstance.lobby.init();
+                     GameInstance.lobby.client_init();
                      GameInstance.lobby.menu.show(callback);
 
                      AssetManager.sounds["CursorSelect"].play();
@@ -70,7 +70,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 1000); //TODO: remove once all sprites are in articifal load delay
+            }, 100); //TODO: remove once all sprites are in articifal load delay
         } else
         {
             $('#splashScreen').remove();

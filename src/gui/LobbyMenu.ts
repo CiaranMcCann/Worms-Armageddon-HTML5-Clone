@@ -14,10 +14,13 @@ class LobbyMenu
     private view: string;
     CSS_ID = {
         QUICK_PLAY_BTN: "#quickPlay",
-        LOBBY_TABLE : "#lobbyList",
-        JOIN_BTN : "#join",
-        CREATE_BTN : "#create",
-        INFO_BOX: "#infoBox"
+        LOBBY_TABLE: "#lobbyList",
+        JOIN_BTN: "#join",
+        CREATE_BTN: "#create",
+        INFO_BOX: "#infoBox",
+        CREATE_LOBBY_POP_UP: "#createLobby",
+        CREATE_LOBBY_FORM: "#createLobbyForm",
+        CREATE_LOBBY_FORM_SUBMIT : "#submit"
     } 
     private lobbyRef: Lobby;
 
@@ -45,8 +48,16 @@ class LobbyMenu
 
             $(this.CSS_ID.CREATE_BTN).click(function =>
             {
+                $(this.CSS_ID.CREATE_LOBBY_POP_UP).modal('show');
+                $(this.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).click(function (e) =>
+                {
+                    var name = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputName").val();
+                    var playerCount = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputPlayers").val();
+                    this.lobbyRef.client_createGameLobby(name, playerCount);
+                    AssetManager.sounds["CursorSelect"].play();
+                });
                 AssetManager.sounds["CursorSelect"].play();
-                this.lobbyRef.client_createGameLobby("defaultGameLob", 4);
+                
             })
 
             //TODO include the join game button beside the lobby listtings
@@ -70,7 +81,8 @@ class LobbyMenu
         {
             $('.slide').empty();
             $('.slide').append(this.view);
-    
+
+            this.updateLobbyListUI(this.lobbyRef);
             
             this.bind();
             $('.slide').fadeIn('slow');
@@ -78,7 +90,7 @@ class LobbyMenu
         });      
     }
 
-    updatelobbies(lobby : Lobby)
+    updateLobbyListUI(lobby : Lobby)
     {
         $(this.CSS_ID.LOBBY_TABLE).empty()
         var gameLobbies : GameLobby[] = lobby.getGameLobbies();
