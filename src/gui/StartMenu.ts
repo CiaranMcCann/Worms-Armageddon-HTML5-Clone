@@ -9,12 +9,14 @@
  */
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Controls.ts"/>
+///<reference path="LobbyMenu.ts"/>
 declare var $;
 
 class StartMenu
 {
     controlsView;
     menuActive;
+    lobbyMenu: LobbyMenu;
 
     constructor ()
     {
@@ -35,6 +37,8 @@ class StartMenu
             ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
 
+        this.lobbyMenu = new LobbyMenu();
+
     }
 
     onGameReady(callback)
@@ -54,6 +58,16 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
+                 $('#startOnline').click(function =>
+                {
+                     //Setup multiplayer
+                     GameInstance.lobby.init();
+                     GameInstance.lobby.menu.show(callback);
+
+                     AssetManager.sounds["CursorSelect"].play();
+                    
+                });
+
                  $('#startTutorial').click(function =>
                 {
                      AssetManager.sounds["CursorSelect"].play();
@@ -70,7 +84,6 @@ class StartMenu
 
     controlsMenu(callback)
     {
-
 
         $('.slide').fadeOut('normal', function =>
         {
