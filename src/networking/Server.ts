@@ -1,13 +1,13 @@
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
 ///<reference path="../system/Utilies.ts"/>
 
-import Lobby = module("./Lobby");
+import GameLobby = module('./GameLobby');
 import Events = module("./Events");
 import Utilies = module("./ServerUtilies");
 
 
 var io = require('socket.io').listen(1337);
-var lobbys : Lobby.Lobby[] = [];
+var lobbys : GameLobby.GameLobby[] = [];
 var userCount = 0;
 
 var SOCKET_USERID = 'userId';
@@ -25,10 +25,10 @@ io.sockets.on('connection', function (socket : Socket)
 
     
     // Create lobby
-    socket.on(Events.server.CREATE_LOBBY, function (name)
+    socket.on(Events.lobby.CREATE_GAME_LOBBY, function (name) =>
     {
         Utilies.log(" Create lobby with name [" + name + "]");
-        var newLobby = new Lobby.Lobby(name);
+        var newLobby = new GameLobby.GameLobby(name);
         lobbys.push(newLobby);
 
         socket.broadcast.emit(Events.client.NEW_LOBBY_CREATED, JSON.stringify(newLobby));
@@ -37,14 +37,14 @@ io.sockets.on('connection', function (socket : Socket)
     
     
     
-    // PLAYER_JOIN lobby
-    socket.on(Events.lobby.PLAYER_JOIN, function (lobbyId) =>{
+    // PLAYER_JOIN Game lobby
+    socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) =>{
         var userId;
 
         // Get the usersId
         socket.get(SOCKET_USERID, userId, function ()
         {
-            var lobby : Lobby.Lobby = Utilies.findByValue(userId, lobbys, "lobbyId");
+            var lobby : GameLobby.GameLobby = Utilies.findByValue(userId, lobbys, "lobbyId");
             lobby.addPlayer(userId);
         });
 

@@ -1,10 +1,9 @@
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
-
 module Client
 {
     export var socket;
 
-    export function connectionToServer(ip, port)
+    export function connectionToServer(ip,port)
     {
        var dest = ip + ":" + port;
        Logger.debug(" Client connecting to " + dest);
