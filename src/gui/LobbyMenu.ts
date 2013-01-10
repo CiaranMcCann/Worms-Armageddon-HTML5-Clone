@@ -25,8 +25,8 @@ class LobbyMenu
     {
         this.lobbyRef = lobby;
         this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2>' +
-            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#','') + ' class="table table-striped" > <thead>  <tr>  <th>Lobby</th>  <th>nPlayers</th>  <th>Locked</th>   </tr>  </thead>  '+
-            '<tbody> <tr>  <td>001</td>  <td>Rammohan </td>  <td>Reddy</td> </tbody>   </table>' +
+            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#','') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>nPlayers</th>  <th>Locked</th>   <th>Join</th>  </tr>  </thead>  '+
+            '<tbody></tbody></table>' +
             '<p ' + this.CSS_ID.INFO_BOX.replace('#','') + '></p>' +
             '<a class="btn btn-primary btn-large" id='+this.CSS_ID.QUICK_PLAY_BTN.replace('#','') +' style="text-align:center">Quick Play</a>' + 
             '<a class="btn btn-primary btn-large" id='+this.CSS_ID.CREATE_BTN.replace('#','') +' style="text-align:center">Create Lobby</a>' + 
@@ -46,7 +46,7 @@ class LobbyMenu
             $(this.CSS_ID.CREATE_BTN).click(function =>
             {
                 AssetManager.sounds["CursorSelect"].play();
-                this.lobbyRef.createGameLobby("defaultGameLob", 4);
+                this.lobbyRef.client_createGameLobby("defaultGameLob", 4);
             })
 
             //TODO include the join game button beside the lobby listtings
@@ -70,15 +70,26 @@ class LobbyMenu
         {
             $('.slide').empty();
             $('.slide').append(this.view);
+    
+            
             this.bind();
             $('.slide').fadeIn('slow');
 
         });      
     }
 
-    updatelobbies(lobbys)
+    updatelobbies(lobby : Lobby)
     {
-        //$(this.lobbyListCssId).append
+        $(this.CSS_ID.LOBBY_TABLE).empty()
+        var gameLobbies : GameLobby[] = lobby.getGameLobbies();
+        for (var i = 0; i < gameLobbies.length; i++)
+        {          
+             $(this.CSS_ID.LOBBY_TABLE).append(
+            ' <tr><td>' + gameLobbies[i].name +  '</td> ' + 
+            ' <td> '+ gameLobbies[i].numberOfPlayers +' </td>   ' +
+            ' <td>'+ gameLobbies[i].isPrivate +'</td> ' +
+            ' <td><button class="btn btn-mini" type="button">Join this game lobby</button></td> ');
+        }
     }
 
 }
