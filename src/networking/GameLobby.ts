@@ -5,12 +5,15 @@ class GameLobby
     numberOfPlayers: number;
     isPrivate: bool;
 
+    //TODO LOOK AT THIS
+    // https://github.com/learnboost/socket.io#rooms
+    // LOOK AT IT
 
     constructor (name, numberOfPlayers)
     {
         this.name = name;
         this.isPrivate = false;
-        this.players = [numberOfPlayers];
+        this.players = [];
         this.numberOfPlayers = numberOfPlayers;
         console.log("Lobby number of players " + this.numberOfPlayers);
 
@@ -29,7 +32,7 @@ class GameLobby
 
     addPlayer(userId)
     {
-        console.log("Player " + userId + " added to gamelobby + " + this.name);
+        console.log("Player " + userId + " added to gamelobby " + this.name);
     }
 
 }

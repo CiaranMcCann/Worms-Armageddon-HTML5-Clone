@@ -53,9 +53,11 @@ class GameServer
             //so we can idefnitny them unqine in their dealings with the server
             socket.set(GameServer.SOCKET_USERID, this.userCount, function () =>
             {
-                ServerUtilies.log(" User connected and assigned ID [" + this.userCount + "]");
+                ServerUtilies.log(" User connected and assigned ID [" + this.userCount + "]");              
             });
             this.userCount++;
+
+            socket.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
 
 
             // Create lobby
@@ -63,25 +65,25 @@ class GameServer
             {
                 ServerUtilies.log(" Create lobby with name [" + data.name + "]");
                 var newGameLobby = this.lobby.server_createGameLobby(data.name, data.nPlayers);
-                var userId;
 
                 //Once a new game lobby has been created, add the user who created it.
-                socket.get(GameServer.SOCKET_USERID, userId, function () =>
+                socket.get(GameServer.SOCKET_USERID, function (err, userId) =>
                 {
                     newGameLobby.addPlayer(userId);
                 });
 
-                socket.broadcast.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby));
+
+                this.io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
 
             });
 
 
             // PLAYER_JOIN Game lobby
             socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) =>{
-                var userId;
+              
 
                 // Get the usersId
-                socket.get(GameServer.SOCKET_USERID, userId, function () =>
+                socket.get(GameServer.SOCKET_USERID,  function (err, userId) =>
                 {
                     var gamelobby: GameLobby = this.lobby.findGameLobby(gamelobbyId);
                     gamelobby.addPlayer(userId);
@@ -95,7 +97,7 @@ class GameServer
 
 }
 
-var serverInstance = new GameServer(1337);
+var serverInstance = new GameServer(8080);
 serverInstance.init();
 
 

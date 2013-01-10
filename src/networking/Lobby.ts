@@ -39,15 +39,29 @@ class Lobby
     }
 
     //Setup the lobby, and connections to the Node server. 
-    init()
+    client_init()
     {
         Client.connectionToServer(Settings.NODE_SERVER_IP, Settings.NODE_SERVER_PORT);
         GameInstance.gameType = Game.types.ONLINE_GAME;
 
-        Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data)
+        //Bind events
+        Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data) =>
         {
-            console.log(data);
+            Logger.debug(" Events.client.UPDATE_ALL_GAME_LOBBIES ");
+            var gameLobbies = JSON.parse(data);
+            var updatedGameLobbies = []; 
+            for (var i = 0; i < gameLobbies.length; i++)
+            {
+                updatedGameLobbies.push(Utilies.copy(new GameLobby(null, null), gameLobbies[i]));
+            }
+
+            this.gameLobbies = updatedGameLobbies;
+            this.menu.updateLobbyListUI(this);
+
         });
+
+        
+ 
     }
 
     getGameLobbies() 
@@ -87,10 +101,6 @@ class Lobby
         Client.socket.emit(Events.client.JOIN_GAME_LOBBY, lobbyName);
     }
 
-    client_updateAllLobbies(lobbies)
-    {
-        this.menu.updatelobbies(lobbies);
-    }
 
 }
 
