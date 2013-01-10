@@ -1,7 +1,16 @@
+/**
+ *  
+ * Server.js
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
 ///<reference path="ServerUtilies.ts"/>
 ///<reference path="GameLobby.ts"/>
 ///<reference path="Events.ts"/>
+///<reference path="Lobby.ts"/>
 
 
 // HACK
@@ -15,60 +24,78 @@ try
     //console.log(ServerUtilies);
     var GameLobby = require('./GameLobby');
     //console.log(GameLobby);
+    var Lobby = require('./Lobby');
 
 } catch (e) { }
 
-
-var io = require('socket.io').listen(1337);
-var lobbys: GameLobby[] = [];
-var userCount = 0;
-
-var SOCKET_USERID = 'userId';
-
-io.sockets.on('connection', function (socket: Socket)
+class GameServer
 {
 
-    //When any user connects to the node server we set their socket an ID
-    //so we can idefnitny them unqine in their dealings with the server
-    socket.set(SOCKET_USERID, userCount, function () =>
+    io;
+    lobby: Lobby;
+    userCount: number;
+    static SOCKET_USERID = 'userId';
+
+
+    constructor (port)
     {
-        Events.client.JOIN_GAME_LOBBY;
-        
-        ServerUtilies.log(" User connected and assigned ID [" + userCount + "]");
-    });
-    userCount++;
+        this.io = require('socket.io').listen(port);
+        this.lobby = new Lobby();
+        this.userCount = 0;
+    }
 
-
-    // Create lobby
-    socket.on(Events.lobby.CREATE_GAME_LOBBY, function (name) =>
+    init()
     {
-        ServerUtilies.log(" Create lobby with name [" + name + "]");
-        var newLobby = new GameLobby(name);
-
-        lobbys.push(newLobby);
-
-        socket.broadcast.emit(Events.client.NEW_LOBBY_CREATED, JSON.stringify(newLobby));
-
-    });
-
-
-
-    // PLAYER_JOIN Game lobby
-    socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) =>{
-        var userId;
-
-        // Get the usersId
-        socket.get(SOCKET_USERID, userId, function ()
+        this.io.sockets.on('connection', function (socket: Socket) =>
         {
-            var lobby: GameLobby = ServerUtilies.findByValue(userId, lobbys, "lobbyId");
-            lobby.addPlayer(userId);
+
+            //When any user connects to the node server we set their socket an ID
+            //so we can idefnitny them unqine in their dealings with the server
+            socket.set(GameServer.SOCKET_USERID, this.userCount, function () =>
+            {
+                ServerUtilies.log(" User connected and assigned ID [" + this.userCount + "]");
+            });
+            this.userCount++;
+
+
+            // Create lobby
+            socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
+            {
+                ServerUtilies.log(" Create lobby with name [" + data.name + "]");
+                var newGameLobby = this.lobby.server_createGameLobby(data.name, data.nPlayers);
+                var userId;
+
+                //Once a new game lobby has been created, add the user who created it.
+                socket.get(GameServer.SOCKET_USERID, userId, function () =>
+                {
+                    newGameLobby.addPlayer(userId);
+                });
+                //socket.broadcast.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(newLobby));
+
+            });
+
+
+            // PLAYER_JOIN Game lobby
+            socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) =>{
+                var userId;
+
+                // Get the usersId
+                socket.get(GameServer.SOCKET_USERID, userId, function () =>
+                {
+                    var gamelobby: GameLobby = this.lobby.findGameLobby(gamelobbyId);
+                    gamelobby.addPlayer(userId);
+                });
+
+            });
+
+
         });
+    }
 
-    });
+}
 
-
-});
-
+var serverInstance = new GameServer(1337);
+serverInstance.init();
 
 
 

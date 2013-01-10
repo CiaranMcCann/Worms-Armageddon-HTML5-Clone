@@ -19,6 +19,7 @@ try
 {
     var GameLobby = require('./GameLobby');
     var Events = require('./Events');
+    var ServerUtilies = require('./Events');
 } catch (e){}
 
 class Lobby
@@ -29,7 +30,12 @@ class Lobby
     constructor ()
     {
         this.gameLobbies = [];
-        this.menu = new LobbyMenu(this);
+
+        //If on server the view won't be availaible
+        try
+        {
+            this.menu = new LobbyMenu(this);
+        } catch (e) { }
     }
 
     //Setup the lobby, and connections to the Node server. 
@@ -39,10 +45,22 @@ class Lobby
         GameInstance.gameType = Game.types.ONLINE_GAME;
     }
 
-    createGameLobby(name, numberOfPlayers)
+    findGameLobby(gameLobbyId)
     {
-        this.gameLobbies.push(new GameLobby(" random "));
+         return ServerUtilies.findByValue(gameLobbyId, this.gameLobbies, "lobbyId");
+    }
+
+    client_createGameLobby(name, numberOfPlayers)
+    {
         Client.socket.emit(Events.lobby.CREATE_GAME_LOBBY, { "name": name, "nPlayers": numberOfPlayers });
+    }
+
+    // Creates the gamelobby object on the server
+    server_createGameLobby(name, numberOfPlayers)
+    {
+        var gameLobby = new GameLobby(name, numberOfPlayers);
+        this.gameLobbies.push(gameLobby); 
+        return gameLobby;
     }
 
     joinGameLobby(lobbyName: string)
@@ -64,4 +82,10 @@ class Lobby
         this.menu.updatelobbies(lobbies);
     }
 
+}
+
+
+declare var exports: any;
+if (typeof exports != 'undefined') {
+  (module).exports = Lobby;
 }

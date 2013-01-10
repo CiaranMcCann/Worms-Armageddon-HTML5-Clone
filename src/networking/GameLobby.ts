@@ -2,10 +2,17 @@ class GameLobby
 {
     players: number[];
     name: string;
+    numberOfPlayers: number;
 
 
-    constructor (name = "default lobby")
+    constructor (name, numberOfPlayers)
     {
+        this.name = name;
+        this.players = [numberOfPlayers];
+        this.numberOfPlayers = numberOfPlayers;
+        console.log("Lobby number of players " + this.numberOfPlayers);
+
+
         //socket.emit('createdNewPlayerId', playerCount);
         //console.log(" New player has connected and has been assgined ID " + playerCount);
 
@@ -21,10 +28,11 @@ class GameLobby
 
     addPlayer(userId)
     {
-
+        console.log("Player " + userId + " added to gamelobby + " + this.name);
     }
 
 }
+
 
 declare var exports: any;
 if (typeof exports != 'undefined') {
