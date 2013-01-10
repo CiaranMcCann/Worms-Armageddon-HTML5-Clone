@@ -16,7 +16,6 @@ class StartMenu
 {
     controlsView;
     menuActive;
-    lobbyMenu: LobbyMenu;
 
     constructor ()
     {
@@ -36,9 +35,6 @@ class StartMenu
             ' <kbd>'+  String.fromCharCode(Controls.toggleWeaponMenu.keyboard)  +'</kbd> or right mouse - Weapon Menu. </p><br>' +        
             ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
-
-        this.lobbyMenu = new LobbyMenu();
-
     }
 
     onGameReady(callback)

@@ -1,6 +1,17 @@
+/**
+ *  
+ * LobbyMenu.js
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
+///<reference path="../Game.ts"/>
+///<reference path="../networking/Lobby.ts"/>
+
 class LobbyMenu
 {
-    view: string;
+    private view: string;
     CSS_ID = {
         QUICK_PLAY_BTN: "#quickPlay",
         LOBBY_TABLE : "#lobbyList",
@@ -8,16 +19,18 @@ class LobbyMenu
         CREATE_BTN : "#create",
         INFO_BOX: "#infoBox"
     } 
+    private lobbyRef: Lobby;
 
-    constructor ()
+    constructor (lobby : Lobby)
     {
+        this.lobbyRef = lobby;
         this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2>' +
             '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#','') + ' class="table table-striped" > <thead>  <tr>  <th>Lobby</th>  <th>nPlayers</th>  <th>Locked</th>   </tr>  </thead>  '+
             '<tbody> <tr>  <td>001</td>  <td>Rammohan </td>  <td>Reddy</td> </tbody>   </table>' +
             '<p ' + this.CSS_ID.INFO_BOX.replace('#','') + '></p>' +
             '<a class="btn btn-primary btn-large" id='+this.CSS_ID.QUICK_PLAY_BTN.replace('#','') +' style="text-align:center">Quick Play</a>' + 
             '<a class="btn btn-primary btn-large" id='+this.CSS_ID.CREATE_BTN.replace('#','') +' style="text-align:center">Create Lobby</a>' + 
-            '<a class="btn btn-primary btn-large" id='+this.CSS_ID.JOIN_BTN.replace('#','') +'style="text-align:center">Join Lobby</a></div>';
+            '</div>';
     }
 
     bind()
@@ -32,13 +45,17 @@ class LobbyMenu
 
             $(this.CSS_ID.CREATE_BTN).click(function =>
             {
-                AssetManager.sounds["CursorSelect"].play();             
+                AssetManager.sounds["CursorSelect"].play();
+                this.lobbyRef.createGameLobby("defaultGameLob", 4);
             })
 
-            $(this.CSS_ID.JOIN_BTN).click(function =>
-            {
-                AssetManager.sounds["CursorSelect"].play();             
-            })
+            //TODO include the join game button beside the lobby listtings
+            //$(this.CSS_ID.JOIN_BTN).click(function =>
+            //{
+
+            //    AssetManager.sounds["CursorSelect"].play();  
+            //    this.lobbyRef.joinGameLobby(           
+            //})
     }
 
     displayMessage(msg)
