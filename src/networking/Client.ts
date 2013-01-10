@@ -10,7 +10,6 @@ module Client
        socket = io.connect(dest);
     }
 
-
 }
 
 //(function ()

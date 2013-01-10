@@ -1,42 +1,53 @@
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
-///<reference path="../system/Utilies.ts"/>
+///<reference path="ServerUtilies.ts"/>
+///<reference path="GameLobby.ts"/>
 
-import GameLobby = module('./GameLobby');
-import Events = module("./Events");
-import Utilies = module("./ServerUtilies");
+
+// HACK
+// Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
+// works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
+try
+{
+    var GameLobby = require('./GameLobby');
+    var Events = require("./Events");
+    var ServerUtilies = require("./ServerUtilies");
+} catch (e) { }
 
 
 var io = require('socket.io').listen(1337);
-var lobbys : GameLobby.GameLobby[] = [];
+var lobbys: GameLobby[] = [];
 var userCount = 0;
 
 var SOCKET_USERID = 'userId';
 
-io.sockets.on('connection', function (socket : Socket)
+io.sockets.on('connection', function (socket: Socket)
 {
 
     //When any user connects to the node server we set their socket an ID
     //so we can idefnitny them unqine in their dealings with the server
-    socket.set(SOCKET_USERID, userCount, function ()
+    socket.set(SOCKET_USERID, userCount, function () =>
     {
-        Utilies.log(" User connected and assigned ID [" + userCount + "]");
+         console.log(ServerUtilies);
+        console.log(exports.ServerUtilies);
+        ServerUtilies.log(" User connected and assigned ID [" + userCount + "]");
     });
     userCount++;
 
-    
+
     // Create lobby
     socket.on(Events.lobby.CREATE_GAME_LOBBY, function (name) =>
     {
-        Utilies.log(" Create lobby with name [" + name + "]");
-        var newLobby = new GameLobby.GameLobby(name);
+        ServerUtilies.log(" Create lobby with name [" + name + "]");
+        var newLobby = new GameLobby(name);
+
         lobbys.push(newLobby);
 
         socket.broadcast.emit(Events.client.NEW_LOBBY_CREATED, JSON.stringify(newLobby));
 
     });
-    
-    
-    
+
+
+
     // PLAYER_JOIN Game lobby
     socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) =>{
         var userId;
@@ -44,7 +55,7 @@ io.sockets.on('connection', function (socket : Socket)
         // Get the usersId
         socket.get(SOCKET_USERID, userId, function ()
         {
-            var lobby : GameLobby.GameLobby = Utilies.findByValue(userId, lobbys, "lobbyId");
+            var lobby: GameLobby = ServerUtilies.findByValue(userId, lobbys, "lobbyId");
             lobby.addPlayer(userId);
         });
 

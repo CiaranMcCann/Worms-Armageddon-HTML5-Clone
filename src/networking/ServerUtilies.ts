@@ -1,43 +1,57 @@
+///<reference path="ServerSettings.ts"/>
 
-//I was unable to place utilies in a common (server/client) file due to the way Node.js modules work
-// and how typescript modules work. 
-
-import ServerSettings = module("./ServerSettings");
-
-export function findByValue(needle, haystack, haystackProperity, )
+// HACK
+// Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
+// works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
+try
 {
+    var ServerSettings = require("./ServerSettings");
+} catch (e) { }
 
-    for (var i = 0; i < haystack.length; i++)
+module ServerUtilies
+{
+    export function findByValue(needle, haystack, haystackProperity, )
     {
-        if (haystack[i][haystackProperity] === needle)
+
+        for (var i = 0; i < haystack.length; i++)
         {
-            return haystack[i];
+            if (haystack[i][haystackProperity] === needle)
+            {
+                return haystack[i];
+            }
         }
+        throw "Couldn't find object with proerpty " + haystackProperity + " equal to " + needle;
     }
-    throw "Couldn't find object with proerpty " + haystackProperity + " equal to " + needle;
+
+
+    export function log(message)
+    {
+        if (ServerSettings.DEVELOPMENT_MODE)
+            console.info(message);
+    }
+
+    export function warn(message)
+    {
+        //if (Settings.DEVELOPMENT_MODE)
+        // console.warn(message);
+    }
+
+    export function debug(message)
+    {
+        if (ServerSettings.DEVELOPMENT_MODE)
+            console.log(message);
+    }
+
+    export function error(message)
+    {
+        if (ServerSettings.DEVELOPMENT_MODE)
+            console.error(message);
+    }
 }
 
-
-export function log(message)
+//Hack
+declare var exports: any;
+if (typeof exports != 'undefined')
 {
-    if (ServerSettings.ServerSettings.DEVELOPMENT_MODE)
-        console.info(message);
-}
-
-export function warn(message)
-{
-    //if (Settings.DEVELOPMENT_MODE)
-    // console.warn(message);
-}
-
-export function debug(message)
-{
-    if (ServerSettings.ServerSettings.DEVELOPMENT_MODE)
-        console.log(message);
-}
-
-export function error(message)
-{
-    if (ServerSettings.ServerSettings.DEVELOPMENT_MODE)
-        console.error(message);
+    exports.ServerUtilies = ServerUtilies;
 }

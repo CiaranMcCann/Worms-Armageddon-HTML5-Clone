@@ -1,4 +1,4 @@
-export class GameLobby
+class GameLobby
 {
     players: number[];
     name: string;
@@ -24,4 +24,9 @@ export class GameLobby
 
     }
 
+}
+
+declare var exports: any;
+if (typeof exports != 'undefined') {
+  exports.GameLobby = GameLobby;
 }
