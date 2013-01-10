@@ -25,6 +25,7 @@
     <Content Include=".gitignore" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="data\img\wormsBackGround.png" />
+    <Content Include="external\bootstrap-modal.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
     <Content Include="external\jquery.1.8.2.min.js" />
