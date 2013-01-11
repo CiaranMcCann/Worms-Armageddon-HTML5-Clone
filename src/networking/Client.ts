@@ -1,4 +1,6 @@
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
+///<reference path="../system/Utilies.ts"/>
+
 module Client
 {
     export var socket;

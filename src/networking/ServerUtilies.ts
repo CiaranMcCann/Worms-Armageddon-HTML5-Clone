@@ -5,7 +5,7 @@
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
-    var ServerSettings = require("./ServerSettings");
+    var ServerSettings = require('./ServerSettings');
 } catch (e) { }
 
 module ServerUtilies
@@ -21,6 +21,11 @@ module ServerUtilies
             }
         }
         throw "Couldn't find object with proerpty " + haystackProperity + " equal to " + needle;
+    }
+
+    export function createToken()
+    {
+        return Math.random().toString(36).substr(2);
     }
 
 
@@ -54,5 +59,4 @@ declare var exports: any;
 if (typeof exports != 'undefined')
 {
     (module).exports = ServerUtilies;
-
 }

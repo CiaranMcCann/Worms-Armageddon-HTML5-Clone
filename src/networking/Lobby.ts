@@ -19,12 +19,15 @@ try
 {
     var GameLobby = require('./GameLobby');
     var Events = require('./Events');
-    var ServerUtilies = require('./Events');
-} catch (e){}
+    var ServerUtilies = require('./ServerUtilies');
+} catch (error){}
+
+
 
 class Lobby
 {
     private gameLobbies: GameLobby[];
+    private client_GameLobby: GameLobby;
     menu: LobbyMenu;
 
     constructor ()
@@ -60,8 +63,16 @@ class Lobby
 
         });
 
-        
- 
+        // Messaged recived back to confirm player has joined the lobby 
+        // and to give the player a copy of the GameLobby object
+        Client.socket.on(Events.client.JOIN_GAME_LOBBY, function (data) =>
+        {
+            this.client_GameLobby = Utilies.copy(new GameLobby(null, null), JSON.parse(data));
+            this.client_GameLobby.client_init();
+        })
+
+               
+
     }
 
     getGameLobbies() 
@@ -71,7 +82,7 @@ class Lobby
 
     findGameLobby(gameLobbyId)
     {
-         return ServerUtilies.findByValue(gameLobbyId, this.gameLobbies, "lobbyId");
+         return ServerUtilies.findByValue(gameLobbyId, this.gameLobbies, "id");
     }
 
     client_createGameLobby(name, numberOfPlayers)
@@ -87,23 +98,22 @@ class Lobby
         return gameLobby;
     }
 
-    joinGameLobby(lobbyName: string)
+    client_joinGameLobby(lobbyId)
     {
         // displayMessage saying waiting on x players
+
         this.menu.displayMessage(" Waitting on 2 more players.... ");
-        Client.socket.emit(Events.client.JOIN_GAME_LOBBY, lobbyName);
+        Client.socket.emit(Events.client.JOIN_GAME_LOBBY, lobbyId);
     }
 
     joinQuickGame(lobbyName: string)
     {
         // FIND a game quick that is waitting on a player
-
         Client.socket.emit(Events.client.JOIN_GAME_LOBBY, lobbyName);
     }
 
 
 }
-
 
 declare var exports: any;
 if (typeof exports != 'undefined') {

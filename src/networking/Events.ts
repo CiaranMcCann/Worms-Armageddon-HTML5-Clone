@@ -1,14 +1,10 @@
-
 module Events
 {
     export var lobby = {
-
         CREATE_GAME_LOBBY: "createLobby",
-
     }
 
     export var gameLobby = {
-
         PLAYER_JOIN: "playerJoin",
     }
 
@@ -16,7 +12,8 @@ module Events
 
         NEW_LOBBY_CREATED: "newLobbyCreated",
         JOIN_GAME_LOBBY: "joinGameLobby",
-        UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies"
+        UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",
+        START_GAME : "startGame"
     }
 
     export var server = {
@@ -32,6 +29,7 @@ module Events
 
 // Hack 
 declare var exports: any;
+declare var module: any;
 if (typeof exports != 'undefined')
 {
     (module).exports = Events;
