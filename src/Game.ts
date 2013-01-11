@@ -69,6 +69,8 @@ class Game
     {
         Graphics.init();
 
+        this.gameType = Game.types.LOCAL_GAME;
+
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
@@ -103,6 +105,26 @@ class Game
 
          this.lobby = new Lobby();
     
+    }
+
+    getGameNetData()
+    {
+        var packetStream = {};
+        for (var p in this.players)
+        {
+            packetStream[p] = this.players[p].getPlayerNetData();
+        }
+
+        return  JSON.stringify( packetStream ); 
+    }
+
+    setGameNetData(data)
+    {
+        var packetStream = JSON.parse(data);
+        for (var p in packetStream)
+        {
+            this.players[p].setPlayerNetData(packetStream[p]);
+        }
     }
 
     start(playerIds = null)

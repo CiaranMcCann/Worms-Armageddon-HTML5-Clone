@@ -60,7 +60,7 @@ module Graphics
 
     export function init()
     {
-        if (Settings.DEVELOPMENT_MODE)
+        //if (Settings.DEVELOPMENT_MODE)
         {
             stats = new Stats();
 

@@ -16,6 +16,7 @@ class Player
 {
     private team: Team;
     id: string;
+    timer: Timer;
 
     constructor (playerId = Utilies.pickUnqine([1,2,3,4], "playerids"))
     {
@@ -30,6 +31,18 @@ class Player
         //          this.team.getCurrentWorm().fire();
         //    }
         //});
+
+        this.timer = new Timer(10);
+    }
+
+    getPlayerNetData()
+    {
+        return this.team.getTeamNetData();
+    }
+
+    setPlayerNetData(data)
+    {
+        this.team.setTeamNetData(data);
     }
 
     getTeam()
@@ -39,7 +52,7 @@ class Player
 
     update()
     {
-
+        this.timer.update();
         if (GameInstance.state.getCurrentPlayerObject() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
 
@@ -47,6 +60,12 @@ class Player
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.team.getCurrentWorm().walkLeft();
+                
+                if (GameInstance.gameType == Game.types.ONLINE_GAME && this.timer.hasTimePeriodPassed())
+                {
+                    Logger.debug(" KEy press ");
+                    Client.socket.emit(Events.gameLobby.UPDATE, GameInstance.getGameNetData());
+                }
             }
 
             if (keyboard.isKeyDown(Controls.jump.keyboard, true))

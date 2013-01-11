@@ -16,7 +16,6 @@ declare var Util;
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
-
 try
 {
     //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
@@ -81,10 +80,23 @@ class Lobby
             {
                 var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
                 gamelobby.join(userId, socket);
-                gamelobby.startGame(io);
+                gamelobby.startGame(socket);
 
 
                 io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+            });
+
+        });
+
+        socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
+        {
+             socket.get('userId', function (err, userId) =>
+            {
+                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                {
+                    io.log.info(Util.format("@ Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS " + userId + " for lobby " + gameLobbyId + "   " + data));
+                    socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, data);
+                });
             });
 
         });
@@ -97,13 +109,18 @@ class Lobby
 
         socket.on(Events.gameLobby.UPDATE, function (data) => {
 
-             io.log.info(Util.format("@ Events.gameLobby.UPDATE" + data));
+            socket.get('userId', function (err, userId) =>
+            {
+                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                {
+                    io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
+                    socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.UPDATE, data);
+                });
+            });
+             
+            
             
         });
-
-
-
-
     }
 
 

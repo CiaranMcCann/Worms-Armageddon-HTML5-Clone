@@ -12,6 +12,7 @@
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
+//declare function require(s);
 try
 {   
     var Events = require('./Events');
@@ -21,6 +22,7 @@ try
 
 } catch (error){}
 
+var SOCKET_STORAGE_GAMELOBBY_ID = 'gameLobbyId';
 
 class GameLobby
 {
@@ -50,46 +52,58 @@ class GameLobby
     client_init()
     {
         //Have the host client setup all the player objects with all the other clients ids
-        Client.socket.on(Events.gameLobby.START_GAME_HOST, function (players)
+        Client.socket.on(Events.gameLobby.START_GAME_HOST, function ( playerIds)
         {
-            Logger.debug("Events.client.START_GAME " + players);
-            var playerIds = JSON.parse(players);
+            Logger.debug("Events.client.START_GAME_HOST " +  playerIds);
             GameInstance.start(playerIds);
 
             //Once we have init the game, we most send all the game info to the other players
-            Client.socket.emit(Events.gameLobby.UPDATE, GameInstance.players);
+            Client.socket.emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS,  GameInstance.getGameNetData());
+            
+        });
+
+        Client.socket.on(Events.gameLobby.UPDATE, function ( data )
+        {
+            Logger.debug(" Events.gameLobby.UPDATE " +  data );   
+            GameInstance.setGameNetData(data);
         });
 
         // Start the game for all other playrs by passing the player information create
         // by the host client to them.
-        Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (players)
+        Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
         {
-            Logger.debug("Events.client.START_GAME_FOR_OTHER_CLIENTS" + players);
-            GameInstance.players = JSON.parse(players);
+            Logger.debug("Events.client.START_GAME_FOR_OTHER_CLIENTS " + data);
+                    for (var i = 0; i < 2; i++)
+            {
+                  GameInstance.players.push(new Player(2));
+            }
+            GameInstance.setGameNetData(data);
             GameInstance.start();
         });
+
+
 
     }
 
     join(userId,socket)
     {
-        console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name);
+        console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name );
         
         // Add the player to the gameLobby socket.io room
         socket.join(this.id);
 
         // Write the gameLobbyId to the users socket
-        socket.set('gameLobbyId', this.id);
+        socket.set(SOCKET_STORAGE_GAMELOBBY_ID, this.id);
 
         this.players.push(userId);
     }
 
-    startGame(io)
+    startGame(socket)
     {
        
         if (this.players.length == this.numberOfPlayers)
         {         
-            io.sockets.in(this.id).emit(Events.gameLobby.START_GAME_HOST, JSON.stringify(this.players));
+            socket.emit(Events.gameLobby.START_GAME_HOST, this.players);
         }
     }
 

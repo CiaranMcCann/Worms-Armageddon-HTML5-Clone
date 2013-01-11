@@ -112,6 +112,17 @@ class Worm extends Sprite
         this.fallHeight = this.body.GetPosition().y;
     }
 
+    getWormNetData()
+    {
+        return { "x": this.body.GetPosition().x, "y": this.body.GetPosition().y };
+    }
+
+    setWormNetData(packetStream)
+    {    
+        Logger.log(" old pos " + this.body.m_xf.position.x + " new pos " + packetStream.x);
+        this.body.SetPosition(new b2Vec2(packetStream.x,packetStream.y));       
+    }
+
     // Pre-renders the boxes above their heads with name and health
     preRendering()
     {

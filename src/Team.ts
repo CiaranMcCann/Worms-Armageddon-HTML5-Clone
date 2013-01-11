@@ -50,6 +50,25 @@ class Team
         }
     }
 
+    getTeamNetData()
+    {
+        var packet = {};
+        for (var w in this.worms)
+        {
+            packet[w] = this.worms[w].getWormNetData();
+        }
+
+        return packet;
+    }
+
+    setTeamNetData( packetStream )
+    {
+        for (var w in packetStream)
+        {
+            this.worms[w].setWormNetData(packetStream[w]);
+        }
+    }
+
     getPercentageHealth()
     {
         var totalHealth = 0;
