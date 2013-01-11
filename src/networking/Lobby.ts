@@ -32,6 +32,8 @@ class Lobby
     {
         
         this.gameLobbies = [];
+        this.client_GameLobby = new GameLobby(null, null);
+        
 
         //If on server the view won't be availaible
         try
@@ -69,15 +71,8 @@ class Lobby
 
         });
 
-        // Messaged recived back to confirm player has joined the lobby 
-        // and to give the player a copy of the GameLobby object
-        Client.socket.on(Events.client.JOIN_GAME_LOBBY, function (data) =>
-        {
-            this.client_GameLobby = Utilies.copy(new GameLobby(null, null), JSON.parse(data));
-            this.client_GameLobby.client_init();
-        })
-
-               
+        this.client_GameLobby.client_init();
+   
     }
 
     getGameLobbies() 

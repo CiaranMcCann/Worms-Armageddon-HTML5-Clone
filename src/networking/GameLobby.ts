@@ -30,17 +30,13 @@ class GameLobby
 
     static gameLobbiesCounter = 0;
 
-    //TODO LOOK AT THIS
-    // https://github.com/learnboost/socket.io#rooms
-    // LOOK AT IT
-
-    constructor (name, numberOfPlayers)
+    constructor (name :string, numberOfPlayers : number)
     {
         this.name = name;
 
         if (ServerUtilies)
         {
-            this.id = ServerUtilies.createToken() + GameLobby.gameLobbiesCounter + ServerUtilies.createToken();
+            this.id = ServerUtilies.createToken() + GameLobby.gameLobbiesCounter;
         }
         GameLobby.gameLobbiesCounter++;
 
@@ -48,8 +44,6 @@ class GameLobby
         this.players = [];
         
         this.numberOfPlayers = numberOfPlayers;
-        console.log("Lobby number of players " + this.numberOfPlayers);
-
 
         //socket.emit('createdNewPlayerId', playerCount);
         //console.log(" New player has connected and has been assgined ID " + playerCount);
@@ -65,20 +59,20 @@ class GameLobby
         Client.socket.on(Events.client.START_GAME, function (players)
         {
             Logger.debug("Events.client.START_GAME");
-            GameInstance.players = players;
-            GameInstance.start();
+            GameInstance.start(players);
         });
+
     }
 
-    addPlayer(io,userId)
+    addPlayer(userId)
     {
-        console.log("Player " + userId + " added to gamelobby " + this.name);
+        console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name);
         this.players.push(userId);
-        this.startGame(io);
     }
 
     startGame(io)
     {
+       
         if (this.players.length == this.numberOfPlayers)
         {         
             io.sockets.in(this.id).emit(Events.client.START_GAME, JSON.stringify(this.players));

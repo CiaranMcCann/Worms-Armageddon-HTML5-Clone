@@ -64,6 +64,7 @@ class GameServer
             // Create lobby
             socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
             {
+
                 // Check the user input
                 if (data.nPlayers > ServerSettings.MAX_PLAYERS_PER_LOBBY || data.nPlayers < 2)
                 {
@@ -71,13 +72,13 @@ class GameServer
                 }
 
                 ServerUtilies.log(" Create lobby with name [" + data.name + "]");
-                var newGameLobby = this.lobby.server_createGameLobby(data.name, data.nPlayers);
+                var newGameLobby = this.lobby.server_createGameLobby(data.name, parseInt(data.nPlayers));
 
                 //Once a new game lobby has been created, add the user who created it.
                 socket.get(GameServer.SOCKET_USERID, function (err, userId) =>
                 {
                     socket.join(newGameLobby.id);
-                    newGameLobby.addPlayer(io, userId);
+                    newGameLobby.addPlayer(userId);
                     
                 });
 
@@ -87,15 +88,18 @@ class GameServer
 
             // PLAYER_JOIN Game lobby
             socket.on(Events.client.JOIN_GAME_LOBBY, function (gamelobbyId) =>{
-              
 
+                console.log("Events.client.JOIN_GAME_LOBBY " + gamelobbyId);
                 // Get the usersId
                 socket.get(GameServer.SOCKET_USERID,  function (err, userId) =>
                 {
                     var gamelobby: GameLobby = this.lobby.findGameLobby(gamelobbyId);
+
                     socket.join(gamelobby.id);
-                    gamelobby.addPlayer(io,userId);
-                    console.log(userId);
+
+                    gamelobby.addPlayer(userId);
+                    gamelobby.startGame(io);
+
                     io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
                 });
 
