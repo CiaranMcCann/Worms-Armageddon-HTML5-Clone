@@ -46,6 +46,19 @@ module Utilies
         return newObject;
     };
 
+    export function findByValue(needle, haystack, haystackProperity, )
+    {
+
+        for (var i = 0; i < haystack.length; i++)
+        {
+            if (haystack[i][haystackProperity] === needle)
+            {
+                return haystack[i];
+            }
+        }
+        throw "Couldn't find object with proerpty " + haystackProperity + " equal to " + needle;
+    }
+
     export function random(min, max)
     {
         return Math.floor(Math.random() * (max - min + 1)) + min;

@@ -29,17 +29,3 @@ module Client
     }
 
 }
-
-//(function ()
-//{
-    
-//   var socket = io.connect('96.126.111.211:1337');
-//    //socket.emit('onConnectionCreateNewEnitiy', 20);
-
-//   console.log(" doing socket stuff ");
-//    socket.on('addNewPersonToWorld', function ()
-//    {
-//        console.log(" Recived addNewPersonToWorld event ");
-//    });
-
-//}).call(this);

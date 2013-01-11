@@ -120,11 +120,15 @@ class Game
 
             for (var i = 0; i < playerIds.length; i++)
             {
-                this.players.push(new Player(playerIds[i]));
+                  this.players.push(new Player(playerIds[i]));
             }
         }
 
         this.state.init(this.players);
+
+        //TODO finish this
+        var clientsPlayer = Utilies.findByValue(Client.id, this.players, 'id');
+        this.state.setCurrentPlayer();
 
         // Allows for a easily accissble way of asking questions of all worms regardless of team
         this.wormManager = new WormManager(this.players);
