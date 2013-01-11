@@ -6,21 +6,16 @@ module Events
 
     export var gameLobby = {
         PLAYER_JOIN: "playerJoin",
+        UPDATE: "updateGameWorld",
+        START_GAME_FOR_OTHER_CLIENTS: "startGameForOtherClients",
+        START_GAME_HOST : "startGame"
     }
 
     export var client = {
 
         NEW_LOBBY_CREATED: "newLobbyCreated",
-        JOIN_GAME_LOBBY: "joinGameLobby",
-        UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",
-        START_GAME_HOST : "startGame",
+        UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",       
         ASSIGN_USER_ID: "assignId",
-        START_GAME_FOR_OTHER_CLIENTS: "startGameForOtherClients",
-
-        game :  {
-
-            UPDATE: "updateGameWorld",
-         }
     }
 
     export var server = {

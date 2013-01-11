@@ -12,6 +12,8 @@
 ///<reference path="Events.ts"/>
 ///<reference path="Lobby.ts"/>
 declare function require(s);
+declare var Util;
+
 
 var io;
 
@@ -35,7 +37,6 @@ class GameServer
 
     lobby: Lobby;
     userCount: number;
-    static SOCKET_USERID = 'userId';
 
     constructor (port)
     {   
@@ -52,7 +53,7 @@ class GameServer
             //When any user connects to the node server we set their socket an ID
             //so we can idefnitny them unqine in their dealings with the server
             var token = ServerUtilies.createToken() + this.userCount;
-            socket.set(GameServer.SOCKET_USERID, token, function () =>
+            socket.set('userId', token, function () =>
             {
                 io.log.info(Util.format(" User connected and assigned ID [%s]", token));
                

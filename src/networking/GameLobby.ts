@@ -34,42 +34,35 @@ class GameLobby
 
     constructor (name :string, numberOfPlayers : number)
     {
-        this.name = name;
-
-        if (ServerUtilies)
-        {
-            this.id = ServerUtilies.createToken() + GameLobby.gameLobbiesCounter;
-        }
-        GameLobby.gameLobbiesCounter++;
-
+        this.name = name;   
         this.isPrivate = false;
-        this.players = [];
-        
+        this.players = [];      
         this.numberOfPlayers = numberOfPlayers;
 
     }
 
-    server_init(socket,io)
+    server_init()
     {
-
+       this.id = ServerUtilies.createToken() + GameLobby.gameLobbiesCounter;
+       GameLobby.gameLobbiesCounter++;
     }
 
     client_init()
     {
         //Have the host client setup all the player objects with all the other clients ids
-        Client.socket.on(Events.client.START_GAME_HOST, function (players)
+        Client.socket.on(Events.gameLobby.START_GAME_HOST, function (players)
         {
             Logger.debug("Events.client.START_GAME " + players);
             var playerIds = JSON.parse(players);
             GameInstance.start(playerIds);
 
             //Once we have init the game, we most send all the game info to the other players
-            Client.socket.emit(Events.client.game.UPDATE, GameInstance.players);
+            Client.socket.emit(Events.gameLobby.UPDATE, GameInstance.players);
         });
 
         // Start the game for all other playrs by passing the player information create
         // by the host client to them.
-        Client.socket.on(Events.client.START_GAME_FOR_OTHER_CLIENTS, function (players)
+        Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (players)
         {
             Logger.debug("Events.client.START_GAME_FOR_OTHER_CLIENTS" + players);
             GameInstance.players = JSON.parse(players);
@@ -78,9 +71,16 @@ class GameLobby
 
     }
 
-    addPlayer(userId)
+    join(userId,socket)
     {
         console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name);
+        
+        // Add the player to the gameLobby socket.io room
+        socket.join(this.id);
+
+        // Write the gameLobbyId to the users socket
+        socket.set('gameLobbyId', this.id);
+
         this.players.push(userId);
     }
 
@@ -89,7 +89,7 @@ class GameLobby
        
         if (this.players.length == this.numberOfPlayers)
         {         
-            io.sockets.in(this.id).emit(Events.client.START_GAME_HOST, JSON.stringify(this.players));
+            io.sockets.in(this.id).emit(Events.gameLobby.START_GAME_HOST, JSON.stringify(this.players));
         }
     }
 

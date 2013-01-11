@@ -87,13 +87,13 @@ class LobbyMenu
     {
         $(this.CSS_ID.LOBBY_TABLE).empty()
         var gameLobbies: GameLobby[] = lobby.getGameLobbies();
-        for (var i = 0; i < gameLobbies.length; i++)
+        for (var gameLobby in gameLobbies)
         {
             $(this.CSS_ID.LOBBY_TABLE).append(
-           ' <tr><td>' + gameLobbies[i].name + '</td> ' +
-           ' <td> ' + gameLobbies[i].numberOfPlayers + ' / ' + gameLobbies[i].players.length + ' </td>   ' +
-           ' <td>' + gameLobbies[i].isPrivate + '</td> ' +
-           ' <td><button class="btn btn-mini ' + this.CSS_ID.JOIN_BTN.replace('.', '') + '"  value=' + gameLobbies[i].id + ' type="button">Join this game lobby</button></td> ');
+           ' <tr><td>' + gameLobbies[gameLobby].name + '</td> ' +
+           ' <td> ' + gameLobbies[gameLobby].numberOfPlayers + ' / ' + gameLobbies[gameLobby].players.length + ' </td>   ' +
+           ' <td>' + gameLobbies[gameLobby].isPrivate + '</td> ' +
+           ' <td><button class="btn btn-mini ' + this.CSS_ID.JOIN_BTN.replace('.', '') + '"  value=' + gameLobbies[gameLobby].id + ' type="button">Join this game lobby</button></td> ');
         }
         $(this.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
 
