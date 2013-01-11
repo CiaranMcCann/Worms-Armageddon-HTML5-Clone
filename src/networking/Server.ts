@@ -15,7 +15,7 @@ declare function require(s);
 declare var Util;
 
 
-var io;
+//var io;
 
 // HACK
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
@@ -55,7 +55,7 @@ class GameServer
             var token = ServerUtilies.createToken() + this.userCount;
             socket.set('userId', token, function () =>
             {
-                io.log.info(Util.format(" User connected and assigned ID [%s]", token));
+                ServerUtilies.info(io,"User connected and assigned ID " + token);
                
             });
             socket.emit(Events.client.ASSIGN_USER_ID, token);

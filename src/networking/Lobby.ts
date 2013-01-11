@@ -19,9 +19,11 @@ declare var Util;
 
 try
 {
-//This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
-// prevents the project from compling.
-    eval("var GameLobby = require('./GameLobby');var Events = require('./Events');  var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); var Util = require('util');")
+    //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
+    // prevents the project from compling.
+    eval("var GameLobby = require('./GameLobby');var Events = require('./Events'); " +
+        " var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); "+
+        "var Util = require('util');")
 } catch (error) { }
 
 
@@ -51,7 +53,7 @@ class Lobby
                 data.nPlayers = 4;
             }
 
-            io.log.info(Util.format(" Create lobby with name  [%s]", data.name));
+            io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
             var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
 
             // lobbies are indexed by their unqine token
@@ -72,8 +74,7 @@ class Lobby
         // PLAYER_JOIN Game lobby
         socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) => {
 
-            console.log("###########################");
-            io.log.info(Util.format(" Events.client.JOIN_GAME_LOBBY " + gamelobbyId));
+            io.log.info(Util.format("@ Events.client.JOIN_GAME_LOBBY " + gamelobbyId));
 
             // Get the usersId
             socket.get('userId', function (err, userId) =>
@@ -94,20 +95,10 @@ class Lobby
         ************************************************************/
 
 
-        socket.on(Events.gameLobby.UPDATE, function (gamelobbyId) => {
+        socket.on(Events.gameLobby.UPDATE, function (data) => {
 
-            //console.log("Events.client.JOIN_GAME_LOBBY " + gamelobbyId);
-            //// Get the usersId
-            //socket.get('userId', function (err, userId) =>
-            //{
-            //    var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
-            //    gamelobby.join(userId, socket);
-            //    gamelobby.startGame(io);
-
-
-            //    io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
-            //});
-
+             io.log.info(Util.format("@ Events.gameLobby.UPDATE" + data));
+            
         });
 
 

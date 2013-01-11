@@ -6,6 +6,8 @@
 try
 {
     var ServerSettings = require('./ServerSettings');
+    var Util = require('util');
+
 } catch (e) { }
 
 module ServerUtilies
@@ -29,28 +31,29 @@ module ServerUtilies
     }
 
 
-    export function log(message)
+    export function info(io,message)
     {
         if (ServerSettings.DEVELOPMENT_MODE)
-            console.info(message);
+            console.log("###" + Util);
+                io.log.info(Util.format("@ " + message));
     }
 
-    export function warn(message)
+    export function warn(io,message)
     {
-        //if (Settings.DEVELOPMENT_MODE)
-        // console.warn(message);
+        if (Settings.DEVELOPMENT_MODE)
+           io.log.warn(Util.format("@ " + message));
     }
 
-    export function debug(message)
-    {
-        if (ServerSettings.DEVELOPMENT_MODE)
-            console.log(message);
-    }
-
-    export function error(message)
+    export function debug(io,message)
     {
         if (ServerSettings.DEVELOPMENT_MODE)
-            console.error(message);
+               io.log.debug(Util.format("@ " + message));
+    }
+
+    export function error(io,message)
+    {
+        if (ServerSettings.DEVELOPMENT_MODE)
+                io.log.error(Util.format("@ " + message));
     }
 }
 
