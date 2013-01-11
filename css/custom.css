@@ -178,7 +178,7 @@ kbd {
     position: absolute;
     left: 50%;
     bottom: 1%;
-    width: 150px;
+    width: 350px;
     z-index: 1;
     margin-left: -200px;
 }

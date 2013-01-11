@@ -72,6 +72,7 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
+        
 
         //Set canvas font stuff
         this.actionCanvasContext.font = 'bold 16px Sans-Serif';
@@ -104,8 +105,9 @@ class Game
     
     }
 
-    start()
+    start(playerIds = null)
     {
+        
         if (this.gameType == Game.types.LOCAL_GAME)
         {
             for (var i = 0; i < 2; i++)
@@ -114,32 +116,13 @@ class Game
             }
 
         } else if (this.gameType == Game.types.ONLINE_GAME)
+        {
+
+            for (var i = 0; i < playerIds.length; i++)
             {
-           
-           
-
-            ////Once I recived an ID for the player
-            //Client.socket.on('createdNewPlayerId', function (playerId) =>
-            //{
-            //    // create player locally with ID
-            //    this.players.push(new Player(playerId));
-
-            //    // Send new player object to server
-            //    Client.socket.emit('addNewPlayerToGame', (function () =>
-            //    {
-
-            //        var packet = "";
-            //        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext())
-            //        {
-            //            packet += JSON.stringify(b);
-            //        }
-
-            //        return packet;
-            //    }).call(this));
-
-            //});
+                this.players.push(new Player(playerIds[i]));
+            }
         }
-
 
         this.state.init(this.players);
 
@@ -161,6 +144,13 @@ class Game
         this.weaponMenu.show();
 
         this.gameTimer.timer.reset();
+
+        // Need to fire the menu call back to remove it and start the game
+        
+        if (this.gameType == Game.types.ONLINE_GAME)
+        {
+            StartMenu.callback();
+        }
     }
 
     update()

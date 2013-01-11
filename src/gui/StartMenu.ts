@@ -16,6 +16,7 @@ class StartMenu
 {
     controlsView;
     menuActive;
+    static callback;
 
     constructor()
     {
@@ -37,14 +38,19 @@ class StartMenu
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
     }
 
+    hide()
+    {
+        $('#splashScreen').remove();
+        $('#startMenu').remove();
+    }
+
     onGameReady(callback)
     {
         var _this = this;
+        StartMenu.callback = callback;
         if (this.menuActive)
         {
 
-            setTimeout(function =>
-            {
                 $('#splashScreen').remove();
                 $('#startMenu').fadeIn('fast');
 
@@ -58,7 +64,7 @@ class StartMenu
                 {
                     if (GameInstance.lobby.client_init() != false)
                     {
-                         $('#notice').empty();
+                        $('#notice').empty();
                         GameInstance.lobby.menu.show(callback);
                         AssetManager.sounds["CursorSelect"].play();
                     } else
@@ -76,7 +82,7 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-            }, 100); //TODO: remove once all sprites are in articifal load delay
+
         } else
         {
             $('#splashScreen').remove();

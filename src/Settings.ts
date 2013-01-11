@@ -19,7 +19,7 @@ module Settings
 
     //Server details
     export var NODE_SERVER_IP = '96.126.111.211'; 
-    export var NODE_SERVER_PORT = '1337';
+    export var NODE_SERVER_PORT = '8080';
 
     // development vars
     export var DEVELOPMENT_MODE = false; 
@@ -62,9 +62,10 @@ module Settings
     export function getUrlVars()
     {
         var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value)
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) 
         {
             vars[key] = value;
+            return true;
         });
         return vars;
     }

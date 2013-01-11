@@ -58,8 +58,9 @@ class GameLobby
     {
         Client.socket.on(Events.client.START_GAME, function (players)
         {
-            Logger.debug("Events.client.START_GAME");
-            GameInstance.start(players);
+            Logger.debug("Events.client.START_GAME " + players);
+            var playerIds = JSON.parse(players);
+            GameInstance.start(playerIds);
         });
 
     }

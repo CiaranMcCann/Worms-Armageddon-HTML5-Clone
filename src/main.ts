@@ -29,7 +29,12 @@ $(document).ready(function () => {
 
                 startMenu.onGameReady(function ()
                 {
-                    GameInstance.start();
+                    startMenu.hide();
+                    if (GameInstance.state.isStarted == false)
+                    {
+                        GameInstance.start();
+                    }
+
                     function gameloop()
                     {
                         if(Settings.DEVELOPMENT_MODE)
