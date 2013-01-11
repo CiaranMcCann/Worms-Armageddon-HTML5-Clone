@@ -18,10 +18,10 @@ declare var Util;
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
-    //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
-    // prevents the project from compling.
+//This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
+// prevents the project from compling.
     eval("var GameLobby = require('./GameLobby');var Events = require('./Events'); " +
-        " var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); "+
+        " var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); " +
         "var Util = require('util');")
 } catch (error) { }
 
@@ -32,16 +32,53 @@ class Lobby
     private gameLobbies;
     private client_GameLobby: GameLobby;
     menu: LobbyMenu;
+    userCount: number;
+    highestUserCount: number;
 
     constructor()
     {
-
+        this.userCount = 0;
         this.gameLobbies = {};
         this.client_GameLobby = new GameLobby(null, null);
     }
 
+    onConnection(socket, io)
+    {
+        this.userCount++;
+        if (this.userCount > this.highestUserCount)
+        {
+            this.highestUserCount = this.userCount;
+        }
+
+        //When any user connects to the node server we set their socket an ID
+        //so we can idefnitny them unqine in their dealings with the server
+        var token = ServerUtilies.createToken() + this.userCount;
+        socket.set('userId', token, function () =>
+        {
+            ServerUtilies.info(io, "User connected and assigned ID " + token);
+
+        });
+        socket.emit(Events.client.ASSIGN_USER_ID, token);
+
+        io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
+
+        // When someone makes a connection send them the lobbies
+        socket.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+    }
+
+    onDisconnection(socket, io)
+    {
+        socket.on('disconnect', function () => {
+            
+            ServerUtilies.info(io, " User exit ");
+            this.userCount--;
+            io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
+        });
+    }
+
     server_init(socket, io)
     {
+
         // Create lobby
         socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
         {
@@ -90,7 +127,7 @@ class Lobby
 
         socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
         {
-             socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) =>
             {
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
@@ -117,9 +154,9 @@ class Lobby
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.UPDATE, data);
                 });
             });
-             
-            
-            
+
+
+
         });
     }
 
@@ -136,6 +173,13 @@ class Lobby
 
         GameInstance.gameType = Game.types.ONLINE_GAME;
 
+        // Create lobby
+        Client.socket.on(Events.lobby.UPDATE_USER_COUNT, function (userCount) =>
+        {
+            Logger.log("Events.lobby.NEW_USER_CONNECTED " + userCount);
+            this.userCount = userCount;
+            this.menu.updateUserCountUI(this.userCount);
+        });
 
         //Bind events
         Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data) =>

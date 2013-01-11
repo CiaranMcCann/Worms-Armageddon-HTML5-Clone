@@ -53,7 +53,7 @@ class Game
     particleEffectMgmt: EffectsManager;
     miscellaneousEffects: EffectsManager;
 
-    lobby : Lobby;
+    lobby: Lobby;
 
     winner: Player;
 
@@ -65,7 +65,7 @@ class Game
     //Using in dev mode to collect spawn positions
     spawns;
 
-    constructor ()
+    constructor()
     {
         Graphics.init();
 
@@ -74,7 +74,7 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-        
+
 
         //Set canvas font stuff
         this.actionCanvasContext.font = 'bold 16px Sans-Serif';
@@ -103,8 +103,10 @@ class Game
             }, false);
         }
 
-         this.lobby = new Lobby();
-    
+        this.lobby = new Lobby();
+
+       
+
     }
 
     getGameNetData()
@@ -115,7 +117,7 @@ class Game
             packetStream[p] = this.players[p].getPlayerNetData();
         }
 
-        return  JSON.stringify( packetStream ); 
+        return JSON.stringify(packetStream);
     }
 
     setGameNetData(data)
@@ -129,7 +131,7 @@ class Game
 
     start(playerIds = null)
     {
-        
+
         if (this.gameType == Game.types.LOCAL_GAME)
         {
             for (var i = 0; i < 2; i++)
@@ -142,9 +144,11 @@ class Game
 
             for (var i = 0; i < playerIds.length; i++)
             {
-                  this.players.push(new Player(playerIds[i]));
+                this.players.push(new Player(playerIds[i]));
             }
         }
+
+    
 
         this.state.init(this.players);
 
@@ -168,7 +172,7 @@ class Game
         this.gameTimer.timer.reset();
 
         // Need to fire the menu call back to remove it and start the game
-        
+
         if (this.gameType == Game.types.ONLINE_GAME)
         {
             StartMenu.callback();

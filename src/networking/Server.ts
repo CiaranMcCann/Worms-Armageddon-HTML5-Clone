@@ -36,40 +36,21 @@ class GameServer
 {
 
     lobby: Lobby;
-    userCount: number;
 
     constructor (port)
     {   
         io = require('socket.io').listen(port);
         this.lobby = new Lobby();
-        this.userCount = 0;       
-    }
 
-    init()
-    {
         io.sockets.on('connection', function (socket) =>
         {
-
-            //When any user connects to the node server we set their socket an ID
-            //so we can idefnitny them unqine in their dealings with the server
-            var token = ServerUtilies.createToken() + this.userCount;
-            socket.set('userId', token, function () =>
-            {
-                ServerUtilies.info(io,"User connected and assigned ID " + token);
-               
-            });
-            socket.emit(Events.client.ASSIGN_USER_ID, token);
-            this.userCount++;
-
-            // When someone makes a connection send them the lobbies
-            socket.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
-
+            this.lobby.onConnection(socket,io);
             this.lobby.server_init(socket,io);
+            this.lobby.onDisconnection(socket,io);
         });
     }
 
 }
 
-
 var serverInstance = new GameServer(8080);
-serverInstance.init();
+

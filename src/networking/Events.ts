@@ -2,6 +2,7 @@ module Events
 {
     export var lobby = {
         CREATE_GAME_LOBBY: "createLobby",
+        UPDATE_USER_COUNT : "newUserConnected"
     }
 
     export var gameLobby = {

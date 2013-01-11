@@ -53,17 +53,20 @@ class Player
     update()
     {
         this.timer.update();
+
+
+
         if (GameInstance.state.getCurrentPlayerObject() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
+
 
             //Player controls 
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.team.getCurrentWorm().walkLeft();
-                
+
                 if (GameInstance.gameType == Game.types.ONLINE_GAME && this.timer.hasTimePeriodPassed())
                 {
-                    Logger.debug(" KEy press ");
                     Client.socket.emit(Events.gameLobby.UPDATE, GameInstance.getGameNetData());
                 }
             }
