@@ -1,5 +1,6 @@
 ///<reference path="../../external/socket.io-0.9.d.ts"/>
 ///<reference path="../system/Utilies.ts"/>
+declare var io;
 
 module Client
 {
@@ -7,9 +8,17 @@ module Client
 
     export function connectionToServer(ip,port)
     {
-       var dest = ip + ":" + port;
-       Logger.debug(" Client connecting to " + dest);
-       socket = io.connect(dest);
+        try
+        {
+            var dest = ip + ":" + port;
+            Logger.debug(" Client connecting to " + dest);
+            socket = io.connect(dest);
+            return true;
+
+        } catch (e)
+        {
+            return false;
+        }
     }
 
 }

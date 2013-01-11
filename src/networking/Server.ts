@@ -11,6 +11,7 @@
 ///<reference path="GameLobby.ts"/>
 ///<reference path="Events.ts"/>
 ///<reference path="Lobby.ts"/>
+declare function require(s);
 
 var io;
 
@@ -76,7 +77,7 @@ class GameServer
                 socket.get(GameServer.SOCKET_USERID, function (err, userId) =>
                 {
                     socket.join(newGameLobby.id);
-                    newGameLobby.addPlayer(userId);
+                    newGameLobby.addPlayer(io, userId);
                     
                 });
 

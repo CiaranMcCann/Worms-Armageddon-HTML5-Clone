@@ -17,9 +17,7 @@
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
-    var GameLobby = require('./GameLobby');
-    var Events = require('./Events');
-    var ServerUtilies = require('./ServerUtilies');
+    eval("var GameLobby = require('./GameLobby');var Events = require('./Events');var ServerUtilies = require('./ServerUtilies');")
 } catch (error){}
 
 
@@ -32,6 +30,7 @@ class Lobby
 
     constructor ()
     {
+        
         this.gameLobbies = [];
 
         //If on server the view won't be availaible
@@ -44,7 +43,14 @@ class Lobby
     //Setup the lobby, and connections to the Node server. 
     client_init()
     {
-        Client.connectionToServer(Settings.NODE_SERVER_IP, Settings.NODE_SERVER_PORT);
+        var result = Client.connectionToServer(Settings.NODE_SERVER_IP, Settings.NODE_SERVER_PORT);
+
+        // Somthing didnt go right with connnecting to the server so exit
+        if (result == false)
+        {
+            return result;
+        }
+
         GameInstance.gameType = Game.types.ONLINE_GAME;
 
         //Bind events
@@ -72,7 +78,6 @@ class Lobby
         })
 
                
-
     }
 
     getGameLobbies() 
