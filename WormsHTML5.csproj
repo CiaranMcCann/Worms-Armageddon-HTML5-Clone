@@ -29,8 +29,6 @@
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
     <Content Include="external\jquery.1.8.2.min.js" />
-    <Content Include="external\node-0.8.d.ts" />
-    <Content Include="external\socket.io-0.9.d.ts" />
     <Content Include="external\Stats.js" />
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <Content Include="external\test\qunit.css" />

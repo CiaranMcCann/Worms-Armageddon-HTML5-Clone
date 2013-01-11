@@ -13,8 +13,14 @@ module Events
         NEW_LOBBY_CREATED: "newLobbyCreated",
         JOIN_GAME_LOBBY: "joinGameLobby",
         UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",
-        START_GAME : "startGame",
-        ASSIGN_USER_ID: "assignId"
+        START_GAME_HOST : "startGame",
+        ASSIGN_USER_ID: "assignId",
+        START_GAME_FOR_OTHER_CLIENTS: "startGameForOtherClients",
+
+        game :  {
+
+            UPDATE: "updateGameWorld",
+         }
     }
 
     export var server = {
@@ -22,10 +28,7 @@ module Events
 
     }
 
-    export var gameplay = {
-
-
-    }
+ 
 }
 
 // Hack 

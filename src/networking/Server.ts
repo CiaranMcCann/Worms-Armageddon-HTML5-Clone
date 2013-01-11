@@ -25,6 +25,8 @@ try
     var GameLobby = require('./GameLobby');
     var ServerSettings = require('./ServerSettings');
     var Lobby = require('./Lobby');
+    var Util = require('util');
+   
 
 } catch (error) { }
 
@@ -36,7 +38,7 @@ class GameServer
     static SOCKET_USERID = 'userId';
 
     constructor (port)
-    {
+    {   
         io = require('socket.io').listen(port);
         this.lobby = new Lobby();
         this.userCount = 0;       
@@ -52,7 +54,7 @@ class GameServer
             var token = ServerUtilies.createToken() + this.userCount;
             socket.set(GameServer.SOCKET_USERID, token, function () =>
             {
-                ServerUtilies.log(" User connected and assigned ID [" + token + "]");
+                io.log.info(Util.format(" User connected and assigned ID [%s]", token));
                
             });
             socket.emit(Events.client.ASSIGN_USER_ID, token);
@@ -61,56 +63,12 @@ class GameServer
             // When someone makes a connection send them the lobbies
             socket.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
 
-
-            // Create lobby
-            socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
-            {
-
-                // Check the user input
-                if (data.nPlayers > ServerSettings.MAX_PLAYERS_PER_LOBBY || data.nPlayers < 2)
-                {
-                    data.nPlayers = 4;
-                }
-
-                ServerUtilies.log(" Create lobby with name [" + data.name + "]");
-                var newGameLobby = this.lobby.server_createGameLobby(data.name, parseInt(data.nPlayers));
-
-                //Once a new game lobby has been created, add the user who created it.
-                socket.get(GameServer.SOCKET_USERID, function (err, userId) =>
-                {
-                    socket.join(newGameLobby.id);
-                    newGameLobby.addPlayer(userId);
-                    
-                });
-
-                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
-            });
-
-
-            // PLAYER_JOIN Game lobby
-            socket.on(Events.client.JOIN_GAME_LOBBY, function (gamelobbyId) =>{
-
-                console.log("Events.client.JOIN_GAME_LOBBY " + gamelobbyId);
-                // Get the usersId
-                socket.get(GameServer.SOCKET_USERID,  function (err, userId) =>
-                {
-                    var gamelobby: GameLobby = this.lobby.findGameLobby(gamelobbyId);
-
-                    socket.join(gamelobby.id);
-
-                    gamelobby.addPlayer(userId);
-                    gamelobby.startGame(io);
-
-                    io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.lobby.getGameLobbies()));
-                });
-
-            });
-
-
+            this.lobby.server_init(socket,io);
         });
     }
 
 }
+
 
 var serverInstance = new GameServer(8080);
 serverInstance.init();

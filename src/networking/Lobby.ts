@@ -15,9 +15,12 @@
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
+declare var Util;
 try
 {
-    eval("var GameLobby = require('./GameLobby');var Events = require('./Events');var ServerUtilies = require('./ServerUtilies');")
+    //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
+    // prevents the project from compling.
+    eval("var GameLobby = require('./GameLobby');var Events = require('./Events');  var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); var Util = require('util');")
 } catch (error){}
 
 
@@ -40,6 +43,55 @@ class Lobby
         {
             this.menu = new LobbyMenu(this);
         } catch (e) { }
+    }
+
+    server_init(socket,io)
+    {       
+        // Create lobby
+            socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
+            {
+
+                // Check the user input
+                if (data.nPlayers > ServerSettings.MAX_PLAYERS_PER_LOBBY || data.nPlayers < 2)
+                {
+                    data.nPlayers = 4;
+                }
+
+                io.log.info(Util.format(" Create lobby with name  [%s]",data.name));
+                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
+
+                //Once a new game lobby has been created, add the user who created it.
+                socket.get(GameServer.SOCKET_USERID, function (err, userId) =>
+                {
+                    socket.join(newGameLobby.id);
+                    newGameLobby.addPlayer(userId);
+                    
+                });
+
+                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+            });
+
+
+
+            // PLAYER_JOIN Game lobby
+            socket.on(Events.client.JOIN_GAME_LOBBY, function (gamelobbyId) =>{
+
+                console.log("Events.client.JOIN_GAME_LOBBY " + gamelobbyId);
+                // Get the usersId
+                socket.get(GameServer.SOCKET_USERID,  function (err, userId) =>
+                {
+                    var gamelobby: GameLobby = this.findGameLobby(gamelobbyId);
+
+                    socket.join(gamelobby.id);
+
+                    gamelobby.addPlayer(userId);
+                    gamelobby.startGame(io);
+
+                    io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                });
+
+            });
+
     }
 
     //Setup the lobby, and connections to the Node server. 
