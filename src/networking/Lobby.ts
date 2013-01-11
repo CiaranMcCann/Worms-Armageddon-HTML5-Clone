@@ -52,8 +52,8 @@ class Lobby
         {
             return result;
         }
-
         GameInstance.gameType = Game.types.ONLINE_GAME;
+
 
         //Bind events
         Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data) =>

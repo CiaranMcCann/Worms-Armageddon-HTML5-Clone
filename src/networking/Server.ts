@@ -53,8 +53,9 @@ class GameServer
             socket.set(GameServer.SOCKET_USERID, token, function () =>
             {
                 ServerUtilies.log(" User connected and assigned ID [" + token + "]");
-                              
+               
             });
+            socket.emit(Events.client.ASSIGN_USER_ID, token);
             this.userCount++;
 
             // When someone makes a connection send them the lobbies

@@ -151,25 +151,25 @@ module Logger
 
     export function log(message)
     {
-        if (Settings.DEVELOPMENT_MODE)
+        if (Settings.DEVELOPMENT_MODE || Settings.LOG)
             console.info(message);
     }
 
     export function warn(message)
     {
-        //if (Settings.DEVELOPMENT_MODE)
-        // console.warn(message);
+        if (Settings.DEVELOPMENT_MODE || Settings.LOG)
+         console.warn(message);
     }
 
     export function debug(message)
     {
-        if (Settings.DEVELOPMENT_MODE)
+        if (Settings.DEVELOPMENT_MODE || Settings.LOG )
             console.log(message);
     }
 
     export function error(message)
     {
-        if (Settings.DEVELOPMENT_MODE)
+        if (Settings.DEVELOPMENT_MODE || Settings.LOG)
             console.error(message);
     }
 }

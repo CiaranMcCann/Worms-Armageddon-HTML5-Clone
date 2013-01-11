@@ -13,7 +13,8 @@ module Events
         NEW_LOBBY_CREATED: "newLobbyCreated",
         JOIN_GAME_LOBBY: "joinGameLobby",
         UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",
-        START_GAME : "startGame"
+        START_GAME : "startGame",
+        ASSIGN_USER_ID: "assignId"
     }
 
     export var server = {
