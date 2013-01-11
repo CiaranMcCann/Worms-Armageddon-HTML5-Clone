@@ -17,7 +17,7 @@ class StartMenu
     controlsView;
     menuActive;
 
-    constructor ()
+    constructor()
     {
         this.menuActive = !Settings.DEVELOPMENT_MODE;
 
@@ -29,16 +29,16 @@ class StartMenu
             '</kbd>  <kbd> ' + String.fromCharCode(Controls.walkLeft.keyboard) +
             '</kbd> <kbd> ' + String.fromCharCode(Controls.walkRight.keyboard) +
             '</kbd> - Jump, Left, Right. <br> <br>' +
-             ' <kbd>'+  String.fromCharCode(Controls.aimUp.keyboard)  +'</kbd> ' +
-             ' <kbd>'+  String.fromCharCode(Controls.aimDown.keyboard)  +'</kbd> ' +
-             ' - Aim up and down. </p><br>' +        
-            ' <kbd>'+  String.fromCharCode(Controls.toggleWeaponMenu.keyboard)  +'</kbd> or right mouse - Weapon Menu. </p><br>' +        
+             ' <kbd>' + String.fromCharCode(Controls.aimUp.keyboard) + '</kbd> ' +
+             ' <kbd>' + String.fromCharCode(Controls.aimDown.keyboard) + '</kbd> ' +
+             ' - Aim up and down. </p><br>' +
+            ' <kbd>' + String.fromCharCode(Controls.toggleWeaponMenu.keyboard) + '</kbd> or right mouse - Weapon Menu. </p><br>' +
             ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>' +
             '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
     }
 
     onGameReady(callback)
-    {       
+    {
         var _this = this;
         if (this.menuActive)
         {
@@ -54,19 +54,25 @@ class StartMenu
                     _this.controlsMenu(callback);
                 });
 
-                 $('#startOnline').click(function =>
+                $('#startOnline').click(function =>
                 {
-                     //Setup multiplayer
-                     GameInstance.lobby.client_init();
-                     GameInstance.lobby.menu.show(callback);
-
-                     AssetManager.sounds["CursorSelect"].play();
+                    if (GameInstance.lobby.client_init() != false)
+                    {
+                         $('#notice').empty();
+                        GameInstance.lobby.menu.show(callback);
+                        AssetManager.sounds["CursorSelect"].play();
+                    } else
+                    {
+                            $('#notice').empty();
+                            $('#notice').append('<div class="alert alert-error"> <strong> Oh Dear! </strong> Looks like the multiplayer server is down. Try a local game for a while?</div> ');
                     
+                    }
+
                 });
 
-                 $('#startTutorial').click(function =>
+                $('#startTutorial').click(function =>
                 {
-                     AssetManager.sounds["CursorSelect"].play();
+                    AssetManager.sounds["CursorSelect"].play();
                     _this.controlsMenu(callback);
                 });
 
