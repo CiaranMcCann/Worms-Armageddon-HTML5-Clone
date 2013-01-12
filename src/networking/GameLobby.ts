@@ -85,6 +85,16 @@ class GameLobby
 
     }
 
+    contains(playerId: string)
+    {
+        for (var i in this.players)
+        {
+            return this.players[i] == playerId;
+        }
+
+        return false;
+    }
+
     join(userId,socket)
     {
         console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name );

@@ -28,13 +28,14 @@ class LobbyMenu
     constructor (lobby: Lobby)
     {
         this.lobbyRef = lobby;
-        this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2><span class="badge badge-success" id=' + this.CSS_ID.USER_COUNT_BOX.replace('#','') + '></span>' +
-            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>nPlayers</th>  <th>Locked</th>   <th>Join</th>  </tr>  </thead>  ' +
+        this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2><span class="label label-success" style="float:left;padding:3px;">Connected users   <span class="badge badge-inverse" id=' + this.CSS_ID.USER_COUNT_BOX.replace('#','') + '></span></span><br>' +
+            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>Num Players</th>  <th>Locked</th>   <th>Join a game lobby</th>  </tr>  </thead>  ' +
             '<tbody></tbody></table>' +
             '<div class="alert alert-success" id="' + this.CSS_ID.INFO_BOX.replace('#', '') + '"></div>' +
             '<a class="btn btn-primary btn-large" id=' + this.CSS_ID.QUICK_PLAY_BTN.replace('#', '') + ' style="text-align:center">Quick Play</a>' +
             '<a class="btn btn-primary btn-large" id=' + this.CSS_ID.CREATE_BTN.replace('#', '') + ' style="text-align:center">Create Lobby</a>' +
             '</div>';
+       
     }
 
     updateUserCountUI(userCount)
@@ -84,6 +85,7 @@ class LobbyMenu
 
             this.updateLobbyListUI(this.lobbyRef);
             this.updateUserCountUI(this.lobbyRef.userCount);
+            this.displayMessage(" Select a game lobby or create one ");
 
             this.bind();
             $('.slide').fadeIn('slow');
@@ -97,11 +99,18 @@ class LobbyMenu
         var gameLobbies: GameLobby[] = lobby.getGameLobbies();
         for (var gameLobby in gameLobbies)
         {
+            var lob: GameLobby = gameLobbies[gameLobby];
+            var disableButton = "";
+            if (lob.contains(Client.id))
+            {
+                disableButton = 'disabled="disabled"';
+            }
+
             $(this.CSS_ID.LOBBY_TABLE).append(
            ' <tr><td>' + gameLobbies[gameLobby].name + '</td> ' +
            ' <td> ' + gameLobbies[gameLobby].numberOfPlayers + ' / ' + gameLobbies[gameLobby].players.length + ' </td>   ' +
            ' <td>' + gameLobbies[gameLobby].isPrivate + '</td> ' +
-           ' <td><button class="btn btn-mini ' + this.CSS_ID.JOIN_BTN.replace('.', '') + '"  value=' + gameLobbies[gameLobby].id + ' type="button">Join this game lobby</button></td> ');
+           ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + this.CSS_ID.JOIN_BTN.replace('.', '') + '"  value=' + gameLobbies[gameLobby].id + ' type="button">Join this game lobby</button></td> ');
         }
         $(this.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
 

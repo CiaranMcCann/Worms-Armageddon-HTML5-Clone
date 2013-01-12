@@ -69,7 +69,7 @@ class Lobby
     onDisconnection(socket, io)
     {
         socket.on('disconnect', function () => {
-            
+
             ServerUtilies.info(io, " User exit ");
             this.userCount--;
             io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
@@ -91,9 +91,6 @@ class Lobby
 
             io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
             var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
-
-            // lobbies are indexed by their unqine token
-            this.gameLobbies[newGameLobby.id] = newGameLobby;
 
             //Once a new game lobby has been created, add the user who created it.
             socket.get('userId', function (err, userId) =>
@@ -209,17 +206,20 @@ class Lobby
 
     client_createGameLobby(name, numberOfPlayers)
     {
+        this.menu.displayMessage(" Waitting on more players.... ");
         Client.socket.emit(Events.lobby.CREATE_GAME_LOBBY, { "name": name, "nPlayers": numberOfPlayers });
     }
 
     // Creates the gamelobby object on the server
     server_createGameLobby(name, numberOfPlayers)
     {
-        var gameLobby = new GameLobby(name, numberOfPlayers);
-        gameLobby.server_init();
+        var newGameLobby = new GameLobby(name, numberOfPlayers);
+        newGameLobby.server_init();
 
+        // lobbies are indexed by their unqine token
+        this.gameLobbies[newGameLobby.id] = newGameLobby;
 
-        return gameLobby;
+        return this.gameLobbies[newGameLobby.id];
     }
 
     client_joinGameLobby(lobbyId)
