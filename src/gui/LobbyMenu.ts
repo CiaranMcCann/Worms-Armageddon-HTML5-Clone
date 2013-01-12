@@ -29,7 +29,7 @@ class LobbyMenu
     {
         this.lobbyRef = lobby;
         this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2><span class="label label-success" style="float:left;padding:3px;">Connected users   <span class="badge badge-inverse" id=' + this.CSS_ID.USER_COUNT_BOX.replace('#','') + '></span></span><br>' +
-            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>Num Players</th>  <th>Locked</th>   <th>Join a game lobby</th>  </tr>  </thead>  ' +
+            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>Num Players</th>  <th> Status </th>   <th>Join a game lobby</th>  </tr>  </thead>  ' +
             '<tbody></tbody></table>' +
             '<div class="alert alert-success" id="' + this.CSS_ID.INFO_BOX.replace('#', '') + '"></div>' +
             '<a class="btn btn-primary btn-large" id=' + this.CSS_ID.QUICK_PLAY_BTN.replace('#', '') + ' style="text-align:center">Quick Play</a>' +
@@ -49,9 +49,8 @@ class LobbyMenu
         $(this.CSS_ID.QUICK_PLAY_BTN).click(function =>
         {
             $(this.CSS_ID.QUICK_PLAY_BTN).unbind();
-            $('#splashScreen').remove();
-            $('#startMenu').fadeOut('normal');
             AssetManager.sounds["CursorSelect"].play();
+            this.lobbyRef.client_joinQuickGame();
         })
 
         $(this.CSS_ID.CREATE_BTN).click(function =>
@@ -101,16 +100,25 @@ class LobbyMenu
         {
             var lob: GameLobby = gameLobbies[gameLobby];
             var disableButton = "";
-            if (lob.contains(Client.id))
+            if (lob.contains(Client.id) || lob.isFull())
             {
                 disableButton = 'disabled="disabled"';
+            }
+
+            var status = "Waitting";
+            var buttonText = " Join game ";
+            if (lob.isFull())
+            {
+                status = "Playing";
+
             }
 
             $(this.CSS_ID.LOBBY_TABLE).append(
            ' <tr><td>' + gameLobbies[gameLobby].name + '</td> ' +
            ' <td> ' + gameLobbies[gameLobby].numberOfPlayers + ' / ' + gameLobbies[gameLobby].players.length + ' </td>   ' +
-           ' <td>' + gameLobbies[gameLobby].isPrivate + '</td> ' +
-           ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + this.CSS_ID.JOIN_BTN.replace('.', '') + '"  value=' + gameLobbies[gameLobby].id + ' type="button">Join this game lobby</button></td> ');
+           ' <td>' + status + '</td> ' +
+           ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + this.CSS_ID.JOIN_BTN.replace('.', '') + 
+           '"  value=' + gameLobbies[gameLobby].id + ' type="button"> ' + buttonText  + '</button></td> ');
         }
         $(this.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
 

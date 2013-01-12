@@ -88,6 +88,9 @@ class Game
         // Manages the state of the game, the player turns etc.
         this.state = new GameStateManager();
 
+        // Initalizes UI elements
+        this.gameTimer = new CountDownTimer();
+
         this.players = [];
 
         // Development stuff
@@ -156,7 +159,6 @@ class Game
         this.wormManager = new WormManager(this.players);
 
         // Initalizes UI elements
-        this.gameTimer = new CountDownTimer();
         this.weaponMenu = new WeaponsMenu();
         this.healthMenu = new HealthMenu(this.players);
 

@@ -52,13 +52,13 @@ class GameLobby
     client_init()
     {
         //Have the host client setup all the player objects with all the other clients ids
-        Client.socket.on(Events.gameLobby.START_GAME_HOST, function ( playerIds)
+        Client.socket.on(Events.gameLobby.START_GAME_HOST, function ( playerIds : number[])
         {
             Logger.debug("Events.client.START_GAME_HOST " +  playerIds);
             GameInstance.start(playerIds);
 
             //Once we have init the game, we most send all the game info to the other players
-            Client.socket.emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS,  GameInstance.getGameNetData());
+            Client.socket.emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, { "nPlayers": playerIds.length, "gameData": GameInstance.getGameNetData() } );
             
         });
 
@@ -73,11 +73,14 @@ class GameLobby
         Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
         {
             Logger.debug("Events.client.START_GAME_FOR_OTHER_CLIENTS " + data);
-                    for (var i = 0; i < 2; i++)
+
+            //Just popluate the array with some players, we will override them with proper data now
+            for (var i = 0; i < data.nPlayers; i++)
             {
-                  GameInstance.players.push(new Player(2));
+                  GameInstance.players.push(new Player());
             }
-            GameInstance.setGameNetData(data);
+
+            GameInstance.setGameNetData(data.gameData);
             GameInstance.start();
         });
 
@@ -107,11 +110,16 @@ class GameLobby
 
         this.players.push(userId);
     }
+    
+    isFull()
+    {
+        return this.numberOfPlayers == this.players.length;
+    }
 
     startGame(socket)
     {
        
-        if (this.players.length == this.numberOfPlayers)
+        if (this.isFull())
         {         
             socket.emit(Events.gameLobby.START_GAME_HOST, this.players);
         }

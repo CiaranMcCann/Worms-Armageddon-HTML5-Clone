@@ -228,10 +228,22 @@ class Lobby
         Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lobbyId);
     }
 
-    joinQuickGame(lobbyName: string)
-    {
-        // FIND a game quick that is waitting on a player
-        Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lobbyName);
+
+    client_joinQuickGame()
+    {      
+        for (var i in this.gameLobbies)
+        {
+            var lob: GameLobby = this.gameLobbies[i];
+            if (lob.isFull() == false)
+            {
+                this.menu.displayMessage(" Waitting on more players.... ");
+                Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lob.id);
+                return true;
+            }
+        }
+
+        //If it doesn't find any empty lobby for the user it creates one.
+        this.client_createGameLobby("Default QuickGame", 2);
     }
 
 

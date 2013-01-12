@@ -44,15 +44,22 @@ class GameServer
 
         io.sockets.on('connection', function (socket) =>
         {
-            this.lobby.server_createGameLobby("Default", 2);
-
             this.lobby.onConnection(socket,io);
             this.lobby.server_init(socket,io);
             this.lobby.onDisconnection(socket,io);
         });
+
+        this.init();
+    }
+
+    init()
+    {
+        // Setup a default lobby
+         this.lobby.server_createGameLobby("Default", 2);
     }
 
 }
 
 var serverInstance = new GameServer(8080);
+
 
