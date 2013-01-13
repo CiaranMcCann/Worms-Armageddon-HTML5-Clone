@@ -141,14 +141,14 @@ class Lobby
         ************************************************************/
 
 
-        socket.on(Events.client.WORM_ACTION, function (data) => {
+        socket.on(Events.client.ACTION, function (data) => {
 
             socket.get('userId', function (err, userId) =>
             {
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
                     io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
-                    socket.broadcast.to(gameLobbyId).emit(Events.client.WORM_ACTION, data);
+                    socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
                 });
             });
 

@@ -1,4 +1,5 @@
 ///<reference path="../system/Utilies.ts"/>
+///<reference path="InstructionChain.ts"/>
 declare var io;
 
 module Client
@@ -6,42 +7,6 @@ module Client
     export var socket;
     export var id;
 
-    class InstructionChain
-    {
-        instructionChain : string[];
-        args; // array of anything
-
-        constructor(instructionChain : string = "" , args = [])
-        {
-            this.instructionChain = instructionChain.split('.');
-            this.args = args;
-
-        }
-
-        call(objectToApplyInstruction)
-        {
-            var obj = objectToApplyInstruction;
-            var objMethod;
-
-            if (this.instructionChain.length > 1)
-            {
-                for (var i = 0; i < this.instructionChain.length - 1; i++)
-                {
-                    obj = obj[this.instructionChain[i]]
-                }
-                objMethod = this.instructionChain[this.instructionChain.length-1]
-
-
-            } else
-            {
-                obj = objectToApplyInstruction;
-                objMethod = this.instructionChain[0];
-            }
-
-            obj[objMethod].call(obj, this.args);
-        }
-
-    }
 
     export function connectionToServer(ip, port)
     {
@@ -57,13 +22,10 @@ module Client
                 Client.id = id;
             });
 
-            socket.on(Events.client.WORM_ACTION, function (packet) =>
+            socket.on(Events.client.ACTION, function (packet) =>
             {
                var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);
-
-               var worm = GameInstance.state.getCurrentPlayerObject().getTeam().getCurrentWorm()
-               instructionSet.call(worm);
-
+               instructionSet.call(GameInstance);
                 
             });
 

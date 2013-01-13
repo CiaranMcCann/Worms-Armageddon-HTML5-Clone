@@ -64,31 +64,31 @@ class Player
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.team.getCurrentWorm().walkLeft();
-                Client.sendActionToAll(Events.client.WORM_ACTION, "walkLeft");
+                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkLeft");
             }
 
             if (keyboard.isKeyDown(Controls.jump.keyboard, true))
             {
                 this.team.getCurrentWorm().jump();
-                Client.sendActionToAll(Events.client.WORM_ACTION, "jump");
+                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.jump");
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
                 this.team.getCurrentWorm().walkRight();
-                Client.sendActionToAll(Events.client.WORM_ACTION, "walkRight");
+                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkRight");
             }
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(1);
-                Client.sendActionToAll(Events.client.WORM_ACTION, "target.aim",[1]);
+               Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.target.aim",[1]);
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(-1);
-                    Client.sendActionToAll(Events.client.WORM_ACTION, "target.aim",[-1]);
+                    Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkLefttarget.aim",[-1]);
             }
 
             if (keyboard.isKeyDown(Controls.fire.keyboard, true))
@@ -96,7 +96,7 @@ class Player
                 this.team.getCurrentWorm().fire();
                 GameInstance.weaponMenu.refresh();
 
-                Client.sendActionToAll(Events.client.WORM_ACTION, "fire");
+                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.fire");
             }
 
 

@@ -31,6 +31,7 @@ class WeaponsMenu
             if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 _this.toggle();
+
             }
         });
 
