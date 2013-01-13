@@ -64,37 +64,39 @@ class Player
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.team.getCurrentWorm().walkLeft();
-
-                if (GameInstance.gameType == Game.types.ONLINE_GAME && this.timer.hasTimePeriodPassed())
-                {
-                    Client.socket.emit(Events.gameLobby.UPDATE, GameInstance.getGameNetData());
-                }
+                Client.sendActionToAll(Events.client.WORM_ACTION, "walkLeft");
             }
 
             if (keyboard.isKeyDown(Controls.jump.keyboard, true))
             {
                 this.team.getCurrentWorm().jump();
+                Client.sendActionToAll(Events.client.WORM_ACTION, "jump");
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
                 this.team.getCurrentWorm().walkRight();
+                Client.sendActionToAll(Events.client.WORM_ACTION, "walkRight");
             }
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(1);
+                Client.sendActionToAll(Events.client.WORM_ACTION, "target.aim",[1]);
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(-1);
+                    Client.sendActionToAll(Events.client.WORM_ACTION, "target.aim",[-1]);
             }
 
             if (keyboard.isKeyDown(Controls.fire.keyboard, true))
             {
                 this.team.getCurrentWorm().fire();
                 GameInstance.weaponMenu.refresh();
+
+                Client.sendActionToAll(Events.client.WORM_ACTION, "fire");
             }
 
 

@@ -12,7 +12,7 @@
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
-//declare function require(s);
+declare function require(s);
 try
 {   
     var Events = require('./Events');
@@ -65,7 +65,7 @@ class GameLobby
         Client.socket.on(Events.gameLobby.UPDATE, function ( data )
         {
             Logger.debug(" Events.gameLobby.UPDATE " +  data );   
-            GameInstance.setGameNetData(data);
+            GameInstance.state.getCurrentPlayerObject().getTeam().getCurrentWorm().fire();
         });
 
         // Start the game for all other playrs by passing the player information create
