@@ -1,33 +1,31 @@
 module Events
 {
+    // All event names have been shorted to reduce packet size
+
     export var lobby = {
-        CREATE_GAME_LOBBY: "createLobby",
-        UPDATE_USER_COUNT : "newUserConnected"
+        CREATE_GAME_LOBBY: "createLob",
+        UPDATE_USER_COUNT : "newConnect"
     }
 
     export var gameLobby = {
-        PLAYER_JOIN: "playerJoin",
-        UPDATE: "updateGameWorld",
-        START_GAME_FOR_OTHER_CLIENTS: "startGameForOtherClients",
-        START_GAME_HOST : "startGame"
+        PLAYER_JOIN: "pJoin",
+        START_GAME_FOR_OTHER_CLIENTS: "startForOther",
+        START_GAME_HOST : "startG"
     }
 
     export var client = {
 
-        NEW_LOBBY_CREATED: "newLobbyCreated",
-        UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",       
+        UPDATE_ALL_GAME_LOBBIES: "updateLobs",       
         ASSIGN_USER_ID: "assignId",
-        ACTION : "Action",
-        UPDATE: "update",
-        GET_GAME_TIME: "time"
+        ACTION : "a",
+        UPDATE: "u",
+        GET_GAME_TIME: "t"
     }
 
     export var server = {
 
-
     }
 
- 
 }
 
 // Hack 

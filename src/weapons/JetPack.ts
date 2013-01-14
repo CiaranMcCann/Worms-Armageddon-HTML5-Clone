@@ -97,6 +97,23 @@ class JetPack extends BaseWeapon
         }
     }
 
+    up()
+    {
+        this.forceDir.y = -1;
+    }
+
+    left()
+    {
+          this.forceDir.x = -1.2;
+          this.worm.direction = -1;
+    }
+
+    right()
+    {
+        this.forceDir.x = 1.2;
+        this.worm.direction = 1;
+    }
+
     update()
     {
         if (this.fuel <= 0)
@@ -111,19 +128,17 @@ class JetPack extends BaseWeapon
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
-                this.forceDir.y = -1;
+                this.up();
             }
 
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
-                this.forceDir.x = -1.2;
-                this.worm.direction = -1;
+                this.left();
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
-                this.forceDir.x = 1.2;
-                this.worm.direction = 1;
+                this.right();
             }
 
             if (this.forceDir.Length() > 0)

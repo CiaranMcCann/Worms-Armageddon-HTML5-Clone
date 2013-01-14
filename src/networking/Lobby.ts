@@ -64,8 +64,6 @@ class Lobby
         io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
 
         // When someone makes a connection send them the lobbie
-      
-        server.instance.bandwidthMonitor.count(this.getGameLobbies());
         socket.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
     }
 
@@ -85,8 +83,6 @@ class Lobby
         // Create lobby
         socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
         {
-            server.instance.bandwidthMonitor.count(data);
-
             // Check the user input
             if (data.nPlayers > ServerSettings.MAX_PLAYERS_PER_LOBBY || data.nPlayers < 2)
             {
@@ -111,8 +107,6 @@ class Lobby
         // PLAYER_JOIN Game lobby
         socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) => {
 
-           server.instance.bandwidthMonitor.count(gamelobbyId);
-
             io.log.info(Util.format("@ Events.client.JOIN_GAME_LOBBY " + gamelobbyId));
 
             // Get the usersId
@@ -121,18 +115,14 @@ class Lobby
                 var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
                 gamelobby.join(userId, socket);
                 gamelobby.startGame(socket);
-
-                var data = JSON.stringify(this.getGameLobbies());
                 
-                server.instance.bandwidthMonitor.count(data);
-                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, data);
+                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
             });
 
         });
 
         socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
         {
-           server.instance.bandwidthMonitor.count(data);
 
             socket.get('userId', function (err, userId) =>
             {
@@ -156,7 +146,6 @@ class Lobby
 
         socket.on(Events.client.UPDATE, function (data)
         {
-            server.instance.bandwidthMonitor.count(data);
 
             socket.get('userId', function (err, userId) =>
             {
@@ -174,8 +163,6 @@ class Lobby
 
 
         socket.on(Events.client.ACTION, function (data) => {
-
-            server.instance.bandwidthMonitor.count(data);
 
             socket.get('userId', function (err, userId) =>
             {

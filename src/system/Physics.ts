@@ -337,7 +337,10 @@ class PhysiscsDataPacket
         var vectors = data.split(":");
         for (var i in vectors)
         {
-            this.bodyDataPackets.push(new BodyDataPacket(vectors[i]));
+            if (vectors[i] != "")
+            {
+                this.bodyDataPackets.push(new BodyDataPacket(vectors[i]));
+            }
         }
 
     }

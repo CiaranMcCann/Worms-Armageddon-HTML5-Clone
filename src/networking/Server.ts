@@ -55,11 +55,7 @@ class GameServer
             //This allows the clients to get the  current time of the server
             socket.on(Events.client.GET_GAME_TIME, function (msg,func) =>
             {
-                var serverTimeNow = Date.now();
-                func(serverTimeNow);
-
-                this.bandwidthMonitor.count(serverTimeNow);
-                ServerUtilies.info(io,"Bandwidth is " + this.bandwidthMonitor.getCurrentBandWidth());
+                func(Date.now());
             });
         });
 

@@ -88,9 +88,6 @@ class Game
         // Manages the state of the game, the player turns etc.
         this.state = new GameStateManager();
 
-        // Initalizes UI elements
-        this.gameTimer = new CountDownTimer();
-
         this.players = [];
 
         // Development stuff
@@ -152,6 +149,7 @@ class Game
         // Initalizes UI elements
         this.weaponMenu = new WeaponsMenu();
         this.healthMenu = new HealthMenu(this.players);
+        this.gameTimer = new CountDownTimer();
 
         // Initalizse the various animations/effect managers
         this.particleEffectMgmt = new EffectsManager();
@@ -223,10 +221,10 @@ class Game
             );
 
             //While there is physics objects to sync do so
-            if (Physics.fastAcessList.length > 0)
-            {
+          //  if (Physics.fastAcessList.length > 0)
+           // {
                 Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON() );
-            }
+            //}
         }
         //Physics.world.ClearForces();
     }

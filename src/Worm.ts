@@ -62,7 +62,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
-        this.health = 10;
+        this.health = 100;
         this.damageTake = 0;
         this.team = team;
 
@@ -95,8 +95,6 @@ class Worm extends Sprite
         fixDef.isSensor = true;
         this.footSensor = this.body.CreateFixture(fixDef);
 
-
-
         this.body.SetUserData(this);
         this.stateAnimationMgmt = new WormAnimationManger(this);
 
@@ -110,6 +108,7 @@ class Worm extends Sprite
         this.preRendering();
 
         this.fallHeight = this.body.GetPosition().y;
+        Physics.addToFastAcessList(this.body);
     }
 
     getWormNetData()

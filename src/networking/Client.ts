@@ -30,12 +30,14 @@ module Client
 
             socket.on(Events.client.UPDATE, function (packet) =>
             {
-                try
-                {
+               // try
+               // {
                     var physicsDataPacket = new PhysiscsDataPacket(packet);
                     physicsDataPacket.override(Physics.fastAcessList);
 
-                } catch (e){}
+                //} catch (e){
+                //    Logger.error(" Couldn't exucute command " + packet);
+                //}
             });
 
             return true;
@@ -46,7 +48,7 @@ module Client
         }
     }
 
-    var packetRateLimiter: Timer = new Timer(300);
+    var packetRateLimiter: Timer = new Timer(5000);
     export function sendRateLimited(event, packet){
 
         packetRateLimiter.update();
