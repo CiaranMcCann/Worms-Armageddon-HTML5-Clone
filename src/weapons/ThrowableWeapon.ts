@@ -106,6 +106,8 @@ class ThrowableWeapon extends BaseWeapon
         this.body.SetLinearVelocity(initalVelocity);
 
         this.body.SetUserData(this);
+
+        Physics.addToFastAcessList(this.body);
     }
 
     //Gets the direction of aim from the target and inital velocity

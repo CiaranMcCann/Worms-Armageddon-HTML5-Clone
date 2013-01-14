@@ -31,6 +31,7 @@ class GameLobby
     id: string;
     numberOfPlayers: number;
     isPrivate: bool;
+    currentPlayerId: string;
 
     static gameLobbiesCounter = 0;
 
@@ -52,7 +53,7 @@ class GameLobby
     client_init()
     {
         //Have the host client setup all the player objects with all the other clients ids
-        Client.socket.on(Events.gameLobby.START_GAME_HOST, function ( playerIds : number[])
+        Client.socket.on(Events.gameLobby.START_GAME_HOST, function ( playerIds : number[]) =>
         {
             Logger.debug("Events.client.START_GAME_HOST " +  playerIds);
             GameInstance.start(playerIds);
@@ -60,12 +61,6 @@ class GameLobby
             //Once we have init the game, we most send all the game info to the other players
             Client.socket.emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, { "nPlayers": playerIds.length, "gameData": GameInstance.getGameNetData() } );
             
-        });
-
-        Client.socket.on(Events.gameLobby.UPDATE, function ( data )
-        {
-            Logger.debug(" Events.gameLobby.UPDATE " +  data );   
-            GameInstance.state.getCurrentPlayerObject().getTeam().getCurrentWorm().fire();
         });
 
         // Start the game for all other playrs by passing the player information create

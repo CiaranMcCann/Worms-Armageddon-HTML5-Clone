@@ -17,7 +17,8 @@ module Events
         NEW_LOBBY_CREATED: "newLobbyCreated",
         UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",       
         ASSIGN_USER_ID: "assignId",
-        ACTION : "Action"
+        ACTION : "Action",
+        UPDATE: "update"
     }
 
     export var server = {

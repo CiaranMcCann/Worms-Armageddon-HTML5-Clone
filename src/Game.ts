@@ -206,6 +206,8 @@ class Game
             this.particleEffectMgmt.update();
             this.miscellaneousEffects.update();
             this.gameTimer.update();
+
+          
         }
 
     }
@@ -219,6 +221,11 @@ class Game
                , 10       //velocity iterations
                , 10       //position iterations
             );
+
+            if (Physics.fastAcessList.length > 0)
+            {
+                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList));
+            }
         }
         //Physics.world.ClearForces();
     }
@@ -256,8 +263,9 @@ class GameDataPacket
 {
     players: PlayerDataPacket[];
 
-    constructor(game: Game)
+    constructor(game: Game, physics = Physics)
     {
+
         this.players = [];
         for (var p in game.players)
         {
@@ -265,11 +273,12 @@ class GameDataPacket
         }
     }
 
-    override(game : Game)
+    override(game : Game, physics = Physics)
     {
         for (var p in this.players)
         {
             this.players[p].override(game.players[p]);
         }
+
     }
 }

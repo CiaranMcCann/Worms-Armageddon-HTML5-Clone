@@ -7,7 +7,6 @@ module Client
     export var socket;
     export var id;
 
-
     export function connectionToServer(ip, port)
     {
         try
@@ -29,6 +28,23 @@ module Client
                 
             });
 
+            socket.on(Events.client.UPDATE, function (packet) =>
+            {
+                try
+                {
+
+                    var physicsDataPacket = Utilies.copy(new PhysiscsDataPacket(Physics.fastAcessList), packet);
+                    physicsDataPacket.override(Physics.fastAcessList);
+
+                } catch (e)
+                {
+
+                }
+                
+
+                
+            });
+
             return true;
 
         } catch (e)
@@ -37,9 +53,18 @@ module Client
         }
     }
 
-    export function sendActionToAll(event,method,args = []){
+    var packetRateLimiter: Timer = new Timer(10);
+    export function sendRateLimited(event, packet){
 
-        var packet = new InstructionChain(method, args);
+        packetRateLimiter.update();
+
+        if (GameInstance.gameType == Game.types.ONLINE_GAME && packetRateLimiter.hasTimePeriodPassed())
+        {
+            Client.socket.emit(event, packet);
+        }
+    }
+
+    export function sendImmediately(event, packet, rateLimiter = 0){
 
         if (GameInstance.gameType == Game.types.ONLINE_GAME)
         {

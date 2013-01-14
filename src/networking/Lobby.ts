@@ -126,8 +126,10 @@ class Lobby
         {
             socket.get('userId', function (err, userId) =>
             {
+
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
+                     this.gameLobbies[gameLobbyId].currentPlayerId = userId;
                     io.log.info(Util.format("@ Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS " + userId + " for lobby " + gameLobbyId + "   " + data));
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, data);
                 });
@@ -136,19 +138,42 @@ class Lobby
         });
 
 
+        
+
         /************************************************************
         *   Game sync event bindings  
         ************************************************************/
+
+        socket.on(Events.client.UPDATE, function (data)
+        {
+            socket.get('userId', function (err, userId) =>
+            {
+                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                {
+                    if (this.gameLobbies[gameLobbyId].currentPlayerId == userId)
+                    {
+                        io.log.info(Util.format("@ UPDATE   " + data));
+                        socket.broadcast.to(gameLobbyId).emit(Events.client.UPDATE, data);
+                    }
+                });
+            });
+
+        });
 
 
         socket.on(Events.client.ACTION, function (data) => {
 
             socket.get('userId', function (err, userId) =>
             {
+
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
-                    io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
-                    socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
+                    
+                    if (this.gameLobbies[gameLobbyId].currentPlayerId == userId)
+                    {                        
+                        io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
+                        socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
+                    }
                 });
             });
 

@@ -33,7 +33,7 @@ class HolyGrenade extends ThrowableWeapon
     {
         if (this.getIsActive() && this.detonationTimer.getTimeLeftInSec()/10 <= 2)
         {
-            AssetManager.sounds["HOLYGRENADE"].play();
+            AssetManager.sounds["holygrenade"].play();
         }
 
         super.update();

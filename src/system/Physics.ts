@@ -45,7 +45,26 @@ module Physics
     export var worldScale;
     export var world;
     export var debugDraw;
-    export var contactFunctionsList = [];
+
+    // For fast acess to all bodies that aren't the terrain
+    export var fastAcessList = [];
+    export function addToFastAcessList(body)
+    {
+        fastAcessList.push(body);
+    }
+
+    export function removeToFastAcessList(body)
+    {
+        for (var b in body)
+        {
+            if (body[b] === body)
+            {
+                Utilies.deleteFromCollection(fastAcessList, b);
+            }
+        }
+    }
+
+
 
     export function init(ctx)
     {
@@ -232,5 +251,50 @@ module Physics
 
         return Physics.vectorMetersToPixels(pos);
         
+    }
+}
+
+
+class BodyDataPacket
+{
+
+    posX;
+    posY;
+    id;
+
+    constructor(body)
+    {
+        this.posX = body.GetPosition().x;
+        this.posY = body.GetPosition().y;
+    }
+
+    override(body)
+    {
+        body.SetPosition(new b2Vec2(this.posX, this.posY));
+    }
+}
+
+
+class PhysiscsDataPacket
+{
+    bodyDataPackets: BodyDataPacket[];
+
+
+    constructor(bodies)
+    {
+        this.bodyDataPackets = [];
+
+        for (var b in bodies)
+        {
+            this.bodyDataPackets.push(new BodyDataPacket(bodies[b]));
+        }
+    }
+
+    override(bodies)
+    {
+        for (var b in this.bodyDataPackets)
+        {
+            this.bodyDataPackets[b].override(bodies[b]);
+        }
     }
 }

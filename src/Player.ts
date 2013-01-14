@@ -64,31 +64,31 @@ class Player
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.team.getCurrentWorm().walkLeft();
-                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkLeft");
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkLeft"));
             }
 
             if (keyboard.isKeyDown(Controls.jump.keyboard, true))
             {
                 this.team.getCurrentWorm().jump();
-                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.jump");
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayerObject.getTeam.getCurrentWorm.jump"));
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
                 this.team.getCurrentWorm().walkRight();
-                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkRight");
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkRight"));
             }
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(1);
-               Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.target.aim",[1]);
+               Client.sendImmediately(Events.client.ACTION,  new InstructionChain("state.getCurrentPlayerObject.getTeam.getCurrentWorm.target.aim",[1]));
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(-1);
-                 Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.target.aim",[-1]);
+                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayerObject.getTeam.getCurrentWorm.target.aim",[-1]));
             }
 
             if (keyboard.isKeyDown(Controls.fire.keyboard, true))
@@ -96,7 +96,7 @@ class Player
                 this.team.getCurrentWorm().fire();
                 GameInstance.weaponMenu.refresh();
 
-                Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.fire");
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayerObject.getTeam.getCurrentWorm.fire"));
             }
 
 
