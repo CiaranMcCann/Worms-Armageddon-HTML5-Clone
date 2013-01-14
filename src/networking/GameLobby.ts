@@ -30,7 +30,7 @@ class GameLobby
     players: number[];
     name: string;
     id: string;
-    numberOfPlayers: number;
+    numPlayers: number;
     isPrivate: bool;
     currentPlayerId: string;
 
@@ -41,7 +41,7 @@ class GameLobby
         this.name = name;   
         this.isPrivate = false;
         this.players = [];      
-        this.numberOfPlayers = numberOfPlayers;
+        this.numPlayers = numberOfPlayers;
 
     }
 
@@ -110,7 +110,7 @@ class GameLobby
     
     isFull()
     {
-        return this.numberOfPlayers == this.players.length;
+        return this.numPlayers == this.players.length;
     }
 
     startGame(socket)
