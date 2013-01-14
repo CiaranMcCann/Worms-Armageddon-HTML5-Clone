@@ -13,6 +13,7 @@
 ///<reference path="Events.ts"/>
 ///<reference path="GameLobby.ts"/>
 declare var Util;
+declare var server;
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
@@ -22,7 +23,7 @@ try
 // prevents the project from compling.
     eval("var GameLobby = require('./GameLobby');var Events = require('./Events'); " +
         " var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); " +
-        "var Util = require('util');")
+        "var Util = require('util');var server = require('./Server'); var server = require('./server'); ")
 } catch (error) { }
 
 
@@ -62,7 +63,9 @@ class Lobby
 
         io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
 
-        // When someone makes a connection send them the lobbies
+        // When someone makes a connection send them the lobbie
+      
+        server.instance.bandwidthMonitor.count(this.getGameLobbies());
         socket.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
     }
 
@@ -82,6 +85,7 @@ class Lobby
         // Create lobby
         socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
         {
+            server.instance.bandwidthMonitor.count(data);
 
             // Check the user input
             if (data.nPlayers > ServerSettings.MAX_PLAYERS_PER_LOBBY || data.nPlayers < 2)
@@ -107,6 +111,8 @@ class Lobby
         // PLAYER_JOIN Game lobby
         socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) => {
 
+           server.instance.bandwidthMonitor.count(gamelobbyId);
+
             io.log.info(Util.format("@ Events.client.JOIN_GAME_LOBBY " + gamelobbyId));
 
             // Get the usersId
@@ -116,20 +122,24 @@ class Lobby
                 gamelobby.join(userId, socket);
                 gamelobby.startGame(socket);
 
-
-                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                var data = JSON.stringify(this.getGameLobbies());
+                
+                server.instance.bandwidthMonitor.count(data);
+                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, data);
             });
 
         });
 
         socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
         {
+           server.instance.bandwidthMonitor.count(data);
+
             socket.get('userId', function (err, userId) =>
             {
 
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
-                     this.gameLobbies[gameLobbyId].currentPlayerId = userId;
+                    this.gameLobbies[gameLobbyId].currentPlayerId = userId;
                     io.log.info(Util.format("@ Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS " + userId + " for lobby " + gameLobbyId + "   " + data));
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, data);
                 });
@@ -138,7 +148,7 @@ class Lobby
         });
 
 
-        
+
 
         /************************************************************
         *   Game sync event bindings  
@@ -146,6 +156,8 @@ class Lobby
 
         socket.on(Events.client.UPDATE, function (data)
         {
+            server.instance.bandwidthMonitor.count(data);
+
             socket.get('userId', function (err, userId) =>
             {
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
@@ -163,14 +175,16 @@ class Lobby
 
         socket.on(Events.client.ACTION, function (data) => {
 
+            server.instance.bandwidthMonitor.count(data);
+
             socket.get('userId', function (err, userId) =>
             {
 
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
-                    
+
                     if (this.gameLobbies[gameLobbyId].currentPlayerId == userId)
-                    {                        
+                    {
                         io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
                         socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
                     }
@@ -255,7 +269,7 @@ class Lobby
 
 
     client_joinQuickGame()
-    {      
+    {
         for (var i in this.gameLobbies)
         {
             var lob: GameLobby = this.gameLobbies[i];
@@ -274,6 +288,9 @@ class Lobby
 
 }
 
+// Removes the need to have to do the follow
+// var Lobby = require('./Lobby');
+// new Lobby.Lobby();
 declare var exports: any;
 if (typeof exports != 'undefined')
 {

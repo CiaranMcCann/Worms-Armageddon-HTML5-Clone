@@ -120,6 +120,13 @@
     </Content>
     <TypeScriptCompile Include="src\networking\Server.ts" />
     <TypeScriptCompile Include="src\networking\Client.ts" />
+    <TypeScriptCompile Include="src\networking\BandwidthMonitor.ts" />
+    <Content Include="src\networking\BandwidthMonitor.js">
+      <DependentUpon>BandwidthMonitor.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\BandwidthMonitor.min.js">
+      <DependentUpon>BandwidthMonitor.ts</DependentUpon>
+    </Content>
     <Content Include="src\networking\Client.js">
       <DependentUpon>Client.ts</DependentUpon>
     </Content>

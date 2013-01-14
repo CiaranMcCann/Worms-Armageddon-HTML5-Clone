@@ -11,6 +11,7 @@
 ///<reference path="GameLobby.ts"/>
 ///<reference path="Events.ts"/>
 ///<reference path="Lobby.ts"/>
+///<reference path="BandwidthMonitor.ts"/>
 declare function require(s);
 declare var Util;
 
@@ -28,7 +29,8 @@ try
     var ServerSettings = require('./ServerSettings');
     var Lobby = require('./Lobby');
     var Util = require('util');
-   
+    var BandwidthMonitor = require('./BandwidthMonitor');
+    
 
 } catch (error) { }
 
@@ -36,9 +38,11 @@ class GameServer
 {
 
     lobby: Lobby;
+    bandwidthMonitor;
 
     constructor (port)
     {   
+        this.bandwidthMonitor = new BandwidthMonitor(true);
         io = require('socket.io').listen(port);
         this.lobby = new Lobby();
 
@@ -47,6 +51,8 @@ class GameServer
             this.lobby.onConnection(socket,io);
             this.lobby.server_init(socket,io);
             this.lobby.onDisconnection(socket,io);
+
+            ServerUtilies.info(io," bandwidth is " + this.bandwidthMonitor.getCurrentBandWidth());
         });
 
         this.init();
@@ -60,6 +66,8 @@ class GameServer
 
 }
 
+
+declare var exports: any;
 var serverInstance = new GameServer(8080);
 
-
+exports.instance = serverInstance;

@@ -258,19 +258,18 @@ module Physics
 class BodyDataPacket
 {
 
-    posX;
-    posY;
-    id;
+    pX;
+    pY;
 
     constructor(body)
     {
-        this.posX = body.GetPosition().x;
-        this.posY = body.GetPosition().y;
+        this.pX = body.GetPosition().x;
+        this.pY = body.GetPosition().y;
     }
 
     override(body)
     {
-        body.SetPosition(new b2Vec2(this.posX, this.posY));
+        body.SetPosition(new b2Vec2(this.pX, this.pY));
     }
 }
 
