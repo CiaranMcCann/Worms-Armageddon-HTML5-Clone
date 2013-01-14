@@ -32,17 +32,10 @@ module Client
             {
                 try
                 {
-
-                    var physicsDataPacket = Utilies.copy(new PhysiscsDataPacket(Physics.fastAcessList), packet);
+                    var physicsDataPacket = new PhysiscsDataPacket(packet);
                     physicsDataPacket.override(Physics.fastAcessList);
 
-                } catch (e)
-                {
-
-                }
-                
-
-                
+                } catch (e){}
             });
 
             return true;
@@ -53,7 +46,7 @@ module Client
         }
     }
 
-    var packetRateLimiter: Timer = new Timer(5);
+    var packetRateLimiter: Timer = new Timer(300);
     export function sendRateLimited(event, packet){
 
         packetRateLimiter.update();

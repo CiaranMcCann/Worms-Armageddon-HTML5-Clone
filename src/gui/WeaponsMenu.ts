@@ -54,7 +54,7 @@ class WeaponsMenu
 
     selectWeapon(weaponId)
     {
-        var weaponMgmt = GameInstance.state.getCurrentPlayerObject().getTeam().getWeaponManager();
+        var weaponMgmt = GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager();
 
         //Checks if the weapon has ammo to provide the html been hacked and a weaponid passed that doesn't have ammo
         if (weaponMgmt.checkWeaponHasAmmo(weaponId))
@@ -72,7 +72,7 @@ class WeaponsMenu
 
     refresh()
     {
-        var weaponMgmt = GameInstance.state.getCurrentPlayerObject().getTeam().getWeaponManager();
+        var weaponMgmt = GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager();
         this.populateMenu(weaponMgmt.getListOfWeapons());
     }
 

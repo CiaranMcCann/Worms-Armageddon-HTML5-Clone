@@ -18,8 +18,8 @@ module Effects
 
     export function explosion(epicenter,explosionRadius,effectedRadius,explosiveForce, maxDamage, entityThatCausedExplosion = null)
     {
-        var posX = Physics.metersToPixels(epicenter.x);
-        var posY = Physics.metersToPixels(epicenter.y);
+        var posX = Physics.metersToPixels(Math.floor(epicenter.x));
+        var posY = Physics.metersToPixels(Math.floor(epicenter.y));
 
         GameInstance.terrain.addToDeformBatch(posX,posY,explosionRadius);
 
@@ -32,6 +32,8 @@ module Effects
                 if (fixture.GetBody().GetType() != b2Body.b2_staticBody && fixture.GetBody().GetUserData() instanceof Worm)
                 {
                     var direction = fixture.GetBody().GetPosition().Copy();
+                    direction.x = Math.floor(direction.x);
+                    direction.y = Math.floor(direction.y);
                     direction.Subtract(epicenter);
                     var forceVec = direction.Copy();
 

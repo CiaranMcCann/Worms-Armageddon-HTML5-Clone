@@ -18,7 +18,7 @@ class Timer
     {
         this.delta = 0;
         this.timePeriod = timePeriod;
-        this.timeSinceLastUpdate = Date.now();
+        this.timeSinceLastUpdate = this.getTimeNow();
         this.isTimerPaused = false;
     }
 
@@ -42,7 +42,7 @@ class Timer
     reset()
     {
         this.delta = 0;
-        this.timeSinceLastUpdate = Date.now();
+        this.timeSinceLastUpdate = this.getTimeNow();
         this.isTimerPaused = false;
     }
 
@@ -55,13 +55,18 @@ class Timer
     {
         return (this.timePeriod - this.delta) / 60;
     }
+    
+    getTimeNow()
+    {
+        return Date.now();
+    }
 
     update()
     {
         if (this.isTimerPaused == false)
         {
-            this.delta += Date.now() - this.timeSinceLastUpdate;
-            this.timeSinceLastUpdate = Date.now();
+            this.delta += this.getTimeNow() - this.timeSinceLastUpdate;
+            this.timeSinceLastUpdate = this.getTimeNow();
         }
     }
 }

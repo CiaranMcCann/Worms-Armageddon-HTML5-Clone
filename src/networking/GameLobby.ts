@@ -14,14 +14,12 @@
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 //declare function require(s);
 try
-{   
+{
+//This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
+// prevents the project from compling.
+    eval(" var Events = require('./Events');var ServerUtilies = require('./ServerUtilies');var Util = require('util');var ServerSettings = require('./ServerSettings');");
 
-    var Events = require('./Events');
-    var ServerUtilies = require('./ServerUtilies');
-    var Util = require('util');
-    var ServerSettings = require('./ServerSettings');
-
-} catch (error){}
+} catch (error) { }
 
 var SOCKET_STORAGE_GAMELOBBY_ID = 'gameLobbyId';
 
@@ -30,39 +28,39 @@ class GameLobby
     players: number[];
     name: string;
     id: string;
-    numPlayers: number;
+    numberOfPlayers: number;
     isPrivate: bool;
     currentPlayerId: string;
 
     static gameLobbiesCounter = 0;
 
-    constructor (name :string, numberOfPlayers : number)
+    constructor(name: string, numberOfPlayers: number)
     {
-        this.name = name;   
+        this.name = name;
         this.isPrivate = false;
-        this.players = [];      
-        this.numPlayers = numberOfPlayers;
+        this.players = [];
+        this.numberOfPlayers = numberOfPlayers;
 
     }
 
     server_init()
     {
-       this.id = ServerUtilies.createToken() + GameLobby.gameLobbiesCounter;
-       GameLobby.gameLobbiesCounter++;
+        this.id = ServerUtilies.createToken() + GameLobby.gameLobbiesCounter;
+        GameLobby.gameLobbiesCounter++;
     }
 
     client_init()
     {
         //Have the host client setup all the player objects with all the other clients ids
-        Client.socket.on(Events.gameLobby.START_GAME_HOST, function ( playerIds : number[]) =>
+        Client.socket.on(Events.gameLobby.START_GAME_HOST, function (playerIds: number[]) =>
         {
 
-            Logger.debug("Events.client.START_GAME_HOST " +  playerIds);
+            Logger.debug("Events.client.START_GAME_HOST " + playerIds);
             GameInstance.start(playerIds);
 
             //Once we have init the game, we most send all the game info to the other players
-            Client.socket.emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, { "nPlayers": playerIds.length, "gameData": GameInstance.getGameNetData() } );
-            
+            Client.socket.emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, { "nPlayers": playerIds.length, "gameData": GameInstance.getGameNetData() });
+
         });
 
         // Start the game for all other playrs by passing the player information create
@@ -74,7 +72,7 @@ class GameLobby
             //Just popluate the array with some players, we will override them with proper data now
             for (var i = 0; i < data.nPlayers; i++)
             {
-                  GameInstance.players.push(new Player());
+                GameInstance.players.push(new Player());
             }
 
             GameInstance.setGameNetData(data.gameData);
@@ -95,10 +93,10 @@ class GameLobby
         return false;
     }
 
-    join(userId,socket)
+    join(userId, socket)
     {
-        console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name );
-        
+        console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name);
+
         // Add the player to the gameLobby socket.io room
         socket.join(this.id);
 
@@ -107,17 +105,17 @@ class GameLobby
 
         this.players.push(userId);
     }
-    
+
     isFull()
     {
-        return this.numPlayers == this.players.length;
+        return this.numberOfPlayers == this.players.length;
     }
 
     startGame(socket)
     {
-       
+
         if (this.isFull())
-        {         
+        {
             socket.emit(Events.gameLobby.START_GAME_HOST, this.players);
         }
     }
@@ -126,6 +124,7 @@ class GameLobby
 
 
 declare var exports: any;
-if (typeof exports != 'undefined') {
-  (module).exports = GameLobby;
+if (typeof exports != 'undefined')
+{
+    (module ).exports = GameLobby;
 }

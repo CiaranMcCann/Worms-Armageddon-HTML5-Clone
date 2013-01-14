@@ -263,13 +263,31 @@ class BodyDataPacket
 
     constructor(body)
     {
-        this.pX = body.GetPosition().x;
-        this.pY = body.GetPosition().y;
+        if (typeof body == "string")
+        {
+            this.fromJSON(body);
+        } else
+        {
+            this.pX = body.GetPosition().x;
+            this.pY = body.GetPosition().y;
+        }
     }
 
     override(body)
     {
         body.SetPosition(new b2Vec2(this.pX, this.pY));
+    }
+
+    toJSON()
+    {
+        return this.pX + "," + this.pY;
+    }
+
+    fromJSON(data :string)
+    {
+        var v = data.split(",");
+        this.pX = parseFloat(v[0]);
+        this.pY = parseFloat(v[1]);
     }
 }
 
@@ -283,9 +301,15 @@ class PhysiscsDataPacket
     {
         this.bodyDataPackets = [];
 
-        for (var b in bodies)
+        if (typeof bodies == "string")
         {
-            this.bodyDataPackets.push(new BodyDataPacket(bodies[b]));
+            this.fromJSON(bodies);
+        } else
+        {
+            for (var b in bodies)
+            {
+                this.bodyDataPackets.push(new BodyDataPacket(bodies[b]));
+            }
         }
     }
 
@@ -295,5 +319,26 @@ class PhysiscsDataPacket
         {
             this.bodyDataPackets[b].override(bodies[b]);
         }
+    }
+
+    toJSON()
+    {
+        var data = "";
+        for (var b in this.bodyDataPackets)
+        {
+            data += this.bodyDataPackets[b].toJSON()+":"
+        }
+
+        return data;
+    }
+
+    fromJSON(data :string)
+    {
+        var vectors = data.split(":");
+        for (var i in vectors)
+        {
+            this.bodyDataPackets.push(new BodyDataPacket(vectors[i]));
+        }
+
     }
 }

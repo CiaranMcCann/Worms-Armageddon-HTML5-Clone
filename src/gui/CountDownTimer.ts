@@ -10,6 +10,7 @@
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>
 ///<reference path="../system/Timer.ts" />
+///<reference path="../networking/NetworkTimer.ts" />
 ///<reference path="../Settings.ts" />
 
 class CountDownTimer
@@ -20,7 +21,7 @@ class CountDownTimer
 
     constructor ()
     {
-        this.timer = new Timer(Settings.PLAYER_TURN_TIME);
+        this.timer = new NetworkTimer(Settings.PLAYER_TURN_TIME);
         this.previousSecound = this.timer.timePeriod;  
         $('#turnTimeCounter').hide();     
     }

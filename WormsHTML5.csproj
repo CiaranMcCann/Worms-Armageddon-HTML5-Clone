@@ -167,6 +167,13 @@
     <Content Include="src\networking\Lobby.min.js">
       <DependentUpon>Lobby.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\networking\NetworkTimer.ts" />
+    <Content Include="src\networking\NetworkTimer.js">
+      <DependentUpon>NetworkTimer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\NetworkTimer.min.js">
+      <DependentUpon>NetworkTimer.ts</DependentUpon>
+    </Content>
     <Content Include="src\networking\Server.js">
       <DependentUpon>Server.ts</DependentUpon>
     </Content>

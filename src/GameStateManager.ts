@@ -75,7 +75,7 @@ class GameStateManager
     }
 
 
-    getCurrentPlayerObject()
+    getCurrentPlayer()
     {
         return this.players[this.currentPlayerIndex];
     }
@@ -93,8 +93,8 @@ class GameStateManager
             this.currentPlayerIndex++;
         }
 
-        this.getCurrentPlayerObject().getTeam().nextWorm();
-        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayerObject().getTeam().getCurrentWorm().body.GetPosition()));
+        this.getCurrentPlayer().getTeam().nextWorm();
+        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
     }
    
     checkForWinner()

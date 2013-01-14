@@ -5,8 +5,7 @@
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
-    var ServerSettings = require('./ServerSettings');
-    var Util = require('util');
+    eval("var ServerSettings = require('./ServerSettings');var Util = require('util');");
 
 } catch (e) { }
 
@@ -34,8 +33,7 @@ module ServerUtilies
     export function info(io,message)
     {
         if (ServerSettings.DEVELOPMENT_MODE)
-            console.log("###" + Util);
-                io.log.info(Util.format("@ " + message));
+              io.log.info(Util.format("@ " + message));
     }
 
     export function warn(io,message)

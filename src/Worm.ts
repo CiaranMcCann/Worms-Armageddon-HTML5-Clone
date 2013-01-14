@@ -375,7 +375,7 @@ class Worm extends Sprite
     //Is this the current worm of the current player
     isActiveWorm()
     {
-        return this.team.getCurrentWorm() == this && GameInstance.state.getCurrentPlayerObject().getTeam() == this.team;
+        return this.team.getCurrentWorm() == this && GameInstance.state.getCurrentPlayer().getTeam() == this.team;
     }
 
     update()

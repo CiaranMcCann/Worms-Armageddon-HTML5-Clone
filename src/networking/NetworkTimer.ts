@@ -18,7 +18,7 @@ class NetworkTimer extends Timer
     constructor(gameTurnTimeDuraction)
     {
         super(gameTurnTimeDuraction);
-        this.packetRateTimer = new Timer(500);
+        this.packetRateTimer = new Timer(1000);
         this.currentServerTime = Date.now();
     }
 
@@ -31,7 +31,6 @@ class NetworkTimer extends Timer
         {
             Client.socket.emit(Events.client.GET_GAME_TIME, '',function (data) =>
             {
-                console.log(data);
                 this.currentServerTime = data;
             });
         }

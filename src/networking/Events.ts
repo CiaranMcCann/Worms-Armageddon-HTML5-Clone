@@ -18,7 +18,8 @@ module Events
         UPDATE_ALL_GAME_LOBBIES: "updateAllGameLobbies",       
         ASSIGN_USER_ID: "assignId",
         ACTION : "Action",
-        UPDATE: "update"
+        UPDATE: "update",
+        GET_GAME_TIME: "time"
     }
 
     export var server = {
