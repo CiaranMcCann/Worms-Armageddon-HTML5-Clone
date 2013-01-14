@@ -82,13 +82,13 @@ class Player
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(1);
-               Client.sendImmediately(Events.client.ACTION,  new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[1]));
+              Client.sendImmediately(Events.client.ACTION,  new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[1]));
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(-1);
-                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[-1]));
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[-1]));
             }
 
             if (keyboard.isKeyDown(Controls.fire.keyboard, true))

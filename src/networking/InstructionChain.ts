@@ -38,13 +38,7 @@ class InstructionChain
                 // If the next instruction is not a member varible but actually a function, call it.
                 if (typeof obj[this.instructionChain[i]] == "function")
                 {
-                    try
-                    {
                         obj = obj[this.instructionChain[i]].call(obj);
-                    } catch (e)
-                    {
-                        return false;
-                    }
 
                 } else
                 {
@@ -61,13 +55,8 @@ class InstructionChain
             objMethod = this.instructionChain[0];
         }
 
-        try
-        {
             obj[objMethod].call(obj, this.args);
-        } catch (e)
-        {
-            return false;
-        }
+
     }
 
 }

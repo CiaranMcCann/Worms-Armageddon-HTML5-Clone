@@ -94,6 +94,7 @@ class JetPack extends BaseWeapon
             ctx.fillText(Math.floor(this.fuel), 42, -20);
             ctx.restore();
 
+           this.forceDir = new b2Vec2(0, 0);
         }
     }
 
@@ -124,21 +125,23 @@ class JetPack extends BaseWeapon
 
         if (this.isActive)
         {
-            this.forceDir = new b2Vec2(0, 0);
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.up();
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.getCurrentWeapon.up"));
             }
 
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.left();
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.getCurrentWeapon.left"));
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
                 this.right();
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.getCurrentWeapon.right"));
             }
 
             if (this.forceDir.Length() > 0)
@@ -157,6 +160,8 @@ class JetPack extends BaseWeapon
 
             if (this.forceDir.x != 0)
                 this.sideflame.update();
+
+         
         }
     }
 

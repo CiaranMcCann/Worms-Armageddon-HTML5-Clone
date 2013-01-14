@@ -1,6 +1,6 @@
  module ServerSettings
 {
-    export var DEVELOPMENT_MODE = true;
+    export var DEVELOPMENT_MODE = false;
     export var MAX_PLAYERS_PER_LOBBY = 4;
     export var MAX_USERS = 1000;
 

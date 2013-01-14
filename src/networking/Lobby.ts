@@ -31,7 +31,7 @@ try
 class Lobby
 {
     private gameLobbies;
-    private client_GameLobby: GameLobby;
+    client_GameLobby: GameLobby;
     menu: LobbyMenu;
     userCount: number;
     highestUserCount: number;
@@ -40,7 +40,7 @@ class Lobby
     {
         this.userCount = 0;
         this.gameLobbies = {};
-        this.client_GameLobby = new GameLobby(null, null);
+        this.client_GameLobby = new GameLobby(null, null, null);
     }
 
     onConnection(socket, io)
@@ -77,6 +77,11 @@ class Lobby
         });
     }
 
+    client_getMyLobby() : GameLobby
+    {
+        return this.client_GameLobby;
+    }
+
     server_init(socket, io)
     {
 
@@ -89,17 +94,17 @@ class Lobby
                 data.nPlayers = 4;
             }
 
-            io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
-            var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
-
             //Once a new game lobby has been created, add the user who created it.
             socket.get('userId', function (err, userId) =>
             {
+                io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
+                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers), userId);
                 newGameLobby.join(userId, socket);
-            });
 
-            console.log(" Lobby list " + this.gameLobbies);
-            io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                console.log(" Lobby list " + this.gameLobbies);
+                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+
+            });
         });
 
 
@@ -114,8 +119,7 @@ class Lobby
             {
                 var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
                 gamelobby.join(userId, socket);
-                gamelobby.startGame(socket);
-                
+
                 io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
             });
 
@@ -170,7 +174,7 @@ class Lobby
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
 
-                    if (this.gameLobbies[gameLobbyId].currentPlayerId == userId)
+                    if (this.gameLobbies[gameLobbyId].currentPlayerId == userId )
                     {
                         io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
                         socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
@@ -212,7 +216,7 @@ class Lobby
             var updatedGameLobbies = {};
             for (var gameLobby in gameLobbyList)
             {
-                updatedGameLobbies[gameLobby] = (Utilies.copy(new GameLobby(null, null), gameLobbyList[gameLobby]));
+                updatedGameLobbies[gameLobby] = (Utilies.copy(new GameLobby(null, null, null), gameLobbyList[gameLobby]));
             }
 
             this.gameLobbies = updatedGameLobbies;
@@ -237,9 +241,9 @@ class Lobby
     }
 
     // Creates the gamelobby object on the server
-    server_createGameLobby(name, numberOfPlayers)
+    server_createGameLobby(name, numberOfPlayers, hostId)
     {
-        var newGameLobby = new GameLobby(name, numberOfPlayers);
+        var newGameLobby = new GameLobby(name, numberOfPlayers, hostId);
         newGameLobby.server_init();
 
         // lobbies are indexed by their unqine token

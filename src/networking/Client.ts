@@ -48,7 +48,7 @@ module Client
         }
     }
 
-    var packetRateLimiter: Timer = new Timer(5000);
+    var packetRateLimiter: Timer = new Timer(40);
     export function sendRateLimited(event, packet){
 
         packetRateLimiter.update();

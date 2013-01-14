@@ -115,7 +115,7 @@ class LobbyMenu
 
             $(this.CSS_ID.LOBBY_TABLE).append(
            ' <tr><td>' + gameLobbies[gameLobby].name + '</td> ' +
-           ' <td> ' + gameLobbies[gameLobby].numberOfPlayers + ' / ' + gameLobbies[gameLobby].players.length + ' </td>   ' +
+           ' <td> ' + gameLobbies[gameLobby].getNumberOfPlayers() + ' / ' + gameLobbies[gameLobby].getPlayerSlots() + ' </td>   ' +
            ' <td>' + status + '</td> ' +
            ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + this.CSS_ID.JOIN_BTN.replace('.', '') + 
            '"  value=' + gameLobbies[gameLobby].id + ' type="button"> ' + buttonText  + '</button></td> ');

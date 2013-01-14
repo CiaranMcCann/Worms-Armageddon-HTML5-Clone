@@ -104,9 +104,6 @@ class Game
         }
 
         this.lobby = new Lobby();
-
-       
-
     }
 
     getGameNetData()
@@ -170,6 +167,14 @@ class Game
         }
     }
 
+    // This method allows for quick use of the instruction chain
+    // mechanisim over the network to call nextPlayer.
+    nextTurn()
+    {
+        this.state.nextPlayer();
+        this.gameTimer.timer.reset();
+    }
+
     update()
     {
         if (this.state.isStarted)
@@ -190,8 +195,12 @@ class Game
             // When ready to go to the next player and while no winner
             if (this.state.readyForNextTurn() && this.winner == null)
             {
-                this.state.nextPlayer();
-                this.gameTimer.timer.reset();
+                //If this player is the host they will decide when to move to next player
+                if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_getMyLobby().hostId == Client.id)
+                {
+                    this.nextTurn();
+                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
+                }
             }
 
             for (var i = this.players.length - 1; i >= 0; --i)
@@ -221,10 +230,10 @@ class Game
             );
 
             //While there is physics objects to sync do so
-          //  if (Physics.fastAcessList.length > 0)
-           // {
-                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON() );
-            //}
+            if (this.lobby.client_getMyLobby().hostId == Client.id )
+            {
+                //Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON() );
+            }
         }
         //Physics.world.ClearForces();
     }

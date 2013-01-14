@@ -101,7 +101,7 @@ module Physics
                 contact.GetFixtureA().GetBody().GetUserData().beginContact(contact);
             } else
             {
-                Logger.warn(" Body does not have beginContact method");
+               // Logger.warn(" Body does not have beginContact method");
             }
 
             if (contact.GetFixtureB().GetBody().GetUserData() != null &&
@@ -110,7 +110,7 @@ module Physics
                 contact.GetFixtureB().GetBody().GetUserData().beginContact(contact);
             } else
             {
-                Logger.warn(" Body does not have beginContact method");
+                //Logger.warn(" Body does not have beginContact method");
             }
         }
 
@@ -124,7 +124,7 @@ module Physics
             }
             else
             {
-                Logger.warn(" Body does not have endContact method");
+                //Logger.warn(" Body does not have endContact method");
             }
 
              if (contact.GetFixtureB().GetBody().GetUserData() != null &&
@@ -134,7 +134,7 @@ module Physics
             }
             else
             {
-                Logger.warn(" Body does not have endContact method");
+                //Logger.warn(" Body does not have endContact method");
             }
         }
 
@@ -280,7 +280,8 @@ class BodyDataPacket
 
     toJSON()
     {
-        return this.pX + "," + this.pY;
+        return (Math.floor(this.pX * 1000) / 1000) + "," + (Math.floor(this.pY * 1000) / 1000);
+        //this.pX + "," +this.pY
     }
 
     fromJSON(data :string)
