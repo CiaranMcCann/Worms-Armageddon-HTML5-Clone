@@ -159,7 +159,9 @@ class ThrowableWeapon extends BaseWeapon
             this.worm
         );
 
+        Physics.removeToFastAcessList(this.body);
         Physics.world.DestroyBody(this.body);
+
         this.deactivate();
     }
 

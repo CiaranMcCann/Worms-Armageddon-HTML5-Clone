@@ -222,9 +222,10 @@ class Game
                , 10       //position iterations
             );
 
+            //While there is physics objects to sync do so
             if (Physics.fastAcessList.length > 0)
             {
-                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList));
+                Client.sendImmediately(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList));
             }
         }
         //Physics.world.ClearForces();

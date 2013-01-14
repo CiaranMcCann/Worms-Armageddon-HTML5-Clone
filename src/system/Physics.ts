@@ -55,9 +55,9 @@ module Physics
 
     export function removeToFastAcessList(body)
     {
-        for (var b in body)
+        for (var b in fastAcessList)
         {
-            if (body[b] === body)
+            if (fastAcessList[b] === body)
             {
                 Utilies.deleteFromCollection(fastAcessList, b);
             }
