@@ -88,7 +88,7 @@ class Player
             if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.team.getCurrentWorm().target.aim(-1);
-                    Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.walkLefttarget.aim",[-1]);
+                 Client.sendActionToAll(Events.client.ACTION, "state.getCurrentPlayerObject.getTeam.getCurrentWorm.target.aim",[-1]);
             }
 
             if (keyboard.isKeyDown(Controls.fire.keyboard, true))
@@ -154,4 +154,20 @@ class Player
     }
 
 
+}
+
+
+class PlayerDataPacket
+{
+    teamDataPacket: TeamDataPacket;
+
+    constructor(player: Player)
+    {
+        this.teamDataPacket = new TeamDataPacket(player.getTeam());
+    }
+
+    override(player : Player)
+    {
+        this.teamDataPacket.override(player.getTeam());
+    }
 }

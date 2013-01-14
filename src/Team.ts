@@ -176,3 +176,34 @@ class Team
 
 
 }
+
+class TeamDataPacket
+{
+    wormsDataPacket: WormDataPacket[];
+    name;
+    color;
+
+    constructor(team : Team)
+    {
+        this.name = team.name;
+        this.color = team.color;
+        this.wormsDataPacket = [];
+
+        for (var w in team.worms)
+        {
+            this.wormsDataPacket.push( new WormDataPacket( team.worms[w] ));
+        }
+    }
+
+    override(team : Team)
+    {
+        team.name = this.name;
+        team.color = this.color;
+        
+        for (var w in this.wormsDataPacket)
+        {
+            this.wormsDataPacket[w].override(team.getWorms()[w]);
+        }
+
+    }
+}

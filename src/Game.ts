@@ -114,22 +114,13 @@ class Game
 
     getGameNetData()
     {
-        var packetStream = {};
-        for (var p in this.players)
-        {
-            packetStream[p] = this.players[p].getPlayerNetData();
-        }
-
-        return JSON.stringify(packetStream);
+        return new GameDataPacket(this);
     }
 
     setGameNetData(data)
     {
-        var packetStream = JSON.parse(data);
-        for (var p in packetStream)
-        {
-            this.players[p].setPlayerNetData(packetStream[p]);
-        }
+        var gameDataPacket : GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
+        gameDataPacket.override(this);
     }
 
     start(playerIds = null)
@@ -258,4 +249,27 @@ class Game
 
     }
 
+}
+
+
+class GameDataPacket
+{
+    players: PlayerDataPacket[];
+
+    constructor(game: Game)
+    {
+        this.players = [];
+        for (var p in game.players)
+        {
+            this.players.push(new PlayerDataPacket(game.players[p]));
+        }
+    }
+
+    override(game : Game)
+    {
+        for (var p in this.players)
+        {
+            this.players[p].override(game.players[p]);
+        }
+    }
 }

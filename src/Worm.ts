@@ -442,3 +442,19 @@ class Worm extends Sprite
     }
 
 }
+
+class WormDataPacket
+{
+    name;
+
+    constructor(worm: Worm)
+    {
+        this.name = worm.name;
+    }
+
+    override(worm: Worm)
+    {
+        worm.name = this.name;
+        worm.preRendering(); // Regenerate their names
+    }
+}
