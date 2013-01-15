@@ -29,9 +29,6 @@ class GamePad
                 this.padNumber = GamePad.numPads;
                 this.pad = pads[GamePad.numPads];
                 this.isConnected = true;
-
-                Logger.log(" Gamepad connected ");
-
                 GamePad.numPads++;
             }
 
@@ -43,7 +40,6 @@ class GamePad
         if (this.isConnected)
         {
             this.pad = (<any>navigator).webkitGetGamepads()[this.padNumber];
-            //Logger.log(" Gamepad update ");
         }
     }
 
@@ -52,12 +48,10 @@ class GamePad
 
         if (this.isConnected)
         {
-            Logger.log(" pressed  ##########");
             return this.pad.buttons[buttonId] && (this.pad.buttons[buttonId] == 1);
         }
         else
         {
-            Logger.log(" NOT pressed ");
             return false;
         }
 
@@ -71,7 +65,8 @@ class GamePad
             {
                 return this.pad.axes[axisId];
             }
-
         }
+
+        return false;
     }
 }

@@ -67,7 +67,7 @@ class Player
         {
 
             //Player controls 
-            if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || this.gamePad.isButtonPressed(15))
+            if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || this.gamePad.isButtonPressed(14) || this.gamePad.getAxis(0) > 0.5)
             {
                 this.team.getCurrentWorm().walkLeft();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkLeft"));
@@ -79,25 +79,27 @@ class Player
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.jump"));
             }
 
-            if (keyboard.isKeyDown(Controls.walkRight.keyboard))
+            if (keyboard.isKeyDown(Controls.walkRight.keyboard)  || this.gamePad.isButtonPressed(15) || this.gamePad.getAxis(0) > 0.5)
             {
                 this.team.getCurrentWorm().walkRight();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkRight"));
             }
 
-            if (keyboard.isKeyDown(Controls.aimUp.keyboard))
+            if (keyboard.isKeyDown(Controls.aimUp.keyboard) ||
+             this.gamePad.getAxis(2) >= 0.2 ||  this.gamePad.getAxis(3) >= 0.2)
             {
-                this.team.getCurrentWorm().target.aim(1);
+              
+              this.team.getCurrentWorm().target.aim(1);
               Client.sendImmediately(Events.client.ACTION,  new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[1]));
             }
 
-            if (keyboard.isKeyDown(Controls.aimDown.keyboard))
+            if (keyboard.isKeyDown(Controls.aimDown.keyboard) || this.gamePad.getAxis(2) <= -0.2 || this.gamePad.getAxis(3) <= -0.2)
             {
                 this.team.getCurrentWorm().target.aim(-1);
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[-1]));
             }
 
-            if (keyboard.isKeyDown(Controls.fire.keyboard, true))
+            if (keyboard.isKeyDown(Controls.fire.keyboard, true) ||  this.gamePad.isButtonPressed(7))
             {
                 this.team.getCurrentWorm().fire();
                 GameInstance.weaponMenu.refresh();

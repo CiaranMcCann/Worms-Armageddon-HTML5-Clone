@@ -283,6 +283,7 @@ class Worm extends Sprite
             this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
+            console.log(currentPos.x - this.speed / Physics.worldScale);
             this.body.SetPosition(new b2Vec2(currentPos.x - this.speed / Physics.worldScale, currentPos.y));
 
             this.playWalkingSound();
