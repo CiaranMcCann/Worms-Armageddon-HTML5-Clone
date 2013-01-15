@@ -59,9 +59,8 @@ class Player
 
         this.gamePad.connect();
         this.gamePad.update();
-
-        
-        var onlineSpefic = GameInstance.gameType == Game.types.LOCAL_GAME || GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id;
+      
+        var onlineSpefic = Client.isClientsTurn();
 
         if ( onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {

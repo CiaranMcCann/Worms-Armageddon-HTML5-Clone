@@ -66,6 +66,12 @@ module Client
         }
     }
 
+    // Is the game an only one and if so is the current player == to this client
+    export function isClientsTurn()
+    {
+        return GameInstance.gameType == Game.types.LOCAL_GAME || GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id
+    }
+
     export function sendImmediately(event, packet, rateLimiter = 0){
 
         if (GameInstance.gameType == Game.types.ONLINE_GAME)

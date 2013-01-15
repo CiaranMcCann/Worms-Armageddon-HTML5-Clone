@@ -28,19 +28,12 @@ class WeaponsMenu
         var _this = this;
         $(window).keypress(function (event)
         {
-            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
-            {
                 _this.toggle();
-
-            }
         });
 
         $('body').mousedown(function (event) =>
         {
-            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
-            {
                 this.toggle();
-            }
         });
 
         $('body').on('contextmenu', "#" + this.cssId, function (e)
@@ -79,24 +72,28 @@ class WeaponsMenu
 
     toggle()
     {
-        // populate
-        this.refresh();
-        var moveAmountInPx;
+        if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+        {
 
-        if (this.isVisable)
-        {
-            moveAmountInPx = "0px";
-            this.isVisable = false;
-        } else
-        {
-            moveAmountInPx = "-275px";
-            this.isVisable = true;
+            // populate
+            this.refresh();
+            var moveAmountInPx;
+
+            if (this.isVisable)
+            {
+                moveAmountInPx = "0px";
+                this.isVisable = false;
+            } else
+            {
+                moveAmountInPx = "-275px";
+                this.isVisable = true;
+            }
+
+
+            this.htmlElement.animate({
+                marginLeft: moveAmountInPx,
+            }, 400);
         }
-
-
-        this.htmlElement.animate({
-            marginLeft: moveAmountInPx,
-        }, 400);
     }
 
     //Fills the menu up with the various weapon items

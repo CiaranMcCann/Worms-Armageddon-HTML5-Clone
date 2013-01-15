@@ -11,7 +11,7 @@ module Settings
 {
 
     //Game vars
-    export var PLAYER_TURN_TIME = 10 * 1000; // 60 secounds
+    export var PLAYER_TURN_TIME = 30 * 1000; // 60 secounds
     export var TURN_TIME_WARING = 5; // after 10 secounds warn player they are running out of time
    
     //General game settings
