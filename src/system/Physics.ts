@@ -280,8 +280,19 @@ class BodyDataPacket
 
     toJSON()
     {
-        return (Math.floor(this.pX * 1000) / 1000) + "," + (Math.floor(this.pY * 1000) / 1000);
-        //this.pX + "," +this.pY
+        if (Settings.NETWORKED_GAME_QUALITY_LEVELS.HIGH == Settings.NETWORKED_GAME_QUALITY)
+        {
+            return this.pX + "," + this.pY;
+
+        } else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.MEDIUM == Settings.NETWORKED_GAME_QUALITY)
+        {
+            return (Math.floor(this.pX * 10000) / 10000) + "," + (Math.floor(this.pY * 10000) / 10000);
+        }
+        else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.LOW == Settings.NETWORKED_GAME_QUALITY)
+        {
+            return (Math.floor(this.pX * 100) / 100) + "," + (Math.floor(this.pY * 100) / 100);
+        }
+
     }
 
     fromJSON(data :string)

@@ -6,6 +6,7 @@ module Client
 {
     export var socket;
     export var id;
+    var packetRateLimiter: Timer;
 
     export function connectionToServer(ip, port)
     {
@@ -30,15 +31,22 @@ module Client
 
             socket.on(Events.client.UPDATE, function (packet) =>
             {
-               // try
-               // {
                     var physicsDataPacket = new PhysiscsDataPacket(packet);
                     physicsDataPacket.override(Physics.fastAcessList);
-
-                //} catch (e){
-                //    Logger.error(" Couldn't exucute command " + packet);
-                //}
             });
+
+            if (Settings.NETWORKED_GAME_QUALITY_LEVELS.HIGH == Settings.NETWORKED_GAME_QUALITY)
+            {
+                packetRateLimiter = new Timer(30);
+
+            } else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.MEDIUM == Settings.NETWORKED_GAME_QUALITY)
+            {
+                packetRateLimiter = new Timer(100);
+            }
+            else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.LOW == Settings.NETWORKED_GAME_QUALITY)
+            {
+                 packetRateLimiter = new Timer(1000);
+            }
 
             return true;
 
@@ -48,7 +56,6 @@ module Client
         }
     }
 
-    var packetRateLimiter: Timer = new Timer(40);
     export function sendRateLimited(event, packet){
 
         packetRateLimiter.update();

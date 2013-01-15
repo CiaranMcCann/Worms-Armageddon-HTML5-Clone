@@ -35,6 +35,11 @@ class BaseWeapon
     //Some weapons need acesses to player controls
     onKeyDown(key) { }
 
+    deactivate()
+    {
+        throw new Error('abstract method, override in derived class');
+    }
+
     activate(worm)
     {
         

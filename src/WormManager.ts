@@ -76,6 +76,24 @@ class WormManager
         return true;
     }
 
+    //deactivate all non-time based weapons, such as jetpacks and ropes etc. 
+    deactivedAllNonTimeBasedWeapons()
+    {
+        for (var i = 0; i < this.allWorms.length; i++)
+        {
+            var weapon = this.allWorms[i].team.getWeaponManager().getCurrentWeapon();
+            if (weapon.getIsActive() == true)
+            {
+                if ((weapon instanceof ThrowableWeapon) == false)
+                {
+                    weapon.deactivate();
+                }
+            }
+        }
+
+        return true;
+    }
+
     // Are all worm accumlated damage pionts taken from their total health yet?
     areAllWormsDamageTaken()
     {

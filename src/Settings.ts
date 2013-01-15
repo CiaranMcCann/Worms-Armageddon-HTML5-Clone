@@ -11,7 +11,7 @@ module Settings
 {
 
     //Game vars
-    export var PLAYER_TURN_TIME = 40 * 1000; // 60 secounds
+    export var PLAYER_TURN_TIME = 10 * 1000; // 60 secounds
     export var TURN_TIME_WARING = 5; // after 10 secounds warn player they are running out of time
    
     //General game settings
@@ -27,6 +27,14 @@ module Settings
     export var REMOTE_ASSERT_SERVER = "http://www.ciaranmccann.me/fyp/";
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
+
+    export var NETWORKED_GAME_QUALITY_LEVELS = {
+        HIGH: 0,
+        MEDIUM: 1,
+        LOW: 2
+    }
+
+    export var NETWORKED_GAME_QUALITY = NETWORKED_GAME_QUALITY_LEVELS.HIGH;
 
 
     //Pasers commandline type arguments from the page url like this ?argName=value

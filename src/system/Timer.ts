@@ -27,11 +27,13 @@ class Timer
         this.isTimerPaused = true;
     }
 
-    hasTimePeriodPassed()
+    hasTimePeriodPassed(rest = true)
     {
         if (this.delta > this.timePeriod)
         {
+            if(rest)
             this.delta = 0;
+
             return true;
         } else
         {

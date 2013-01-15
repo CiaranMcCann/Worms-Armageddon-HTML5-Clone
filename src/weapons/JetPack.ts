@@ -115,12 +115,18 @@ class JetPack extends BaseWeapon
         this.worm.direction = 1;
     }
 
+    deactivate()
+    {
+        this.setIsActive(false);
+        this.fuel = this.INITAL_FUEL;
+    }
+
     update()
     {
         if (this.fuel <= 0)
         {
-            this.setIsActive(false);
-            this.fuel = this.INITAL_FUEL;
+            this.deactivate();
+            Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.getCurrentWeapon.deactive"));
         }
 
         if (this.isActive)
@@ -147,7 +153,7 @@ class JetPack extends BaseWeapon
             if (this.forceDir.Length() > 0)
             {
                 Utilies.pickRandomSound(["JetPackLoop1", "JetPackLoop2"]).play();
-                this.fuel -= 0.1;
+                this.fuel -= 0.09;
                 this.forceDir.Multiply(this.thurstScaler);
                 this.worm.body.ApplyImpulse(this.forceDir, this.worm.body.GetWorldCenter());
             }

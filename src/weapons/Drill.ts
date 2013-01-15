@@ -22,7 +22,7 @@ class Drill extends BaseWeapon
     timeBetweenExploisionsTimer: Timer;
     useDurationTimer: Timer;
 
-    constructor ()
+    constructor()
     {
         super(
             "Drill", // Weapon name
@@ -35,7 +35,7 @@ class Drill extends BaseWeapon
         this.timeBetweenExploisionsTimer = new Timer(500);
         this.useDurationTimer = new Timer(7000);
 
-         // No requirement for crosshairs aiming
+        // No requirement for crosshairs aiming
         this.requiresAiming = false;
     }
 
@@ -56,6 +56,14 @@ class Drill extends BaseWeapon
         }
     }
 
+    deactivate()
+    {
+        this.setIsActive(false);
+        Logger.debug(" deactivedate ");
+        this.worm.setSpriteDef(Sprites.worms.drilling, false); //unlocks sprite
+        this.worm.setSpriteDef(Sprites.worms.idle1);
+    }
+
     update()
     {
         if (this.getIsActive())
@@ -63,10 +71,7 @@ class Drill extends BaseWeapon
             var weaponUseDuration = this.useDurationTimer.hasTimePeriodPassed();
             if (weaponUseDuration)
             {
-                this.setIsActive(false);
-                Logger.debug(" deactivedate ");
-                this.worm.setSpriteDef(Sprites.worms.drilling, false); //unlocks sprite
-                this.worm.setSpriteDef(Sprites.worms.idle1);
+                this.deactivate();
             }
 
             AssetManager.sounds["drill"].play();

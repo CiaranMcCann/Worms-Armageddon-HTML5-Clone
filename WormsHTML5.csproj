@@ -267,10 +267,10 @@
       <DependentUpon>Controls.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\system\GamePad.ts" />
-    <Content Include="src\system\Gamepad.js">
+    <Content Include="src\system\GamePad.js">
       <DependentUpon>GamePad.ts</DependentUpon>
     </Content>
-    <Content Include="src\system\Gamepad.min.js">
+    <Content Include="src\system\GamePad.min.js">
       <DependentUpon>GamePad.ts</DependentUpon>
     </Content>
     <Content Include="src\system\Graphics.js">

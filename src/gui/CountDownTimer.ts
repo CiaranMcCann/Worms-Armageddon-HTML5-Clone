@@ -19,7 +19,7 @@ class CountDownTimer
     timer: Timer;
     previousSecound: number;
 
-    constructor ()
+    constructor()
     {
 
         //Choice a type of timer based on where we are playing online or not
@@ -28,12 +28,12 @@ class CountDownTimer
             this.timer = new NetworkTimer(Settings.PLAYER_TURN_TIME);
         } else
         {
-           this.timer = new Timer(Settings.PLAYER_TURN_TIME);
+            this.timer = new Timer(Settings.PLAYER_TURN_TIME);
         }
 
 
-        this.previousSecound = this.timer.timePeriod;  
-        $('#turnTimeCounter').hide();     
+        this.previousSecound = this.timer.timePeriod;
+        $('#turnTimeCounter').hide();
     }
 
     show()
@@ -43,15 +43,15 @@ class CountDownTimer
 
     update()
     {
-        
-        if(Settings.DEVELOPMENT_MODE)
+
+        if (Settings.DEVELOPMENT_MODE)
             this.timer.pause();
 
         this.timer.update();
         var timeLeft = Math.floor(this.timer.getTimeLeft() / 1000);
 
         // Dont update the HTML element while 
-        if (timeLeft != this.previousSecound)
+        if (timeLeft != this.previousSecound && timeLeft >= 0)
         {
             if (timeLeft == 5)
             {
@@ -61,21 +61,23 @@ class CountDownTimer
 
             this.previousSecound = timeLeft;
             $('#turnTimeCounter').html(timeLeft);
-        
+
             if (timeLeft < Settings.TURN_TIME_WARING && timeLeft >= 0)
-            {             
+            {
                 $('#turnTimeCounter').css("background", "red");
-                 AssetManager.sounds["TIMERTICK"].play(0.3);
+                AssetManager.sounds["TIMERTICK"].play(0.3);
 
             } else
             {
                 $('#turnTimeCounter').css("background", "black");
             }
 
-            if (this.timer.hasTimePeriodPassed())
-            {
-                GameInstance.state.tiggerNextTurn();
-            }
+        }
+
+        if (this.timer.hasTimePeriodPassed(false))
+        {
+            this.timer.pause();
+            GameInstance.state.timerTiggerNextTurn();
         }
 
     }

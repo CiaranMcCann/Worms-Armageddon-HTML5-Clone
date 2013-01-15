@@ -19,11 +19,11 @@ class GameStateManager
     private nextTurnTrigger: bool;
     private currentPlayerIndex: number;
     private players: Player[];
-     isStarted: bool;
+    isStarted: bool;
 
-    constructor ()
+    constructor()
     {
-        
+
         this.nextTurnTrigger = false;
         this.currentPlayerIndex = 0;
         this.isStarted = false;
@@ -38,9 +38,16 @@ class GameStateManager
     tiggerNextTurn()
     {
         // Stop all game info based effects, eg bouncing arrow over worms head
-        GameInstance.miscellaneousEffects.stopAll(); 
-
+        GameInstance.miscellaneousEffects.stopAll();
         this.nextTurnTrigger = true;
+    }
+
+    //When the timer says its time for next turn, then we need
+    // to deactivate all non-time based weapons, such as jetpacks and ropes etc.
+    timerTiggerNextTurn()
+    {
+        GameInstance.wormManager.deactivedAllNonTimeBasedWeapons();
+        this.tiggerNextTurn()
     }
 
     hasNextTurnBeenTiggered()
@@ -83,6 +90,7 @@ class GameStateManager
     // Selects the next players to have a go and selects the next worm they use
     nextPlayer()
     {
+
         //Networked games need this
         this.nextTurnTrigger = false;
 
@@ -101,7 +109,7 @@ class GameStateManager
         //gives back the server id tag
         return this.getCurrentPlayer().id;
     }
-   
+
     checkForWinner()
     {
         var playersStillLive = [];
@@ -116,7 +124,7 @@ class GameStateManager
         if (playersStillLive.length == 1)
         {
             return playersStillLive[0];
-            
+
         }
 
         return null;

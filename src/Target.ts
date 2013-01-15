@@ -64,6 +64,11 @@ class Target extends PhysicsSprite
         return this.targetDirection;
     }
 
+    setTargetDirection(vector)
+    {
+        this.targetDirection = vector;
+    }
+
     // Allows the player to increase the aiming angle or decress
     aim(upOrDown: number)
     {      

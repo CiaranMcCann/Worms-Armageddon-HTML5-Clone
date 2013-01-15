@@ -73,7 +73,7 @@ class Player
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkLeft"));
             }
 
-            if (keyboard.isKeyDown(Controls.jump.keyboard, true))
+            if (keyboard.isKeyDown(Controls.jump.keyboard, true) ||  this.gamePad.isButtonPressed(0))
             {
                 this.team.getCurrentWorm().jump();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.jump"));
