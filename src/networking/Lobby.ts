@@ -40,7 +40,7 @@ class Lobby
     {
         this.userCount = 0;
         this.gameLobbies = {};
-        this.client_GameLobby = new GameLobby(null, null, null);
+        this.client_GameLobby = new GameLobby(null, null);
     }
 
     onConnection(socket, io)
@@ -98,7 +98,7 @@ class Lobby
             socket.get('userId', function (err, userId) =>
             {
                 io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
-                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers), userId);
+                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
 
                 newGameLobby.join(userId, socket);
 
@@ -211,7 +211,7 @@ class Lobby
             var updatedGameLobbies = {};
             for (var gameLobby in gameLobbyList)
             {
-                updatedGameLobbies[gameLobby] = (Utilies.copy(new GameLobby(null, null, null), gameLobbyList[gameLobby]));
+                updatedGameLobbies[gameLobby] = (Utilies.copy(new GameLobby(null, null), gameLobbyList[gameLobby]));
             }
 
             this.gameLobbies = updatedGameLobbies;
@@ -236,9 +236,9 @@ class Lobby
     }
 
     // Creates the gamelobby object on the server
-    server_createGameLobby(name, numberOfPlayers, hostId)
+    server_createGameLobby(name, numberOfPlayers)
     {
-        var newGameLobby = new GameLobby(name, numberOfPlayers, hostId);
+        var newGameLobby = new GameLobby(name, numberOfPlayers);
         newGameLobby.server_init();
 
         // lobbies are indexed by their unqine token

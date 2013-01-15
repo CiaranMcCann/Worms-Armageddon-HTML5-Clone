@@ -33,7 +33,7 @@ class GameLobby
 
     static gameLobbiesCounter = 0;
 
-    constructor(name: string, numberOfPlayers: number, userId : string)
+    constructor(name: string, numberOfPlayers: number)
     {
         this.name = name;
         this.playerIds = [];
@@ -61,7 +61,7 @@ class GameLobby
         //Have the host client setup all the player objects with all the other clients ids
         Client.socket.on(Events.gameLobby.START_GAME_HOST, function (data) =>
         {
-            var gameLobby = (Utilies.copy(new GameLobby(null, null,null), data));
+            var gameLobby = (Utilies.copy(new GameLobby(null, null), data));
             
             //Update local copy of the lobby
             GameInstance.lobby.client_GameLobby = gameLobby;
@@ -78,7 +78,7 @@ class GameLobby
         // by the host client to them.
         Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data) =>
         {
-             var gameLobby = (Utilies.copy(new GameLobby(null, null,null), data.lobby));
+             var gameLobby = (Utilies.copy(new GameLobby(null, null), data.lobby));
              
              //Update local copy of the lobby
             GameInstance.lobby.client_GameLobby = gameLobby;

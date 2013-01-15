@@ -58,7 +58,7 @@ class Worm extends Sprite
     //force: number;
     fallHeight: number;
 
-    constructor (team, x, y)
+    constructor(team, x, y)
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
@@ -75,7 +75,7 @@ class Worm extends Sprite
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
         fixDef.shape = new b2CircleShape(circleRadius);
-        fixDef.shape.SetLocalPosition(new b2Vec2(0, (circleRadius) * -1)); //TODO WHAT is this???
+        fixDef.shape.SetLocalPosition(new b2Vec2(0, (circleRadius) * -1));
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
@@ -113,14 +113,14 @@ class Worm extends Sprite
 
     getWormNetData()
     {
-        return { "x": this.body.GetPosition().x, "y": this.body.GetPosition().y, "arrow": this.arrow};
+        return { "x": this.body.GetPosition().x, "y": this.body.GetPosition().y, "arrow": this.arrow };
     }
 
     setWormNetData(packetStream)
-    {    
+    {
         Logger.log(" old pos " + this.body.m_xf.position.x + " new pos " + packetStream.x);
 
-        this.body.SetPosition(new b2Vec2(packetStream.x,packetStream.y));       
+        this.body.SetPosition(new b2Vec2(packetStream.x, packetStream.y));
     }
 
     // Pre-renders the boxes above their heads with name and health
@@ -191,26 +191,6 @@ class Worm extends Sprite
             if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
             {
                 this.canJump++;
-                
-                var force = new b2Vec2(this.body.GetLinearVelocity().x, this.body.GetLinearVelocity().y);
-                force = force.Length();
-
-                //console.log(" ON HIT " + force + " CanJump " + this.canJump + " Acumlated force " + this.force);
-                //if(this.team == GameInstance.getCurrentPlayerObject().getTeam())
-                //this.hit(500);
-                if (this.body.GetPosition().y > this.fallHeight)
-                {
-                    var diff = this.body.GetPosition().y - this.fallHeight;
-                    var f = diff;
-
-                    Logger.log(force*f);
-                    if (force*f > 35)
-                    {
-                        this.hit(5);
-                    }    
-                }
-
-                
             }
         }
     }
@@ -223,12 +203,23 @@ class Worm extends Sprite
             if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
             {
                 this.canJump--;
-
-                if (this.canJump <= 0)
-                {
-                    this.fallHeight = this.body.GetPosition().y;
-                } 
             }
+        }
+    }
+
+    postSolve(contact, impulse)
+    {
+        if (impulse.normalImpulses[0] > 7)
+        {
+            console.log(impulse.normalImpulses[0]);
+            var damage = Math.round(impulse.normalImpulses[0])/2;
+
+            if (damage > 10)
+            {
+                damage = 10;
+            }
+
+            this.hit(damage);
         }
     }
 
@@ -283,7 +274,6 @@ class Worm extends Sprite
             this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
-            console.log(currentPos.x - this.speed / Physics.worldScale);
             this.body.SetPosition(new b2Vec2(currentPos.x - this.speed / Physics.worldScale, currentPos.y));
 
             this.playWalkingSound();
@@ -381,7 +371,8 @@ class Worm extends Sprite
     update()
     {
 
-        this.soundDelayTimer.update();     
+
+        this.soundDelayTimer.update();
 
         //Manages the different states of the animation
         this.stateAnimationMgmt.update();
@@ -392,8 +383,8 @@ class Worm extends Sprite
         // Always reset to idle
         this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
 
-        if(this.isActiveWorm())
-        this.team.getWeaponManager().getCurrentWeapon().update();
+        if (this.isActiveWorm())
+            this.team.getWeaponManager().getCurrentWeapon().update();
 
         this.target.update();
 
@@ -430,12 +421,12 @@ class Worm extends Sprite
 
         ctx.restore()
 
-            var nameBoxX = -radius * this.name.length / 2.6;
-            var nameBoxY = -radius * 6;
+        var nameBoxX = -radius * this.name.length / 2.6;
+        var nameBoxY = -radius * 6;
 
-            ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
-            ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
-        
+        ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
+        ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
+
 
         ctx.restore()
 

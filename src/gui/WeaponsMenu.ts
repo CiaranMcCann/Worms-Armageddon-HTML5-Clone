@@ -18,7 +18,7 @@ class WeaponsMenu
     isVisable;
     cssId;
 
-    constructor ()
+    constructor()
     {
         this.cssId = "weaponsMenu";
 
@@ -28,12 +28,18 @@ class WeaponsMenu
         var _this = this;
         $(window).keypress(function (event)
         {
+            if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            {
                 _this.toggle();
+            }
         });
 
         $('body').mousedown(function (event) =>
         {
+            if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            {
                 this.toggle();
+            }
         });
 
         $('body').on('contextmenu', "#" + this.cssId, function (e)
@@ -53,7 +59,7 @@ class WeaponsMenu
         if (weaponMgmt.checkWeaponHasAmmo(weaponId))
         {
             weaponMgmt.setCurrentWeapon(weaponId);
-            Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon",[weaponId]));           
+            Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon", [weaponId]));
         }
 
     }
@@ -72,28 +78,26 @@ class WeaponsMenu
 
     toggle()
     {
-        if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+
+        // populate
+        this.refresh();
+        var moveAmountInPx;
+
+        if (this.isVisable)
         {
-
-            // populate
-            this.refresh();
-            var moveAmountInPx;
-
-            if (this.isVisable)
-            {
-                moveAmountInPx = "0px";
-                this.isVisable = false;
-            } else
-            {
-                moveAmountInPx = "-275px";
-                this.isVisable = true;
-            }
-
-
-            this.htmlElement.animate({
-                marginLeft: moveAmountInPx,
-            }, 400);
+            moveAmountInPx = "0px";
+            this.isVisable = false;
+        } else
+        {
+            moveAmountInPx = "-275px";
+            this.isVisable = true;
         }
+
+
+        this.htmlElement.animate({
+            marginLeft: moveAmountInPx,
+        }, 400);
+
     }
 
     //Fills the menu up with the various weapon items

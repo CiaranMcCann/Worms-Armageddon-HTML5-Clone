@@ -31,8 +31,8 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2RayCastInput = Box2D.Collision.b2RayCastInput,
     b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef,
     b2RayCastOutput = Box2D.Collision.b2RayCastOutput,
-    b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
-	b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint,
+    b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef,
+    b2RevoluteJoint = Box2D.Dynamics.Joints.b2RevoluteJoint,
     b2SimplexVertex = Box2D.Collision.b2SimplexVertex,
     b2WorldManifold = Box2D.Collision.b2WorldManifold,
     b2Shape = Box2D.Collision.Shapes.b2Shape;
@@ -41,7 +41,7 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
 
 module Physics
 {
- 
+
     export var worldScale;
     export var world;
     export var debugDraw;
@@ -68,12 +68,12 @@ module Physics
 
     export function init(ctx)
     {
-        
+
         Physics.worldScale = 30;
 
         // Creating our physics world.
         Physics.world = new b2World(
-            new b2Vec2(0, 10) ,//gravity
+            new b2Vec2(0, 10),//gravity
             true //allow sleep
         );
 
@@ -83,7 +83,7 @@ module Physics
         debugDraw.SetDrawScale(Physics.worldScale);
         debugDraw.SetFillAlpha(0.3);
         debugDraw.SetLineThickness(1.0);
-        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
+        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
         world.SetDebugDraw(debugDraw);
 
 
@@ -101,7 +101,7 @@ module Physics
                 contact.GetFixtureA().GetBody().GetUserData().beginContact(contact);
             } else
             {
-               // Logger.warn(" Body does not have beginContact method");
+                // Logger.warn(" Body does not have beginContact method");
             }
 
             if (contact.GetFixtureB().GetBody().GetUserData() != null &&
@@ -127,15 +127,47 @@ module Physics
                 //Logger.warn(" Body does not have endContact method");
             }
 
-             if (contact.GetFixtureB().GetBody().GetUserData() != null &&
-                 contact.GetFixtureB().GetBody().GetUserData().endContact != null)
+            if (contact.GetFixtureB().GetBody().GetUserData() != null &&
+                contact.GetFixtureB().GetBody().GetUserData().endContact != null)
             {
-                 contact.GetFixtureB().GetBody().GetUserData().endContact(contact);
+                contact.GetFixtureB().GetBody().GetUserData().endContact(contact);
             }
             else
             {
                 //Logger.warn(" Body does not have endContact method");
             }
+        }
+
+        listener.PostSolve = function (contact,impulse) =>
+        {
+            if (contact.GetFixtureA().GetBody().GetUserData() != null &&
+                contact.GetFixtureA().GetBody().GetUserData().postSolve != null)
+            {
+                contact.GetFixtureA().GetBody().GetUserData().postSolve(contact,impulse);
+            }
+
+            if (contact.GetFixtureB().GetBody().GetUserData() != null &&
+                contact.GetFixtureB().GetBody().GetUserData().postSolve != null)
+            {
+                contact.GetFixtureB().GetBody().GetUserData().postSolve(contact,impulse);
+            }
+
+        }
+
+        listener.PreSolve = function (contact) =>
+        {
+            if (contact.GetFixtureA().GetBody().GetUserData() != null &&
+                contact.GetFixtureA().GetBody().GetUserData().preSolve != null)
+            {
+                contact.GetFixtureA().GetBody().GetUserData().preSolve(contact);
+            }
+
+            if (contact.GetFixtureB().GetBody().GetUserData() != null &&
+                contact.GetFixtureB().GetBody().GetUserData().preSolve != null)
+            {
+                contact.GetFixtureB().GetBody().GetUserData().preSolve(contact);
+            }
+
         }
 
         world.SetContactListener(listener);
@@ -160,50 +192,53 @@ module Physics
         }
     }
 
-    export function shotRay(p1,p2, )
+    export function shotRay(p1, p2, )
     {
-            var input = new b2RayCastInput();
-            var output = new b2RayCastOutput();
-            var intersectionPoint = new b2Vec2();
-            var normalEnd = new b2Vec2();
-            var intersectionNormal = new b2Vec2();
+        var input = new b2RayCastInput();
+        var output = new b2RayCastOutput();
+        var intersectionPoint = new b2Vec2();
+        var normalEnd = new b2Vec2();
+        var intersectionNormal = new b2Vec2();
 
-            p2.Multiply(30);
-            p2.Add(p1);
+        p2.Multiply(30);
+        p2.Add(p1);
 
-            input.p1 = p1;
-            input.p2 = p2;
-            input.maxFraction = 1;
-            var closestFraction = 1;
-            var bodyFound = false;
+        input.p1 = p1;
+        input.p2 = p2;
+        input.maxFraction = 1;
+        var closestFraction = 1;
+        var bodyFound = false;
 
-            var b = new b2BodyDef();
-            var f = new b2FixtureDef();
-            for(b = Physics.world.GetBodyList(); b; b = b.GetNext())    {           
-                for(f = b.GetFixtureList(); f; f = f.GetNext()) {
-                    if(!f.RayCast(output, input))
-                        continue;
-                    else if(output.fraction < closestFraction)  {
-                        closestFraction = output.fraction;
-                         intersectionNormal = output.normal;
-                         bodyFound = true;
-                         //Logger.log("collision");
-                    }
-                }
-
-            }
-            intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
-            intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
-
-            if (bodyFound)
+        var b = new b2BodyDef();
+        var f = new b2FixtureDef();
+        for (b = Physics.world.GetBodyList(); b; b = b.GetNext())
+        {
+            for (f = b.GetFixtureList(); f; f = f.GetNext())
             {
-                return intersectionPoint;
+                if (!f.RayCast(output, input))
+                    continue;
+                else if (output.fraction < closestFraction && output.fraction > 0)
+                    {
+                    closestFraction = output.fraction;
+                    intersectionNormal = output.normal;
+                    bodyFound = true;
+                    //Logger.log("collision");
+                }
             }
 
-            return null;
+        }
+        intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
+        intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
+
+        if (bodyFound)
+        {
+            return intersectionPoint;
+        }
+
+        return null;
     }
 
-    export function applyToNearByObjects(epicenter,effectedRadius,funcToApplyToEach)
+    export function applyToNearByObjects(epicenter, effectedRadius, funcToApplyToEach)
     {
         var aabb = new b2AABB();
         aabb.lowerBound.Set(epicenter.x - effectedRadius, epicenter.y - effectedRadius);
@@ -211,7 +246,7 @@ module Physics
 
         Physics.world.QueryAABB(function (fixture) =>
         {
-            funcToApplyToEach(fixture,epicenter);           
+            funcToApplyToEach(fixture, epicenter);
             return true;
 
         }, aabb);
@@ -229,7 +264,7 @@ module Physics
         return meters * worldScale;
     }
 
-     //Converts a vector in pixels to physic world measurement
+    //Converts a vector in pixels to physic world measurement
     export function vectorPixelToMeters(vPixels)
     {
         return new b2Vec2(vPixels.x / worldScale, vPixels.y / worldScale);
@@ -238,7 +273,7 @@ module Physics
     //Converts a vector in physic world measurement to pixels;
     export function vectorMetersToPixels(vMeters)
     {
-        return new b2Vec2(vMeters.x * worldScale,vMeters.y * worldScale);
+        return new b2Vec2(vMeters.x * worldScale, vMeters.y * worldScale);
     }
 
     export function bodyToDrawingPixelCoordinates(body)
@@ -250,7 +285,7 @@ module Physics
         pos.y -= radius;
 
         return Physics.vectorMetersToPixels(pos);
-        
+
     }
 }
 
@@ -295,7 +330,7 @@ class BodyDataPacket
 
     }
 
-    fromJSON(data :string)
+    fromJSON(data: string)
     {
         var v = data.split(",");
         this.pX = parseFloat(v[0]);
@@ -338,13 +373,13 @@ class PhysiscsDataPacket
         var data = "";
         for (var b in this.bodyDataPackets)
         {
-            data += this.bodyDataPackets[b].toJSON()+":"
+            data += this.bodyDataPackets[b].toJSON() + ":"
         }
 
         return data;
     }
 
-    fromJSON(data :string)
+    fromJSON(data: string)
     {
         var vectors = data.split(":");
         for (var i in vectors)
