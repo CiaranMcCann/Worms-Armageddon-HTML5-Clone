@@ -171,8 +171,11 @@ class Game
     // mechanisim over the network to call nextPlayer.
     nextTurn()
     {
-        this.state.nextPlayer();
+        var id = this.state.nextPlayer();
+        console.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
+        this.lobby.client_GameLobby.currentPlayerId = id;
         this.gameTimer.timer.reset();
+  
     }
 
     update()
@@ -196,10 +199,10 @@ class Game
             if (this.state.readyForNextTurn() && this.winner == null)
             {
                 //If this player is the host they will decide when to move to next player
-                if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_getMyLobby().hostId == Client.id)
+                if (this.gameType == Game.types.ONLINE_GAME &&  this.lobby.client_GameLobby.currentPlayerId == Client.id)
                 {
-                    this.nextTurn();
                     Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
+                    this.nextTurn();
                 }
             }
 
@@ -230,10 +233,10 @@ class Game
             );
 
             //While there is physics objects to sync do so
-            if (this.lobby.client_getMyLobby().hostId == Client.id )
-            {
-                //Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON() );
-            }
+          if (this.lobby.client_GameLobby.currentPlayerId == Client.id)
+          {
+             // Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON() );
+          }
         }
         //Physics.world.ClearForces();
     }

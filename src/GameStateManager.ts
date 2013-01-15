@@ -83,6 +83,8 @@ class GameStateManager
     // Selects the next players to have a go and selects the next worm they use
     nextPlayer()
     {
+        //Networked games need this
+        this.nextTurnTrigger = false;
 
         if (this.currentPlayerIndex + 1 == this.players.length)
         {
@@ -95,6 +97,9 @@ class GameStateManager
 
         this.getCurrentPlayer().getTeam().nextWorm();
         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
+
+        //gives back the server id tag
+        return this.getCurrentPlayer().id;
     }
    
     checkForWinner()

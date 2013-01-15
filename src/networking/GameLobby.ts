@@ -25,24 +25,20 @@ var SOCKET_STORAGE_GAMELOBBY_ID = 'gameLobbyId';
 
 class GameLobby
 {
-    private playerIds: number[];
+    private playerIds: string[];
     name: string;
     id: string;
     private numberOfPlayers: number;
-    isPrivate: bool;
     currentPlayerId: string;
-    hostId: string;
 
     static gameLobbiesCounter = 0;
 
     constructor(name: string, numberOfPlayers: number, userId : string)
     {
         this.name = name;
-        this.isPrivate = false;
         this.playerIds = [];
         this.numberOfPlayers = numberOfPlayers;
-        this.hostId = userId;
-
+        this.currentPlayerId = "";
     }
 
     getNumberOfPlayers()
@@ -90,7 +86,7 @@ class GameLobby
             //Just popluate the array with some players, we will override them with proper data now
             for (var i = 0; i <  gameLobby.playerIds.length ; i++)
             {
-                GameInstance.players.push(new Player());
+                GameInstance.players.push(new Player(gameLobby.playerIds[i]));
             }
 
             GameInstance.setGameNetData(data.gameData);
@@ -118,6 +114,13 @@ class GameLobby
         // Add the player to the gameLobby socket.io room
         socket.join(this.id);
 
+        //Means the player who created the lobby will go first
+         
+        if (this.currentPlayerId == "")
+        {
+            this.currentPlayerId = userId;
+        }
+
         // Write the gameLobbyId to the users socket
         socket.set(SOCKET_STORAGE_GAMELOBBY_ID, this.id);
 
@@ -135,7 +138,7 @@ class GameLobby
     {
 
         if (this.isFull())
-        {
+        {   
             socket.emit(Events.gameLobby.START_GAME_HOST, this);
         }
     }

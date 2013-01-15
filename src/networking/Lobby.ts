@@ -99,7 +99,9 @@ class Lobby
             {
                 io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
                 var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers), userId);
+
                 newGameLobby.join(userId, socket);
+
 
                 console.log(" Lobby list " + this.gameLobbies);
                 io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
@@ -154,12 +156,9 @@ class Lobby
             socket.get('userId', function (err, userId) =>
             {
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
-                {
-                    if (this.gameLobbies[gameLobbyId].currentPlayerId == userId)
-                    {
+                {                  
                         io.log.info(Util.format("@ UPDATE   " + data));
                         socket.broadcast.to(gameLobbyId).emit(Events.client.UPDATE, data);
-                    }
                 });
             });
 
@@ -173,12 +172,8 @@ class Lobby
 
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
-
-                    if (this.gameLobbies[gameLobbyId].currentPlayerId == userId )
-                    {
                         io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
                         socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
-                    }
                 });
             });
 

@@ -54,9 +54,7 @@ class Player
     {
         this.timer.update();
 
-
-
-        if (GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
+        if (GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
 
 
@@ -98,9 +96,29 @@ class Player
 
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
             }
+      
+            // end of player controls
 
+            //The camera tracks the player while they move
+            var currentWorm = this.team.getCurrentWorm();
+            if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
+            {
+                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
 
-            if (keyboard.isKeyDown(38)) //up
+            }
+            //if the players weapon is active and is a throwable then track it with the camera
+            else if(this.getTeam().getWeaponManager().getCurrentWeapon()  instanceof ThrowableWeapon &&
+                this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
+            {
+                var weapon : ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
+                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(weapon.body.GetPosition()));
+            }
+        }
+
+        if (GameInstance.state.hasNextTurnBeenTiggered() == false)
+        {
+
+               if (keyboard.isKeyDown(38)) //up
             {
                 GameInstance.camera.cancelPan();
                 GameInstance.camera.incrementY(-15)
@@ -126,22 +144,6 @@ class Player
                 GameInstance.camera.incrementX(15)
             }
 
-            // end of player controls
-
-            //The camera tracks the player while they move
-            var currentWorm = this.team.getCurrentWorm();
-            if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
-            {
-                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
-
-            }
-            //if the players weapon is active and is a throwable then track it with the camera
-            else if(this.getTeam().getWeaponManager().getCurrentWeapon()  instanceof ThrowableWeapon &&
-                this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
-            {
-                var weapon : ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
-                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(weapon.body.GetPosition()));
-            }
         }
 
         this.team.update();
