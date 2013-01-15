@@ -10,6 +10,7 @@
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="system/Timer.ts"/>
+///<reference path="system/GamePad.ts"/>
 ///<reference path="system/Controls.ts"/>
 
 class Player
@@ -17,6 +18,7 @@ class Player
     private team: Team;
     id: string;
     timer: Timer;
+    gamePad: GamePad;
 
     constructor (playerId = Utilies.pickUnqine([1,2,3,4], "playerids"))
     {
@@ -33,6 +35,7 @@ class Player
         //});
 
         this.timer = new Timer(10);
+        this.gamePad = new GamePad();
     }
 
     getPlayerNetData()
@@ -54,12 +57,17 @@ class Player
     {
         this.timer.update();
 
-        if (GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
+        this.gamePad.connect();
+        this.gamePad.update();
+
+        
+        var onlineSpefic = GameInstance.gameType == Game.types.LOCAL_GAME || GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id;
+
+        if ( onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
 
-
             //Player controls 
-            if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
+            if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || this.gamePad.isButtonPressed(15))
             {
                 this.team.getCurrentWorm().walkLeft();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkLeft"));
@@ -98,21 +106,6 @@ class Player
             }
       
             // end of player controls
-
-            //The camera tracks the player while they move
-            var currentWorm = this.team.getCurrentWorm();
-            if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
-            {
-                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
-
-            }
-            //if the players weapon is active and is a throwable then track it with the camera
-            else if(this.getTeam().getWeaponManager().getCurrentWeapon()  instanceof ThrowableWeapon &&
-                this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
-            {
-                var weapon : ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
-                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(weapon.body.GetPosition()));
-            }
         }
 
         if (GameInstance.state.hasNextTurnBeenTiggered() == false)
@@ -142,6 +135,21 @@ class Player
             {
                 GameInstance.camera.cancelPan();
                 GameInstance.camera.incrementX(15)
+            }
+
+            //The camera tracks the player while they move
+            var currentWorm = this.team.getCurrentWorm();
+            if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
+            {
+                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
+
+            }
+            //if the players weapon is active and is a throwable then track it with the camera
+            else if(this.getTeam().getWeaponManager().getCurrentWeapon()  instanceof ThrowableWeapon &&
+                this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
+            {
+                var weapon : ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
+                GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(weapon.body.GetPosition()));
             }
 
         }

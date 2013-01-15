@@ -69,7 +69,7 @@ class Drill extends BaseWeapon
                 this.worm.setSpriteDef(Sprites.worms.idle1);
             }
 
-            AssetManager.sounds["DRILL"].play();
+            AssetManager.sounds["drill"].play();
 
             if (this.timeBetweenExploisionsTimer.hasTimePeriodPassed())
             {

@@ -113,7 +113,7 @@ class Game
 
     setGameNetData(data)
     {
-        var gameDataPacket : GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
+        var gameDataPacket: GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
         gameDataPacket.override(this);
     }
 
@@ -136,7 +136,7 @@ class Game
             }
         }
 
-    
+
 
         this.state.init(this.players);
 
@@ -164,7 +164,11 @@ class Game
         if (this.gameType == Game.types.ONLINE_GAME)
         {
             StartMenu.callback();
+
+            // Pan to currentPlayer even if its not their go
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
         }
+
     }
 
     // This method allows for quick use of the instruction chain
@@ -175,7 +179,7 @@ class Game
         console.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
         this.lobby.client_GameLobby.currentPlayerId = id;
         this.gameTimer.timer.reset();
-  
+
     }
 
     update()
@@ -199,7 +203,7 @@ class Game
             if (this.state.readyForNextTurn() && this.winner == null)
             {
                 //If this player is the host they will decide when to move to next player
-                if (this.gameType == Game.types.ONLINE_GAME &&  this.lobby.client_GameLobby.currentPlayerId == Client.id)
+                if (this.gameType == Game.types.LOCAL_GAME || this.lobby.client_GameLobby.currentPlayerId == Client.id)
                 {
                     Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
                     this.nextTurn();
@@ -217,7 +221,7 @@ class Game
             this.miscellaneousEffects.update();
             this.gameTimer.update();
 
-          
+
         }
 
     }
@@ -233,10 +237,10 @@ class Game
             );
 
             //While there is physics objects to sync do so
-          if (this.lobby.client_GameLobby.currentPlayerId == Client.id)
-          {
-             // Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON() );
-          }
+            if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
+            {
+                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
+            }
         }
         //Physics.world.ClearForces();
     }
@@ -284,7 +288,7 @@ class GameDataPacket
         }
     }
 
-    override(game : Game, physics = Physics)
+    override(game: Game, physics = Physics)
     {
         for (var p in this.players)
         {
