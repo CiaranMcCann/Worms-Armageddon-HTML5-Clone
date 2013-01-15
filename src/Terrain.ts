@@ -68,12 +68,12 @@ class Terrain
 
     getWidth()
     {
-       return this.bufferCanvas.width;    
+       return this.boundary.worldWidth;    
     }
 
      getHeight()
     {
-       return this.bufferCanvas.height;    
+         return this.boundary.worldHeight;
     }
 
     // This setup physical bodies from image data 
@@ -244,15 +244,32 @@ class Terrain
 
         // Here we draw an off screen buffer canvas onto our on screen one
         // this is more effeicent then drawing a pixel buffer onto the canvas
+        var y = GameInstance.camera.getY();
+        var x = GameInstance.camera.getX();
+        var w = this.drawingCanvas.width;
+        var h = this.drawingCanvas.height;
+
+        if ( y + this.drawingCanvas.height > this.bufferCanvas.height)
+        {
+            var diff = (y + this.drawingCanvas.height)-this.bufferCanvas.height;
+            h -= diff;
+        }
+
+        if ( x + this.drawingCanvas.width > this.bufferCanvas.width)
+        {
+            var diff = (x + this.drawingCanvas.width)-this.bufferCanvas.width;
+            w -= diff;
+        }
+
         ctx.drawImage(this.bufferCanvas, 
-            GameInstance.camera.getX(),
-            GameInstance.camera.getY(),
-            this.drawingCanvas.width,
-            this.drawingCanvas.height,
+            x,
+            y,
+            w,
+            h,
              0, 
             -5,
-            this.drawingCanvas.width,
-            this.drawingCanvas.height
+            w,
+            h
 
             
             );

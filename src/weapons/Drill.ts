@@ -32,8 +32,8 @@ class Drill extends BaseWeapon
             Sprites.worms.drilling //animation fro worm taking out drill
         );
 
-        this.timeBetweenExploisionsTimer = new Timer(500);
-        this.useDurationTimer = new Timer(7000);
+        this.timeBetweenExploisionsTimer = new Timer(200);
+        this.useDurationTimer = new Timer(3500);
 
         // No requirement for crosshairs aiming
         this.requiresAiming = false;

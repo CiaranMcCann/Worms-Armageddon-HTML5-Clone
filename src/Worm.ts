@@ -211,7 +211,6 @@ class Worm extends Sprite
     {
         if (impulse.normalImpulses[0] > 7)
         {
-            console.log(impulse.normalImpulses[0]);
             var damage = Math.round(impulse.normalImpulses[0])/2;
 
             if (damage > 10)
