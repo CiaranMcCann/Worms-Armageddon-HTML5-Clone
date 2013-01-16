@@ -16,14 +16,12 @@ class Camera
     levelHeight;
     vpWidth;
     vpHeight;
-    vpX;
-    vpY;
 
     panPosition;
     panSpeed;
     toPanOrNotToPan;
 
-    constructor (levelWidth, levelHeight, vpWidth, vpHeight, vpX = -500, vpY = -200)
+    constructor (levelWidth, levelHeight, vpWidth, vpHeight)
     {
         this.levelWidth = levelWidth;
         this.levelHeight = levelHeight;
@@ -31,8 +29,8 @@ class Camera
         this.vpWidth = vpWidth;
         this.vpHeight = vpHeight;
 
-        this.position = new b2Vec2(vpX, vpY);
-        this.panPosition = new b2Vec2(vpX, vpY);
+        this.position = new b2Vec2(0, 0);
+        this.panPosition = new b2Vec2(0, 0);
 
         this.panSpeed = 6.1;
         this.toPanOrNotToPan = false;

@@ -22,7 +22,7 @@ class Terrain
     world;
     scale;
     terrainData;
-    skyOffset: number;
+    Offset;
 
     boundary: TerrainBoundary;
 
@@ -38,6 +38,8 @@ class Terrain
         this.world = world;
         this.scale = scale;
 
+        this.Offset = new b2Vec2(300, 300);
+
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
 
@@ -46,9 +48,9 @@ class Terrain
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
-        this.bufferCanvas.width = terrainImage.width*1.5;
-        this.bufferCanvas.height =  terrainImage.height*1.5;
-        this.boundary = new TerrainBoundary(this.bufferCanvas.width, this.bufferCanvas.height);
+        this.bufferCanvas.width = this.Offset.x+(terrainImage.width*1.5);
+        this.bufferCanvas.height =  this.Offset.y+(terrainImage.height*1.5);
+        this.boundary = new TerrainBoundary(this.bufferCanvas.width*2, this.bufferCanvas.height+100);
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 
@@ -57,9 +59,9 @@ class Terrain
 
 
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain
-        this.bufferCanvasContext.drawImage(terrainImage, 0,  0, this.bufferCanvas.width, this.bufferCanvas.height);
+        this.bufferCanvasContext.drawImage(terrainImage, this.Offset.x,  this.Offset.y, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y);
 
-        this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
+        this.terrainData = this.bufferCanvasContext.getImageData(this.Offset.x, this.Offset.y, this.bufferCanvas.width, this.bufferCanvas.height);
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, world, scale)
 
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
@@ -104,6 +106,10 @@ class Terrain
             fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
             bodyDef.position.y = ((yPos - rectheight) / worldScale);
+
+            var offset = Physics.vectorPixelToMeters(this.Offset);
+            bodyDef.position.x += offset.x;
+            bodyDef.position.y += offset.y;
 
             var b = world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
             b.SetUserData(this);
@@ -185,7 +191,7 @@ class Terrain
         this.bufferCanvasContext.closePath();
         this.bufferCanvasContext.fill();
 
-        this.terrainData = this.bufferCanvasContext.getImageData(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
+        this.terrainData = this.bufferCanvasContext.getImageData(this.Offset.x, this.Offset.y, this.bufferCanvas.width, this.bufferCanvas.height);
 
         // for each explision in batch find what rects its radius interects and destory them.
         // Then scan image from top of explosion radius down to bottom and fill back in the rects
@@ -205,7 +211,7 @@ class Terrain
 
             aabb.upperBound.Set(
                 Physics.pixelToMeters(this.bufferCanvas.width),
-                Physics.pixelToMeters(y + normalizedRadis)
+                Physics.pixelToMeters( y + normalizedRadis)
             );
 
             Physics.world.QueryAABB(function (fixture) =>
@@ -219,9 +225,9 @@ class Terrain
             }, aabb);
 
             this.createTerrainPhysics(0, //x
-                Physics.metersToPixels(aabb.lowerBound.y),  //y
+                Physics.metersToPixels(aabb.lowerBound.y) - this.Offset.y,  //y
                 this.bufferCanvas.width, //w
-                Physics.metersToPixels(aabb.upperBound.y) + this.TERRAIN_RECT_HEIGHT * 2, //h
+                Physics.metersToPixels(aabb.upperBound.y) + (this.TERRAIN_RECT_HEIGHT * 2)- this.Offset.y, //h
                 this.terrainData.data,
                 this.world,
                 this.scale);
@@ -261,6 +267,8 @@ class Terrain
             w -= diff;
         }
 
+        //ctx.drawImage(this.bufferCanvas, -300, -300, this.drawingCanvas.width, this.drawingCanvas.height);
+
         ctx.drawImage(this.bufferCanvas, 
             x,
             y,
@@ -270,7 +278,6 @@ class Terrain
             -5,
             w,
             h
-
             
             );
         // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)

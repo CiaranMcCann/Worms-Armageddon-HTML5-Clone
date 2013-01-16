@@ -18,8 +18,6 @@ class TerrainBoundary
     
     constructor (worldWidth,worldHeight)
     {
-        worldWidth *= 2;
-        worldHeight *= 2;
 
         this.worldWidth = worldWidth;
         this.worldHeight = worldHeight;
