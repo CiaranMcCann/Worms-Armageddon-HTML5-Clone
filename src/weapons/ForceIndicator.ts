@@ -69,8 +69,10 @@ class ForceIndicator
         ctx.restore();
     }
 
-    charge(rate, worm)
+    charge(rate)
     {
+        AssetManager.getSound("THROWPOWERUP").play();
+
         this.forcePercentage += rate;
         this.sprite.setCurrentFrame(this.sprite.getCurrentFrame() + 0.4);
         this.needReRender = true;
@@ -89,6 +91,8 @@ class ForceIndicator
     reset()
     {
         this.forcePercentage = 0;
+        AssetManager.getSound("THROWPOWERUP").pause();
+        AssetManager.getSound("THROWRELEASE").play();
        // this.renderCanvas = null;
     }
 

@@ -22,6 +22,8 @@ class ThrowableWeapon extends BaseWeapon
 
     body;
     fixture;
+    hasImpacted;
+    impactSound;
 
     detonationTimer: Timer;
 
@@ -81,6 +83,29 @@ class ThrowableWeapon extends BaseWeapon
         // Counter till bomb explodes
         this.detonationTimer = new Timer(5000);
 
+         //To stop the large amount of edges in the
+        // terrain of causing the bound sound been played to many times
+        this.hasImpacted = 0;
+
+         //Sound its makes when it collides with somthing
+        this.impactSound = "GRENADEIMPACT";
+
+    }
+
+      // What happens when a worm collies with another object
+    beginContact(contact)
+    {
+        if (this.hasImpacted == 0)
+        {
+            AssetManager.getSound(this.impactSound).play(0.6);
+        }
+        this.hasImpacted++;
+    }
+
+    //What happens when a worm is no longer in contact with the object it was in contact with
+    endContact(contact)
+    {
+        this.hasImpacted--;
     }
 
     deactivate()
@@ -95,9 +120,9 @@ class ThrowableWeapon extends BaseWeapon
         var image = this.sprite.getImage();
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = 5.0;
         fixDef.friction = 3.5;
-        fixDef.restitution = 0.3;
+        fixDef.restitution = 0.7
         fixDef.shape = new b2CircleShape((image.width / 4) / Physics.worldScale);
 
         var bodyDef = new b2BodyDef;

@@ -164,11 +164,11 @@ class Game
 
         if (this.gameType == Game.types.ONLINE_GAME)
         {
-            StartMenu.callback();
-
-            // Pan to currentPlayer even if its not their go
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
+            StartMenu.callback(); 
         }
+
+        // Pan to currentPlayer even if its not their go
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
 
     }
 

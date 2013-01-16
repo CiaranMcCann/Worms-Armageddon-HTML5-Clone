@@ -56,7 +56,15 @@ module AssetManager
         "data/sounds/fuse.wav",
         "data/sounds/fanfare/Ireland.wav",
         "data/sounds/NinjaRopeFire.wav",
-        "data/sounds/NinjaRopeImpact.wav"
+        "data/sounds/NinjaRopeImpact.wav",
+        "data/sounds/ROCKETPOWERUP.wav",
+        "data/sounds/HOLYGRENADEIMPACT.wav",
+        "data/sounds/GRENADEIMPACT.wav",
+        "data/sounds/WormLanding.wav",
+        "data/sounds/THROWPOWERUP.wav",
+        "data/sounds/THROWRELEASE.wav"
+        
+        
 
     ]
 
@@ -70,6 +78,11 @@ module AssetManager
     export function getImage(s)
     {
         return images[s];
+    }
+
+    export function getSound(s) : Sound
+    {
+        return sounds[s];
     }
 
     export function loadImages(sources, callback)

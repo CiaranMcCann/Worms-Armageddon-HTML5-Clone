@@ -224,6 +224,13 @@ class Worm extends Sprite
 
             this.hit(damage);
         }
+
+        if (impulse.normalImpulses[0] > 3)
+        {
+            AssetManager.getSound("WormLanding").play();
+        }
+
+            
     }
 
     isStationary()

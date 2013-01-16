@@ -15,7 +15,7 @@ module Settings
     export var TURN_TIME_WARING = 5; // after 10 secounds warn player they are running out of time
    
     //General game settings
-    export var SOUND = false;
+    export var SOUND = true;
 
     //Server details
     export var NODE_SERVER_IP = '96.126.111.211'; 

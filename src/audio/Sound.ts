@@ -15,6 +15,7 @@ class Sound
 {
     static context = new webkitAudioContext();
 
+    source;
     buffer;
     private playing;
 
@@ -36,14 +37,14 @@ class Sound
             // if sound is playing don't replay it
             if (this.playing == false || allowSoundOverLay == true)
             {
-                var source = Sound.context.createBufferSource();
-                source.buffer = this.buffer;
+                this.source = Sound.context.createBufferSource();
+                this.source.buffer = this.buffer;
 
                 var gainNode = Sound.context.createGainNode();
-                source.connect(gainNode);
+                this.source.connect(gainNode);
                 gainNode.connect(Sound.context.destination);
                 gainNode.gain.value = volume;
-                source.noteOn(time);
+                this.source.noteOn(time);
                 this.playing = true;
                 var bufferLenght = this.buffer.duration;
 
@@ -61,6 +62,11 @@ class Sound
     isPlaying()
     {
         return this.playing;
+    }
+
+    pause()
+    {
+        this.source.noteOff(0);
     }
 
 

@@ -4,7 +4,7 @@
 
 class HolyGrenade extends ThrowableWeapon
 {
-
+   
     constructor ()
     {
         super(
@@ -27,7 +27,12 @@ class HolyGrenade extends ThrowableWeapon
 
         //hit damage at center
         this.maxDamage = 50;
+
+        //Sound its makes when it collides with somthing
+        this.impactSound = "HOLYGRENADEIMPACT";
     }
+
+   
 
     update()
     {
