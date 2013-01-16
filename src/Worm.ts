@@ -402,10 +402,10 @@ class Worm extends Sprite
     {
         this.team.getWeaponManager().getCurrentWeapon().draw(ctx);
 
-        if (Sprites.worms.weWon != this.spriteDef)
+        if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
             this.target.draw(ctx);
-            this.getWeapon().getForceIndicator().draw(ctx,this.body.GetPosition(),this.target.getTargetDirection());
+            this.getWeapon().getForceIndicator().draw(ctx, this);
         }
 
         ctx.save()

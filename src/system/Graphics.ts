@@ -20,21 +20,25 @@ class PreRenderer
         return bufferCanvas.getContext("2d");
     }
 
-    render(drawFunc,width,height)
+    render(drawFunc,width,height, canvas = null)
     {   
         width += 2;
         height += 2;
-        var ctx = this.createPreRenderCanvas(width, height);
-        ctx.translate(1, 1);
+        var ctx;
+
+        // If we have a canvas thats we want to reRender onto
+        if (canvas)
+        {
+            ctx = canvas.getContext('2d');
+        } else
+        {
+            ctx = this.createPreRenderCanvas(width, height);
+            ctx.translate(1, 1);
+        }
+        
 
         drawFunc(ctx);
         return ctx.canvas;
-    }
-
-    reRender(drawFunc, ctx)
-    {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        drawFunc(ctx);
     }
 
     renderAnimation(drawFuncsCollection, width, height)

@@ -26,9 +26,9 @@ class Target extends PhysicsSprite
 
     constructor(worm: Worm)
     {
-        super(new b2Vec2(20, 20), Physics.vectorMetersToPixels(worm.body.GetPosition()), Sprites.weapons.redTarget);
+        super(new b2Vec2(0, 0), Physics.vectorMetersToPixels(worm.body.GetPosition()), Sprites.weapons.redTarget);
         //The direction in which the worm is aiming
-        this.targetDirection = new b2Vec2(0, -1);
+        this.targetDirection = new b2Vec2(0, 1);
         this.rotationRate = 4;
         this.worm = worm;
         this.direction = Worm.DIRECTION.left;
@@ -52,11 +52,11 @@ class Target extends PhysicsSprite
 
             //if (Settings.DEVELOPMENT_MODE)
             //{
-            //    ctx.beginPath(); // Start the path
-            //    ctx.moveTo(wormPos.x, wormPos.y); // Set the path origin
-            //    ctx.lineTo(targetDir.x, targetDir.y); // Set the path destination
-            //    ctx.closePath(); // Close the path
-            //    ctx.stroke();
+                ctx.beginPath(); // Start the path
+                ctx.moveTo(wormPos.x, wormPos.y); // Set the path origin
+                ctx.lineTo(targetDir.x, targetDir.y); // Set the path destination
+                ctx.closePath(); // Close the path
+                ctx.stroke();
             //}
 
             super.draw(ctx, targetDir.x - radius, targetDir.y - (radius * 2));
@@ -75,20 +75,18 @@ class Target extends PhysicsSprite
 
     changeDirection(dir)
     {
+         var td = this.targetDirection.Copy();
+
         if (dir == Worm.DIRECTION.left && this.direction != dir)
         {
             this.direction = dir;
-            var td = this.targetDirection.Copy();
-            //td.Add(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
-
             var currentAngle = Utilies.toDegrees(Utilies.toRadians(180) + Utilies.vectorToAngle(td));
             this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
+
         } else if (dir == Worm.DIRECTION.right && this.direction != dir)
             {
-            this.direction = dir;
-            var td = this.targetDirection.Copy();
-            //td.Add(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
 
+            this.direction = dir;         
             var currentAngle = Utilies.toDegrees(Utilies.toRadians(-180) + Utilies.vectorToAngle(td));
             this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
         }
@@ -98,8 +96,8 @@ class Target extends PhysicsSprite
     aim(upOrDown: number)
     {
         var td = this.targetDirection.Copy();
-        var currentAngle = Utilies.toDegrees(Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td));
-        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
+        var currentAngle = Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td);
+        this.targetDirection = Utilies.angleToVector(currentAngle);
         console.log(currentAngle);
 
         //if (this.direction == Worm.DIRECTION.right)
