@@ -76,7 +76,7 @@ class JetPack extends BaseWeapon
                 ctx.save()
                 ctx.translate(pos.x, pos.y);
 
-                if (this.worm.direction == this.worm.DIRECTION.right)
+                if (this.worm.direction == Worm.DIRECTION.right)
                 {
                     // Used to flip the sprites       
                     ctx.scale(-1, 1);

@@ -118,6 +118,15 @@ class Sprite
         return this.currentFrameY;
     }
 
+    setCurrentFrame(frame)
+    {
+        if (frame > 0 && frame < this.spriteDef.frameCount)
+        {
+             this.currentFrameY = frame;
+        }
+
+    }
+
     setNoLoop(val: bool)
     {
         this.noLoop = val;

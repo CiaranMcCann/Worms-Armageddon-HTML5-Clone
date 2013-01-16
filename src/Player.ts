@@ -89,12 +89,14 @@ class Player
             {
               
               this.team.getCurrentWorm().target.aim(1);
+                this.team.getCurrentWorm().setCurrentFrame( this.team.getCurrentWorm().getCurrentFrame() - 1 )
               Client.sendImmediately(Events.client.ACTION,  new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[1]));
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard) || this.gamePad.getAxis(2) <= -0.2 || this.gamePad.getAxis(3) <= -0.2)
             {
                 this.team.getCurrentWorm().target.aim(-1);
+                this.team.getCurrentWorm().setCurrentFrame( this.team.getCurrentWorm().getCurrentFrame() + 1 )
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[-1]));
             }
 

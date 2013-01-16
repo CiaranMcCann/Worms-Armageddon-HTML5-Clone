@@ -41,6 +41,12 @@
     <Content Include="src\animation\BounceArrow.js">
       <DependentUpon>BounceArrow.ts</DependentUpon>
     </Content>
+    <Content Include="src\animation\EffectsManager.js">
+      <DependentUpon>EffectsManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\EffectsManager.min.js">
+      <DependentUpon>EffectsManager.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\HealthReduction.js">
       <DependentUpon>HealthReduction.ts</DependentUpon>
     </Content>

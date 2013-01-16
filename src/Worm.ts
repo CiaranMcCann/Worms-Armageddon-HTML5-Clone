@@ -24,7 +24,7 @@
 
 class Worm extends Sprite
 {
-    DIRECTION = {
+    static DIRECTION = {
         left: -1,
         right: 1
     }
@@ -269,7 +269,9 @@ class Worm extends Sprite
         {
             var currentPos = this.body.GetPosition();
 
-            this.direction = this.DIRECTION.left;
+            this.direction = Worm.DIRECTION.left;
+            this.target.changeDirection(Worm.DIRECTION.left);
+
             this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
@@ -291,7 +293,8 @@ class Worm extends Sprite
         if (WormAnimationManger.playerAttentionSemaphore == 0)
         {
             var currentPos = this.body.GetPosition();
-            this.direction = this.DIRECTION.right;
+            this.direction = Worm.DIRECTION.right;
+            this.target.changeDirection(Worm.DIRECTION.right);
             this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
@@ -408,7 +411,7 @@ class Worm extends Sprite
         )
 
         ctx.save()
-        if (this.direction == this.DIRECTION.right)
+        if (this.direction == Worm.DIRECTION.right)
         {
             // Used to flip the sprites       
             ctx.scale(-1, 1);
