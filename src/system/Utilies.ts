@@ -258,11 +258,12 @@ module keyboard
         });
 
         $(window).keyup(function (e)
-        {
+        {          
             delete keys[e.which];
         });
 
     })();
+
 
     export function isKeyDown(keyCode, actLikeKeyPress = false)
     {

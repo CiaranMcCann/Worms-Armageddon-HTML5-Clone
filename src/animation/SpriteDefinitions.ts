@@ -363,6 +363,14 @@ module Sprites
             frameCount: 12,
             msPerFrame: 50,
 
+    },
+
+         blob: {
+            imageName: "blob",
+            frameY: 0,
+            frameCount: 16,
+            msPerFrame: 50,
+
     }
 
 

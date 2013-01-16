@@ -61,6 +61,9 @@ class ThrowableWeapon extends BaseWeapon
           takeAimAnimation
         );
 
+        //Max force this weapon can be thrown with
+        this.forceIndicator.setMaxForce(50);
+
         this.sprite = new Sprite(weaponSpriteDef);
 
         // The area in pxiels that get cut out of the terrain
@@ -123,7 +126,8 @@ class ThrowableWeapon extends BaseWeapon
         initalPosition.Add(initalVelocity);
 
         initalVelocity = worm.target.getTargetDirection().Copy();
-        initalVelocity.Multiply(20);
+        initalVelocity.Multiply(this.forceIndicator.getForce());
+        this.forceIndicator.reset();
 
         this.setupPhysicsBodies(initalPosition, initalVelocity);
 

@@ -99,7 +99,7 @@ class Sprite
          
             ctx.drawImage(
                    this.image,
-                   0, this.currentFrameY * this.frameHeight, this.image.width, this.frameHeight,
+                   0, Math.floor(this.currentFrameY) * this.frameHeight, this.image.width, this.frameHeight,
                    Math.round(x),
                    Math.round(y),
                   this.image.width,

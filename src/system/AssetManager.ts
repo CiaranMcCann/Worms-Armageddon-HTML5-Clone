@@ -67,6 +67,11 @@ module AssetManager
     export var images = [];
     export var sounds = [];
 
+    export function getImage(s)
+    {
+        return images[s];
+    }
+
     export function loadImages(sources, callback)
     {
 

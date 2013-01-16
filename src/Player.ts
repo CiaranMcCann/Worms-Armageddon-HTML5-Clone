@@ -20,19 +20,28 @@ class Player
     timer: Timer;
     gamePad: GamePad;
 
-    constructor (playerId = Utilies.pickUnqine([1,2,3,4], "playerids"))
+    constructor(playerId = Utilies.pickUnqine([1, 2, 3, 4], "playerids"))
     {
         this.id = playerId;
         this.team = new Team(playerId);
 
-        //TODO refactor all control code into central Controls.ts when adding gamepad
-        //$('body').mousedown(function (event) =>
-        //{
-        //    if (Controls.checkControls( Controls.fire, event.which))
-        //    {
-        //          this.team.getCurrentWorm().fire();
-        //    }
-        //});
+       // Global window keyup event
+        $(window).keyup(function (e) =>
+        {
+             // Dectects keyup on fire button
+            if (e.which == Controls.fire.keyboard)
+            {
+                var wormWeapon = this.team.getCurrentWorm().getWeapon()
+
+                // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
+                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 0)
+                {
+                    this.team.getCurrentWorm().fire();
+                    GameInstance.weaponMenu.refresh();
+                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
+                }
+            }
+        });
 
         this.timer = new Timer(10);
         this.gamePad = new GamePad();
@@ -59,10 +68,10 @@ class Player
 
         this.gamePad.connect();
         this.gamePad.update();
-      
+
         var onlineSpefic = Client.isClientsTurn();
 
-        if ( onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
+        if (onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
 
             //Player controls 
@@ -72,49 +81,61 @@ class Player
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkLeft"));
             }
 
-            if (keyboard.isKeyDown(Controls.jump.keyboard, true) ||  this.gamePad.isButtonPressed(0))
+            if (keyboard.isKeyDown(Controls.jump.keyboard, true) || this.gamePad.isButtonPressed(0))
             {
                 this.team.getCurrentWorm().jump();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.jump"));
             }
 
-            if (keyboard.isKeyDown(Controls.walkRight.keyboard)  || this.gamePad.isButtonPressed(15) || this.gamePad.getAxis(0) > 0.5)
+            if (keyboard.isKeyDown(Controls.walkRight.keyboard) || this.gamePad.isButtonPressed(15) || this.gamePad.getAxis(0) > 0.5)
             {
                 this.team.getCurrentWorm().walkRight();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkRight"));
             }
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard) ||
-             this.gamePad.getAxis(2) >= 0.2 ||  this.gamePad.getAxis(3) >= 0.2)
+             this.gamePad.getAxis(2) >= 0.2 || this.gamePad.getAxis(3) >= 0.2)
             {
-              
-              this.team.getCurrentWorm().target.aim(1);
-                this.team.getCurrentWorm().setCurrentFrame( this.team.getCurrentWorm().getCurrentFrame() - 1 )
-              Client.sendImmediately(Events.client.ACTION,  new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[1]));
+
+                this.team.getCurrentWorm().target.aim(1);
+                this.team.getCurrentWorm().setCurrentFrame(this.team.getCurrentWorm().getCurrentFrame() - 0.8)
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [1]));
+
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard) || this.gamePad.getAxis(2) <= -0.2 || this.gamePad.getAxis(3) <= -0.2)
             {
                 this.team.getCurrentWorm().target.aim(-1);
-                this.team.getCurrentWorm().setCurrentFrame( this.team.getCurrentWorm().getCurrentFrame() + 1 )
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim",[-1]));
+                this.team.getCurrentWorm().setCurrentFrame(this.team.getCurrentWorm().getCurrentFrame() + 0.8)
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [-1]));
             }
 
-            if (keyboard.isKeyDown(Controls.fire.keyboard, true) ||  this.gamePad.isButtonPressed(7))
+            // While holding the
+            if (keyboard.isKeyDown(Controls.fire.keyboard, true) || this.gamePad.isButtonPressed(7))
             {
-                this.team.getCurrentWorm().fire();
-                GameInstance.weaponMenu.refresh();
+                //console.log("Key pressed ")
+                var wormWeapon = this.team.getCurrentWorm().getWeapon()
+                if (wormWeapon.getForceIndicator().isRequired())
+                {
+                    this.team.getCurrentWorm().getWeapon().getForceIndicator().charge(2);
+                }
+                else
+                {
+                    this.team.getCurrentWorm().fire();
+                    GameInstance.weaponMenu.refresh();
+                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
+                }
 
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
             }
-      
+
+
             // end of player controls
         }
 
         if (GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
 
-               if (keyboard.isKeyDown(38)) //up
+            if (keyboard.isKeyDown(38)) //up
             {
                 GameInstance.camera.cancelPan();
                 GameInstance.camera.incrementY(-15)
@@ -147,11 +168,11 @@ class Player
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
 
             }
-            //if the players weapon is active and is a throwable then track it with the camera
-            else if(this.getTeam().getWeaponManager().getCurrentWeapon()  instanceof ThrowableWeapon &&
+                //if the players weapon is active and is a throwable then track it with the camera
+            else if (this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ThrowableWeapon &&
                 this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
-            {
-                var weapon : ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
+                {
+                var weapon: ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(weapon.body.GetPosition()));
             }
 
@@ -179,7 +200,7 @@ class PlayerDataPacket
         this.teamDataPacket = new TeamDataPacket(player.getTeam());
     }
 
-    override(player : Player)
+    override(player: Player)
     {
         this.teamDataPacket.override(player.getTeam());
     }

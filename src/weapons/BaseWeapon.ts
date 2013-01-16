@@ -1,6 +1,7 @@
 ///<reference path="../Settings.ts" />
 ///<reference path="../animation/SpriteDefinitions.ts" />
 ///<reference path="../system/AssetManager.ts" />
+///<reference path="ForceIndicator.ts" />
 
 class BaseWeapon
 {
@@ -8,13 +9,14 @@ class BaseWeapon
     name;
     iconImage;
     isActive;
-    worm : Worm;
+    worm: Worm;
     takeOutAnimations: SpriteDefinition;
     takeAimAnimations: SpriteDefinition;
+    forceIndicator: ForceIndicator;
 
     requiresAiming: bool;
 
-    constructor (name: string, ammo: number, iconSprite, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
+    constructor(name: string, ammo: number, iconSprite, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
         this.name = name;
         this.ammo = ammo;
@@ -27,6 +29,13 @@ class BaseWeapon
         this.requiresAiming = true;
 
         this.setIsActive(false);
+
+        this.forceIndicator = new ForceIndicator(0);
+    }
+
+    getForceIndicator()
+    {
+        return this.forceIndicator;
     }
 
     getIsActive() { return this.isActive; }
@@ -42,7 +51,7 @@ class BaseWeapon
 
     activate(worm)
     {
-        
+
         this.setIsActive(true);
         this.ammo--;
         this.worm = worm;

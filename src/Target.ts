@@ -42,14 +42,6 @@ class Target extends PhysicsSprite
             //this.worm.stateAnimationMgmt.getState() == WormAnimationManger.WORM_STATE.aiming
              )
         {
-            //var dir = 180
-            //if (this.worm.direction == this.worm.DIRECTION.right)
-            //{
-            //      dir = -180
-            //}
-
-            //  var td = this.targetDirection.Copy();
-            //  var currentAngle = Utilies.toRadians( dir ) + Utilies.vectorToAngle(td);
 
             var radius = this.worm.fixture.GetShape().GetRadius() * Physics.worldScale;
             var wormPos = Physics.vectorMetersToPixels(this.worm.body.GetPosition());
@@ -107,23 +99,24 @@ class Target extends PhysicsSprite
     {
         var td = this.targetDirection.Copy();
         var currentAngle = Utilies.toDegrees(Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td));
+        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
         console.log(currentAngle);
 
-        if (this.direction == Worm.DIRECTION.right)
-        {
+        //if (this.direction == Worm.DIRECTION.right)
+        //{
 
-            if (currentAngle >= -90 && currentAngle <= 90)
-            {
-                this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
-            }
-        } else
-        {
+        //    if (currentAngle >= -90 && currentAngle <= 90)
+        //    {
+        //        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
+        //    }
+        //} else
+        //{
 
-            if (currentAngle-180 >= -90 && currentAngle-180 <= 90)
-            {
-                this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
-            }
-        }
+        //    if (currentAngle-180 >= -90 && currentAngle-180 <= 90)
+        //    {
+        //        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
+        //    }
+        //}
 
     }
 

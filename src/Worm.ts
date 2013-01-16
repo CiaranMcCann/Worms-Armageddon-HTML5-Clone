@@ -181,6 +181,10 @@ class Worm extends Sprite
         this.preRendering();
     }
 
+    getWeapon()
+    {
+        return this.team.getWeaponManager().getCurrentWeapon();
+    }
 
 
     // What happens when a worm collies with another object
@@ -243,6 +247,8 @@ class Worm extends Sprite
             {
                 this.arrow.finished = true;
             }
+
+            weapon.getForceIndicator().reset();
         }
     }
 
@@ -399,6 +405,7 @@ class Worm extends Sprite
         if (Sprites.worms.weWon != this.spriteDef)
         {
             this.target.draw(ctx);
+            this.getWeapon().getForceIndicator().draw(ctx,this.body.GetPosition(),this.target.getTargetDirection());
         }
 
         ctx.save()
@@ -409,6 +416,7 @@ class Worm extends Sprite
             Physics.metersToPixels(this.body.GetPosition().x),
             Physics.metersToPixels(this.body.GetPosition().y)
         )
+
 
         ctx.save()
         if (this.direction == Worm.DIRECTION.right)
