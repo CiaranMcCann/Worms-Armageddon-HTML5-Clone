@@ -32,7 +32,7 @@ class Team
 
         this.color = Utilies.pickUnqine(["#FA6C1D", "#12AB00", "#B46DD2", "#B31A35", "#23A3C6","#9A4C44"], "colors");
 
-        this.name = "Team " + playerId;
+        this.name = this.color;
         this.teamId = playerId;
         Team.teamCount++;
 

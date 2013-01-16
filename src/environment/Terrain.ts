@@ -41,7 +41,7 @@ class Terrain
         this.world = world;
         this.scale = scale;
 
-        this.Offset = new b2Vec2(2000, 800);
+        this.Offset = new b2Vec2(1100, 1000);
 
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
@@ -64,8 +64,8 @@ class Terrain
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain
         this.bufferCanvasContext.drawImage(terrainImage, this.Offset.x,  this.Offset.y, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y);
 
-        this.terrainData = this.bufferCanvasContext.getImageData(this.Offset.x, this.Offset.y, this.bufferCanvas.width, this.bufferCanvas.height);
-        this.createTerrainPhysics(0, 0, this.bufferCanvas.width, this.bufferCanvas.height, this.terrainData.data, world, scale)
+        this.terrainData = this.bufferCanvasContext.getImageData(this.Offset.x, this.Offset.y, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y);
+        this.createTerrainPhysics(0, 0, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y, this.terrainData.data, world, scale)
 
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
