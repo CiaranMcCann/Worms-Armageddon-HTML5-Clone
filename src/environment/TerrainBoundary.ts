@@ -5,8 +5,9 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
-///<reference path="system/Physics.ts"/>
-///<reference path="system/Utilies.ts" />
+///<reference path="../system/Physics.ts"/>
+///<reference path="../system/Utilies.ts" />
+///<reference path="Terrain.ts" />
 
 class TerrainBoundary
 {
@@ -19,7 +20,7 @@ class TerrainBoundary
     constructor (worldWidth,worldHeight)
     {
 
-        this.worldWidth = worldWidth;
+        this.worldWidth = worldWidth; 
         this.worldHeight = worldHeight;
 
         var topPositionY = Physics.pixelToMeters(worldHeight / 5);

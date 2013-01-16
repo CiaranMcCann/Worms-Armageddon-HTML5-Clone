@@ -128,6 +128,11 @@ class Sprite
         return this.frameHeight;
     }
 
+    getFrameWidth()
+    {       
+       return this.image.width;
+    }
+
     getTotalFrames()
     {
         return this.spriteDef.frameCount;

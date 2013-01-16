@@ -10,7 +10,7 @@
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Physics.ts"/>
-///<reference path="Terrain.ts"/>
+///<reference path="environment/Terrain.ts"/>
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
@@ -22,7 +22,7 @@
 ///<reference path="animation/ParticleEffect.ts"/>
 ///<reference path="animation/EffectsManager.ts"/>
 ///<reference path="gui/HealthMenu.ts"/>
-///<reference path="Maps.ts"/>
+///<reference path="environment/Maps.ts"/>
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
 ///<reference path="networking/Client.ts"/>
@@ -247,12 +247,21 @@ class Game
 
     draw()
     {
+       this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
 
-        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+
+        this.actionCanvasContext.save();
+        this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
+        this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height-35,this.terrain.bufferCanvas.width*2);
+        this.actionCanvasContext.restore();
+
+
         this.terrain.draw(this.actionCanvasContext);
 
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
+
+        this.terrain.wave.draw(this.actionCanvasContext,this.camera.getX(),this.terrain.bufferCanvas.height,this.terrain.bufferCanvas.width*2);
 
         if (Settings.PHYSICS_DEBUG_MODE)
         {

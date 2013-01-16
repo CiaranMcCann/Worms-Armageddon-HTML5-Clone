@@ -89,6 +89,22 @@
       <DependentUpon>Effects.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\GameStateManager.ts" />
+    <Content Include="src\environment\Terrain.js">
+      <DependentUpon>Terrain.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\TerrainBoundary.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\TerrainBoundary.min.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\environment\Waves.ts" />
+    <Content Include="src\environment\Waves.js">
+      <DependentUpon>Waves.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\Waves.min.js">
+      <DependentUpon>Waves.ts</DependentUpon>
+    </Content>
     <Content Include="src\GameStateManager.js">
       <DependentUpon>GameStateManager.ts</DependentUpon>
     </Content>
@@ -101,7 +117,7 @@
     <Content Include="src\gui\HealthMenu.min.js">
       <DependentUpon>HealthMenu.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\Maps.ts" />
+    <TypeScriptCompile Include="src\environment\Maps.ts" />
     <TypeScriptCompile Include="src\gui\LobbyMenu.ts" />
     <Content Include="src\gui\LobbyMenu.js">
       <DependentUpon>LobbyMenu.ts</DependentUpon>
@@ -109,13 +125,10 @@
     <Content Include="src\gui\LobbyMenu.min.js">
       <DependentUpon>LobbyMenu.ts</DependentUpon>
     </Content>
-    <Content Include="src\Levels.js">
+    <Content Include="src\environment\Maps.js">
       <DependentUpon>Maps.ts</DependentUpon>
     </Content>
-    <Content Include="src\Maps.js">
-      <DependentUpon>Maps.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Maps.min.js">
+    <Content Include="src\environment\Maps.min.js">
       <DependentUpon>Maps.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\networking\Server.ts" />
@@ -313,7 +326,7 @@
     <Content Include="src\system\Physics.js">
       <DependentUpon>Physics.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\Terrain.ts" />
+    <TypeScriptCompile Include="src\environment\Terrain.ts" />
     <TypeScriptCompile Include="src\Team.ts" />
     <Content Include="src\system\Physics.min.js">
       <DependentUpon>Physics.ts</DependentUpon>
@@ -338,9 +351,6 @@
     <Content Include="src\Team.min.js">
       <DependentUpon>Team.ts</DependentUpon>
     </Content>
-    <Content Include="src\Terrain.js">
-      <DependentUpon>Terrain.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
     <TypeScriptCompile Include="src\system\Utilies.ts" />
     <Content Include="src\system\Utilies.js">
@@ -350,17 +360,11 @@
     <Content Include="src\system\Utilies.min.js">
       <DependentUpon>Utilies.ts</DependentUpon>
     </Content>
-    <Content Include="src\Terrain.min.js">
+    <Content Include="src\environment\Terrain.min.js">
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\Drill.ts" />
     <TypeScriptCompile Include="src\tests\AllTest.ts" />
-    <Content Include="src\TerrainBoundary.js">
-      <DependentUpon>TerrainBoundary.ts</DependentUpon>
-    </Content>
-    <Content Include="src\TerrainBoundary.min.js">
-      <DependentUpon>TerrainBoundary.ts</DependentUpon>
-    </Content>
     <Content Include="src\tests\AllTest.js">
       <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
@@ -402,15 +406,9 @@
     <Content Include="src\weapons\NinjaRope.js">
       <DependentUpon>NinjaRope.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\TerrainBoundary.ts" />
+    <TypeScriptCompile Include="src\environment\TerrainBoundary.ts" />
     <Content Include="src\weapons\NinjaRope.min.js">
       <DependentUpon>NinjaRope.ts</DependentUpon>
-    </Content>
-    <Content Include="src\WorldBoundary.js">
-      <DependentUpon>TerrainBoundary.ts</DependentUpon>
-    </Content>
-    <Content Include="src\WorldBoundary.min.js">
-      <DependentUpon>TerrainBoundary.ts</DependentUpon>
     </Content>
     <Content Include="src\WormAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
@@ -483,9 +481,6 @@
     </Content>
     <Content Include="src\system\Graphics.js.map">
       <DependentUpon>Graphics.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Terrain.js.map">
-      <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <Content Include="src\animation\Sprite.js.map">
       <DependentUpon>Sprite.ts</DependentUpon>

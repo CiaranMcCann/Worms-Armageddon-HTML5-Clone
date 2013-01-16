@@ -8,7 +8,7 @@
 ///<reference path="../system/Graphics.ts"/>
 ///<reference path="../system/AssetManager.ts"/>
 ///<reference path="../system/Physics.ts"/>
-///<reference path="../Terrain.ts"/>
+///<reference path="../environment/Terrain.ts"/>
 ///<reference path="BaseWeapon.ts"/>
 
 class JetPack extends BaseWeapon

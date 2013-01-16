@@ -8,9 +8,10 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
-///<reference path="system/Physics.ts"/>
-///<reference path="system/Utilies.ts" />
+///<reference path="../system/Physics.ts"/>
+///<reference path="../system/Utilies.ts" />
 ///<reference path="TerrainBoundary.ts"/>
+///<reference path="Waves.ts"/>
 
 class Terrain
 {
@@ -23,6 +24,8 @@ class Terrain
     scale;
     terrainData;
     Offset;
+
+    wave: Waves;
 
     boundary: TerrainBoundary;
 
@@ -66,6 +69,7 @@ class Terrain
 
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
+        this.wave = new Waves();
     }
 
     getWidth()
@@ -244,6 +248,8 @@ class Terrain
         {
             this.deformRegionBatch();
         }
+
+        this.wave.update();
     }
 
     draw(ctx)
@@ -282,6 +288,8 @@ class Terrain
             h
             
             );
+
+        
         // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
 

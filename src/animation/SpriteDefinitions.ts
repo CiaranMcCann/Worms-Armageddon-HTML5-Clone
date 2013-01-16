@@ -31,7 +31,7 @@ module Sprites
         drill: { imageName: "drill" },
         dynamite: { imageName: "icondynamite" },
         ninjaRope: { imageName: "iconrope" },
-        jetPack: {imageName: "iconjetpack"}
+        jetPack: { imageName: "iconjetpack" }
 
 
 
@@ -39,7 +39,7 @@ module Sprites
 
     export var weapons = {
 
-        jetPackFlamesDown : {
+        jetPackFlamesDown: {
 
             imageName: "wjetflmd",
             frameY: 0,
@@ -48,7 +48,7 @@ module Sprites
 
         },
 
-         jetPackFlamesSide : {
+        jetPackFlamesSide: {
 
             imageName: "wjetflmb",
             frameY: 0,
@@ -305,7 +305,7 @@ module Sprites
 
         }
 
-        
+
 
 
 
@@ -355,11 +355,18 @@ module Sprites
             frameY: 0,
             frameCount: 28,
             msPerFrame: 50,
-        }
+    },
 
-
+    wave: {
+            imageName: "water",
+            frameY: 0,
+            frameCount: 12,
+            msPerFrame: 50,
 
     }
+
+
+}
 
 }
 

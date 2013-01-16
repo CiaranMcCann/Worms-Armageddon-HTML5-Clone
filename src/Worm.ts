@@ -17,7 +17,7 @@
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts" />
 ///<reference path="system/NameGenerator.ts" />
-///<reference path="Terrain.ts" />
+///<reference path="environment/Terrain.ts" />
 ///<reference path="Main.ts" />
 ///<reference path="WormAnimationManger.ts" />
 ///<reference path="Target.ts" />
