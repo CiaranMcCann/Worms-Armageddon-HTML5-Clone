@@ -17,7 +17,7 @@ class Waves
         this.wave = new Sprite(Sprites.particleEffects.wave);
 
         var wave2 = Sprites.particleEffects.wave;
-        wave2.frameY = 1;
+        wave2.frameY = 2;
         this.wave2 = new Sprite(wave2);
     }
 
@@ -27,11 +27,11 @@ class Waves
         this.wave2.update();
     }
 
+    //TODO pre-render waves
     drawBackgroundWaves(ctx, x, y, w)
     {
-        ctx.fillStyle = "#384084";
-        ctx.fillRect(x,y,w,400);
-
+       y -= 35;
+       ctx.fillRect(x,y,w,400);
        var waveY = y - this.wave.getFrameHeight() * 0.5;
 
         for (var i = 0; i < w; i += this.wave.getFrameWidth())
@@ -40,24 +40,19 @@ class Waves
         }
     }
 
+    //TODO pre-render waves, do somthing to optimize them anyway.
     draw(ctx,x,y,w)
-    {
-
-        //ctx.fillStyle = "#384084";
-        //ctx.fillRect(x,y,w,this.wave.getFrameHeight()*3);
-
+    {        
         var waveY = y - this.wave.getFrameHeight() * 0.5;
-
         for (var i = 0; i < w; i += this.wave.getFrameWidth())
         {
-            this.wave2.draw(ctx,i,waveY);
+            this.wave2.draw(ctx,i-1,waveY);
         }
 
         waveY = y + this.wave.getFrameHeight() * 0.5;
-
         for (var i = 0; i < w; i += this.wave.getFrameWidth())
         {
-            this.wave.draw(ctx,i,waveY);
+            this.wave.draw(ctx,i-1,waveY);
         }
     }
 

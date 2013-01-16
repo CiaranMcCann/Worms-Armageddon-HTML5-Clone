@@ -41,7 +41,7 @@ class Terrain
         this.world = world;
         this.scale = scale;
 
-        this.Offset = new b2Vec2(300, 300);
+        this.Offset = new b2Vec2(2000, 800);
 
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
@@ -53,7 +53,7 @@ class Terrain
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
         this.bufferCanvas.width = this.Offset.x+(terrainImage.width*1.5);
         this.bufferCanvas.height =  this.Offset.y+(terrainImage.height*1.5);
-        this.boundary = new TerrainBoundary(this.bufferCanvas.width*2, this.bufferCanvas.height+100);
+        this.boundary = new TerrainBoundary(this.bufferCanvas.width+this.Offset.x, this.bufferCanvas.height+100);
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
 

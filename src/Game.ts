@@ -79,6 +79,7 @@ class Game
         //Set canvas font stuff
         this.actionCanvasContext.font = 'bold 16px Sans-Serif';
         this.actionCanvasContext.textAlign = 'center';
+        this.actionCanvasContext.fillStyle = "#384084"; // Water
 
         Physics.init(this.actionCanvasContext);
 
@@ -249,19 +250,17 @@ class Game
     {
        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
 
-
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
-        this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height-35,this.terrain.bufferCanvas.width*2);
+        this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height,this.terrain.getWidth());
         this.actionCanvasContext.restore();
-
 
         this.terrain.draw(this.actionCanvasContext);
 
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-        this.terrain.wave.draw(this.actionCanvasContext,this.camera.getX(),this.terrain.bufferCanvas.height,this.terrain.bufferCanvas.width*2);
+        this.terrain.wave.draw(this.actionCanvasContext,this.camera.getX(),this.terrain.bufferCanvas.height,this.terrain.getWidth());
 
         if (Settings.PHYSICS_DEBUG_MODE)
         {

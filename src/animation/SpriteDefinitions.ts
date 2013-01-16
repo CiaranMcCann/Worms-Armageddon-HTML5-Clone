@@ -358,7 +358,7 @@ module Sprites
     },
 
     wave: {
-            imageName: "water",
+            imageName: "water3",
             frameY: 0,
             frameCount: 12,
             msPerFrame: 50,
