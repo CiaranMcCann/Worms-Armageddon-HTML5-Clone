@@ -81,6 +81,8 @@ class Terrain
     // This setup physical bodies from image data 
     createTerrainPhysics(x, y, width, height, data, world, worldScale)
     {
+        x = Math.floor(x);
+        y = Math.floor(y);
 
         width = width * 4; // 4 becase of [r,g,b,a]
         height = height;
