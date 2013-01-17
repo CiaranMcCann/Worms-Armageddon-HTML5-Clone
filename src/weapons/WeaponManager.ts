@@ -33,9 +33,7 @@ class WeaponManager
             new JetPack(),           
             new NinjaRope(),
             new HolyGrenade(),
-            new Dynamite()
-            
-                     
+            new Dynamite()                  
         ];
 
         this.currentWeaponIndex = 1;
@@ -59,7 +57,7 @@ class WeaponManager
 
     setCurrentWeapon(index)
     {
-        if (this.getCurrentWeapon().getIsActive() == false)
+        if (this.getCurrentWeapon().getIsActive() == false || this.getCurrentWeapon() instanceof JetPack || this.getCurrentWeapon() instanceof NinjaRope)
         {
             this.currentWeaponIndex = index;
         }

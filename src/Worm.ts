@@ -213,27 +213,35 @@ class Worm extends Sprite
 
     postSolve(contact, impulse)
     {
+        var impactTheroshold = 8
 
-        if ( (this.getWeapon() instanceof JetPack) == false || (this.getWeapon() instanceof NinjaRope) == false)
+        // If the worm is using the Jetpack don't take damage
+        if ((this.getWeapon() instanceof JetPack) && this.getWeapon().getIsActive())
         {
-            if (impulse.normalImpulses[0] > 9)
+            impactTheroshold = 10
+        }
+            //If the worm is using the NijaRope don't take damage
+            if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
             {
-                var damage = Math.round(impulse.normalImpulses[0]) / 2;
-
-                if (damage > 10)
+                if (impulse.normalImpulses[0] > impactTheroshold)
                 {
-                    damage = 10;
+                    var damage = Math.round(impulse.normalImpulses[0]) / 2;
+
+                    if (damage > 10)
+                    {
+                        damage = 10;
+                    }
+
+                    this.hit(damage);
                 }
 
-                this.hit(damage);
+                if (impulse.normalImpulses[0] > 3)
+                {
+                    AssetManager.getSound("WormLanding").play();
+                }
             }
 
-            if (impulse.normalImpulses[0] > 3)
-            {
-                AssetManager.getSound("WormLanding").play();
-            }
-
-        }
+        
             
     }
 
@@ -359,6 +367,12 @@ class Worm extends Sprite
         {
             this.damageTake += damage;
             AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
+
+            //If worm using Jetpack, deactive it if they get hurt.
+            if (this.getWeapon() instanceof JetPack)
+            {
+                this.getWeapon().deactivate();
+            }
 
             //if from same team call the player a tratitor :)
             if (worm && worm != this && worm.team == this.team)

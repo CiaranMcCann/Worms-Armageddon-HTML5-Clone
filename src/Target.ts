@@ -28,10 +28,10 @@ class Target extends PhysicsSprite
     {
         super(new b2Vec2(0, 0), Physics.vectorMetersToPixels(worm.body.GetPosition()), Sprites.weapons.redTarget);
         //The direction in which the worm is aiming
-        this.targetDirection = new b2Vec2(0, 1);
+        this.targetDirection = new b2Vec2(0.5, -0.3);
         this.rotationRate = 4;
         this.worm = worm;
-        this.direction = Worm.DIRECTION.left;
+        this.direction = this.worm.direction;
     }
 
     draw(ctx)
@@ -68,42 +68,43 @@ class Target extends PhysicsSprite
 
     changeDirection(dir)
     {
-        var td = this.targetDirection.Copy();
+        //var td = this.targetDirection.Copy();
+        //var currentAngle = Utilies.toDegrees(Utilies.vectorToAngle(td));
 
-        if (dir == Worm.DIRECTION.left && this.direction != dir)
-        {
-            this.direction = dir;
-            var currentAngle = Utilies.toDegrees(Utilies.toRadians(180) + Utilies.vectorToAngle(td));
-            this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
+        //if (dir == Worm.DIRECTION.left && this.direction != dir)
+        //{
+        //    this.direction = dir;
+        //    var currentAngle = Utilies.toDegrees(Utilies.toRadians(180) + Utilies.vectorToAngle(td));
+        //    this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
 
-        } else if (dir == Worm.DIRECTION.right && this.direction != dir)
-            {
+        //} else if (dir == Worm.DIRECTION.right && this.direction != dir)
+        //    {
 
-            this.direction = dir;
-            var currentAngle = Utilies.toDegrees(Utilies.toRadians(-180) + Utilies.vectorToAngle(td));
-            this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
-        }
+        //    this.direction = dir;
+        //    var currentAngle = Utilies.toDegrees(Utilies.toRadians(-180) + Utilies.vectorToAngle(td));
+        //    this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
+        //}
     }
 
     // Allows the player to increase the aiming angle or decress
     aim(upOrDown: number)
     {
         var td = this.targetDirection.Copy();
-        var currentAngle = Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td);
-        this.targetDirection = Utilies.angleToVector(currentAngle);
+        var currentAngle = Utilies.toDegrees( Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td) );
+        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
         //console.log(currentAngle);
 
         //if (this.direction == Worm.DIRECTION.right)
         //{
 
-        //    if (currentAngle >= -90 && currentAngle <= 90)
+        //    if (currentAngle > -90 && currentAngle < 90)
         //    {
         //        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
         //    }
         //} else
         //{
 
-        //    if (currentAngle-180 >= -90 && currentAngle-180 <= 90)
+        //    if ( (currentAngle > 90) || (currentAngle < -90) )
         //    {
         //        this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
         //    }

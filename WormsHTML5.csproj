@@ -377,14 +377,14 @@
       <DependentUpon>Terrain.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\Drill.ts" />
-    <TypeScriptCompile Include="src\weapons\tests\AllTest.ts" />
-    <Content Include="src\weapons\tests\AllTest.js">
+    <TypeScriptCompile Include="src\tests\AllTest.ts" />
+    <Content Include="src\tests\AllTest.js">
       <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
-    <Content Include="src\weapons\tests\AllTest.min.js">
+    <Content Include="src\tests\AllTest.min.js">
       <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
-    <Content Include="src\weapons\tests\TimerTest.min.js">
+    <Content Include="src\tests\TimerTest.min.js">
       <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\Drill.js">
@@ -440,7 +440,7 @@
       <DependentUpon>WormManager.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
-    <Content Include="src\weapons\tests\TimerTest.js">
+    <Content Include="src\tests\TimerTest.js">
       <DependentUpon>AllTest.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\Drill.min.js">

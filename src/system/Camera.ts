@@ -80,9 +80,6 @@ class Camera
  
     panToPosition(vector)
     {
-        //var currentCamPos = this.position.Copy();
-       // currentCamPos.Subtract(vector);
-
             // Center on said position
             vector.x -= this.vpWidth / 2;
             vector.y -= this.vpHeight / 2;

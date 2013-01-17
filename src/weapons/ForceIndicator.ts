@@ -42,7 +42,7 @@ class ForceIndicator
                 this.renderCanvas = Graphics.preRenderer.render(function (context) =>
                 {
                     // if(this.renderCanvas == null)
-                    // context.fillRect(0, 0, 400, 400);
+                     //context.fillRect(0, 0, 400, 400);
 
                     this.sprite.draw(context, 0, (this.forcePercentage / 100) * 100);
                     this.needReRender = false;
@@ -54,8 +54,7 @@ class ForceIndicator
             var radius = worm.fixture.GetShape().GetRadius() * Physics.worldScale;
             var wormPos = Physics.vectorMetersToPixels(worm.body.GetPosition().Copy());
             var targetDir = worm.target.getTargetDirection().Copy();
-
-            targetDir.Multiply(13);
+            targetDir.Multiply(16);
             targetDir.Add(wormPos);
 
             ctx.save();
@@ -65,10 +64,12 @@ class ForceIndicator
                 targetDir.y
             )
 
+             
             //TODO - Why do I put -90 in here? Is it that my target is wrong? Is it somthing to do with canvas corrdianate system. Hmm ask Ken.
+            //TODO No is cause of the canvas corrdinate system, oh yea.
             ctx.rotate(Utilies.vectorToAngle(worm.target.getTargetDirection().Copy()) + Utilies.toRadians(-90));
 
-            ctx.drawImage(this.renderCanvas, -radius, -radius, this.renderCanvas.width, this.renderCanvas.height);
+            ctx.drawImage(this.renderCanvas, -radius,  -radius, this.renderCanvas.width, this.renderCanvas.height);
             ctx.restore();
         }
     }

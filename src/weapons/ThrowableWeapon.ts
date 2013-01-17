@@ -112,6 +112,7 @@ class ThrowableWeapon extends BaseWeapon
     {
         Logger.debug(this + " was deactivated ");
         this.setIsActive(false);
+        super.deactivate();
     }
 
     setupPhysicsBodies(initalPosition, initalVelocity)

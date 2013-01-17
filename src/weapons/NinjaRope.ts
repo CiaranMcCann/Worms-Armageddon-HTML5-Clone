@@ -25,7 +25,7 @@ class NinjaRope extends BaseWeapon
     {
         super(
            "Ninja Rope",
-           8,
+           10,
          Sprites.weaponIcons.ninjaRope,
          Sprites.worms.takeNinjaRope,
          Sprites.worms.aimNinjaRope

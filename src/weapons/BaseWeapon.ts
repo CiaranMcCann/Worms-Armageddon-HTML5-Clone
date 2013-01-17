@@ -46,7 +46,8 @@ class BaseWeapon
 
     deactivate()
     {
-        throw new Error('abstract method, override in derived class');
+        this.worm.setSpriteDef(Sprites.worms.idle1);
+        //throw new Error('abstract method, override in derived class');
     }
 
     activate(worm)

@@ -119,6 +119,7 @@ class JetPack extends BaseWeapon
     {
         this.setIsActive(false);
         this.fuel = this.INITAL_FUEL;
+        super.deactivate();
     }
 
     update()

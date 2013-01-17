@@ -9,7 +9,7 @@ class HandGrenade extends ThrowableWeapon
     {
         super(
             "Hand Grenade", // Weapon name
-            9, // ammo
+            10, // ammo
             Sprites.weaponIcons.gernade, //Icon for menu
             Sprites.weapons.gernade, //Inital weapon object state
             Sprites.worms.takeOutGernade,

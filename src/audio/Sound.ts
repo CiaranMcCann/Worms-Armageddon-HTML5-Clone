@@ -66,7 +66,10 @@ class Sound
 
     pause()
     {
-        this.source.noteOff(0);
+        if (Settings.SOUND)
+        {
+            this.source.noteOff(0);
+        }
     }
 
 

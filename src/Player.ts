@@ -117,17 +117,27 @@ class Player
             if (keyboard.isKeyDown(Controls.aimUp.keyboard) ||
              this.gamePad.getAxis(2) >= 0.2 || this.gamePad.getAxis(3) >= 0.2)
             {
+                var currentWrom = this.team.getCurrentWorm();
+                //if ( !(currentWrom.getWeapon() instanceof NinjaRope) && !(currentWrom.getWeapon().getIsActive()) )
+                {
+                    currentWrom.target.aim(0.8);
+                }
 
-                this.team.getCurrentWorm().target.aim(0.8);
-                this.team.getCurrentWorm().setCurrentFrame(this.team.getCurrentWorm().getCurrentFrame() - 0.8)
+                currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() - 0.8)
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [1]));
 
             }
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard) || this.gamePad.getAxis(2) <= -0.2 || this.gamePad.getAxis(3) <= -0.2)
             {
-                this.team.getCurrentWorm().target.aim(-0.8);
-                this.team.getCurrentWorm().setCurrentFrame(this.team.getCurrentWorm().getCurrentFrame() + 0.8)
+                var currentWrom = this.team.getCurrentWorm();
+
+                //if ( !(currentWrom.getWeapon() instanceof NinjaRope) && !(currentWrom.getWeapon().getIsActive()) )
+                {
+                    currentWrom.target.aim(-0.8);
+                }
+
+                currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() + 0.8)
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [-1]));
             }
 
