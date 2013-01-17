@@ -18,14 +18,15 @@ class HealthReduction
     finished;
     color;
     pos;
-    health;
+    message;
+    box;
 
     timer: Timer;
     onFinishFunc;
 
 
     // pre-render box around countdown number
-    static preRender()
+    preRenderNumberBox()
     {
         var healthBoxWidth = 39;
         var healthBoxHeight = 18
@@ -42,27 +43,57 @@ class HealthReduction
         }, 39, 20);
 
     }
-    static numberBox = HealthReduction.preRender();
 
-    constructor (pos, health: number, color)
+    preRenderMessageBox()
+    {
+        var nameBoxWidth = this.message.length * 10;
+        var healthBoxWidth = 39;
+        var healthBoxHeight = 18
+        return Graphics.preRenderer.render(function (ctx) =>
+        {
+
+            ctx.fillStyle = '#1A1110';
+            ctx.strokeStyle = "#eee";
+            ctx.font = 'bold 16.5px Sans-Serif';
+            ctx.textAlign = 'center';
+
+            Graphics.roundRect(ctx, 0, 0, nameBoxWidth, 20, 4).fill();
+            Graphics.roundRect(ctx, 0, 0, nameBoxWidth, 20, 4).stroke();
+
+            ctx.fillStyle = this.color;
+            ctx.fillText(this.message, (this.message.length * 10) / 2, 15);
+
+        }, nameBoxWidth, 20);
+    }
+
+    constructor (pos, message, color)
     {
         this.finished = false;
-        this.health = health;
         this.color = color;
         this.pos = pos;
+        this.message = message;
 
-        this.pos.x -= HealthReduction.numberBox.width/2;
-        this.pos.y -= HealthReduction.numberBox.height*2;
+
+        if (Utilies.isNumber(this.message))
+        {
+            this.message = Math.floor(this.message);
+            this.box = this.preRenderNumberBox();
+        } else
+        {
+            this.box = this.preRenderMessageBox();
+        }
+
+        this.pos.x -= this.box.width/2;
+        this.pos.y -= this.box.height*2;
 
         this.timer = new Timer(2700);
     }
 
     draw(ctx)
     {
-
-        ctx.drawImage(HealthReduction.numberBox, this.pos.x, this.pos.y);
+        ctx.drawImage(this.box, this.pos.x, this.pos.y);
         ctx.fillStyle = this.color;
-        ctx.fillText(Math.floor(this.health), this.pos.x+(HealthReduction.numberBox.width/2), this.pos.y+(HealthReduction.numberBox.height/1.4));
+        ctx.fillText(this.message, this.pos.x+(this.box.width/2), this.pos.y+(this.box.height/1.4));
     }
 
     onAnimationFinish(func)

@@ -124,7 +124,7 @@ class Player
                 }
 
                 currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() - 0.8)
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [1]));
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [0.8]));
 
             }
 
@@ -138,7 +138,7 @@ class Player
                 }
 
                 currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() + 0.8)
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [-1]));
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [-0.8]));
             }
 
             // While holding the
@@ -213,6 +213,7 @@ class Player
 class PlayerDataPacket
 {
     teamDataPacket: TeamDataPacket;
+    position;
 
     constructor(player: Player)
     {

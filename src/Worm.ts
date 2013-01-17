@@ -478,15 +478,18 @@ class Worm extends Sprite
 class WormDataPacket
 {
     name;
+    position;
 
     constructor(worm: Worm)
     {
         this.name = worm.name;
+        this.position = worm.body.GetPosition();
     }
 
     override(worm: Worm)
     {
         worm.name = this.name;
+        worm.body.SetPosition(new b2Vec2(this.position.x, this.position.y));
         worm.preRendering(); // Regenerate their names
     }
 }

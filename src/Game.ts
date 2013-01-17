@@ -168,7 +168,9 @@ class Game
         }
 
         // Pan to currentPlayer even if its not their go
-         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
+        GameInstance.camera.cancelPan();
+        this.nextTurn();
+        //GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
     }
 
     // This method allows for quick use of the instruction chain
@@ -176,10 +178,20 @@ class Game
     nextTurn()
     {
         var id = this.state.nextPlayer();
-        console.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
+
+        Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
         this.lobby.client_GameLobby.currentPlayerId = id;
         this.gameTimer.timer.reset();
         AssetManager.getSound("yessir").play();
+
+        var pos = Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition());
+        pos.y -= 45;
+
+        GameInstance.particleEffectMgmt.add(new HealthReduction(
+            pos,
+            "Your go " + this.state.getCurrentPlayer().getTeam().name, 
+           this.state.getCurrentPlayer().getTeam().color)
+         );
 
     }
 
