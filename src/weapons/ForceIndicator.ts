@@ -103,13 +103,11 @@ class ForceIndicator
 
     reset()
     {
-        if (this.isRequired() && this.forcePercentage > 0)
+        if (this.isRequired() && this.forcePercentage > 1)
         {
             this.forcePercentage = 1;
             AssetManager.getSound("THROWPOWERUP").pause();
             AssetManager.getSound("THROWRELEASE").play();
-
-            if(this.renderCanvas)
             this.renderCanvas.getContext('2d').clearRect(0, 0, this.renderCanvas.width, this.renderCanvas.height);
 
             //Used to reset the sprite

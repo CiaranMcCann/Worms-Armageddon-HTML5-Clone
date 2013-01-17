@@ -34,7 +34,7 @@ class Player
                 var wormWeapon = this.team.getCurrentWorm().getWeapon()
 
                 // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
-                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 0 && wormWeapon.getIsActive() == false)
+                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
                 {
                     this.team.getCurrentWorm().fire();
                     GameInstance.weaponMenu.refresh();
