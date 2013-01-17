@@ -26,7 +26,7 @@ class JetPack extends BaseWeapon
     {
         super(
            "Jet Pack",
-           3,
+           5,
          Sprites.weaponIcons.jetPack,
          Sprites.worms.takeOutJetPack,
          Sprites.worms.defualtJetPack
@@ -40,7 +40,7 @@ class JetPack extends BaseWeapon
         // No requirement for crosshairs aiming
         this.requiresAiming = false;
 
-        this.INITAL_FUEL = 18;
+        this.INITAL_FUEL = 20;
         this.fuel = this.INITAL_FUEL;
     }
 

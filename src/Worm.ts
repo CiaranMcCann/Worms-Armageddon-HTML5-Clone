@@ -213,23 +213,27 @@ class Worm extends Sprite
 
     postSolve(contact, impulse)
     {
-        if (impulse.normalImpulses[0] > 7)
-        {
-            var damage = Math.round(impulse.normalImpulses[0])/2;
 
-            if (damage > 10)
+        if ( (this.getWeapon() instanceof JetPack) == false || (this.getWeapon() instanceof NinjaRope) == false)
+        {
+            if (impulse.normalImpulses[0] > 9)
             {
-                damage = 10;
+                var damage = Math.round(impulse.normalImpulses[0]) / 2;
+
+                if (damage > 10)
+                {
+                    damage = 10;
+                }
+
+                this.hit(damage);
             }
 
-            this.hit(damage);
-        }
+            if (impulse.normalImpulses[0] > 3)
+            {
+                AssetManager.getSound("WormLanding").play();
+            }
 
-        if (impulse.normalImpulses[0] > 3)
-        {
-            AssetManager.getSound("WormLanding").play();
         }
-
             
     }
 

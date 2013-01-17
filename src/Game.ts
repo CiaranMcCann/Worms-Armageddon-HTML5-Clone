@@ -169,7 +169,6 @@ class Game
 
         // Pan to currentPlayer even if its not their go
          GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
-
     }
 
     // This method allows for quick use of the instruction chain
@@ -180,6 +179,7 @@ class Game
         console.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
         this.lobby.client_GameLobby.currentPlayerId = id;
         this.gameTimer.timer.reset();
+        AssetManager.getSound("yessir").play();
 
     }
 
@@ -240,7 +240,7 @@ class Game
             //While there is physics objects to sync do so
             if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
             {
-                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
+               Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
             }
         }
         //Physics.world.ClearForces();

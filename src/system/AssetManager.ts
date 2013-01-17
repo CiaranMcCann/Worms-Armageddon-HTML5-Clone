@@ -48,6 +48,7 @@ module AssetManager
         "data/sounds/Speech/Irish/laugh.wav",
         "data/sounds/Speech/Irish/incoming.wav",
         "data/sounds/Speech/Irish/grenade.wav",
+        "data/sounds/Speech/Irish/yessir.wav",
         "data/sounds/cantclickhere.wav",
         "data/sounds/StartRound.wav",
         "data/sounds/JetPackLoop1.wav",
@@ -63,6 +64,8 @@ module AssetManager
         "data/sounds/WormLanding.wav",
         "data/sounds/THROWPOWERUP.wav",
         "data/sounds/THROWRELEASE.wav"
+
+     
         
         
 

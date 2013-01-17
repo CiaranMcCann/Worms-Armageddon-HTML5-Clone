@@ -11,6 +11,16 @@ class Map
 
     getNextSpawnPoint()
     {
+    //    var tmp = this.mapDef.spawnPionts[this.currentSpawn]
+    //    this.currentSpawn++;
+
+    //    // If not enough spawn pionts in map just loop back over.
+    //    if (this.currentSpawn > this.mapDef.spawnPionts.length + 1) 
+    //    {
+    //        this.currentSpawn = 0;
+    //    }
+
+    //    return tmp;
         return Utilies.pickUnqine(this.mapDef.spawnPionts, "spanwPionts");
     }
 

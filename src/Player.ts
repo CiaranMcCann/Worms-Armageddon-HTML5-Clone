@@ -37,6 +37,7 @@ class Player
                 if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
                 {
                     this.team.getCurrentWorm().fire();
+                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
                     GameInstance.weaponMenu.refresh();
                 }
             }
@@ -117,7 +118,7 @@ class Player
              this.gamePad.getAxis(2) >= 0.2 || this.gamePad.getAxis(3) >= 0.2)
             {
 
-                this.team.getCurrentWorm().target.aim(1);
+                this.team.getCurrentWorm().target.aim(0.8);
                 this.team.getCurrentWorm().setCurrentFrame(this.team.getCurrentWorm().getCurrentFrame() - 0.8)
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [1]));
 
@@ -125,7 +126,7 @@ class Player
 
             if (keyboard.isKeyDown(Controls.aimDown.keyboard) || this.gamePad.getAxis(2) <= -0.2 || this.gamePad.getAxis(3) <= -0.2)
             {
-                this.team.getCurrentWorm().target.aim(-1);
+                this.team.getCurrentWorm().target.aim(-0.8);
                 this.team.getCurrentWorm().setCurrentFrame(this.team.getCurrentWorm().getCurrentFrame() + 0.8)
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [-1]));
             }

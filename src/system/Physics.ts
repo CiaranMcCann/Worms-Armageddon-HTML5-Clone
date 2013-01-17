@@ -65,7 +65,6 @@ module Physics
     }
 
 
-
     export function init(ctx)
     {
 
@@ -99,18 +98,12 @@ module Physics
                 contact.GetFixtureA().GetBody().GetUserData().beginContact != null)
             {
                 contact.GetFixtureA().GetBody().GetUserData().beginContact(contact);
-            } else
-            {
-                // Logger.warn(" Body does not have beginContact method");
             }
 
             if (contact.GetFixtureB().GetBody().GetUserData() != null &&
                 contact.GetFixtureB().GetBody().GetUserData().beginContact != null)
             {
                 contact.GetFixtureB().GetBody().GetUserData().beginContact(contact);
-            } else
-            {
-                //Logger.warn(" Body does not have beginContact method");
             }
         }
 
@@ -122,19 +115,11 @@ module Physics
             {
                 contact.GetFixtureA().GetBody().GetUserData().endContact(contact);
             }
-            else
-            {
-                //Logger.warn(" Body does not have endContact method");
-            }
 
             if (contact.GetFixtureB().GetBody().GetUserData() != null &&
                 contact.GetFixtureB().GetBody().GetUserData().endContact != null)
             {
                 contact.GetFixtureB().GetBody().GetUserData().endContact(contact);
-            }
-            else
-            {
-                //Logger.warn(" Body does not have endContact method");
             }
         }
 
@@ -219,10 +204,15 @@ module Physics
                     continue;
                 else if (output.fraction < closestFraction && output.fraction > 0)
                     {
-                    closestFraction = output.fraction;
-                    intersectionNormal = output.normal;
-                    bodyFound = true;
-                    //Logger.log("collision");
+                        //Fixes bug where I was getting extremely small e numbers
+                        // in the lower sections of the physics world. It was causing the
+                        // ray to shot only a small disntance from the orign of it.
+                        if (output.fraction > 0.1)
+                        {
+                            closestFraction = output.fraction;
+                            intersectionNormal = output.normal;
+                            bodyFound = true;
+                        }
                 }
             }
 
@@ -317,7 +307,7 @@ class BodyDataPacket
     {
         if (Settings.NETWORKED_GAME_QUALITY_LEVELS.HIGH == Settings.NETWORKED_GAME_QUALITY)
         {
-            return this.pX + "," + this.pY;
+             return this.pX + "," + this.pY;
 
         } else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.MEDIUM == Settings.NETWORKED_GAME_QUALITY)
         {

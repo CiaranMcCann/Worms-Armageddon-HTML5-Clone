@@ -22,7 +22,7 @@ class Dynamite extends ThrowableWeapon
         this.effectedRadius = Physics.pixelToMeters(this.explosionRadius * 1.8);
 
         // force scaler
-        this.explosiveForce = this.explosionRadius * 2;
+        this.explosiveForce = 95;
 
         // No requirement for crosshairs aiming
         this.requiresAiming = false;
