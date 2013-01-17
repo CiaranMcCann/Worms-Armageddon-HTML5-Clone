@@ -7,6 +7,7 @@ module Client
     export var socket;
     export var id;
     var packetRateLimiter: Timer;
+    var previous = "";
 
     export function connectionToServer(ip, port)
     {
@@ -29,6 +30,14 @@ module Client
                 
             });
 
+            // This allows for smaller action packets
+            socket.on(Events.client.CURRENT_WORM_ACTION, function (packet) =>
+            {
+               var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);
+               instructionSet.call(GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm());
+                
+            });
+
             socket.on(Events.client.UPDATE, function (packet) =>
             {
                     var physicsDataPacket = new PhysiscsDataPacket(packet);
@@ -37,7 +46,7 @@ module Client
 
             if (Settings.NETWORKED_GAME_QUALITY_LEVELS.HIGH == Settings.NETWORKED_GAME_QUALITY)
             {
-                packetRateLimiter = new Timer(30);
+                packetRateLimiter = new Timer(10);
 
             } else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.MEDIUM == Settings.NETWORKED_GAME_QUALITY)
             {
@@ -62,7 +71,11 @@ module Client
 
         if (GameInstance.gameType == Game.types.ONLINE_GAME && packetRateLimiter.hasTimePeriodPassed())
         {
-            Client.socket.emit(event, packet);
+            if (previous != packet)
+            {
+                Client.socket.emit(event, packet);
+                previous = packet;
+            }
         }
     }
 

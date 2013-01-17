@@ -19,7 +19,8 @@ module Events
         ASSIGN_USER_ID: "assignId",
         ACTION : "a",
         UPDATE: "u",
-        GET_GAME_TIME: "t"
+        GET_GAME_TIME: "t",
+        CURRENT_WORM_ACTION: "wa"
     }
 
     export var server = {

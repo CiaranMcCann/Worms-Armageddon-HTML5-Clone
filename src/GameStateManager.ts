@@ -94,6 +94,7 @@ class GameStateManager
         //Networked games need this
         this.nextTurnTrigger = false;
 
+
         if (this.currentPlayerIndex + 1 == this.players.length)
         {
             this.currentPlayerIndex = 0;
@@ -103,7 +104,14 @@ class GameStateManager
             this.currentPlayerIndex++;
         }
 
+        //If the team is all dead return -1 to sign move to next player.
+        if (this.getCurrentPlayer().getTeam().getPercentageHealth() <= 0)
+        {
+            return -1;
+        }
+
         this.getCurrentPlayer().getTeam().nextWorm();
+        GameInstance.camera.cancelPan();
         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
 
         //gives back the server id tag

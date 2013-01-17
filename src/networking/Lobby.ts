@@ -176,10 +176,24 @@ class Lobby
                         socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
                 });
             });
-
-
-
         });
+
+        // This is done to make the action packets smaller
+         socket.on(Events.client.CURRENT_WORM_ACTION, function (data) => {
+
+            socket.get('userId', function (err, userId) =>
+            {
+
+                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                {
+                        io.log.info(Util.format("@ Events.client.CURRENT_WORM_ACTION" + userId + " for lobby " + gameLobbyId + "   " + data));
+                        socket.broadcast.to(gameLobbyId).emit(Events.client.CURRENT_WORM_ACTION, data);
+                });
+            });
+
+     });
+
+       
     }
 
 

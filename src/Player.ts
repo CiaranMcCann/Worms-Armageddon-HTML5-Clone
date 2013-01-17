@@ -37,7 +37,7 @@ class Player
                 if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
                 {
                     this.team.getCurrentWorm().fire();
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
+                    Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
                     GameInstance.weaponMenu.refresh();
                 }
             }
@@ -99,19 +99,19 @@ class Player
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || this.gamePad.isButtonPressed(14) || this.gamePad.getAxis(0) > 0.5)
             {
                 this.team.getCurrentWorm().walkLeft();
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkLeft"));
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkLeft"));
             }
 
             if (keyboard.isKeyDown(Controls.jump.keyboard, true) || this.gamePad.isButtonPressed(0))
             {
                 this.team.getCurrentWorm().jump();
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.jump"));
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("jump"));
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard) || this.gamePad.isButtonPressed(15) || this.gamePad.getAxis(0) > 0.5)
             {
                 this.team.getCurrentWorm().walkRight();
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.walkRight"));
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkRight"));
             }
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard) ||
@@ -124,7 +124,7 @@ class Player
                 }
 
                 currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() - 0.8)
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [0.8]));
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [0.8]));
 
             }
 
@@ -138,7 +138,7 @@ class Player
                 }
 
                 currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() + 0.8)
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.target.aim", [-0.8]));
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [-0.8]));
             }
 
             // While holding the

@@ -168,9 +168,9 @@ class Game
         }
 
         // Pan to currentPlayer even if its not their go
-        GameInstance.camera.cancelPan();
+
         this.nextTurn();
-        //GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
+       // GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
     }
 
     // This method allows for quick use of the instruction chain
@@ -178,6 +178,12 @@ class Game
     nextTurn()
     {
         var id = this.state.nextPlayer();
+
+        // If the id is -1 then the next player is dead
+        if (id == -1)
+        {
+            this.nextTurn()
+        }
 
         Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
         this.lobby.client_GameLobby.currentPlayerId = id;

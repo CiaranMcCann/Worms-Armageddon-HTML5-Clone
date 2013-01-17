@@ -1,6 +1,8 @@
 /**
  * InstructionChain.js
  *
+ * NOTICE: all varible names are extremely obsure and short for packet size reasons.
+ *
  * This little beauty allows me functionality like eval, but with scope safety.
  * It allows the user to pass a string of method calls on objects. This is used mainly
  * for excuting commands on connected game clients in a safe way, its a little open to
@@ -14,14 +16,16 @@
 
 class InstructionChain
 {
+    //instructionChain shorted to iC so the packet is smaller
+    iC: string[];
 
-    instructionChain: string[];
-    args; // array of anything
+    // array of anything
+    a; 
 
     constructor(instructionChain: string = "", args = [])
     {
-        this.instructionChain = instructionChain.split('.');
-        this.args = args;
+        this.iC = instructionChain.split('.');
+        this.a = args;
 
     }
 
@@ -31,31 +35,31 @@ class InstructionChain
         var objMethod;
         var objCalledMethod;
 
-        if (this.instructionChain.length > 1)
+        if (this.iC.length > 1)
         {
-            for (var i = 0; i < this.instructionChain.length - 1; i++)
+            for (var i = 0; i < this.iC.length - 1; i++)
             {
                 // If the next instruction is not a member varible but actually a function, call it.
-                if (typeof obj[this.instructionChain[i]] == "function")
+                if (typeof obj[this.iC[i]] == "function")
                 {
-                        obj = obj[this.instructionChain[i]].call(obj);
+                        obj = obj[this.iC[i]].call(obj);
 
                 } else
                 {
 
-                    obj = obj[this.instructionChain[i]]
+                    obj = obj[this.iC[i]]
                 }
             }
-            objMethod = this.instructionChain[this.instructionChain.length - 1]
+            objMethod = this.iC[this.iC.length - 1]
 
 
         } else
         {
             obj = objectToApplyInstruction;
-            objMethod = this.instructionChain[0];
+            objMethod = this.iC[0];
         }
 
-            obj[objMethod].call(obj, this.args);
+            obj[objMethod].call(obj, this.a);
 
     }
 
