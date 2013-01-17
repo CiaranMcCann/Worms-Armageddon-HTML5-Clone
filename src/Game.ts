@@ -168,7 +168,7 @@ class Game
         }
 
         // Pan to currentPlayer even if its not their go
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
+         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
 
     }
 

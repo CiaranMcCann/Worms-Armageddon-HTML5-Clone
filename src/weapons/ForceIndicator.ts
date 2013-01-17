@@ -9,12 +9,12 @@
 
 class ForceIndicator
 {
-    forcePercentage;
-    forceRateIncrease;
-    forceMax;
-    sprite: Sprite;
-    needReRender: bool;
-    renderCanvas;
+    private forcePercentage;
+    private forceRateIncrease;
+    private forceMax;
+    private  sprite: Sprite;
+    private  needReRender: bool;
+    private  renderCanvas;
 
     constructor(maxForceForWeapon)
     {
@@ -108,6 +108,8 @@ class ForceIndicator
             this.forcePercentage = 1;
             AssetManager.getSound("THROWPOWERUP").pause();
             AssetManager.getSound("THROWRELEASE").play();
+
+            if(this.renderCanvas)
             this.renderCanvas.getContext('2d').clearRect(0, 0, this.renderCanvas.width, this.renderCanvas.height);
 
             //Used to reset the sprite

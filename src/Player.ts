@@ -175,7 +175,6 @@ class Player
             if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
             {
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
-
             }
                 //if the players weapon is active and is a throwable then track it with the camera
             else if (this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ThrowableWeapon &&

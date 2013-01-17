@@ -91,7 +91,7 @@ class Target extends PhysicsSprite
         var td = this.targetDirection.Copy();
         var currentAngle = Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td);
         this.targetDirection = Utilies.angleToVector(currentAngle);
-        console.log(currentAngle);
+        //console.log(currentAngle);
 
         //if (this.direction == Worm.DIRECTION.right)
         //{
