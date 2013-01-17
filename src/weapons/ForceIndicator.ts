@@ -19,7 +19,7 @@ class ForceIndicator
     constructor(maxForceForWeapon)
     {
         this.forceMax = maxForceForWeapon; // Max force at which worms can throw
-        this.forcePercentage = 0;
+        this.forcePercentage = 1;
         this.sprite = new Sprite(Sprites.particleEffects.blob);
         this.needReRender = true;
         this.renderCanvas = null;
@@ -34,53 +34,66 @@ class ForceIndicator
 
     draw(ctx, worm: Worm)
     {
-
-        if (this.needReRender)
+        if (this.isCharging() && this.isRequired())
         {
-            this.renderCanvas = Graphics.preRenderer.render(function (context) =>
+
+            if (this.needReRender)
             {
-                if(this.renderCanvas == null)
-                context.fillRect(0, 0, 400, 400);
+                this.renderCanvas = Graphics.preRenderer.render(function (context) =>
+                {
+                    // if(this.renderCanvas == null)
+                    // context.fillRect(0, 0, 400, 400);
 
-                this.sprite.draw(context,0,(this.forcePercentage / 100)*100);
-                this.needReRender = false;
+                    this.sprite.draw(context, 0, (this.forcePercentage / 100) * 100);
+                    this.needReRender = false;
 
-            }, this.sprite.getFrameWidth(), 200, this.renderCanvas);
+                }, this.sprite.getFrameWidth(), 200, this.renderCanvas);
+            }
+
+
+            var radius = worm.fixture.GetShape().GetRadius() * Physics.worldScale;
+            var wormPos = Physics.vectorMetersToPixels(worm.body.GetPosition().Copy());
+            var targetDir = worm.target.getTargetDirection().Copy();
+
+            targetDir.Multiply(13);
+            targetDir.Add(wormPos);
+
+            ctx.save();
+
+            ctx.translate(
+                targetDir.x,
+                targetDir.y
+            )
+
+            //TODO - Why do I put -90 in here? Is it that my target is wrong? Is it somthing to do with canvas corrdianate system. Hmm ask Ken.
+            ctx.rotate(Utilies.vectorToAngle(worm.target.getTargetDirection().Copy()) + Utilies.toRadians(-90));
+
+            ctx.drawImage(this.renderCanvas, -radius, -radius, this.renderCanvas.width, this.renderCanvas.height);
+            ctx.restore();
         }
-
-
-        var radius = worm.fixture.GetShape().GetRadius() * Physics.worldScale;
-        var wormPos = Physics.vectorMetersToPixels(worm.body.GetPosition().Copy());
-        var targetDir = worm.target.getTargetDirection().Copy();
-
-        //targetDir.Multiply(10);
-        targetDir.Add(wormPos);
-
-        ctx.save();
-
-        ctx.translate(
-            targetDir.x,
-            targetDir.y
-        )
-
-        ctx.rotate( Utilies.vectorToAngle(worm.target.getTargetDirection().Copy()) );
-
-        ctx.drawImage(this.renderCanvas, 0,0, this.renderCanvas.width,this.renderCanvas.height);
-        ctx.restore();
     }
 
     charge(rate)
     {
-        AssetManager.getSound("THROWPOWERUP").play();
-
-        this.forcePercentage += rate;
-        this.sprite.setCurrentFrame(this.sprite.getCurrentFrame() + 0.4);
-        this.needReRender = true;
-
-        if (this.forcePercentage > 100)
+        if (this.isRequired())
         {
-            this.forcePercentage = 100;
+            console.log("force " + this.forcePercentage);
+            AssetManager.getSound("THROWPOWERUP").play();
+            this.forcePercentage += rate;
+            this.sprite.setCurrentFrame(this.sprite.getCurrentFrame() + 0.4);
+            this.needReRender = true;
+
+            if (this.forcePercentage > 100)
+            {
+                this.forcePercentage = 100;
+                return true;
+            }
         }
+    }
+
+    isCharging()
+    {
+        return this.forcePercentage > 1;
     }
 
     setMaxForce(forceScalerMax)
@@ -90,10 +103,16 @@ class ForceIndicator
 
     reset()
     {
-        this.forcePercentage = 0;
-        AssetManager.getSound("THROWPOWERUP").pause();
-        AssetManager.getSound("THROWRELEASE").play();
-       // this.renderCanvas = null;
+        if (this.isRequired() && this.forcePercentage > 0)
+        {
+            this.forcePercentage = 1;
+            AssetManager.getSound("THROWPOWERUP").pause();
+            AssetManager.getSound("THROWRELEASE").play();
+            this.renderCanvas.getContext('2d').clearRect(0, 0, this.renderCanvas.width, this.renderCanvas.height);
+
+            //Used to reset the sprite
+            this.sprite.currentFrameY = 0;
+        }
     }
 
     getForce()

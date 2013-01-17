@@ -120,9 +120,9 @@ class ThrowableWeapon extends BaseWeapon
         var image = this.sprite.getImage();
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 5.0;
+        fixDef.density = 1.0;
         fixDef.friction = 3.5;
-        fixDef.restitution = 0.7
+        fixDef.restitution = 0.6
         fixDef.shape = new b2CircleShape((image.width / 4) / Physics.worldScale);
 
         var bodyDef = new b2BodyDef;
@@ -152,7 +152,6 @@ class ThrowableWeapon extends BaseWeapon
 
         initalVelocity = worm.target.getTargetDirection().Copy();
         initalVelocity.Multiply(this.forceIndicator.getForce());
-        this.forceIndicator.reset();
 
         this.setupPhysicsBodies(initalPosition, initalVelocity);
 

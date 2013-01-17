@@ -25,20 +25,19 @@ class Player
         this.id = playerId;
         this.team = new Team(playerId);
 
-       // Global window keyup event
+        // Global window keyup event
         $(window).keyup(function (e) =>
         {
-             // Dectects keyup on fire button
+            // Dectects keyup on fire button
             if (e.which == Controls.fire.keyboard)
             {
                 var wormWeapon = this.team.getCurrentWorm().getWeapon()
 
                 // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
-                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 0)
+                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 0 && wormWeapon.getIsActive() == false)
                 {
                     this.team.getCurrentWorm().fire();
                     GameInstance.weaponMenu.refresh();
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
                 }
             }
         });
@@ -60,6 +59,27 @@ class Player
     getTeam()
     {
         return this.team;
+    }
+
+    weaponFireOrCharge()
+    {
+        var wormWeapon = this.team.getCurrentWorm().getWeapon()
+        //If this weapons use a force, then we charge the force.
+        if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getIsActive() == false)
+        {
+            // The charge returns true if the charge has reached maxium
+            if (this.team.getCurrentWorm().getWeapon().getForceIndicator().charge(3))
+            {
+                this.team.getCurrentWorm().fire();
+                GameInstance.weaponMenu.refresh();
+            }
+        }
+        else
+        {
+            this.team.getCurrentWorm().fire();
+            GameInstance.weaponMenu.refresh();
+        }
+
     }
 
     update()
@@ -113,19 +133,8 @@ class Player
             // While holding the
             if (keyboard.isKeyDown(Controls.fire.keyboard, true) || this.gamePad.isButtonPressed(7))
             {
-                //console.log("Key pressed ")
-                var wormWeapon = this.team.getCurrentWorm().getWeapon()
-                if (wormWeapon.getForceIndicator().isRequired())
-                {
-                    this.team.getCurrentWorm().getWeapon().getForceIndicator().charge(2);
-                }
-                else
-                {
-                    this.team.getCurrentWorm().fire();
-                    GameInstance.weaponMenu.refresh();
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getCurrentWorm.fire"));
-                }
-
+               this.weaponFireOrCharge();
+               Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             }
 
 

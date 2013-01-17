@@ -41,7 +41,7 @@ class Terrain
         this.world = world;
         this.scale = scale;
 
-        this.Offset = new b2Vec2(1100, 1000);
+        this.Offset = new b2Vec2(1100, 995);
 
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");

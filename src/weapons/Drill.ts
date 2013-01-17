@@ -33,7 +33,7 @@ class Drill extends BaseWeapon
         );
 
         this.timeBetweenExploisionsTimer = new Timer(450);
-        this.useDurationTimer = new Timer(4500);
+        this.useDurationTimer = new Timer(5200);
 
         // No requirement for crosshairs aiming
         this.requiresAiming = false;

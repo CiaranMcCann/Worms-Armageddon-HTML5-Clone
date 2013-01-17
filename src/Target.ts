@@ -36,11 +36,7 @@ class Target extends PhysicsSprite
 
     draw(ctx)
     {
-
-        if (this.worm.isActiveWorm() &&
-            this.worm.team.getWeaponManager().getCurrentWeapon().requiresAiming
-            //this.worm.stateAnimationMgmt.getState() == WormAnimationManger.WORM_STATE.aiming
-             )
+        if (this.worm.isActiveWorm() && this.worm.getWeapon().requiresAiming)
         {
 
             var radius = this.worm.fixture.GetShape().GetRadius() * Physics.worldScale;
@@ -50,14 +46,11 @@ class Target extends PhysicsSprite
             targetDir.Multiply(95);
             targetDir.Add(wormPos);
 
-            //if (Settings.DEVELOPMENT_MODE)
-            //{
-                ctx.beginPath(); // Start the path
-                ctx.moveTo(wormPos.x, wormPos.y); // Set the path origin
-                ctx.lineTo(targetDir.x, targetDir.y); // Set the path destination
-                ctx.closePath(); // Close the path
-                ctx.stroke();
-            //}
+            //ctx.beginPath(); // Start the path
+            //ctx.moveTo(wormPos.x, wormPos.y); // Set the path origin
+            //ctx.lineTo(targetDir.x, targetDir.y); // Set the path destination
+            //ctx.closePath(); // Close the path
+            //ctx.stroke();
 
             super.draw(ctx, targetDir.x - radius, targetDir.y - (radius * 2));
         }
@@ -75,7 +68,7 @@ class Target extends PhysicsSprite
 
     changeDirection(dir)
     {
-         var td = this.targetDirection.Copy();
+        var td = this.targetDirection.Copy();
 
         if (dir == Worm.DIRECTION.left && this.direction != dir)
         {
@@ -86,7 +79,7 @@ class Target extends PhysicsSprite
         } else if (dir == Worm.DIRECTION.right && this.direction != dir)
             {
 
-            this.direction = dir;         
+            this.direction = dir;
             var currentAngle = Utilies.toDegrees(Utilies.toRadians(-180) + Utilies.vectorToAngle(td));
             this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
         }
