@@ -62,7 +62,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
-        this.health = 3;
+        this.health = 100;
         this.damageTake = 0;
         this.team = team;
 
@@ -363,25 +363,29 @@ class Worm extends Sprite
 
     hit(damage, worm = null)
     {
-        if (this.isDead == false)
+        //For Networked games.
+        //if (Client.isClientsTurn()) 
         {
-            this.damageTake += damage;
-            AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
-
-            //If worm using Jetpack, deactive it if they get hurt.
-            if (this.getWeapon() instanceof JetPack)
+            if (this.isDead == false)
             {
-                this.getWeapon().deactivate();
-            }
+                this.damageTake += damage;
+                AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
 
-            //if from same team call the player a tratitor :)
-            if (worm && worm != this && worm.team == this.team)
-            {
-                AssetManager.sounds["traitor"].play(0.8, 10);
+                //If worm using Jetpack, deactive it if they get hurt.
+                if (this.getWeapon() instanceof JetPack)
+                {
+                    this.getWeapon().deactivate();
+                }
 
-            } else if (worm) // if there was a worm envolved in the damage
-            {
-                Utilies.pickRandomSound(["justyouwait", "youllregretthat"]).play(0.8, 10);
+                //if from same team call the player a tratitor :)
+                if (worm && worm != this && worm.team == this.team)
+                {
+                    AssetManager.sounds["traitor"].play(0.8, 10);
+
+                } else if (worm) // if there was a worm envolved in the damage
+                {
+                    Utilies.pickRandomSound(["justyouwait", "youllregretthat"]).play(0.8, 10);
+                }
             }
         }
     }

@@ -13,6 +13,9 @@
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Physics.ts" />
 
+
+//TODO Needs to be clean up, after I hacked it to be more generic 
+// for just displaying messages, demo 2moro not enough time to clean it up. More features!!!
 class HealthReduction
 {
     finished;
@@ -38,8 +41,6 @@ class HealthReduction
 
             Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).fill();
             Graphics.roundRect(ctx, 0, 0, healthBoxWidth, healthBoxHeight, 4).stroke();
-
-
         }, 39, 20);
 
     }
@@ -93,7 +94,11 @@ class HealthReduction
     {
         ctx.drawImage(this.box, this.pos.x, this.pos.y);
         ctx.fillStyle = this.color;
-        ctx.fillText(this.message, this.pos.x+(this.box.width/2), this.pos.y+(this.box.height/1.4));
+
+        if (Utilies.isNumber(this.message))
+        {
+            ctx.fillText(this.message, this.pos.x + (this.box.width / 2), this.pos.y + (this.box.height / 1.4));
+        }
     }
 
     onAnimationFinish(func)

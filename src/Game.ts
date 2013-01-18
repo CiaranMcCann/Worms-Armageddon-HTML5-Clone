@@ -167,10 +167,7 @@ class Game
             StartMenu.callback(); 
         }
 
-        // Pan to currentPlayer even if its not their go
-
         this.nextTurn();
-       // GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
     }
 
     // This method allows for quick use of the instruction chain
@@ -193,9 +190,16 @@ class Game
         var pos = Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition());
         pos.y -= 45;
 
+
+        var message = "Your go " + this.state.getCurrentPlayer().getTeam().name
+        if (!Client.isClientsTurn())
+        {
+            message = " Time to see what " + this.state.getCurrentPlayer().getTeam().name + " can do ";
+        }
+
         GameInstance.particleEffectMgmt.add(new HealthReduction(
             pos,
-            "Your go " + this.state.getCurrentPlayer().getTeam().name, 
+            message, 
            this.state.getCurrentPlayer().getTeam().color)
          );
 

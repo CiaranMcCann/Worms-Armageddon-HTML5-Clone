@@ -46,7 +46,7 @@ module Client
 
             if (Settings.NETWORKED_GAME_QUALITY_LEVELS.HIGH == Settings.NETWORKED_GAME_QUALITY)
             {
-                packetRateLimiter = new Timer(10);
+                packetRateLimiter = new Timer(12);
 
             } else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.MEDIUM == Settings.NETWORKED_GAME_QUALITY)
             {

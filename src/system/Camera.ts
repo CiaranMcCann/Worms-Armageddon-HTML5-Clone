@@ -41,7 +41,6 @@ class Camera
     {
         //Logger.log("before Update this.panX = " + this.panX + "  this.x = " + this.x);
         //Logger.log("before Update this.panY = " + this.panY + "  this.y = " + this.y);
-
         if (this.toPanOrNotToPan)
         {
             if (this.panPosition.x > this.position.x)
@@ -65,8 +64,6 @@ class Camera
                 this.incrementY(-this.panSpeed);
             }
         }
-
-
         // Logger.log("after Update this.panX = " + this.panX + "  this.x = " + this.x);
         //Logger.log("after Update this.panY = " + this.panY + "  this.y = " + this.y);
 
