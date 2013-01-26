@@ -55,10 +55,10 @@ class Lobby
         //so we can idefnitny them unqine in their dealings with the server
         var token = ServerUtilies.createToken() + this.userCount;
         socket.set('userId', token, function () =>
-        {
-            ServerUtilies.info(io, "User connected and assigned ID " + token);
-
+        {        
+            io.log.info(Util.format( "User connected and assigned ID " + token + " from " + socket.handshake.address.address ));
         });
+        
         socket.emit(Events.client.ASSIGN_USER_ID, token);
 
         io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
@@ -72,6 +72,7 @@ class Lobby
         socket.on('disconnect', function () => {
 
             ServerUtilies.info(io, " User exit ");
+
             this.userCount--;
             io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
         });

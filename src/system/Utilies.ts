@@ -18,7 +18,20 @@
 ///<reference path="../Settings.ts" />
 ///<reference path="Physics.ts" />
 declare var $;
+interface String
+{
+    format(...numbers: String[]);
+}
 
+String.prototype.format = function(...numbers: String[]) {
+  var args = arguments;
+  return this.replace(/{(\d+)}/g, function(match, number) { 
+    return typeof args[number] != 'undefined'
+      ? args[number]
+      : match
+    ;
+  });
+};
 
 module Utilies
 {

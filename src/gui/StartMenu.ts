@@ -10,17 +10,21 @@
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Controls.ts"/>
 ///<reference path="LobbyMenu.ts"/>
+///<reference path="SettingsMenu.ts"/>
 declare var $;
 
 class StartMenu
 {
     controlsView;
+    settingsMenu: SettingsMenu;
     menuActive;
     static callback;
 
     constructor()
     {
         this.menuActive = !Settings.DEVELOPMENT_MODE;
+
+        this.settingsMenu = new SettingsMenu();
 
         //TODO gamepad controls
         //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
@@ -57,7 +61,11 @@ class StartMenu
                 $('#startLocal').click(function =>
                 {
                     AssetManager.sounds["CursorSelect"].play();
-                    _this.controlsMenu(callback);
+                    $('.slide').empty();
+                    $('.slide').append(this.settingsMenu.getView());
+                    this.settingsMenu.bind();
+                    
+                    //_this.controlsMenu(callback);
                 });
 
                 $('#startOnline').click(function =>

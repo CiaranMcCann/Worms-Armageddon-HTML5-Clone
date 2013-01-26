@@ -25,7 +25,9 @@
     <Content Include=".gitignore" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="data\img\wormsBackGround.png" />
+    <Content Include="external\boostrap-carousel.js" />
     <Content Include="external\bootstrap-modal.js" />
+    <Content Include="external\bootstrap-transition.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
     <Content Include="external\jquery.1.8.2.min.js" />
@@ -50,6 +52,13 @@
     <TypeScriptCompile Include="src\weapons\ForceIndicator.ts" />
     <Content Include="src\animation\HealthReduction.min.js">
       <DependentUpon>HealthReduction.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\gui\SettingsMenu.ts" />
+    <Content Include="src\gui\SettingsMenu.js">
+      <DependentUpon>SettingsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\SettingsMenu.min.js">
+      <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\ForceIndicator.js">
       <DependentUpon>ForceIndicator.ts</DependentUpon>

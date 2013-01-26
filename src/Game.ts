@@ -58,7 +58,7 @@ class Game
     winner: Player;
 
     // TODO clean this up -just made it static to get it working
-    static map: Map = new Map(Maps.priates);
+    static map: Map = new Map(Maps.smallCastle);
 
     camera: Camera;
 

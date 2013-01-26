@@ -20,6 +20,9 @@ module AssetManager
     // no need for the full url or the extenision
     var priorityImages = [
          'data/images/levels/level2.png',
+         'data/images/levels/level5.png',
+         'data/images/levels/level3.png',
+         'data/images/levels/level20.png',
     ];
 
     var priorityAudio = [
