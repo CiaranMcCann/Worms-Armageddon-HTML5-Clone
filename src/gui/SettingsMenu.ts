@@ -21,76 +21,33 @@ class SettingsMenu
     constructor()
     {
 
-        this.view = '<div id="myCarousel" class="carousel slide" style="background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);"><div class="carousel-inner">';
-                    
+        this.view = '<h1 style="text-align: center">Select a level</h1><p> <div class="row-fluid" style="text-align: center"><ul class="thumbnails"></p>';                 
 
         for (var map in Maps)
         {
-           this.view += this.addMapItem(Maps[map]);
+           this.view += this.addMapItem(Maps[map],map);
         }
 
-        this.view += ' <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>' +
-                   ' <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a></div>';
-
-
-                //      <div class="item">
-                //    <img src="assets/img/bootstrap-mdo-sfmoma-01.jpg" alt="">
-                //    <div class="carousel-caption">
-                //      <h4>First Thumbnail label</h4>
-                //      <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                //    </div>
-                //  </div>
-                //  <div class="item active">
-                //    <img src="assets/img/bootstrap-mdo-sfmoma-02.jpg" alt="">
-                //    <div class="carousel-caption">
-                //      <h4>Second Thumbnail label</h4>
-                //      <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                //    </div>
-                //  </div>
-                //  <div class="item">
-                //    <img src="assets/img/bootstrap-mdo-sfmoma-03.jpg" alt="">
-                //    <div class="carousel-caption">
-                //      <h4>Third Thumbnail label</h4>
-                //      <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                //    </div>
-                //  </div>
-                //</div>
-
-  // <form class="bs-docs-example form-horizontal" id="createLobbyForm" name="createLobbyForm">
-  //          <div class="control-group">
-  //            <label class="control-label" for="inputName">Lobby Name</label>
-  //            <div class="controls">
-  //              <input type="text" id="inputName" placeholder="Lobby Name">
-  //            </div>
-  //          </div>
-  //          <div class="control-group">
-  //            <label class="control-label" for="inputPlayers">Number Players</label>
-  //            <div class="controls">
-  //                <select id="inputPlayers" placeholder=" Number Players">
-  //                    <option>2</option>
-  //                    <option>3</option>
-  //                    <option>4</option>
-  //                </select>
-  //            </div>
-  //          </div>       
-  //</form></div>
-
+        this.view += '</ul></div><p style="text-align: center"> All map images were sourced from <a href="http://wmdb.org/">http://wmdb.org/</a></p>';
     }
 
-    addMapItem(map : any)
+    addMapItem(map : any, name)
     {
-        var item: String = '<div class="item"><img  style="width:100%;height:300px" src="{2}" alt="">' +
-                            '<div class="carousel-caption"><h4>{0}</h4>' +
-                            '<p>{1}</p></div></div>';
+        var item: String = '<li class="span4" style="width:30%"><a href="#" class="thumbnail" id={1}>' +
+                           '<img style="width: 160px; height: 80px;" src={0}> </a></li>';
 
-        item = item.format(map.name, map.info, map.smallImage);
+        item = item.format(map.smallImage,name);
         return item;
     }
 
-    bind()
+    bind(callback)
     {
-        $('.carousel').carousel({
-            interval: false
+        $('a.thumbnail').click(function()
+        {
+            var levelId = $(this).attr('id');
+            Game.map = new Map(Maps[levelId]);
+            callback();
+
         });
     }
     

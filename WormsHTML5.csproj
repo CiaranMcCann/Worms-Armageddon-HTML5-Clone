@@ -604,6 +604,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="BeforeBuild">
-    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\0.8.1.1\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
 </Project>

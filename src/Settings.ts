@@ -24,7 +24,7 @@ module Settings
     // development vars
     export var DEVELOPMENT_MODE = false; 
     export var LOG = true;
-    export var REMOTE_ASSERT_SERVER = "http://www.ciaranmccann.me/fyp/";
+    export var REMOTE_ASSERT_SERVER = "http://www.ciaranmccann.me/college/fyp/";
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
 

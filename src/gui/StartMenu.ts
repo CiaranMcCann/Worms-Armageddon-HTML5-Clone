@@ -63,9 +63,13 @@ class StartMenu
                     AssetManager.sounds["CursorSelect"].play();
                     $('.slide').empty();
                     $('.slide').append(this.settingsMenu.getView());
-                    this.settingsMenu.bind();
+                    this.settingsMenu.bind(function () =>{    
+                         $('.slide').empty();       
+                         $('.slide').append(this.controlsView);
+                         this.controlsMenu(callback);
+                    });
                     
-                    //_this.controlsMenu(callback);
+                    
                 });
 
                 $('#startOnline').click(function =>

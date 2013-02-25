@@ -34,7 +34,7 @@ class Terrain
 
     TERRAIN_RECT_HEIGHT: number;
 
-    constructor (canvas, terrainImage, backgroundCss, world, scale)
+    constructor (canvas, terrainImage, world, scale)
     {
 
         //this.skyOffset = 350;
@@ -56,9 +56,6 @@ class Terrain
         this.boundary = new TerrainBoundary(this.bufferCanvas.width+this.Offset.x, this.bufferCanvas.height+100);
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
-
-        //Setups the background gradientcolor using CSS
-        this.drawingCanvas.style.cssText = backgroundCss;
 
 
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain

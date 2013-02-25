@@ -58,7 +58,7 @@ class Game
     winner: Player;
 
     // TODO clean this up -just made it static to get it working
-    static map: Map = new Map(Maps.smallCastle);
+    static map: Map;
 
     camera: Camera;
 
@@ -80,11 +80,11 @@ class Game
         this.actionCanvasContext.font = 'bold 16px Sans-Serif';
         this.actionCanvasContext.textAlign = 'center';
         this.actionCanvasContext.fillStyle = "#384084"; // Water
+        
+        //Setups the background gradientcolor using CSS
+        this.actionCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);";
 
         Physics.init(this.actionCanvasContext);
-
-        this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(), Game.map.getBackgroundCss(), Physics.world, Physics.worldScale);
-        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
 
         // Manages the state of the game, the player turns etc.
         this.state = new GameStateManager();
@@ -120,6 +120,8 @@ class Game
 
     start(playerIds = null)
     {
+        this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(),  Physics.world, Physics.worldScale);
+        this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
 
         if (this.gameType == Game.types.LOCAL_GAME)
         {
