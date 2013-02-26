@@ -65,7 +65,6 @@ class GameLobby
             
             //Update local copy of the lobby
             GameInstance.lobby.client_GameLobby = gameLobby;
-
             //Pass player ids to init the game
             GameInstance.start(gameLobby.playerIds);
 
@@ -97,7 +96,7 @@ class GameLobby
 
     }
 
-    contains(playerId: string)
+    contains(playerId: string) : bool
     {
         for (var i in this.playerIds)
         {

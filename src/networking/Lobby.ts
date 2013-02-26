@@ -100,7 +100,6 @@ class Lobby
             {
                 io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
                 var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
-
                 newGameLobby.join(userId, socket);
 
 
@@ -136,7 +135,8 @@ class Lobby
 
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {
-                    this.gameLobbies[gameLobbyId].currentPlayerId = userId;
+                    
+                    //this.gameLobbies[gameLobbyId].currentPlayerId = userId;
                     io.log.info(Util.format("@ Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS " + userId + " for lobby " + gameLobbyId + "   " + data));
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, data);
                 });
