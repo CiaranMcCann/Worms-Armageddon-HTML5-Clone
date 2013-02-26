@@ -34,7 +34,7 @@ class GameLobby
 
     static gameLobbiesCounter = 0;
 
-    constructor(name: string, numberOfPlayers: number, mapName : string  = null )
+    constructor(name: string, numberOfPlayers: number, mapName : string  = "priates" )
     {
         this.name = name;
         this.mapName = mapName;
