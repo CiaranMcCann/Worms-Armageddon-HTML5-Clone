@@ -24,10 +24,15 @@ class Sprite
     onFinishFunc;
     frameHeight;
     image;
+
+    frameIncremeter;
     
 
     constructor (spriteDef: SpriteDefinition, noLoop = false)
     {
+        //Defualts to moving forward though the sprite
+        //though can be used to move back though the sprite
+        this.frameIncremeter = 1;
         
         this.lastUpdateTime = 0;
         this.accumulateDelta = 0;
@@ -46,7 +51,7 @@ class Sprite
             if (this.accumulateDelta > this.spriteDef.msPerFrame)
             {
                 this.accumulateDelta = 0;
-                this.currentFrameY++;
+                this.currentFrameY += this.frameIncremeter;
 
                 this.checkForAttachedSound();
 

@@ -19,10 +19,7 @@ module AssetManager
     // you can then acess the image by AssetManager.images["placeHolderImage"]
     // no need for the full url or the extenision
     var priorityImages = [
-         'data/images/levels/level2.png',
-         'data/images/levels/level5.png',
-         'data/images/levels/level3.png',
-         'data/images/levels/level20.png',
+
     ];
 
     var priorityAudio = [
@@ -150,6 +147,11 @@ module AssetManager
         for (var sprite in Sprites.particleEffects)
         {
             priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.particleEffects[sprite].imageName + ".png");
+        }
+
+        for (var map in Maps)
+        {
+            priorityImages.push("data/images/levels/" + Maps[map].terrainImage + ".png");
         }
 
     }

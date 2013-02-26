@@ -51,14 +51,19 @@ class Game
     state: GameStateManager;
 
     particleEffectMgmt: EffectsManager;
+
+    //Manages arrows and generate indicators
     miscellaneousEffects: EffectsManager;
+
+    //Manages things like the clouds
+    enviormentEffects: EffectsManager;
 
     lobby: Lobby;
 
     winner: Player;
 
     // TODO clean this up -just made it static to get it working
-    static map: Map;
+    static map: Map = new Map(Maps.castle);
 
     camera: Camera;
 
@@ -152,7 +157,13 @@ class Game
         // Initalizse the various animations/effect managers
         this.particleEffectMgmt = new EffectsManager();
         this.miscellaneousEffects = new EffectsManager();
+        this.enviormentEffects = new EffectsManager();
 
+        //Add some random clouds to the enviorment
+        for (var i = 0; i < 15; i++)
+        {
+            this.enviormentEffects.add(new Cloud());
+        }
 
         this.healthMenu.show();
         this.gameTimer.show();
@@ -242,6 +253,7 @@ class Game
             this.camera.update();
             this.particleEffectMgmt.update();
             this.miscellaneousEffects.update();
+            this.enviormentEffects.update();
             this.gameTimer.update();
 
 
@@ -274,6 +286,7 @@ class Game
 
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
+        this.enviormentEffects.draw(this.actionCanvasContext);
         this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height,this.terrain.getWidth());
         this.actionCanvasContext.restore();
 
@@ -296,6 +309,7 @@ class Game
 
         this.miscellaneousEffects.draw(this.actionCanvasContext);
         this.particleEffectMgmt.draw(this.actionCanvasContext);
+        
 
         this.actionCanvasContext.restore();
 

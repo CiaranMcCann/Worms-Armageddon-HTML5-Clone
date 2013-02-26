@@ -371,7 +371,31 @@ module Sprites
             frameCount: 16,
             msPerFrame: 50,
 
-    }
+    },
+
+     clouds: {
+            imageName: "clouds",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 60,
+
+    },
+
+     cloudm: {
+            imageName: "cloudm",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 60,
+
+    },
+
+    cloudl: {
+            imageName: "cloudl",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 60,
+
+    },
 
 
 }

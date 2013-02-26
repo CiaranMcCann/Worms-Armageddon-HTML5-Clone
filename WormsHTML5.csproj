@@ -54,6 +54,9 @@
       <DependentUpon>HealthReduction.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\gui\SettingsMenu.ts" />
+    <Content Include="src\animation\PhysicsSprite.min.js">
+      <DependentUpon>PhysicsSprite.ts</DependentUpon>
+    </Content>
     <Content Include="src\gui\SettingsMenu.js">
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
@@ -582,7 +585,7 @@
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
-   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -604,5 +607,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
- 
 </Project>

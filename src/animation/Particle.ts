@@ -25,3 +25,38 @@ class Particle extends PhysicsSprite
     }
 
 }
+
+
+class Cloud extends PhysicsSprite
+{
+   
+    constructor ()
+    {
+        var initalPos = new b2Vec2(Utilies.random(0, GameInstance.camera.levelWidth), Utilies.random(200, 625));
+        var initalVelocity = new b2Vec2(Utilies.random(3, 9)*0.4, 0);
+        var spriteDef = Utilies.pickRandom([Sprites.particleEffects.cloudl, Sprites.particleEffects.cloudm, Sprites.particleEffects.clouds]);
+                
+        super(initalPos, initalVelocity, spriteDef);
+    }
+
+    physics(){} //just to override the physics from super
+
+    update()
+    {
+        // Once the sprite animation has reached the end, then change the framIncremter so it goes
+        // back down though the sprites again and then back up etc.
+        if (this.getCurrentFrame() == this.getTotalFrames()-1 || this.getCurrentFrame() == 0)
+        {
+            this.frameIncremeter *= -1;
+        }
+        super.update(); 
+
+        this.position.x += this.velocity.x
+
+        if (this.position.x > GameInstance.camera.levelWidth)
+        {
+            this.position.x = 0;
+        }
+    }
+
+}
