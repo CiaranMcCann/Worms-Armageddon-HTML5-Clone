@@ -98,8 +98,8 @@ class Lobby
             //Once a new game lobby has been created, add the user who created it.
             socket.get('userId', function (err, userId) =>
             {
-                io.log.info(Util.format("@ Create lobby with name  [%s]", data.name));
-                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers));
+                io.log.info(Util.format("@ Create lobby with name  [%s] using map ", data.name, data.mapName));
+                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers), data.mapName);
                 newGameLobby.join(userId, socket);
 
 
@@ -244,16 +244,16 @@ class Lobby
     }
 
 
-    client_createGameLobby(name, numberOfPlayers)
+    client_createGameLobby(name, numberOfPlayers, mapName = "priates")
     {
         this.menu.displayMessage(" Waitting on more players.... ");
-        Client.socket.emit(Events.lobby.CREATE_GAME_LOBBY, { "name": name, "nPlayers": numberOfPlayers });
+        Client.socket.emit(Events.lobby.CREATE_GAME_LOBBY, { "name": name, "nPlayers": numberOfPlayers, "mapName": mapName });
     }
 
     // Creates the gamelobby object on the server
-    server_createGameLobby(name, numberOfPlayers)
+    server_createGameLobby(name, numberOfPlayers, mapName)
     {
-        var newGameLobby = new GameLobby(name, numberOfPlayers);
+        var newGameLobby = new GameLobby(name, numberOfPlayers,mapName);
         newGameLobby.server_init();
 
         // lobbies are indexed by their unqine token

@@ -69,7 +69,7 @@ class LobbyMenu
                 $(this.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).unbind();
                 var name = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputName").val();
                 var playerCount = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputPlayers").val();
-                this.lobbyRef.client_createGameLobby(name, playerCount);
+                this.lobbyRef.client_createGameLobby(name, playerCount, levelSelector.getLevelName());
                 AssetManager.sounds["CursorSelect"].play();
             });
             AssetManager.sounds["CursorSelect"].play();

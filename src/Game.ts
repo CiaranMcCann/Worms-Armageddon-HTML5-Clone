@@ -68,13 +68,11 @@ class Game
     constructor()
     {
         Graphics.init();
-
         this.gameType = Game.types.LOCAL_GAME;
 
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-
 
         //Set canvas font stuff
         this.actionCanvasContext.font = 'bold 16px Sans-Serif';
@@ -82,7 +80,7 @@ class Game
         this.actionCanvasContext.fillStyle = "#384084"; // Water
         
         //Setups the background gradientcolor using CSS
-       this.actionCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);";
+        this.actionCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);";
 
         Physics.init(this.actionCanvasContext);
 
@@ -312,7 +310,6 @@ class GameDataPacket
 
     constructor(game: Game, physics = Physics)
     {
-
         this.players = [];
         for (var p in game.players)
         {

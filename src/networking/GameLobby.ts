@@ -29,13 +29,15 @@ class GameLobby
     name: string;
     id: string;
     private numberOfPlayers: number;
+    mapName;
     currentPlayerId: string;
 
     static gameLobbiesCounter = 0;
 
-    constructor(name: string, numberOfPlayers: number)
+    constructor(name: string, numberOfPlayers: number, mapName : string  = null )
     {
         this.name = name;
+        this.mapName = mapName;
         this.playerIds = [];
         this.numberOfPlayers = numberOfPlayers;
         this.currentPlayerId = "";
@@ -62,6 +64,7 @@ class GameLobby
         Client.socket.on(Events.gameLobby.START_GAME_HOST, function (data) =>
         {
             var gameLobby = (Utilies.copy(new GameLobby(null, null), data));
+            Game.map = new Map(Maps[gameLobby.mapName]);
             
             //Update local copy of the lobby
             GameInstance.lobby.client_GameLobby = gameLobby;
@@ -77,8 +80,9 @@ class GameLobby
         // by the host client to them.
         Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data) =>
         {
-             var gameLobby = (Utilies.copy(new GameLobby(null, null), data.lobby));
-             
+             var gameLobby = (Utilies.copy(new GameLobby(null, null), data.lobby));          
+             Game.map = new Map(Maps[gameLobby.mapName]);
+
              //Update local copy of the lobby
             GameInstance.lobby.client_GameLobby = gameLobby;
 
