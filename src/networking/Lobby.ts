@@ -244,7 +244,7 @@ class Lobby
     }
 
 
-    client_createGameLobby(name, numberOfPlayers, mapName = "priates")
+    client_createGameLobby(name, numberOfPlayers, mapName)
     {
         this.menu.displayMessage(" Waitting on more players.... ");
         Client.socket.emit(Events.lobby.CREATE_GAME_LOBBY, { "name": name, "nPlayers": numberOfPlayers, "mapName": mapName });
@@ -283,7 +283,7 @@ class Lobby
         }
 
         //If it doesn't find any empty lobby for the user it creates one.
-        this.client_createGameLobby("Default QuickGame", 2);
+        this.client_createGameLobby("Default QuickGame", 2, Maps.priates.name);
     }
 
 
