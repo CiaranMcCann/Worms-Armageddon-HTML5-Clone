@@ -21,7 +21,7 @@ class SettingsMenu
     constructor()
     {
 
-        this.view = '<h1 style="text-align: center">Select a level</h1><p> <div class="row-fluid" style="text-align: center"><ul class="thumbnails"></p>';                 
+        this.view = '<h1 style="text-align: center">Select a Map</h1><p> <div class="row-fluid" style="text-align: center"><ul class="thumbnails"></p>';                 
 
         for (var map in Maps)
         {
@@ -45,6 +45,8 @@ class SettingsMenu
         $('a.thumbnail').click(function()
         {
             var levelId = $(this).attr('id');
+            $('a.thumbnail').css({ "background": "white" });
+            $(this).css({ "background": "yellow" });
             Game.map = new Map(Maps[levelId]);
             callback();
 

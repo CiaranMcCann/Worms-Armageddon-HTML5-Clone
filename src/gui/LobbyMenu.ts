@@ -56,6 +56,14 @@ class LobbyMenu
         $(this.CSS_ID.CREATE_BTN).click(function =>
         {
             $(this.CSS_ID.CREATE_LOBBY_POP_UP).modal('show');
+
+            var levelSelector :  SettingsMenu  = new SettingsMenu();
+            $('.modal-body').prepend(levelSelector.getView());
+             levelSelector.bind(function () =>{ 
+                         AssetManager.sounds["CursorSelect"].play();   
+                        
+                 });
+
             $(this.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).click(function (e) =>
             {
                 $(this.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).unbind();

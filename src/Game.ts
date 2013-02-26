@@ -82,7 +82,7 @@ class Game
         this.actionCanvasContext.fillStyle = "#384084"; // Water
         
         //Setups the background gradientcolor using CSS
-        this.actionCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);";
+       this.actionCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);";
 
         Physics.init(this.actionCanvasContext);
 
@@ -112,7 +112,7 @@ class Game
         return new GameDataPacket(this);
     }
 
-    setGameNetData(data)
+    setGameNetData(data) 
     {
         var gameDataPacket: GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
         gameDataPacket.override(this);
