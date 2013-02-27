@@ -25,8 +25,7 @@ module Settings
     export var DEVELOPMENT_MODE = false; 
     export var LOG = true;
 
-    export var REMOTE_ASSERT_SERVER = "";
-    //export var REMOTE_ASSERT_SERVER = "../";
+    export var REMOTE_ASSERT_SERVER = "../";
 
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;

@@ -177,6 +177,9 @@ module AssetManager
             Logger.debug(" Audio loaded sucesfully");
         });
 
+        //TODO Refactor and clean
+        //No longer need any of this callback stuff
+        // since I'm doing the loading differently now
         callback();
     }
 

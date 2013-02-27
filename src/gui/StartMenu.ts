@@ -42,7 +42,6 @@ class StartMenu
 
     hide()
     {
-        $('#splashScreen').remove();
         $('#startMenu').remove();
     }
 
@@ -54,13 +53,13 @@ class StartMenu
         StartMenu.callback = callback;
         if (this.menuActive)
         {
-            var loading = setInterval(function ()
+            var loading = setInterval(function () =>
             {
                 $('#notice').empty();
                 if (AssetManager.getPerAssetsLoaded() == 100)
                 {
                     clearInterval(loading);
-                    $('#notice').append('<div class="alert alert-success"> <strong> Games loaded and your ready to play!! </strong></div> ');
+                    $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong></div> ');
                     this.settingsMenu = new SettingsMenu();
                     $('#startLocal').removeAttr("disabled");
                     $('#startOnline').removeAttr("disabled");
@@ -68,15 +67,12 @@ class StartMenu
    
                 } else
                 {
-                     $('#notice').append('<div class="alert alert-info"> <strong> Stand back! I\'m loading game assets! </strong>' + 
+                     $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' + 
                      '<div class="progress progress-striped active"><div class="bar" style="width: '+AssetManager.getPerAssetsLoaded() +'%;"></div></div></div> ');
                 }
 
             }, 10);
 
-                
-                $('#splashScreen').remove();
-                $('#startMenu').fadeIn('fast');
 
                 $('#startLocal').click(function =>
                 {
