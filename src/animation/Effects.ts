@@ -49,7 +49,19 @@ module Effects
 
                     forceVec.Normalize();
                     forceVec.Multiply(explosiveForce*distanceFromEpicenter);
+
+                    //Quick hack so grave stones are not checked by explosions
+                    if (fixture.GetBody().GetUserData().isDead == true)
+                    {
+                        forceVec.x = 0;
+                        forceVec.y /= 10;
+                    }
+                       
                     fixture.GetBody().ApplyImpulse(forceVec, fixture.GetBody().GetPosition());
+                    
+
+                    
+                    
                 }
             }
          );

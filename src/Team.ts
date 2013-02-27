@@ -21,6 +21,7 @@ class Team
     weaponManager: WeaponManager;
     color;
     name;
+    graveStone: string;
     teamId;
     initalNumberOfWorms: number;
 
@@ -31,6 +32,9 @@ class Team
     {
 
         this.color = Utilies.pickUnqine(["#FA6C1D", "#12AB00", "#B46DD2", "#B31A35", "#23A3C6","#9A4C44"], "colors");
+       
+        //Using strings instead of spriteDef to make it easier to sync across clients
+        this.graveStone = Utilies.pickUnqine(["grave1","grave2","grave3","grave4","grave5","grave6"], "gravestones");
 
         this.name = "Team " + Team.teamCount;
         this.teamId = playerId;
@@ -156,7 +160,7 @@ class Team
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
-            if(this.worms[i].isDead == false)
+            //if(this.worms[i].isDead == false)
             this.worms[i].update();
         }
 
@@ -168,7 +172,7 @@ class Team
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
-            if(this.worms[i].isDead == false)
+            //if(this.worms[i].isDead == false)
             this.worms[i].draw(ctx);
         }
 
@@ -181,10 +185,12 @@ class TeamDataPacket
 {
     wormsDataPacket: WormDataPacket[];
     name;
+    graveStone;
     color;
 
     constructor(team : Team)
     {
+        this.graveStone = team.graveStone;
         this.name = team.name;
         this.color = team.color;
         this.wormsDataPacket = [];
@@ -198,6 +204,7 @@ class TeamDataPacket
     override(team : Team)
     {
         team.name = this.name;
+        team.graveStone = this.graveStone;
         team.color = this.color;
         
         for (var w in this.wormsDataPacket)

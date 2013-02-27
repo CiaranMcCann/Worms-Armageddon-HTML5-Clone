@@ -355,51 +355,96 @@ module Sprites
             frameY: 0,
             frameCount: 28,
             msPerFrame: 50,
-    },
+        },
 
-    wave: {
+        wave: {
             imageName: "water3",
             frameY: 0,
             frameCount: 12,
             msPerFrame: 50,
 
-    },
+        },
 
-         blob: {
+        blob: {
             imageName: "blob",
             frameY: 0,
             frameCount: 16,
             msPerFrame: 50,
 
-    },
+        },
 
-     clouds: {
+        clouds: {
             imageName: "clouds",
             frameY: 0,
             frameCount: 20,
             msPerFrame: 60,
 
-    },
+        },
 
-     cloudm: {
+        cloudm: {
             imageName: "cloudm",
             frameY: 0,
             frameCount: 20,
             msPerFrame: 60,
 
-    },
+        },
 
-    cloudl: {
+        cloudl: {
             imageName: "cloudl",
             frameY: 0,
             frameCount: 20,
-            msPerFrame: 60,
+            msPerFrame: 20,
 
-    },
+        },
 
+        grave1: {
+            imageName: "grave1",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 20,
+
+        },
+
+        grave2: {
+            imageName: "grave2",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 20,
+
+        },
+
+        grave3: {
+            imageName: "grave3",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 20,
+
+        },
+
+        grave4: {
+            imageName: "grave4",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 20,
+
+        },
+
+        grave5: {
+            imageName: "grave5",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 20,
+
+        },
+
+        grave6: {
+            imageName: "grave6",
+            frameY: 0,
+            frameCount: 20,
+            msPerFrame: 20,
+
+        },
+
+    }
 
 }
-
-}
-
-//circl100 exbiff

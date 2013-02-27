@@ -62,7 +62,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
-        this.health = 100;
+        this.health = 10;
         this.damageTake = 0;
         this.team = team;
 
@@ -220,29 +220,29 @@ class Worm extends Sprite
         {
             impactTheroshold = 10
         }
-            //If the worm is using the NijaRope don't take damage
-            if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
+        //If the worm is using the NijaRope don't take damage
+        if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
+        {
+            if (impulse.normalImpulses[0] > impactTheroshold)
             {
-                if (impulse.normalImpulses[0] > impactTheroshold)
+                var damage = Math.round(impulse.normalImpulses[0]) / 2;
+
+                if (damage > 10)
                 {
-                    var damage = Math.round(impulse.normalImpulses[0]) / 2;
-
-                    if (damage > 10)
-                    {
-                        damage = 10;
-                    }
-
-                    this.hit(damage);
+                    damage = 10;
                 }
 
-                if (impulse.normalImpulses[0] > 3)
-                {
-                    AssetManager.getSound("WormLanding").play();
-                }
+                this.hit(damage);
             }
 
-        
-            
+            if (impulse.normalImpulses[0] > 3)
+            {
+                AssetManager.getSound("WormLanding").play();
+            }
+        }
+
+
+
     }
 
     isStationary()
@@ -407,23 +407,47 @@ class Worm extends Sprite
 
     update()
     {
+        if (this.isDead == false)
+        {
 
+            this.soundDelayTimer.update();
 
-        this.soundDelayTimer.update();
+            //Manages the different states of the animation
+            this.stateAnimationMgmt.update();
 
-        //Manages the different states of the animation
-        this.stateAnimationMgmt.update();
+            //updates the current sprite
+            super.update();
 
-        //updates the current sprite
-        super.update();
+            // Always reset to idle
+            this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
 
-        // Always reset to idle
-        this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.idle);
+            if (this.isActiveWorm())
+                this.team.getWeaponManager().getCurrentWeapon().update();
 
-        if (this.isActiveWorm())
-            this.team.getWeaponManager().getCurrentWeapon().update();
+            this.target.update();
 
-        this.target.update();
+        } else
+        {
+            //Quick hack to get the sprite to unlock
+            // Seems the die squence locks the sprite
+            this.setSpriteDef(Sprites.worms.die, false);
+            this.setSpriteDef(Sprites.particleEffects[this.team.graveStone], true);
+
+            //Make sure it never finishs so it doesn't get removed the the effect manager
+            this.finished = false;
+
+            // Once the sprite animation has reached the end, then change the framIncremter so it goes
+            // back down though the sprites again and then back up etc.
+            if (this.getCurrentFrame() == this.getTotalFrames() - 1 || this.getCurrentFrame() == 0)
+            {
+                this.frameIncremeter *= -1;
+            }
+
+            super.update();
+
+            //Just for good measure
+            this.finished = false;
+        }
 
     }
 
@@ -433,6 +457,7 @@ class Worm extends Sprite
 
         if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
+           if (this.isDead == false)
             this.target.draw(ctx);
         }
 
@@ -459,11 +484,11 @@ class Worm extends Sprite
 
         ctx.restore()
 
-        var nameBoxX = -radius * this.name.length / 2.6;
-        var nameBoxY = -radius * 6;
-
-       // if (this.isActiveWorm() == false)
+        if (this.isDead == false)
         {
+            var nameBoxX = -radius * this.name.length / 2.6;
+            var nameBoxY = -radius * 6;
+
             ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
             ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
         }
