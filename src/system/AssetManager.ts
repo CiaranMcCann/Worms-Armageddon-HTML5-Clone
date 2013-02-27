@@ -13,70 +13,72 @@ declare var BufferLoader;
 
 module AssetManager
 {
+    var numAssetsLoaded: number = 0;
 
     // Placing an image url in the below array
     // will make sure its is loaded before the game starts.
-    // you can then acess the image by AssetManager.images["placeHolderImage"]
+    // you can then acess the image by AssetManager.getImage("placeHolderImage")
     // no need for the full url or the extenision
-    var priorityImages = [
-
+    var imagesToBeLoaded = [
     ];
 
-    var priorityAudio = [
-        "data/sounds/explosion1.wav",
-        "data/sounds/explosion2.wav",
-        "data/sounds/explosion3.wav",
-        "data/sounds/WalkExpand.wav",
-        "data/sounds/WalkCompress.wav",
-        "data/sounds/drill.wav",
-        "data/sounds/JUMP1.WAV",
-        "data/sounds/TIMERTICK.WAV",
-        "data/sounds/holygrenade.wav",
-         "data/sounds/Speech/Irish/hurry.wav",
-        "data/sounds/Speech/Irish/ohdear.wav",
-        "data/sounds/Speech/Irish/fire.wav",
-        "data/sounds/Speech/Irish/victory.wav",
-         "data/sounds/Speech/Irish/ow1.wav",
-         "data/sounds/Speech/Irish/ow2.wav",
-         "data/sounds/Speech/Irish/ow3.wav",
-         "data/sounds/Speech/Irish/byebye.wav",
-         "data/sounds/Speech/Irish/traitor.wav",
-         "data/sounds/Speech/Irish/youllregretthat.wav",
-        "data/sounds/Speech/Irish/justyouwait.wav",
-        "data/sounds/Speech/Irish/watchthis.wav",
-        "data/sounds/Speech/Irish/fatality.wav",
-        "data/sounds/Speech/Irish/laugh.wav",
-        "data/sounds/Speech/Irish/incoming.wav",
-        "data/sounds/Speech/Irish/grenade.wav",
-        "data/sounds/Speech/Irish/yessir.wav",
-        "data/sounds/cantclickhere.wav",
-        "data/sounds/StartRound.wav",
-        "data/sounds/JetPackLoop1.wav",
-        "data/sounds/JetPackLoop2.wav",
-        "data/sounds/CursorSelect.wav",
-        "data/sounds/fuse.wav",
-        "data/sounds/fanfare/Ireland.wav",
-        "data/sounds/NinjaRopeFire.wav",
-        "data/sounds/NinjaRopeImpact.wav",
-        "data/sounds/ROCKETPOWERUP.wav",
-        "data/sounds/HOLYGRENADEIMPACT.wav",
-        "data/sounds/GRENADEIMPACT.wav",
-        "data/sounds/WormLanding.wav",
-        "data/sounds/THROWPOWERUP.wav",
-        "data/sounds/THROWRELEASE.wav"
+    var audioToBeLoaded = [
 
-     
-        
-        
-
-    ]
-
-    var nonPriorityAudio = [
-      
-    ]
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/CursorSelect.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/explosion1.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/explosion2.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/explosion3.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/WalkExpand.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/WalkCompress.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/drill.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/JUMP1.WAV",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/TIMERTICK.WAV",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/holygrenade.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/hurry.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/ohdear.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/fire.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/Speech/Irish/victory.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/ow1.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/ow2.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/ow3.wav",
+         Settings.REMOTE_ASSERT_SERVER +"data/sounds/Speech/Irish/byebye.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/traitor.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/youllregretthat.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/justyouwait.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/watchthis.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/fatality.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/Speech/Irish/laugh.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/Speech/Irish/incoming.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/Speech/Irish/grenade.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/Speech/Irish/yessir.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/cantclickhere.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/StartRound.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/JetPackLoop1.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/JetPackLoop2.wav",       
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/fuse.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/fanfare/Ireland.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/NinjaRopeFire.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/NinjaRopeImpact.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/ROCKETPOWERUP.wav",
+        Settings.REMOTE_ASSERT_SERVER +"data/sounds/HOLYGRENADEIMPACT.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/GRENADEIMPACT.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/WormLanding.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWPOWERUP.wav",
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWRELEASE.wav"
+    ];
 
     export var images = [];
     export var sounds = [];
+
+    export function isReady()
+    {
+        return numAssetsLoaded == imagesToBeLoaded.length + audioToBeLoaded.length;
+    }
+
+    export function getPerAssetsLoaded()
+    {
+        return (numAssetsLoaded/(imagesToBeLoaded.length + audioToBeLoaded.length))*100;
+    }   
 
     export function getImage(s)
     {
@@ -111,7 +113,11 @@ module AssetManager
                     Logger.log(" Image " + this.src + " loaded sucessfully ");
                     if (++loadedImages >= numImages)
                     {
-                        AssetManager.images = images;
+                        for (var img in images)
+                        {
+                            AssetManager.images[img] = images[img];
+                            numAssetsLoaded++;
+                        }
                         callback();
                     }
                 };
@@ -130,28 +136,28 @@ module AssetManager
         // Load all sprites
         for (var sprite in Sprites.worms)
         {
-            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.worms[sprite].imageName + ".png");
+            imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.worms[sprite].imageName + ".png");
         }
 
         for (var sprite in Sprites.weaponIcons)
         {
-            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/weaponicons/" + Sprites.weaponIcons[sprite].imageName + ".png");
+            imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/weaponicons/" + Sprites.weaponIcons[sprite].imageName + ".png");
         }
 
         for (var sprite in Sprites.weapons)
         {
-            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.weapons[sprite].imageName + ".png");
+            imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.weapons[sprite].imageName + ".png");
         }
 
         
         for (var sprite in Sprites.particleEffects)
         {
-            priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.particleEffects[sprite].imageName + ".png");
+            imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.particleEffects[sprite].imageName + ".png");
         }
 
         for (var map in Maps)
         {
-            priorityImages.push("data/images/levels/" + Maps[map].terrainImage + ".png");
+            imagesToBeLoaded.push("data/images/levels/" + Maps[map].terrainImage + ".png");
         }
 
     }
@@ -159,22 +165,30 @@ module AssetManager
     export function loadPriorityAssets(callback)
     {
         addSpritesDefToLoadList();
-        loadImages(priorityImages, function ()
+
+        loadImages(imagesToBeLoaded, function ()
         {
-            loadSounds(priorityAudio, callback);
+            Logger.debug("Images loaded scuessfully")
         });
 
-        loadSounds(nonPriorityAudio, function () { Logger.debug("Non proity audio loaded ") });
+        loadSounds(audioToBeLoaded, function ()
+        {
+            Logger.debug(" Audio loaded sucesfully");
+        });
+
+        //Since the game now has a start menu
+        // no piont in stopping the page from load immdeditely
+        callback();
     }
 
     export function loadSounds(sources, callback)
     {
         var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
         {
-
             for (var i = 0; i < bufferList.length; i++)
             {
                 sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
+                 numAssetsLoaded++;
             }
 
             callback();

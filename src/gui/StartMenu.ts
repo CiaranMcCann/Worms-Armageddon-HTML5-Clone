@@ -48,49 +48,75 @@ class StartMenu
         $('#startMenu').remove();
     }
 
+
     onGameReady(callback)
     {
         var _this = this;
         StartMenu.callback = callback;
         if (this.menuActive)
         {
+            var loading = setInterval(function ()
+            {
+                $('#notice').empty();
+                if (AssetManager.getPerAssetsLoaded() == 100)
+                {
+                    clearInterval(loading);
+                    $('#notice').append('<div class="alert alert-success"> <strong> Games loaded and your ready to play </strong></div> ');
+   
+                } else
+                {
+                     $('#notice').append('<div class="alert alert-success"> <strong> Stand back! I\'m loading game assets! </strong>' + 
+                     '<div class="progress progress-striped active"><div class="bar" style="width: '+AssetManager.getPerAssetsLoaded() +'%;"></div></div></div> ');
+
+                }
+
+            }, 10);
 
                 $('#splashScreen').remove();
                 $('#startMenu').fadeIn('fast');
 
                 $('#startLocal').click(function =>
                 {
-                    AssetManager.sounds["CursorSelect"].play();
-                    $('.slide').empty();
-                    $('.slide').append(this.settingsMenu.getView());
-                    this.settingsMenu.bind(function () =>{ 
-                         AssetManager.sounds["CursorSelect"].play();   
-                         this.controlsMenu(callback);
-                    });
+                    if (AssetManager.isReady())
+                    {
+                        AssetManager.sounds["CursorSelect"].play();
+                        $('.slide').empty();
+                        $('.slide').append(this.settingsMenu.getView());
+                        this.settingsMenu.bind(function () => {
+                            AssetManager.sounds["CursorSelect"].play();
+                            this.controlsMenu(callback);
+                        });
+                    }
                     
                     
                 });
 
                 $('#startOnline').click(function =>
                 {
-                    if (GameInstance.lobby.client_init() != false)
+                    if (AssetManager.isReady())
                     {
-                        $('#notice').empty();
-                        GameInstance.lobby.menu.show(callback);
-                        AssetManager.sounds["CursorSelect"].play();
-                    } else
-                    {
+                        if (GameInstance.lobby.client_init() != false)
+                        {
+                            $('#notice').empty();
+                            GameInstance.lobby.menu.show(callback);
+                            AssetManager.sounds["CursorSelect"].play();
+                        } else
+                        {
                             $('#notice').empty();
                             $('#notice').append('<div class="alert alert-error"> <strong> Oh Dear! </strong> Looks like the multiplayer server is down. Try a local game for a while?</div> ');
-                    
+
+                        }
                     }
 
                 });
 
                 $('#startTutorial').click(function =>
                 {
-                    AssetManager.sounds["CursorSelect"].play();
-                    _this.controlsMenu(callback);
+                    if (AssetManager.isReady())
+                    {
+                        AssetManager.sounds["CursorSelect"].play();
+                        _this.controlsMenu(callback);
+                    }
                 });
 
 
