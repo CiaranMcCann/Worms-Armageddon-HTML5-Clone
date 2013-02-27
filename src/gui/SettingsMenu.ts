@@ -39,7 +39,7 @@ class SettingsMenu
         var item: String = '<li class="span4" style="width:30%"><a href="#" class="thumbnail" id={1}>' +
                            '<img style="width: 160px; height: 80px;" src={0}> </a></li>';
 
-        item = item.format(map.smallImage,name);
+        item = item.format(AssetManager.getImage(map.smallImage).src,name);
         return item;
     }
 

@@ -63,6 +63,13 @@
     <Content Include="src\gui\SettingsMenu.min.js">
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Tutorial.ts" />
+    <Content Include="src\Tutorial.js">
+      <DependentUpon>Tutorial.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Tutorial.min.js">
+      <DependentUpon>Tutorial.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\ForceIndicator.js">
       <DependentUpon>ForceIndicator.ts</DependentUpon>
     </Content>

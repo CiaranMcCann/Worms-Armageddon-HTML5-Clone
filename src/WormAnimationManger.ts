@@ -139,7 +139,7 @@ class WormAnimationManger
          {
             
             WormAnimationManger.playerAttentionSemaphore++;
-            var animation = new HealthReduction(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
+            var animation = new ToostMessage(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
             animation.onAnimationFinish(function () =>
             {
                 WormAnimationManger.playerAttentionSemaphore--;

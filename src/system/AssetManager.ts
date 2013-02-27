@@ -157,7 +157,8 @@ module AssetManager
 
         for (var map in Maps)
         {
-            imagesToBeLoaded.push("data/images/levels/" + Maps[map].terrainImage + ".png");
+            imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/levels/" + Maps[map].terrainImage + ".png");
+            imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/levels/" + Maps[map].smallImage + ".png");
         }
 
     }
@@ -176,8 +177,6 @@ module AssetManager
             Logger.debug(" Audio loaded sucesfully");
         });
 
-        //Since the game now has a start menu
-        // no piont in stopping the page from load immdeditely
         callback();
     }
 

@@ -208,7 +208,7 @@ class Game
             message = " Time to see what " + this.state.getCurrentPlayer().getTeam().name + " can do ";
         }
 
-        GameInstance.particleEffectMgmt.add(new HealthReduction(
+        GameInstance.particleEffectMgmt.add(new ToostMessage(
             pos,
             message, 
            this.state.getCurrentPlayer().getTeam().color)

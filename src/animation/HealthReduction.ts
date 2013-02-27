@@ -16,13 +16,14 @@
 
 //TODO Needs to be clean up, after I hacked it to be more generic 
 // for just displaying messages, demo 2moro not enough time to clean it up. More features!!!
-class HealthReduction
+class ToostMessage
 {
     finished;
     color;
     pos;
     message;
     box;
+    speed;
 
     timer: Timer;
     onFinishFunc;
@@ -67,12 +68,13 @@ class HealthReduction
         }, nameBoxWidth, 20);
     }
 
-    constructor (pos, message, color)
+    constructor (pos, message, color, time = 2700, speed = 0.7)
     {
         this.finished = false;
         this.color = color;
         this.pos = pos;
         this.message = message;
+        this.speed = speed;
 
 
         if (Utilies.isNumber(this.message))
@@ -87,7 +89,7 @@ class HealthReduction
         this.pos.x -= this.box.width/2;
         this.pos.y -= this.box.height*2;
 
-        this.timer = new Timer(2700);
+        this.timer = new Timer(time);
     }
 
     draw(ctx)
@@ -120,7 +122,7 @@ class HealthReduction
             }
         }
 
-        this.pos.y -= 0.85;
+        this.pos.y -= this.speed;
     }
 
 

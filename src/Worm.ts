@@ -445,7 +445,7 @@ class Worm extends Sprite
 
             super.update();
 
-            //Just for good measure
+            //Just for good measure :)
             this.finished = false;
         }
 

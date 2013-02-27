@@ -160,7 +160,6 @@ class Team
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
-            //if(this.worms[i].isDead == false)
             this.worms[i].update();
         }
 
@@ -172,7 +171,6 @@ class Team
         var cachedLenght = this.worms.length;
         for (var i = 0; i < cachedLenght; i++)
         {
-            //if(this.worms[i].isDead == false)
             this.worms[i].draw(ctx);
         }
 

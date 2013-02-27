@@ -24,8 +24,6 @@ class StartMenu
     {
         this.menuActive = !Settings.DEVELOPMENT_MODE;
 
-        this.settingsMenu = new SettingsMenu();
-
         //TODO gamepad controls
         //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
         this.controlsView = '<div style="text-align:center">' +
@@ -51,6 +49,7 @@ class StartMenu
 
     onGameReady(callback)
     {
+
         var _this = this;
         StartMenu.callback = callback;
         if (this.menuActive)
@@ -61,17 +60,21 @@ class StartMenu
                 if (AssetManager.getPerAssetsLoaded() == 100)
                 {
                     clearInterval(loading);
-                    $('#notice').append('<div class="alert alert-success"> <strong> Games loaded and your ready to play </strong></div> ');
+                    $('#notice').append('<div class="alert alert-success"> <strong> Games loaded and your ready to play!! </strong></div> ');
+                    this.settingsMenu = new SettingsMenu();
+                    $('#startLocal').removeAttr("disabled");
+                    $('#startOnline').removeAttr("disabled");
+                    $('#startTutorial').removeAttr("disabled");
    
                 } else
                 {
-                     $('#notice').append('<div class="alert alert-success"> <strong> Stand back! I\'m loading game assets! </strong>' + 
+                     $('#notice').append('<div class="alert alert-info"> <strong> Stand back! I\'m loading game assets! </strong>' + 
                      '<div class="progress progress-striped active"><div class="bar" style="width: '+AssetManager.getPerAssetsLoaded() +'%;"></div></div></div> ');
-
                 }
 
             }, 10);
 
+                
                 $('#splashScreen').remove();
                 $('#startMenu').fadeIn('fast');
 

@@ -25,7 +25,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
         }
         loader.bufferList[index] = { buffer: buffer, name: url.match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "") };
         Logger.log(" Audio file " + url + " loaded sucessfully ");
-        if (++loader.loadCount == loader.urlList.length)
+        if (++loader.loadCount === loader.urlList.length)
           loader.onload(loader.bufferList);
       },
       function(error) {
@@ -35,7 +35,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
   }
 
   request.onerror = function() {
-      console.error('BufferLoader: XHR error');
+      console.error('BufferLoader: XHR error' + url);
   }
 
   request.send();
