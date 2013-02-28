@@ -21,7 +21,7 @@ class Map
 
     getTerrainImg()
     {
-        return AssetManager.images[this.mapDef.terrainImage];
+        return AssetManager.getImage(this.mapDef.terrainImage);
     }
 
     getName()

@@ -156,7 +156,7 @@ class Sprite
     {
         if (this.spriteDef.sound && this.currentFrameY > this.spriteDef.sound.time)
         {
-            AssetManager.sounds[this.spriteDef.sound.name].play();
+            AssetManager.getSound(this.spriteDef.sound.name).play();
             this.spriteDef.sound.time = Infinity;
         }
     }
@@ -180,7 +180,7 @@ class Sprite
                 this.currentFrameY = spriteDef.frameY;
                 this.isSpriteLocked = lockSprite;
 
-                this.image = AssetManager.images[spriteDef.imageName];
+                this.image = AssetManager.getImage(spriteDef.imageName);
                 this.frameHeight = this.image.height / spriteDef.frameCount;
             }
         }

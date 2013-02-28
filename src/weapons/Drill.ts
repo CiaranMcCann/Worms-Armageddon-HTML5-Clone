@@ -74,7 +74,7 @@ class Drill extends BaseWeapon
                 this.deactivate();
             }
 
-            AssetManager.sounds["drill"].play();
+            AssetManager.getSound("drill").play();
 
             if (this.timeBetweenExploisionsTimer.hasTimePeriodPassed())
             {

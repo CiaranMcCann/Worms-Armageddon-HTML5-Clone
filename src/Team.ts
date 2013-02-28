@@ -149,8 +149,8 @@ class Team
             }
             
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worms[0].body.GetPosition()));
-            AssetManager.sounds["victory"].play(1, 15);
-            AssetManager.sounds["Ireland"].play(1, 16);
+            AssetManager.getSound("victory").play(1, 15);
+            AssetManager.getSound("Ireland").play(1, 16);
     }
 
 

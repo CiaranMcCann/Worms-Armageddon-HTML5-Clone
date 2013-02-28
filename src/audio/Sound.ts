@@ -11,15 +11,16 @@
 ///<reference path="../system/Utilies.ts"/>
 declare var webkitAudioContext; //TODO implement support for other browsers
 
+
 class Sound
 {
-    static context = new webkitAudioContext();
+    static context;
 
     source;
     buffer;
     private playing;
 
-    constructor (buffer)
+    constructor(buffer)
     {
         this.buffer = buffer;
         this.playing = false;
@@ -32,7 +33,7 @@ class Sound
 
     play(volume = 1, time = 0, allowSoundOverLay = false)
     {
-        if (Settings.SOUND)
+        if (Settings.SOUND && this.buffer != null)
         {
             // if sound is playing don't replay it
             if (this.playing == false || allowSoundOverLay == true)
@@ -66,7 +67,7 @@ class Sound
 
     pause()
     {
-        if (Settings.SOUND)
+        if (Settings.SOUND && this.buffer != null)
         {
             this.source.noteOff(0);
         }
@@ -74,3 +75,5 @@ class Sound
 
 
 }
+
+

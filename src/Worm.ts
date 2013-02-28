@@ -68,7 +68,7 @@ class Worm extends Sprite
 
         x = Physics.pixelToMeters(x);
         y = Physics.pixelToMeters(y);
-        var circleRadius = (AssetManager.images[this.spriteDef.imageName].width / 2) / Physics.worldScale;
+        var circleRadius = (AssetManager.getImage(this.spriteDef.imageName).width / 2) / Physics.worldScale;
 
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -279,10 +279,10 @@ class Worm extends Sprite
             {
                 if (super.getCurrentFrame() % 5 == 0)
                 {
-                    AssetManager.sounds["WalkCompress"].play(0.5);
+                    AssetManager.getSound("WalkCompress").play(0.5);
                 } else
                 {
-                    AssetManager.sounds["WalkExpand"].play(0.5);
+                    AssetManager.getSound("WalkExpand").play(0.5);
                 }
             }
         }
@@ -369,7 +369,7 @@ class Worm extends Sprite
             if (this.isDead == false)
             {
                 this.damageTake += damage;
-                AssetManager.sounds["ow" + Utilies.random(1, 2)].play(0.8);
+                AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
 
                 //If worm using Jetpack, deactive it if they get hurt.
                 if (this.getWeapon() instanceof JetPack)
@@ -380,7 +380,7 @@ class Worm extends Sprite
                 //if from same team call the player a tratitor :)
                 if (worm && worm != this && worm.team == this.team)
                 {
-                    AssetManager.sounds["traitor"].play(0.8, 10);
+                    AssetManager.getSound("traitor").play(0.8, 10);
 
                 } else if (worm) // if there was a worm envolved in the damage
                 {

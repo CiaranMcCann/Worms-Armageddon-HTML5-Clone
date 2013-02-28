@@ -67,7 +67,7 @@ module Effects
          );
         var particleAnimation = new ParticleEffect(posX, posY);
         GameInstance.particleEffectMgmt.add(particleAnimation);
-        AssetManager.sounds["explosion" + Utilies.random(1, 3)].play();
+        AssetManager.getSound("explosion" + Utilies.random(1, 3)).play();
         
        
         

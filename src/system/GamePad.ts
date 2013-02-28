@@ -14,6 +14,13 @@ class GamePad
 
     connect()
     {
+
+        try{
+			(<any>navigator).webkitGetGamepads()
+		}catch(e){
+			return false;
+		}
+
         var gamepadSupportAvailable = !!(<any>navigator).webkitGetGamepads || !!(<any>navigator).webkitGamepads || (<any>navigator).webkitGamepads[0] != undefined;
 
         // If unsopprted or already connected then do nothing

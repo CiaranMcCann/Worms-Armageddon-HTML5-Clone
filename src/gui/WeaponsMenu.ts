@@ -133,11 +133,11 @@ class WeaponsMenu
 
             if (weaponId == -1)
             {
-                AssetManager.sounds["cantclickhere"].play();
+                AssetManager.getSound("cantclickhere").play();
                 return;
             }
 
-            AssetManager.sounds["CursorSelect"].play();
+            AssetManager.getSound("CursorSelect").play();
             _this.selectWeapon(weaponId);
             _this.toggle();
         });

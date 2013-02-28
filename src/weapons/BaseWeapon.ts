@@ -24,7 +24,7 @@ class BaseWeapon
         this.takeOutAnimations = takeOutAnimation;
         this.takeAimAnimations = takeAimAnimation;
         //Setup the icon used in the weapon menu
-        this.iconImage = AssetManager.images[iconSprite.imageName];
+        this.iconImage = AssetManager.getImage(iconSprite.imageName);
 
         this.requiresAiming = true;
 

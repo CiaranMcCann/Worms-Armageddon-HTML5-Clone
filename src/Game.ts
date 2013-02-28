@@ -85,9 +85,6 @@ class Game
         this.actionCanvasContext.font = 'bold 16px Sans-Serif';
         this.actionCanvasContext.textAlign = 'center';
         this.actionCanvasContext.fillStyle = "#384084"; // Water
-        
-        //Setups the background gradientcolor using CSS
-        this.actionCanvas.style.cssText = "background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%);";
 
         Physics.init(this.actionCanvasContext);
 

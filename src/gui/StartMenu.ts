@@ -56,7 +56,7 @@ class StartMenu
             var loading = setInterval(function () =>
             {
                 $('#notice').empty();
-                if (AssetManager.getPerAssetsLoaded() == 100)
+                if (AssetManager.getPerAssetsLoaded() == 100 && $.browser.webkit)//FIXME Only allowing webkit browsers play for the moment
                 {
                     clearInterval(loading);
                     $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong></div> ');
@@ -65,24 +65,34 @@ class StartMenu
                     $('#startOnline').removeAttr("disabled");
                     $('#startTutorial').removeAttr("disabled");
    
-                } else
+                }else if (AssetManager.sucessfulLoad() == false || !$.browser.webkit) //FIXME Only allowing webkit browsers play for the moment
+                {
+                    clearInterval(loading);
+                    $('#notice').append('<div class="alert alert-error" style="text-align:center"> <strong>Bad news :( </strong> Your browser doesn\'t have the features to run this game. Try Chrome :)</div> ');
+                    //this.settingsMenu = new SettingsMenu();
+                    //$('#startLocal').removeAttr("disabled");
+                    //$('#startOnline').removeAttr("disabled");
+                    //$('#startTutorial').removeAttr("disabled");
+                         
+                }else if($.browser.webkit)  //FIXME Only allowing webkit browsers play for the moment
                 {
                      $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' + 
                      '<div class="progress progress-striped active"><div class="bar" style="width: '+AssetManager.getPerAssetsLoaded() +'%;"></div></div></div> ');
-                }
+                
+                } 
 
-            }, 10);
+            }, 300);
 
 
                 $('#startLocal').click(function =>
                 {
                     if (AssetManager.isReady())
                     {
-                        AssetManager.sounds["CursorSelect"].play();
+                        AssetManager.getSound("CursorSelect").play();
                         $('.slide').empty();
                         $('.slide').append(this.settingsMenu.getView());
                         this.settingsMenu.bind(function () => {
-                            AssetManager.sounds["CursorSelect"].play();
+                            AssetManager.getSound("CursorSelect").play();
                             this.controlsMenu(callback);
                         });
                     }
@@ -98,7 +108,7 @@ class StartMenu
                         {
                             $('#notice').empty();
                             GameInstance.lobby.menu.show(callback);
-                            AssetManager.sounds["CursorSelect"].play();
+                            AssetManager.getSound("CursorSelect").play();
                         } else
                         {
                             $('#notice').empty();
@@ -113,7 +123,7 @@ class StartMenu
                 {
                     if (AssetManager.isReady())
                     {
-                        AssetManager.sounds["CursorSelect"].play();
+                        AssetManager.getSound("CursorSelect").play();
 
                         //Initalizse the tutorial object so its used in the game
                         GameInstance.tutorial = new Tutorial();
@@ -144,8 +154,8 @@ class StartMenu
                 $('#startLocal').unbind();
                 $('#splashScreen').remove();
                 $('#startMenu').fadeOut('normal');
-                AssetManager.sounds["CursorSelect"].play();
-                AssetManager.sounds["StartRound"].play(1, 0.5);
+                AssetManager.getSound("CursorSelect").play();
+                AssetManager.getSound("StartRound").play(1, 0.5);
                 callback();
             })
         });

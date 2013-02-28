@@ -55,7 +55,7 @@ class CountDownTimer
         {
             if (timeLeft == 5)
             {
-                AssetManager.sounds["hurry"].play();
+                AssetManager.getSound("hurry").play();
             }
 
 
@@ -65,7 +65,7 @@ class CountDownTimer
             if (timeLeft < Settings.TURN_TIME_WARING && timeLeft >= 0)
             {
                 $('#turnTimeCounter').css("background", "red");
-                AssetManager.sounds["TIMERTICK"].play(0.3);
+                AssetManager.getSound("TIMERTICK").play(0.3);
 
             } else
             {

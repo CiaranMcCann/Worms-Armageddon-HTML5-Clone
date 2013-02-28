@@ -49,7 +49,7 @@ class LobbyMenu
         $(this.CSS_ID.QUICK_PLAY_BTN).click(function =>
         {
             $(this.CSS_ID.QUICK_PLAY_BTN).unbind();
-            AssetManager.sounds["CursorSelect"].play();
+            AssetManager.getSound("CursorSelect").play();
             this.lobbyRef.client_joinQuickGame();
         })
 
@@ -60,7 +60,7 @@ class LobbyMenu
             var levelSelector :  SettingsMenu  = new SettingsMenu();
             $('.modal-body').prepend(levelSelector.getView());
              levelSelector.bind(function () =>{ 
-                         AssetManager.sounds["CursorSelect"].play();   
+                         AssetManager.getSound("CursorSelect").play();   
                         
                  });
 
@@ -70,9 +70,9 @@ class LobbyMenu
                 var name = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputName").val();
                 var playerCount = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputPlayers").val();
                 this.lobbyRef.client_createGameLobby(name, playerCount, levelSelector.getLevelName());
-                AssetManager.sounds["CursorSelect"].play();
+                AssetManager.getSound("CursorSelect").play();
             });
-            AssetManager.sounds["CursorSelect"].play();
+            AssetManager.getSound("CursorSelect").play();
 
         })
     }
@@ -133,8 +133,8 @@ class LobbyMenu
         var _this = this;
         $(this.CSS_ID.JOIN_BTN).click(function ()
         {
-            //  alert("dfdf");
-            AssetManager.sounds["CursorSelect"].play();
+         
+            AssetManager.getSound("CursorSelect").play();
             _this.lobbyRef.client_joinGameLobby($(this).attr('value'));
         })
     }

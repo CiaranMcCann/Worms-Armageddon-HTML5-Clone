@@ -110,7 +110,7 @@ module Utilies
 
     export function pickRandomSound(collection: string[])
     {
-        var sound: Sound = AssetManager.sounds[collection[random(0, collection.length - 1)]];
+        var sound: Sound = AssetManager.getSound(collection[random(0, collection.length - 1)]);
 
         if (!sound.play)
         {

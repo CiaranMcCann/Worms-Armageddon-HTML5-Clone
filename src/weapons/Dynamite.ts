@@ -55,7 +55,7 @@ class Dynamite extends ThrowableWeapon
         if (this.getIsActive())
         {
             this.sprite.update();
-            AssetManager.sounds["fuse"].play(1);
+            AssetManager.getSound("fuse").play(1);
             super.update();
         }
 
