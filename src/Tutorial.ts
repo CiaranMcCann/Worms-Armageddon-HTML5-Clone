@@ -90,10 +90,8 @@ var tutorialCommandBank = [
          message: " Move left press A and move right press D",
          detection: function ()
          {
-             console.log("check for walking");
              if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || keyboard.isKeyDown(Controls.walkRight.keyboard))
              {
-                 console.log("walking");
                  return true;
              }
          },
@@ -129,6 +127,25 @@ var tutorialCommandBank = [
             {
                 return true;
             }
+        },
+    },
+
+    {
+        message: "Now take aim using the red target. Hold enter and then release it to throw gernade",
+        detection: function ()
+        {
+            if ( GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon().isActive)
+            {
+                return true;
+            }
+        },
+    },
+
+     {
+        message: "Well Done! Your finished the tutorial, you can just mess around or start a new game",
+        detection: function ()
+        {            
+                return true;
         },
     }
 

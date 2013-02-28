@@ -66,6 +66,7 @@ class ToostMessage
         }, nameBoxWidth, 20);
     }
 
+
     constructor (pos, message, color, time = 2700, speed = 0.7)
     {
         this.finished = false;
