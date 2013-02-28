@@ -1,16 +1,17 @@
 /**
  * Sound.js
- * This wraps the Web audio api. When a sound file is loaded 
+ * Sound wraps the Web audio api. When a sound file is loaded 
  * one of these is created using the sound buffer. It allows for a 
  * cleaner and simple api for doing basic things like playing sound, controling volume etc
  *
+ * SoundFallback use just the simple Audio tag, works ok but not as feature full as web audio api.
+ * 
  *  License: Apache 2.0
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../system/Utilies.ts"/>
-declare var webkitAudioContext; //TODO implement support for other browsers
-
+declare var webkitAudioContext; 
 
 class Sound
 {
@@ -18,7 +19,7 @@ class Sound
 
     source;
     buffer;
-    private playing;
+    playing;
 
     constructor(buffer)
     {
@@ -74,6 +75,67 @@ class Sound
     }
 
 
+}
+
+//SoundFallback use just the simple Audio tag, works ok but not as feature full as web audio api.
+class SoundFallback extends Sound
+{
+    audio: HTMLAudioElement;
+
+    constructor(soundSrc)
+    {
+        super(soundSrc);
+        this.audio = <HTMLAudioElement>document.createElement("Audio");
+
+        // When the sound loads sucesfully tell the asset manager
+        $(this.audio).on("loadeddata", function () =>
+        {
+            AssetManager.numAssetsLoaded++;
+            Logger.log(" Sound loaded " + this.audio.src );
+        });
+
+        this.audio.onerror = function () => {
+            Logger.error( " Sound failed to load " + this.audio.src);
+        }
+
+        this.audio.src = soundSrc;
+    }
+
+    play(volume = 1, time = 0, allowSoundOverLay = false)
+    {
+        if (Settings.SOUND)
+        {
+            // if sound is playing don't replay it
+            if (this.playing == false || allowSoundOverLay == true)
+            {
+                this.audio.volume = volume;
+                this.audio.play();
+                this.playing = true;
+                
+                this.audio.onended = function() =>
+                {
+                    this.playing = false;
+                }
+            }
+
+        } else
+        {
+            Logger.debug("Sounds are currently disabled");
+        }
+    }
+
+    isPlaying()
+    {
+        return this.playing;
+    }
+
+    pause()
+    {
+        if (Settings.SOUND)
+        {
+            this.audio.pause();
+        }
+    }
 }
 
 

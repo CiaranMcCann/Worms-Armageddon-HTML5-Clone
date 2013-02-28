@@ -20,35 +20,29 @@ $(document).ready(function () => {
     {
         var startMenu = new StartMenu();
 
-        AssetManager.loadPriorityAssets(function ()
+        GameInstance = new Game();
+        AssetManager.loadAssets();
+        
+        startMenu.onGameReady(function ()
         {
-            // Once we the names from wikiepa then we can create the game
-            NameGenerator.init(function ()
+            startMenu.hide();
+            if (GameInstance.state.isStarted == false)
             {
-                GameInstance = new Game();
+                GameInstance.start();
+            }
 
-                startMenu.onGameReady(function ()
-                {
-                    startMenu.hide();
-                    if (GameInstance.state.isStarted == false)
-                    {
-                        GameInstance.start();
-                    }
+            function gameloop()
+            {
+               if(Settings.DEVELOPMENT_MODE)
+                Graphics.stats.update();
 
-                    function gameloop()
-                    {
-                        //if(Settings.DEVELOPMENT_MODE)
-                        Graphics.stats.update();
+                GameInstance.step();
+                GameInstance.update();
+                GameInstance.draw();
+                window.requestAnimationFrame(gameloop);
+            }
+            gameloop();
 
-                        GameInstance.step();
-                        GameInstance.update();
-                        GameInstance.draw();
-                        window.requestAnimationFrame(gameloop);
-                    }
-                    gameloop();
-
-                });
-            });
         });
     }
 

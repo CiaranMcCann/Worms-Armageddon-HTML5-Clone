@@ -53,8 +53,6 @@ class Sprite
                 this.accumulateDelta = 0;
                 this.currentFrameY += this.frameIncremeter;
 
-                this.checkForAttachedSound();
-
                 if (this.currentFrameY >= this.spriteDef.frameCount)
                 {
                     // If aniamtion is not meant to loop 
@@ -99,14 +97,14 @@ class Sprite
 
     draw(ctx, x, y)
     {
-        //if (this.finished == false)
-        {
-         
+        var tmpCurrentFrameY = Math.floor(this.currentFrameY);
+        if(tmpCurrentFrameY >= 0)
+        {       
             ctx.drawImage(
                    this.image,
-                   0, Math.floor(this.currentFrameY) * this.frameHeight, this.image.width, this.frameHeight,
-                   Math.round(x),
-                   Math.round(y),
+                   0, tmpCurrentFrameY * this.frameHeight, this.image.width, this.frameHeight,
+                   Math.floor(x),
+                   Math.floor(y),
                   this.image.width,
                   this.frameHeight
             );
@@ -152,14 +150,6 @@ class Sprite
         return this.spriteDef.frameCount;
     }
 
-    checkForAttachedSound()
-    {
-        if (this.spriteDef.sound && this.currentFrameY > this.spriteDef.sound.time)
-        {
-            AssetManager.getSound(this.spriteDef.sound.name).play();
-            this.spriteDef.sound.time = Infinity;
-        }
-    }
 
     // Allows for func to be called once this sprite animation has finished
     onAnimationFinish(func)

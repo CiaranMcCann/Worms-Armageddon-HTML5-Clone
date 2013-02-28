@@ -7,6 +7,10 @@
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="Utilies.ts" />
+
+
+//TODO This is Kinda redundent
+
 module NameGenerator
 {
     //defaults
@@ -25,7 +29,6 @@ module NameGenerator
     export function init(callback)
     {
 
-        callback();
         //$.ajax({
         //    url: nameDataSrc,
         //    dataType: 'jsonp',

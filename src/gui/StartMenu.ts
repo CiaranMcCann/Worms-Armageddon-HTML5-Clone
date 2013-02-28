@@ -55,82 +55,83 @@ class StartMenu
         {
             var loading = setInterval(function () =>
             {
+
                 $('#notice').empty();
-                if (AssetManager.getPerAssetsLoaded() == 100 && $.browser.webkit)//FIXME Only allowing webkit browsers play for the moment
+                if (AssetManager.getPerAssetsLoaded() >= 100)
                 {
                     clearInterval(loading);
-                    $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong></div> ');
                     this.settingsMenu = new SettingsMenu();
                     $('#startLocal').removeAttr("disabled");
                     $('#startOnline').removeAttr("disabled");
                     $('#startTutorial').removeAttr("disabled");
-   
-                }else if (AssetManager.sucessfulLoad() == false || !$.browser.webkit) //FIXME Only allowing webkit browsers play for the moment
-                {
-                    clearInterval(loading);
-                    $('#notice').append('<div class="alert alert-error" style="text-align:center"> <strong>Bad news :( </strong> Your browser doesn\'t have the features to run this game. Try Chrome :)</div> ');
-                    //this.settingsMenu = new SettingsMenu();
-                    //$('#startLocal').removeAttr("disabled");
-                    //$('#startOnline').removeAttr("disabled");
-                    //$('#startTutorial').removeAttr("disabled");
-                         
-                }else if($.browser.webkit)  //FIXME Only allowing webkit browsers play for the moment
-                {
-                     $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' + 
-                     '<div class="progress progress-striped active"><div class="bar" style="width: '+AssetManager.getPerAssetsLoaded() +'%;"></div></div></div> ');
-                
-                } 
 
-            }, 300);
-
-
-                $('#startLocal').click(function =>
-                {
-                    if (AssetManager.isReady())
+                    // IE tell the user to get a better browser, but still allow them to play
+                    if ($.browser.msie)
                     {
+                        $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
+                            '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
+                            '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
+                    } else
+                    {
+                        $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong><br> Also thanks for using a modern browser. <a href="../data/images/awesome.jpg">Your awesome!</a></div> ');
+                    }
+
+                } else
+                {
+                    $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' +
+                    '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
+                }
+
+            }, 1000);
+
+
+            $('#startLocal').click(function =>
+            {
+                if (AssetManager.isReady())
+                {
+                    AssetManager.getSound("CursorSelect").play();
+                    $('.slide').empty();
+                    $('.slide').append(this.settingsMenu.getView());
+                    this.settingsMenu.bind(function () => {
                         AssetManager.getSound("CursorSelect").play();
-                        $('.slide').empty();
-                        $('.slide').append(this.settingsMenu.getView());
-                        this.settingsMenu.bind(function () => {
-                            AssetManager.getSound("CursorSelect").play();
-                            this.controlsMenu(callback);
-                        });
-                    }
-                    
-                    
-                });
+                        this.controlsMenu(callback);
+                    });
+                }
 
-                $('#startOnline').click(function =>
+
+            });
+
+            $('#startOnline').click(function =>
+            {
+                if (AssetManager.isReady())
                 {
-                    if (AssetManager.isReady())
+                    if (GameInstance.lobby.client_init() != false)
                     {
-                        if (GameInstance.lobby.client_init() != false)
-                        {
-                            $('#notice').empty();
-                            GameInstance.lobby.menu.show(callback);
-                            AssetManager.getSound("CursorSelect").play();
-                        } else
-                        {
-                            $('#notice').empty();
-                            $('#notice').append('<div class="alert alert-error"> <strong> Oh Dear! </strong> Looks like the multiplayer server is down. Try a local game for a while?</div> ');
-
-                        }
-                    }
-
-                });
-
-                $('#startTutorial').click(function =>
-                {
-                    if (AssetManager.isReady())
-                    {
+                        $('#notice').empty();
+                        GameInstance.lobby.menu.show(callback);
                         AssetManager.getSound("CursorSelect").play();
+                    } else
+                    {
+                        $('#notice').empty();
+                        $('#notice').append('<div class="alert alert-error"> <strong> Oh Dear! </strong> Looks like the multiplayer server is down. Try a local game for a while?</div> ');
 
-                        //Initalizse the tutorial object so its used in the game
-                        GameInstance.tutorial = new Tutorial();
-
-                        _this.controlsMenu(callback);
                     }
-                });
+                }
+
+            });
+
+            $('#startTutorial').click(function =>
+            {
+                if (AssetManager.isReady())
+                {
+                    AssetManager.getSound("CursorSelect").play();
+
+                    //Initalizse the tutorial object so its used in the game
+                    GameInstance.tutorial = new Tutorial();
+
+                    _this.controlsMenu(callback);
+                }
+            });
 
 
         } else

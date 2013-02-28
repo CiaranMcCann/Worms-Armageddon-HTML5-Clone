@@ -13,8 +13,7 @@ declare var BufferLoader;
 
 module AssetManager
 {
-    var numAssetsLoaded: number = 0;
-    var numAssetsFailedToLoad: number = 0;
+    export var numAssetsLoaded: number = 0;
 
     // Placing an image url in the below array
     // will make sure its is loaded before the game starts.
@@ -65,25 +64,22 @@ module AssetManager
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/GRENADEIMPACT.wav",
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/WormLanding.wav",
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWPOWERUP.wav",
-       Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWRELEASE.wav"
+       Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWRELEASE.wav",
+
     ];
 
     export var images = [];
-    var sounds = [];
+    export var sounds = [];
 
     export function isReady()
     {
-        return (numAssetsLoaded+numAssetsFailedToLoad) == imagesToBeLoaded.length + audioToBeLoaded.length;
-    }
-
-    export function sucessfulLoad()
-    {
-        return numAssetsFailedToLoad == 0;
+        return (numAssetsLoaded) == imagesToBeLoaded.length + audioToBeLoaded.length;
     }
 
     export function getPerAssetsLoaded()
     {
-        return ( (numAssetsLoaded+numAssetsFailedToLoad) / (imagesToBeLoaded.length + audioToBeLoaded.length)) * 100;
+        //Logger.debug(" ImagesToLoad {0} AudioToLoad {1} and totalsofar {2}".format(imagesToBeLoaded.length, audioToBeLoaded.length, numAssetsLoaded));
+        return ((numAssetsLoaded) / (imagesToBeLoaded.length + audioToBeLoaded.length)) * 100;
     }
 
     export function getImage(s)
@@ -102,7 +98,7 @@ module AssetManager
         return sounds[s];
     }
 
-    export function loadImages(sources, callback)
+    export function loadImages(sources)
     {
 
         var images = [];
@@ -128,10 +124,10 @@ module AssetManager
                         for (var img in images)
                         {
                             AssetManager.images[img] = images[img];
-                            numAssetsLoaded++;
                         }
-                        callback();
                     }
+
+                    numAssetsLoaded++;
                 };
             } else
             {
@@ -175,33 +171,19 @@ module AssetManager
 
     }
 
-    export function loadPriorityAssets(callback)
+    export function loadAssets()
     {
         addSpritesDefToLoadList();
 
-        loadImages(imagesToBeLoaded, function ()
-        {
-            Logger.debug("Images loaded scuessfully")
-        });
-
-        loadSounds(audioToBeLoaded, function ()
-        {
-            Logger.debug(" Audio loaded sucesfully");
-        });
-
-        //TODO Refactor and clean
-        //No longer need any of this callback stuff
-        // since I'm doing the loading differently now
-        callback();
+        loadImages(imagesToBeLoaded);
+        loadSounds(audioToBeLoaded);
     }
 
-    export function loadSounds(sources, callback)
+    export function loadSounds(sources)
     {
         try
         {
-
-           Sound.context = new webkitAudioContext();
-
+            Sound.context = new webkitAudioContext();
             var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
             {
                 for (var i = 0; i < bufferList.length; i++)
@@ -209,8 +191,6 @@ module AssetManager
                     sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
                     numAssetsLoaded++;
                 }
-
-                callback();
             });
             bufferLoader.load();
 
@@ -218,8 +198,20 @@ module AssetManager
          catch (e)
         {
             console.log('Web Audio API is not supported in this browser');
-            numAssetsFailedToLoad =  sources.length;
-            callback();
+
+            for (var src in sources)
+            {
+                var name = sources[src].match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "")
+
+                // If IE use mp3 instead 
+                if ($.browser.msie)
+                {
+                    sources[src] = sources[src].replace(".wav", ".mp3");
+                    sources[src] = sources[src].replace(".WAV", ".mp3");
+                }
+
+                sounds[name] = new SoundFallback(sources[src]);
+            }
         }
     }
 
