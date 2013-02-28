@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     background: #fff;
-    
 }
 
 
@@ -20,23 +19,36 @@
 }
 
 
+#action{
+
+    background: #242a4a; /* Old browsers */
+    background: -moz-linear-gradient(top,  #242a4a 0%, #201610 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#242a4a), color-stop(100%,#201610)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #242a4a 0%,#201610 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #242a4a 0%,#201610 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #242a4a 0%,#201610 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#242a4a', endColorstr='#201610',GradientType=0 ); /* IE6-9 */
+
+}
 
 
 
-    #splashScreen #loadIcon {
-        width: 160px;
-        height: 160px;
-        background: url(http://www.ciaranmccann.me/college/fyp/data/images/cdrom.png);
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -80px;
-        margin-top: -80px;
-        -webkit-animation: wink 2.8s steps(25, end);
-        -moz-animation: wink 2.8s steps(25, end);
-        -o-animation: wink 2.8s steps(25, end);
-        animation: wink 2.8s steps(25, end);
-    }
+
+#splashScreen #loadIcon {
+    width: 160px;
+    height: 160px;
+    background: url(http://www.ciaranmccann.me/college/fyp/data/images/cdrom.png);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -80px;
+    margin-top: -80px;
+    -webkit-animation: wink 2.8s steps(25, end);
+    -moz-animation: wink 2.8s steps(25, end);
+    -o-animation: wink 2.8s steps(25, end);
+    animation: wink 2.8s steps(25, end);
+}
 
 
 @-webkit-keyframes wink {
@@ -78,14 +90,13 @@
     width: 600px;
     height: 450px;
     z-index: 1;
-    cursor:  default;
+    cursor: default;
 }
 
 
 .btn-large {
     margin-left: 10px;
     margin-right: 10px;
-
 }
 
 .thumbnails {
@@ -102,21 +113,21 @@
     margin-top: -500px;
     z-index: 1;
     background: black;
-     border: 1px white solid;
+    border: 1px white solid;
     padding: 10px;
     padding-left: 2px;
     padding-right: 2px;
-     border-radius: 3px;
-     cursor:  default;
+    border-radius: 3px;
+    cursor: default;
 }
 
     #weaponsMenu .thumbnail:active {
-        transform: scale(0.7,0.7);
         -ms-transform: scale(0.7,0.7); /* IE 9 */
         -webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
         -o-transform: scale(0.7,0.7); /* Opera */
-        -moz-transform: scale(0.7,0.7); /* Firefox */
-        cursor:  default;
+        -moz-transform: scale(0.7,0.7);
+        transform: scale(0.7,0.7); /* Firefox */
+        cursor: default;
     }
 
     #weaponsMenu .noAmmo {
@@ -162,7 +173,6 @@ a.thumbnail.ammo {
     -webkit-box-pack: center;
     -webkit-box-align: center;
     border-radius: 3px;
-   
 }
 
 kbd {
@@ -208,9 +218,7 @@ kbd {
     }
 
 
-    .modal-body h1{
-
+.modal-body h1 {
     font-size: 18.5px;
     line-height: normal;
-
-    }
+}
