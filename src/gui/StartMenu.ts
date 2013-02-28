@@ -114,6 +114,10 @@ class StartMenu
                     if (AssetManager.isReady())
                     {
                         AssetManager.sounds["CursorSelect"].play();
+
+                        //Initalizse the tutorial object so its used in the game
+                        GameInstance.tutorial = new Tutorial();
+
                         _this.controlsMenu(callback);
                     }
                 });

@@ -70,6 +70,8 @@ class Game
     //Using in dev mode to collect spawn positions
     spawns;
 
+    tutorial: Tutorial;
+
     constructor()
     {
         Graphics.init();
@@ -179,6 +181,7 @@ class Game
         }
 
         this.nextTurn();
+
     }
 
     // This method allows for quick use of the instruction chain
@@ -244,6 +247,9 @@ class Game
                 }
             }
 
+            if(this.tutorial != null)
+            this.tutorial.update();
+
             for (var i = this.players.length - 1; i >= 0; --i)
             {
                 this.players[i].update();
@@ -255,7 +261,6 @@ class Game
             this.miscellaneousEffects.update();
             this.enviormentEffects.update();
             this.gameTimer.update();
-
 
         }
 

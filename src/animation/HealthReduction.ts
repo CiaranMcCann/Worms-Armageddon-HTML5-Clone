@@ -49,8 +49,6 @@ class ToostMessage
     preRenderMessageBox()
     {
         var nameBoxWidth = this.message.length * 10;
-        var healthBoxWidth = 39;
-        var healthBoxHeight = 18
         return Graphics.preRenderer.render(function (ctx) =>
         {
 
