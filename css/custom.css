@@ -173,6 +173,7 @@ a.thumbnail.ammo {
     -webkit-box-pack: center;
     -webkit-box-align: center;
     border-radius: 3px;
+    z-index:1;
 }
 
 kbd {

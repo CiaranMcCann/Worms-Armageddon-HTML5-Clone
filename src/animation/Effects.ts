@@ -16,7 +16,15 @@
 module Effects
 {
 
-    export function explosion(epicenter,explosionRadius,effectedRadius,explosiveForce, maxDamage, entityThatCausedExplosion = null)
+    export function explosion(epicenter,
+        explosionRadius,
+        effectedRadius,
+        explosiveForce, 
+        maxDamage, 
+        entityThatCausedExplosion = null,
+        soundEffectToPlay = AssetManager.getSound("explosion" + Utilies.random(1, 3)),
+        particleEffectType = ParticleEffect,
+       )
     {
         var posX = Physics.metersToPixels(Math.floor(epicenter.x));
         var posY = Physics.metersToPixels(Math.floor(epicenter.y));
@@ -58,20 +66,14 @@ module Effects
                     }
                        
                     fixture.GetBody().ApplyImpulse(forceVec, fixture.GetBody().GetPosition());
-                    
 
-                    
-                    
                 }
             }
          );
-        var particleAnimation = new ParticleEffect(posX, posY);
+        var particleAnimation = new particleEffectType(posX, posY);
         GameInstance.particleEffectMgmt.add(particleAnimation);
-        AssetManager.getSound("explosion" + Utilies.random(1, 3)).play();
+        soundEffectToPlay.play();
         
-       
-        
-
         return particleAnimation; 
     }
 

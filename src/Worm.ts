@@ -62,7 +62,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
-        this.health = 10;
+        this.health = 100;
         this.damageTake = 0;
         this.team = team;
 

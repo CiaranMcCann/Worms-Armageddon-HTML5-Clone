@@ -331,22 +331,14 @@ module Sprites
 
         },
 
+         shotgunFirePump: {
+            imageName: "wshotg",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 60,
+
+        },
         
-        shotgunFireAnimation2: {
-            imageName: "wshotfd",
-            frameY: 0,
-            frameCount: 32,
-            msPerFrame: 60,
-
-        },
-
-        shotgunFireAnimation3: {
-            imageName: "wshotfu",
-            frameY: 0,
-            frameCount: 32,
-            msPerFrame: 60,
-
-        },
 
 
 

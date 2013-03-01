@@ -23,7 +23,7 @@ class RayWeapon extends BaseWeapon
     fireAnimationIndex: number;
     animationSheetChangeTimer: Timer;
 
-    constructor (name, ammo, iconSpriteDef, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition, fireAnimations: SpriteDefinition[])
+    constructor(name, ammo, iconSpriteDef, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition, fireAnimations: SpriteDefinition[])
     {
         super(
             name,
@@ -44,23 +44,20 @@ class RayWeapon extends BaseWeapon
         //Health removed from worm when shot hits
         this.damgeToWorm = 10;
 
-        this.animationSheetChangeTimer = new Timer(100);
-        
+        this.animationSheetChangeTimer = new Timer(300);
+
     }
 
-    activate(worm : Worm)
+    activate(worm: Worm)
     {
-        super.activate(worm);
-        var hitPiont = Physics.shotRay(worm.body.GetPosition(), worm.target.getTargetDirection().Copy());
-
-        if (hitPiont)
+        if (this.getIsActive() == false)
         {
-            Effects.explosion(hitPiont, this.damageToTerrainRadius, 3, 2, this.damgeToWorm, worm);
+            super.activate(worm);
+
+            this.animationSheetChangeTimer.reset();
+            this.fireAnimationIndex = 0;
+            AssetManager.getSound("SHOTGUNRELOAD").play(1, 0.3);
         }
-
-        this.animationSheetChangeTimer.reset();
-        this.fireAnimationIndex = 0;
-
     }
 
     update()
@@ -82,15 +79,29 @@ class RayWeapon extends BaseWeapon
                 this.fireAnimationIndex++;
             }
 
+
+
             if (this.fireAnimationIndex >= this.fireAnimations.length)
             {
+                var hitPiont = Physics.shotRay(this.worm.body.GetPosition(), this.worm.target.getTargetDirection().Copy());
+                if (hitPiont)
+                {
+                    Effects.explosion(hitPiont,
+                        this.damageToTerrainRadius,
+                        3,
+                        2,
+                        this.damgeToWorm,
+                        this.worm,
+                        AssetManager.getSound("ShotGunFire"));
+                }
                 this.animationSheetChangeTimer.pause();
+                this.fireAnimationIndex = 0;
             }
         }
     }
 
 
-    
+
 }
 
 class Shotgun extends RayWeapon
@@ -103,7 +114,7 @@ class Shotgun extends RayWeapon
             Sprites.weaponIcons.shotgun,
             Sprites.worms.shotgunTakeOut,
             Sprites.worms.aimingShotgun,
-            [Sprites.worms.shotgunFireAnimation1,Sprites.worms.shotgunFireAnimation2,Sprites.worms.shotgunFireAnimation3]
+            [Sprites.worms.shotgunFirePump, Sprites.worms.aimingShotgun, Sprites.worms.shotgunFireAnimation1]
        )
     }
 

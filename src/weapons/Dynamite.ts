@@ -62,3 +62,4 @@ class Dynamite extends ThrowableWeapon
     }
 
 }
+
