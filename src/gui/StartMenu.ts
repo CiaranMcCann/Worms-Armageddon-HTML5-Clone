@@ -17,13 +17,10 @@ class StartMenu
 {
     controlsView;
     settingsMenu: SettingsMenu;
-    menuActive;
     static callback;
 
     constructor()
     {
-        this.menuActive = !Settings.DEVELOPMENT_MODE;
-
         //TODO gamepad controls
         //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
         this.controlsView = '<div style="text-align:center">' +
@@ -51,7 +48,7 @@ class StartMenu
 
         var _this = this;
         StartMenu.callback = callback;
-        if (this.menuActive)
+        if (!Settings.DEVELOPMENT_MODE)
         {
             var loading = setInterval(function () =>
             {
@@ -82,7 +79,7 @@ class StartMenu
                     '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
                 }
 
-            }, 1000);
+            }, 500);
 
 
             $('#startLocal').click(function =>
@@ -136,8 +133,15 @@ class StartMenu
 
         } else
         {
-            $('#splashScreen').remove();
-            callback();
+            //Development Mode - Just make sure all assets are loaded first
+            var loading = setInterval(function () =>
+            {   
+                if (AssetManager.getPerAssetsLoaded() == 100)
+                {
+                    clearInterval(loading);
+                    callback();               
+                }
+            },2)
         }
     }
 
