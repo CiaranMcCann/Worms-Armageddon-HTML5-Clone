@@ -99,9 +99,16 @@
     margin-right: 10px;
 }
 
+
+.thumbnail{
+
+     padding: 12px;
+}
+
 .thumbnails {
     margin-left: auto;
     list-style: none;
+   
 }
 
 #weaponsMenu {
@@ -150,7 +157,7 @@ a.thumbnail.ammo {
 
 .ammoCount {
     position: absolute;
-    font-size: 10.5px;
+    font-size: 11.5px;
     margin-left: 26px;
     margin-top: -7px;
     font-weight: bold;

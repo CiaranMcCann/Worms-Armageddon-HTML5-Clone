@@ -31,14 +31,16 @@ class WeaponManager
     {
         this.weaponsAndTools = 
         [
-            new Drill(),
+            new Shotgun(), 
+            new Minigun(),   
             new HandGrenade(),
-            new JetPack(),           
-            new NinjaRope(),
             new HolyGrenade(),
             new Dynamite(),
-            new Shotgun(),      
-            new Minigun(),             
+            new JetPack(),           
+            new NinjaRope(),
+            new Drill(),
+               
+                       
         ];
 
         this.currentWeaponIndex = 1;
