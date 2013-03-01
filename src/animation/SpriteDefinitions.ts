@@ -193,7 +193,7 @@ module Sprites
 
         takeOutDynamite: {
 
-            imageName: "wdynlnkd",
+            imageName: "wdynlnk",
             frameY: 0,
             frameCount: 10,
             msPerFrame: 50,
@@ -273,7 +273,7 @@ module Sprites
 
         aimGernade: {
 
-            imageName: "wthrgrnu",
+            imageName: "wthrgrn",
             frameY: 30 / 2,
             frameCount: 32,
             msPerFrame: 100,
@@ -291,7 +291,7 @@ module Sprites
 
         defualtJetPack: {
 
-            imageName: "wjetbaku",
+            imageName: "wjetbak",
             frameY: 0,
             frameCount: 10,
             msPerFrame: 50,
@@ -496,6 +496,39 @@ module Sprites
             frameY: 0,
             frameCount: 20,
             msPerFrame: 20,
+
+        },
+
+         hexhaust: {
+            imageName: "hexhaust",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+
+        
+        exhaust: {
+            imageName: "exhaust",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+
+        shotcase: {
+            imageName: "shotcase",
+            frameY: 0,
+            frameCount: 16,
+            msPerFrame: 60,
+
+        },
+
+        shothit: {
+            imageName: "shothit",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
 
         },
 

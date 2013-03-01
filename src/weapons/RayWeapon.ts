@@ -19,11 +19,8 @@ class RayWeapon extends BaseWeapon
 {
     damageToTerrainRadius: number;
     damgeToWorm: number;
-    fireAnimations: SpriteDefinition[];
-    fireAnimationIndex: number;
-    animationSheetChangeTimer: Timer;
 
-    constructor(name, ammo, iconSpriteDef, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition, fireAnimations: SpriteDefinition[])
+    constructor(name, ammo, iconSpriteDef, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
         super(
             name,
@@ -33,9 +30,36 @@ class RayWeapon extends BaseWeapon
           takeAimAnimation
         );
 
+        //Amount of the terrain to cut out
+        this.damageToTerrainRadius = 30; //px
+
+        //Health removed from worm when shot hits
+        this.damgeToWorm = 10;
+    }
+
+
+}
+
+
+class Shotgun extends RayWeapon
+{
+    fireAnimations: SpriteDefinition[];
+    fireAnimationIndex: number;
+    animationSheetChangeTimer: Timer;
+
+    constructor()
+    {
+        super(
+            "Shotgun",
+            10,
+            Sprites.weaponIcons.shotgun,
+            Sprites.worms.shotgunTakeOut,
+            Sprites.worms.aimingShotgun  
+       )
+
         //Collection of three sprite sheets which
         // we will switch between to create the fire animation
-        this.fireAnimations = fireAnimations;
+        this.fireAnimations = [Sprites.worms.shotgunFirePump, Sprites.worms.aimingShotgun, Sprites.worms.shotgunFireAnimation1];
         this.fireAnimationIndex = 0;
 
         //Amount of the terrain to cut out
@@ -80,7 +104,6 @@ class RayWeapon extends BaseWeapon
             }
 
 
-
             if (this.fireAnimationIndex >= this.fireAnimations.length)
             {
                 var hitPiont = Physics.shotRay(this.worm.body.GetPosition(), this.worm.target.getTargetDirection().Copy());
@@ -96,6 +119,17 @@ class RayWeapon extends BaseWeapon
                 }
                 this.animationSheetChangeTimer.pause();
                 this.fireAnimationIndex = 0;
+
+                setTimeout(function () => {
+                    this.setIsActive(false);
+                    //Current frame gets reset when a new spritedef is set.
+                    var currentFrame = this.worm.getCurrentFrame();
+                    this.worm.setSpriteDef( Sprites.worms.aimingShotgun);
+                    this.worm.setCurrentFrame(currentFrame);
+                    this.worm.finished = true; //So the sprite doesn't animate
+                },400);
+                
+
             }
         }
     }
@@ -104,18 +138,3 @@ class RayWeapon extends BaseWeapon
 
 }
 
-class Shotgun extends RayWeapon
-{
-    constructor()
-    {
-        super(
-            "Shotgun",
-            10,
-            Sprites.weaponIcons.shotgun,
-            Sprites.worms.shotgunTakeOut,
-            Sprites.worms.aimingShotgun,
-            [Sprites.worms.shotgunFirePump, Sprites.worms.aimingShotgun, Sprites.worms.shotgunFireAnimation1]
-       )
-    }
-
-}

@@ -479,8 +479,8 @@ class Worm extends Sprite
         }
 
         super.draw(ctx,
-            -radius,
-            -radius * 2.5);
+            -this.getFrameWidth()/2,
+            -this.getFrameHeight()/1.5);
 
         ctx.restore()
 
