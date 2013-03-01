@@ -441,6 +441,10 @@
     <Content Include="src\weapons\JetPack.min.js">
       <DependentUpon>JetPack.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\weapons\Minigun.ts" />
+    <Content Include="src\weapons\Minigun.js">
+      <DependentUpon>Minigun.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\NinjaRope.js">
       <DependentUpon>NinjaRope.ts</DependentUpon>
     </Content>
@@ -454,6 +458,13 @@
     </Content>
     <Content Include="src\weapons\RayWeapon.min.js">
       <DependentUpon>RayWeapon.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\Shotgun.ts" />
+    <Content Include="src\weapons\Shotgun.js">
+      <DependentUpon>Shotgun.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Shotgun.min.js">
+      <DependentUpon>Shotgun.ts</DependentUpon>
     </Content>
     <Content Include="src\WormAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>

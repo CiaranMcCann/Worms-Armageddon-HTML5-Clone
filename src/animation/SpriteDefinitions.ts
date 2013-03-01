@@ -32,9 +32,8 @@ module Sprites
         dynamite: { imageName: "icondynamite" },
         ninjaRope: { imageName: "iconrope" },
         jetPack: { imageName: "iconjetpack" },
-        shotgun: { imageName: "iconshotgun" }
-
-
+        shotgun: { imageName: "iconshotgun" },
+        minigun: { imageName: "iconminigun" }
 
     };
 
@@ -339,8 +338,22 @@ module Sprites
 
         },
         
+        
+        minigunAim: {
+            imageName: "wmini",
+            frameY: 32/2,
+            frameCount: 32,
+            msPerFrame: 60,
 
+        },
 
+        minigunFire: {
+            imageName: "wminif",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 60,
+
+        },
 
         minigunTakeOut: {
             imageName: "wmgnlnk",
