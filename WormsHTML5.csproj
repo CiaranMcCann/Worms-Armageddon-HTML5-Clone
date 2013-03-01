@@ -448,6 +448,13 @@
     <Content Include="src\weapons\NinjaRope.min.js">
       <DependentUpon>NinjaRope.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\weapons\RayWeapon.ts" />
+    <Content Include="src\weapons\RayWeapon.js">
+      <DependentUpon>RayWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\RayWeapon.min.js">
+      <DependentUpon>RayWeapon.ts</DependentUpon>
+    </Content>
     <Content Include="src\WormAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>

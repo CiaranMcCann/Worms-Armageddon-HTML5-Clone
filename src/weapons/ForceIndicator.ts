@@ -78,7 +78,6 @@ class ForceIndicator
     {
         if (this.isRequired())
         {
-            console.log("force " + this.forcePercentage);
             AssetManager.getSound("THROWPOWERUP").play();
             this.forcePercentage += rate;
             this.sprite.setCurrentFrame(this.sprite.getCurrentFrame() + 0.4);

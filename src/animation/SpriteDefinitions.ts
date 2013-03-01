@@ -31,7 +31,8 @@ module Sprites
         drill: { imageName: "drill" },
         dynamite: { imageName: "icondynamite" },
         ninjaRope: { imageName: "iconrope" },
-        jetPack: { imageName: "iconjetpack" }
+        jetPack: { imageName: "iconjetpack" },
+        shotgun: { imageName: "iconshotgun" }
 
 
 
@@ -109,6 +110,7 @@ module Sprites
             msPerFrame: 10,
 
         }
+
 
     }
 
@@ -299,11 +301,71 @@ module Sprites
         aimingShotgun: {
 
             imageName: "wshotp",
-            frameY: 0,
+            frameY: 32/2,
             frameCount: 32,
             msPerFrame: 50,
 
+        },
+
+        shotgunTakeOut: {
+            imageName: "wshglnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+        
+        shotgunPutAway: {
+            imageName: "wshgbak",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+
+        shotgunFireAnimation1: {
+            imageName: "wshotf",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 60,
+
+        },
+
+        
+        shotgunFireAnimation2: {
+            imageName: "wshotfd",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 60,
+
+        },
+
+        shotgunFireAnimation3: {
+            imageName: "wshotfu",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 60,
+
+        },
+
+
+
+        minigunTakeOut: {
+            imageName: "wmgnlnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+
+         minigunPutAway: {
+            imageName: "wmgnbak",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
         }
+
 
 
 

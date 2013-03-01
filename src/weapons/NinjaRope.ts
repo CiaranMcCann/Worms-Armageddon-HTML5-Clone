@@ -35,7 +35,6 @@ class NinjaRope extends BaseWeapon
         this.ropeJoints = [];
         this.ropeNots = [];
         this.lastRopeDef;
-
     }
 
     update()

@@ -177,7 +177,7 @@ module Physics
         }
     }
 
-    export function shotRay(p1, p2, )
+    export function shotRay(startPiontInMeters, endPiontInMeters)
     {
         var input = new b2RayCastInput();
         var output = new b2RayCastOutput();
@@ -185,11 +185,11 @@ module Physics
         var normalEnd = new b2Vec2();
         var intersectionNormal = new b2Vec2();
 
-        p2.Multiply(30);
-        p2.Add(p1);
+        endPiontInMeters.Multiply(30);
+        endPiontInMeters.Add(startPiontInMeters);
 
-        input.p1 = p1;
-        input.p2 = p2;
+        input.p1 = startPiontInMeters;
+        input.p2 = endPiontInMeters;
         input.maxFraction = 1;
         var closestFraction = 1;
         var bodyFound = false;
@@ -207,7 +207,7 @@ module Physics
                         //Fixes bug where I was getting extremely small e numbers
                         // in the lower sections of the physics world. It was causing the
                         // ray to shot only a small disntance from the orign of it.
-                        if (output.fraction > 0.1)
+                        if (output.fraction > 0.001)
                         {
                             closestFraction = output.fraction;
                             intersectionNormal = output.normal;
@@ -217,8 +217,8 @@ module Physics
             }
 
         }
-        intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
-        intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
+        intersectionPoint.x = startPiontInMeters.x + closestFraction * (endPiontInMeters.x - startPiontInMeters.x);
+        intersectionPoint.y = startPiontInMeters.y + closestFraction * (endPiontInMeters.y - startPiontInMeters.y);
 
         if (bodyFound)
         {

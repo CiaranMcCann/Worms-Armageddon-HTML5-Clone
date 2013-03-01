@@ -17,6 +17,7 @@
 ///<reference path="../weapons/Dynamite.ts"/>
 ///<reference path="../weapons/NinjaRope.ts"/>
 ///<reference path="../weapons/JetPack.ts"/>
+///<reference path="../weapons/RayWeapon.ts"/>
 
 class WeaponManager
 {
@@ -33,7 +34,8 @@ class WeaponManager
             new JetPack(),           
             new NinjaRope(),
             new HolyGrenade(),
-            new Dynamite()                  
+            new Dynamite(),
+            new Shotgun(),                 
         ];
 
         this.currentWeaponIndex = 1;
