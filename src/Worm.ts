@@ -438,8 +438,14 @@ class Worm extends Sprite
 
             // Once the sprite animation has reached the end, then change the framIncremter so it goes
             // back down though the sprites again and then back up etc.
-            if (this.getCurrentFrame() == this.getTotalFrames() - 1 || this.getCurrentFrame() == 0)
+            if (this.getCurrentFrame() >= this.getTotalFrames() - 1)
             {
+                this.setCurrentFrame(this.getTotalFrames());
+                this.frameIncremeter *= -1;
+
+            } else if (this.getCurrentFrame() <= 0)
+                {
+                this.setCurrentFrame(0);
                 this.frameIncremeter *= -1;
             }
 
@@ -457,8 +463,8 @@ class Worm extends Sprite
 
         if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
-           if (this.isDead == false)
-            this.target.draw(ctx);
+            if (this.isDead == false)
+                this.target.draw(ctx);
         }
 
         ctx.save()
@@ -479,8 +485,8 @@ class Worm extends Sprite
         }
 
         super.draw(ctx,
-            -this.getFrameWidth()/2,
-            -this.getFrameHeight()/1.5);
+            -this.getFrameWidth() / 2,
+            -this.getFrameHeight() / 1.5);
 
         ctx.restore()
 

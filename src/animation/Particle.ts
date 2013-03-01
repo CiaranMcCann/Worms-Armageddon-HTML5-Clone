@@ -45,10 +45,17 @@ class Cloud extends PhysicsSprite
     {
         // Once the sprite animation has reached the end, then change the framIncremter so it goes
         // back down though the sprites again and then back up etc.
-        if (this.getCurrentFrame() == this.getTotalFrames()-1 || this.getCurrentFrame() == 0)
+        if (this.getCurrentFrame() >= this.getTotalFrames()-1)
         {
+            this.setCurrentFrame(this.getTotalFrames());
+            this.frameIncremeter *= -1;
+
+        } else if (this.getCurrentFrame() <= 0)
+        {
+            this.setCurrentFrame(0);
             this.frameIncremeter *= -1;
         }
+
         super.update(); 
 
         this.position.x += this.velocity.x
