@@ -17,6 +17,8 @@
 
 class Minigun extends RayWeapon
 {
+    fireRate: Timer;
+
     constructor()
     {
         super(
@@ -33,6 +35,8 @@ class Minigun extends RayWeapon
 
         //Health removed from worm when shot hits
         this.damgeToWorm = 10;
+
+        this.fireRate = new Timer(300);
     }
 
 
@@ -40,6 +44,39 @@ class Minigun extends RayWeapon
     {
         super.activate(worm);
         this.swapSpriteSheet(Sprites.worms.minigunFire);
+
+        setTimeout(function () => {
+                this.setIsActive(false);
+                this.swapSpriteSheet(this.takeAimAnimations);
+        }, 1000);
+        AssetManager.getSound("MiniGunFire").play();
+    }
+
+    update()
+    {
+
+        if (super.update())
+        {
+            this.fireRate.update();       
+
+            if (this.fireRate.hasTimePeriodPassed())
+            {
+                
+                var hitPiont = Physics.shotRay(this.worm.body.GetPosition(), this.worm.target.getTargetDirection().Copy());
+                if (hitPiont)
+                {
+                    Effects.explosion(hitPiont,
+                        this.damageToTerrainRadius,
+                        2,
+                        2,
+                        this.damgeToWorm,
+                        this.worm,
+                       null);
+                }
+            }
+          
+
+        }
 
     }
 

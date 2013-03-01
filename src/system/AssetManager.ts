@@ -66,8 +66,8 @@ module AssetManager
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWPOWERUP.wav",
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWRELEASE.wav",
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/SHOTGUNRELOAD.wav",
-        Settings.REMOTE_ASSERT_SERVER + "data/sounds/ShotGunFire.wav"
-
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/ShotGunFire.wav",
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/MiniGunFire.wav",
     ];
 
     export var images = [];

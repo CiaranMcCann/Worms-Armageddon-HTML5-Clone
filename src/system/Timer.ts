@@ -13,6 +13,7 @@ class Timer
     delta;
     timePeriod;
     isTimerPaused;
+    accumulatedTime: number;
 
     constructor (timePeriod)
     {
@@ -20,6 +21,7 @@ class Timer
         this.timePeriod = timePeriod;
         this.timeSinceLastUpdate = this.getTimeNow();
         this.isTimerPaused = false;
+        this.accumulatedTime = 0;
     }
 
     pause()
@@ -46,6 +48,12 @@ class Timer
         this.delta = 0;
         this.timeSinceLastUpdate = this.getTimeNow();
         this.isTimerPaused = false;
+        this.accumulatedTime = 0;
+    }
+
+    getAccumulatedTime()
+    {
+        return this.accumulatedTime;
     }
 
     getTimeLeft()
@@ -69,6 +77,8 @@ class Timer
         {
             this.delta += this.getTimeNow() - this.timeSinceLastUpdate;
             this.timeSinceLastUpdate = this.getTimeNow();
+            this.accumulatedTime += this.delta;
+
         }
     }
 }

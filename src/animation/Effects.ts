@@ -72,10 +72,15 @@ module Effects
          );
         var particleAnimation = new particleEffectType(posX, posY);
         GameInstance.particleEffectMgmt.add(particleAnimation);
+
+        if(soundEffectToPlay != null)
         soundEffectToPlay.play();
         
         return particleAnimation; 
     }
+
+
+
 
 
 }

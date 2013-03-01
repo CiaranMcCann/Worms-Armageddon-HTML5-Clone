@@ -84,6 +84,10 @@ class Shotgun extends RayWeapon
                         this.damgeToWorm,
                         this.worm,
                         AssetManager.getSound("ShotGunFire"));
+                } else
+                {
+                    //Even if we miss the shot make a sound
+                    AssetManager.getSound("ShotGunFire").play();
                 }
                 this.animationSheetChangeTimer.pause();
                 this.fireAnimationIndex = 0;
