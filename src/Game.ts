@@ -82,10 +82,21 @@ class Game
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
 
-        //Set canvas font stuff
-        this.actionCanvasContext.font = 'bold 16px Sans-Serif';
-        this.actionCanvasContext.textAlign = 'center';
-        this.actionCanvasContext.fillStyle = "#384084"; // Water
+        function setupCanvas() =>
+        {
+            //Set canvas font stuff
+            this.actionCanvas.width = window.innerWidth;
+            this.actionCanvasContext.height = window.innerHeight;
+            this.actionCanvasContext.font = 'bold 16px Sans-Serif';
+            this.actionCanvasContext.textAlign = 'center';
+            this.actionCanvasContext.fillStyle = "#384084"; // Water
+        };
+        setupCanvas();
+
+        //If the window gets resize, resize the canvas
+        $(window).resize(function () => {
+            setupCanvas();            
+        });
 
         Physics.init(this.actionCanvasContext);
 

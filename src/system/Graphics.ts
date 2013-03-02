@@ -8,6 +8,7 @@
  *  url: http://www.ciaranmccann.me/
  */
 declare var Stats;
+declare var $;
 
 class PreRenderer
 {
@@ -127,11 +128,6 @@ module Graphics
             return false;
         });
 
-        window.onresize = function () => {
-            //TODO somthing about this
-            // canvas.width = window.innerWidth;
-            // canvas.height = window.innerHeight;
-        };
 
         return canvas;
 
