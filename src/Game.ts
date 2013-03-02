@@ -82,20 +82,11 @@ class Game
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
 
-        function setupCanvas() =>
-        {
-            //Set canvas font stuff
-            this.actionCanvas.width = window.innerWidth;
-            this.actionCanvasContext.height = window.innerHeight;
-            this.actionCanvasContext.font = 'bold 16px Sans-Serif';
-            this.actionCanvasContext.textAlign = 'center';
-            this.actionCanvasContext.fillStyle = "#384084"; // Water
-        };
-        setupCanvas();
+        this.setupCanvas();
 
         //If the window gets resize, resize the canvas
         $(window).resize(function () => {
-            setupCanvas();            
+            this.setupCanvas();
         });
 
         Physics.init(this.actionCanvasContext);
@@ -126,15 +117,65 @@ class Game
         return new GameDataPacket(this);
     }
 
-    setGameNetData(data) 
+    setGameNetData(data)
     {
         var gameDataPacket: GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
         gameDataPacket.override(this);
     }
 
+    setupCanvas()
+    {
+        //Set canvas font stuff
+        this.actionCanvas.width = $(window).width();
+        this.actionCanvas.height = $(window).height();
+        this.actionCanvasContext.font = 'bold 16px Sans-Serif';
+        this.actionCanvasContext.textAlign = 'center';
+        this.actionCanvasContext.fillStyle = "#384084"; // Water
+    };
+
+    goFullScreen()
+    {
+
+        var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) ||    // alternative standard method  
+                (document.mozFullScreen || document.webkitIsFullScreen);
+
+        var docElm = document.documentElement;
+        if (!isInFullScreen)
+        {
+
+            if (docElm.requestFullscreen)
+            {
+                docElm.requestFullscreen();
+            }
+            else if (docElm.mozRequestFullScreen)
+            {
+                docElm.mozRequestFullScreen();
+
+            }
+            else if (docElm.webkitRequestFullScreen)
+            {
+                docElm.webkitRequestFullScreen();
+            }
+
+            document.addEventListener("fullscreenchange", function () => {
+                this.setupCanvas();
+            }, false);
+ 
+            document.addEventListener("mozfullscreenchange", function () => {
+               this.setupCanvas();
+            }, false);
+ 
+            document.addEventListener("webkitfullscreenchange", function () => {
+                this.setupCanvas();
+            }, false);
+            
+
+        }
+    }
+
     start(playerIds = null)
     {
-        this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(),  Physics.world, Physics.worldScale);
+        this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(), Physics.world, Physics.worldScale);
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
 
         if (this.gameType == Game.types.LOCAL_GAME)
@@ -186,12 +227,14 @@ class Game
 
         if (this.gameType == Game.types.ONLINE_GAME)
         {
-            StartMenu.callback(); 
+            StartMenu.callback();
         }
 
         //Diable certain keys
-        $(document).keydown(function(e) {
-            if(e.keyCode == keyboard.keyCodes.Backspace) {
+        $(document).keydown(function (e)
+        {
+            if (e.keyCode == keyboard.keyCodes.Backspace)
+            {
                 e.preventDefault();
             }
         });
@@ -229,7 +272,7 @@ class Game
 
         GameInstance.particleEffectMgmt.add(new ToostMessage(
             pos,
-            message, 
+            message,
            this.state.getCurrentPlayer().getTeam().color)
          );
 
@@ -263,8 +306,8 @@ class Game
                 }
             }
 
-            if(this.tutorial != null)
-            this.tutorial.update();
+            if (this.tutorial != null)
+                this.tutorial.update();
 
             for (var i = this.players.length - 1; i >= 0; --i)
             {
@@ -295,7 +338,7 @@ class Game
             //While there is physics objects to sync do so
             if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
             {
-               Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
+                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
             }
         }
         //Physics.world.ClearForces();
@@ -303,12 +346,12 @@ class Game
 
     draw()
     {
-       this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
 
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
         this.enviormentEffects.draw(this.actionCanvasContext);
-        this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height,this.terrain.getWidth());
+        this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height, this.terrain.getWidth());
         this.actionCanvasContext.restore();
 
         this.terrain.draw(this.actionCanvasContext);
@@ -316,7 +359,7 @@ class Game
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-        this.terrain.wave.draw(this.actionCanvasContext,this.camera.getX(),this.terrain.bufferCanvas.height,this.terrain.getWidth());
+        this.terrain.wave.draw(this.actionCanvasContext, this.camera.getX(), this.terrain.bufferCanvas.height, this.terrain.getWidth());
 
         if (Settings.PHYSICS_DEBUG_MODE)
         {
@@ -330,7 +373,7 @@ class Game
 
         this.miscellaneousEffects.draw(this.actionCanvasContext);
         this.particleEffectMgmt.draw(this.actionCanvasContext);
-        
+
 
         this.actionCanvasContext.restore();
 
