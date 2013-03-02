@@ -4,16 +4,20 @@
 class Dynamite extends ThrowableWeapon
 {
 
-    constructor ()
+    constructor (ammo)
     {
+        //Modify the takeout animation, to be used as its idel animation or aiming animations
+        // though you don't aim dynamaie. It just happens to be easy subclass of Throwable
+        var modifedSpriteDef = Utilies.copy( new Object(), Sprites.worms.takeOutDynamite);
+        modifedSpriteDef.frameY = modifedSpriteDef.frameCount-1;
 
         super(
             "Dynamite", // Weapon name
-            5, // ammo
+            ammo,
             Sprites.weaponIcons.dynamite, //Icon for menu
             Sprites.weapons.dynamite, //Inital weapon object state
             Sprites.worms.takeOutDynamite,
-            Sprites.worms.takeOutDynamite
+            modifedSpriteDef
         );
 
         this.explosionRadius = 100;

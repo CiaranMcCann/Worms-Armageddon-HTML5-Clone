@@ -43,13 +43,4 @@ class RayWeapon extends BaseWeapon
         return (this.ammo != 0) && this.getIsActive();
     }
 
-    //Changes sprite sheet but stops the currentframe from resetting
-    swapSpriteSheet(spriteSheet: SpriteDefinition)
-    {
-        var currentFrame = this.worm.getCurrentFrame();
-        this.worm.setSpriteDef(spriteSheet);
-        this.worm.setCurrentFrame(currentFrame);
-        this.worm.finished = true; //So the sprite doesn't animate
-    }
-
 }

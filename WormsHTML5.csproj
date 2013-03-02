@@ -442,6 +442,13 @@
       <DependentUpon>JetPack.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\Minigun.ts" />
+    <TypeScriptCompile Include="src\weapons\LandMine.ts" />
+    <Content Include="src\weapons\LandMine.js">
+      <DependentUpon>LandMine.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\LandMine.min.js">
+      <DependentUpon>LandMine.ts</DependentUpon>
+    </Content>
     <Content Include="src\weapons\Minigun.js">
       <DependentUpon>Minigun.ts</DependentUpon>
     </Content>

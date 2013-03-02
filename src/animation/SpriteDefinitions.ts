@@ -33,7 +33,8 @@ module Sprites
         ninjaRope: { imageName: "iconrope" },
         jetPack: { imageName: "iconjetpack" },
         shotgun: { imageName: "iconshotgun" },
-        minigun: { imageName: "iconminigun" }
+        minigun: { imageName: "iconminigun" },
+        landMine: { imageName: "iconmine" }
 
     };
 
@@ -84,6 +85,25 @@ module Sprites
             msPerFrame: 50,
 
         },
+
+        mineOn: {
+
+            imageName: "mineon",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 50,
+
+        },
+
+         mineOff: {
+
+            imageName: "mineoff",
+            frameY: 0,
+            frameCount: 32,
+            msPerFrame: 50,
+
+        },
+
         //TODO Move aiming things to misulaous 
         redTarget: {
             imageName: "crshairr",
@@ -365,6 +385,14 @@ module Sprites
 
          minigunPutAway: {
             imageName: "wmgnbak",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+
+        takeOutLandMine: {
+            imageName: "wminlnk",
             frameY: 0,
             frameCount: 10,
             msPerFrame: 60,

@@ -188,4 +188,13 @@ class Sprite
 
     }
 
+    //Changes sprite sheet but stops the currentframe from resetting
+    swapSpriteSheet(spriteSheet: SpriteDefinition)
+    {
+        var currentFrame = this.getCurrentFrame();
+        this.setSpriteDef(spriteSheet);
+        this.setCurrentFrame(currentFrame);
+        this.finished = true; //So the sprite doesn't animate
+    }
+
 }

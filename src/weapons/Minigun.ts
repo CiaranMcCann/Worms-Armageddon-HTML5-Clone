@@ -43,11 +43,11 @@ class Minigun extends RayWeapon
     activate(worm: Worm)
     {
         super.activate(worm);
-        this.swapSpriteSheet(Sprites.worms.minigunFire);
+        this.worm.swapSpriteSheet(Sprites.worms.minigunFire);
 
         setTimeout(function () => {
                 this.setIsActive(false);
-                this.swapSpriteSheet(this.takeAimAnimations);
+                this.worm.swapSpriteSheet(this.takeAimAnimations);
         }, 1000);
         AssetManager.getSound("MiniGunFire").play();
     }

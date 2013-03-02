@@ -20,6 +20,7 @@
 ///<reference path="../weapons/RayWeapon.ts"/>
 ///<reference path="../weapons/Shotgun.ts"/>
 ///<reference path="../weapons/Minigun.ts"/>
+///<reference path="../weapons/LandMine.ts"/>
 
 class WeaponManager
 {
@@ -35,7 +36,8 @@ class WeaponManager
             new Minigun(),   
             new HandGrenade(),
             new HolyGrenade(),
-            new Dynamite(),
+            new Dynamite(2),
+            new LandMine(10),
             new JetPack(),           
             new NinjaRope(),
             new Drill(),
