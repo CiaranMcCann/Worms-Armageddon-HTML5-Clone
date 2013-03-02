@@ -94,6 +94,7 @@ class Lobby
         {
             data.nPlayers =  sanitize(data.nPlayers).xss();
             data.name = sanitize(data.name).xss();
+            data.name = data.name.substring(0, 20);
             data.mapName = sanitize(data.mapName).xss();
 
             // Check the user input
