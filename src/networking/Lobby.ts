@@ -19,6 +19,9 @@ declare var server;
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
+    var check = require('validator').check;
+    var sanitize = require('validator').sanitize;
+
 //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
 // prevents the project from compling.
     eval("var GameLobby = require('./GameLobby');var Events = require('./Events'); " +
@@ -89,6 +92,10 @@ class Lobby
         // Create lobby
         socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
         {
+            data.nPlayers =  sanitize(data.nPlayers).xss();
+            data.name = sanitize(data.name).xss();
+            data.mapName = sanitize(data.mapName).xss();
+
             // Check the user input
             if (data.nPlayers > ServerSettings.MAX_PLAYERS_PER_LOBBY || data.nPlayers < 2)
             {

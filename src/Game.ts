@@ -89,6 +89,19 @@ class Game
             this.setupCanvas();
         });
 
+        //If we go full screen also resize
+        document.addEventListener("fullscreenchange", function () => {
+            this.setupCanvas();
+        }, false);
+
+        document.addEventListener("mozfullscreenchange", function () => {
+            this.setupCanvas();
+        }, false);
+
+        document.addEventListener("webkitfullscreenchange", function () => {
+            this.setupCanvas();
+        }, false);
+
         Physics.init(this.actionCanvasContext);
 
         // Manages the state of the game, the player turns etc.
@@ -156,20 +169,6 @@ class Game
             {
                 docElm.webkitRequestFullScreen();
             }
-
-            document.addEventListener("fullscreenchange", function () => {
-                this.setupCanvas();
-            }, false);
- 
-            document.addEventListener("mozfullscreenchange", function () => {
-               this.setupCanvas();
-            }, false);
- 
-            document.addEventListener("webkitfullscreenchange", function () => {
-                this.setupCanvas();
-            }, false);
-            
-
         }
     }
 
