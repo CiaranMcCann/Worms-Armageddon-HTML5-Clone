@@ -397,11 +397,18 @@ module Sprites
             frameCount: 10,
             msPerFrame: 60,
 
-        }
+        },
 
+     wbackflp: {
 
+            imageName: "wbackflp",
+            frameY: 0,
+            frameCount: 22,
+            msPerFrame: 50,
 
+        },
 
+        
 
 
 

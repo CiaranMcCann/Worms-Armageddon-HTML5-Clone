@@ -38,6 +38,13 @@ module Controls
         mouse: -1
     }
 
+    export var backFlip =
+    {
+        gamepad: -1,
+        keyboard: keyboard.keyCodes.Backspace,
+        mouse: -1
+    }
+
     export var aimUp =
     {
         gamepad: -1,

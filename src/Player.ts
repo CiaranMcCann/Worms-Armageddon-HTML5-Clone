@@ -108,6 +108,12 @@ class Player
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("jump"));
             }
 
+            if (keyboard.isKeyDown(Controls.backFlip.keyboard, true) || this.gamePad.isButtonPressed(0))
+            {
+                this.team.getCurrentWorm().backFlip();
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("backFlip"));
+            }
+
             if (keyboard.isKeyDown(Controls.walkRight.keyboard) || this.gamePad.isButtonPressed(15) || this.gamePad.getAxis(0) > 0.5)
             {
                 this.team.getCurrentWorm().walkRight();

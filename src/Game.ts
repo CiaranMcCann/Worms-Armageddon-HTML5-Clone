@@ -178,6 +178,13 @@ class Game
             StartMenu.callback(); 
         }
 
+        //Diable certain keys
+        $(document).keydown(function(e) {
+            if(e.keyCode == keyboard.keyCodes.Backspace) {
+                e.preventDefault();
+            }
+        });
+
         this.nextTurn();
 
     }

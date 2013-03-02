@@ -195,6 +195,14 @@ class Worm extends Sprite
             if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
             {
                 this.canJump++;
+
+                //If backflip animation playing then disable it
+                //when the worm colides with somthing.
+                if (this.spriteDef == Sprites.worms.wbackflp)
+                {
+                    this.setSpriteDef(Sprites.worms.wbackflp, false);
+                    this.setSpriteDef(Sprites.worms.idle1, false);
+                }
             }
         }
     }
@@ -349,6 +357,40 @@ class Worm extends Sprite
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction, -2);
                 forces.Multiply(1.5);
+
+                this.body.ApplyImpulse(forces, this.body.GetPosition());
+            }
+
+            //Once the player moves removed bouncing arrow
+            if (this.arrow)
+            {
+                this.arrow.finished = true;
+            }
+        }
+    }
+
+
+    backFlip()
+    {
+
+        if (WormAnimationManger.playerAttentionSemaphore == 0)
+        {
+            if (this.canJump > 0)
+            {
+                // Setup a callback that once the animation finish
+                // unlock it and set it to idel
+                this.onAnimationFinish(function () =>
+                {
+                    this.setSpriteDef(Sprites.worms.wbackflp, false);
+                    this.setSpriteDef(Sprites.worms.idle1, false);
+                });
+
+                //Set backflip sprite and lock the sprite
+                this.setSpriteDef(Sprites.worms.wbackflp, true, true);
+
+                var currentPos = this.body.GetPosition();
+                var forces = new b2Vec2(this.direction*-1, -2);
+                forces.Multiply(2.3);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }

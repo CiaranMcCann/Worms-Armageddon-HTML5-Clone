@@ -154,6 +154,7 @@ class Sprite
     // Allows for func to be called once this sprite animation has finished
     onAnimationFinish(func)
     {
+        if(this.isSpriteLocked == false)
         this.onFinishFunc = func;
     }
 

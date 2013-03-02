@@ -174,6 +174,7 @@ class WormAnimationManger
             this.idleTimer.reset();
         }
 
+
         // Animation states to do with jumping
         if (this.worm.canJump == 0 && this.worm.body.GetLinearVelocity().y > 0)
         {
