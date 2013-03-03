@@ -34,7 +34,10 @@ module Sprites
         jetPack: { imageName: "iconjetpack" },
         shotgun: { imageName: "iconshotgun" },
         minigun: { imageName: "iconminigun" },
-        landMine: { imageName: "iconmine" }
+        landMine: { imageName: "iconmine" },
+        bazooka: { imageName: "iconbazooka" },
+        blowTorch: { imageName: "iconblowtorch" },
+        sheep: { imageName: "iconsheep" }
 
     };
 
@@ -63,6 +66,15 @@ module Sprites
 
             imageName: "hgrenade",
             frameY: 0,
+            frameCount: 32,
+            msPerFrame: 10,
+
+        },
+
+       missle: {
+
+            imageName: "missile",
+            frameY: 9,
             frameCount: 32,
             msPerFrame: 10,
 
@@ -399,7 +411,41 @@ module Sprites
 
         },
 
-     wbackflp: {
+        
+        takeOutSheep: {
+            imageName: "wshplnk",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 60,
+
+        },
+
+        takeOutBlowtorch: {
+            imageName: "wblowlk",
+            frameY: 0,
+            frameCount: 15,
+            msPerFrame: 60,
+
+        },
+
+         
+        takeOutBazooka: {
+            imageName: "wbazlnk",
+            frameY: 0,
+            frameCount: 7,
+            msPerFrame: 60,
+
+        },
+
+         aimBazooka: {
+            imageName: "wbaz",
+            frameY: 32 / 2,
+            frameCount: 32,
+            msPerFrame: 60,
+
+        },
+
+        wbackflp: {
 
             imageName: "wbackflp",
             frameY: 0,

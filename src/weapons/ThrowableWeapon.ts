@@ -129,10 +129,23 @@ class ThrowableWeapon extends BaseWeapon
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
         bodyDef.position = initalPosition;
+        bodyDef.angle = Utilies.vectorToAngle(initalVelocity);
 
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
         this.body.SetLinearVelocity(initalVelocity);
+        
+        if (initalVelocity.x >= 0)
+        {
+            //TODO make this even better, by setting the rotation off
+            // the inital velocity of the projectile.
+            // Looks ok for the mo, other more important things to do atm.
+            this.body.SetAngularVelocity(0.7);
+        } else
+        {
+            this.body.SetAngularVelocity(-0.7);
+        }
+        
 
         this.body.SetUserData(this);
 

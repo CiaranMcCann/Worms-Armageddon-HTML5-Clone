@@ -41,6 +41,7 @@ class WeaponManager
             new JetPack(),           
             new NinjaRope(),
             new Drill(),
+            new Bazzoka(10)
                
                        
         ];

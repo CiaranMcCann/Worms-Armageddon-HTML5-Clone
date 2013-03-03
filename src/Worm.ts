@@ -472,11 +472,11 @@ class Worm extends Sprite
         {
             //Quick hack to get the sprite to unlock
             // Seems the die squence locks the sprite
-            this.setSpriteDef(Sprites.worms.die, false);
-            this.setSpriteDef(Sprites.particleEffects[this.team.graveStone], true);
-
-            //Make sure it never finishs so it doesn't get removed the the effect manager
-            this.finished = false;
+            if (Sprites.worms.die == this.spriteDef)
+            {
+                this.setSpriteDef(Sprites.worms.die, false);
+                this.setSpriteDef(Sprites.particleEffects[this.team.graveStone], true);
+            }
 
             // Once the sprite animation has reached the end, then change the framIncremter so it goes
             // back down though the sprites again and then back up etc.
@@ -492,9 +492,6 @@ class Worm extends Sprite
             }
 
             super.update();
-
-            //Just for good measure :)
-            this.finished = false;
         }
 
     }
