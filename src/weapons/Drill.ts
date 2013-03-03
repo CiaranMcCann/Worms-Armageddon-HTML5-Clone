@@ -22,14 +22,14 @@ class Drill extends BaseWeapon
     timeBetweenExploisionsTimer: Timer;
     useDurationTimer: Timer;
 
-    constructor()
+    constructor(ammo, name = "Drill", icon = Sprites.weaponIcons.drill,takeOutAnimation = Sprites.worms.takeOutDrill, actionAnimation = Sprites.worms.drilling)
     {
         super(
             "Drill", // Weapon name
-            4, // ammo
-            Sprites.weaponIcons.drill, //Icon for menu
-            Sprites.worms.takeOutDrill, //animation fro worm taking out drill
-            Sprites.worms.drilling //animation fro worm taking out drill
+            ammo, // ammo
+            icon, //Icon for menu
+            takeOutAnimation, //animation fro worm taking out drill
+            actionAnimation //animation fro worm taking out drill
         );
 
         this.timeBetweenExploisionsTimer = new Timer(450);
@@ -47,7 +47,7 @@ class Drill extends BaseWeapon
             super.activate(worm);
             this.useDurationTimer.reset();
             this.timeBetweenExploisionsTimer.reset();
-            this.worm.setSpriteDef(Sprites.worms.drilling, true);
+            this.worm.setSpriteDef(this.takeAimAnimations, true,false);
 
             return true;
         } else
@@ -60,8 +60,8 @@ class Drill extends BaseWeapon
     {
         this.setIsActive(false);
         Logger.debug(" deactivedate ");
-        this.worm.setSpriteDef(Sprites.worms.drilling, false); //unlocks sprite
-        this.worm.setSpriteDef(Sprites.worms.idle1);
+        this.worm.setSpriteDef(this.takeAimAnimations, false); //unlocks sprite
+        //this.worm.setSpriteDef(Sprites.worms.idle1);
     }
 
     update()

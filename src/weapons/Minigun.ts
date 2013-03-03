@@ -45,8 +45,13 @@ class Minigun extends RayWeapon
         super.activate(worm);
         this.worm.swapSpriteSheet(Sprites.worms.minigunFire);
 
+        //Setup a timer, to stop the weapon firing after so many secounds
         setTimeout(function () => {
+
+                //Once finished firing, deactive weapon and singal next turn
                 this.setIsActive(false);
+                GameInstance.state.tiggerNextTurn();
+
                 this.worm.swapSpriteSheet(this.takeAimAnimations);
         }, 1000);
         AssetManager.getSound("MiniGunFire").play();

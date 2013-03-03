@@ -11,6 +11,7 @@
  *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
+
 interface SpriteDefinition
 {
     imageName: string;
@@ -422,6 +423,14 @@ module Sprites
 
         takeOutBlowtorch: {
             imageName: "wblowlk",
+            frameY: 0,
+            frameCount: 15,
+            msPerFrame: 60,
+
+        },
+
+        blowtorching: {
+            imageName: "wbloww",
             frameY: 0,
             frameCount: 15,
             msPerFrame: 60,

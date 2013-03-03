@@ -40,7 +40,8 @@ class WeaponManager
             new LandMine(10),
             new JetPack(),           
             new NinjaRope(),
-            new Drill(),
+            new Drill(3),
+            new Blowtorch(3),
             new Bazzoka(10)
                
                        
