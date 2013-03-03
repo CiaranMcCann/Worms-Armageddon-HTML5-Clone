@@ -47,7 +47,7 @@ class Cloud extends PhysicsSprite
         // back down though the sprites again and then back up etc.
         if (this.getCurrentFrame() >= this.getTotalFrames()-1)
         {
-            this.setCurrentFrame(this.getTotalFrames());
+            this.setCurrentFrame(this.getTotalFrames()-1);
             this.frameIncremeter *= -1;
 
         } else if (this.getCurrentFrame() <= 0)

@@ -482,7 +482,7 @@ class Worm extends Sprite
             // back down though the sprites again and then back up etc.
             if (this.getCurrentFrame() >= this.getTotalFrames() - 1)
             {
-                this.setCurrentFrame(this.getTotalFrames());
+                this.setCurrentFrame(this.getTotalFrames()-1);
                 this.frameIncremeter *= -1;
 
             } else if (this.getCurrentFrame() <= 0)
@@ -540,7 +540,6 @@ class Worm extends Sprite
             ctx.drawImage(this.nameBox, nameBoxX, nameBoxY);
             ctx.drawImage(this.healthBox, -radius * 1.5, -radius * 4);
         }
-
 
         ctx.restore()
 

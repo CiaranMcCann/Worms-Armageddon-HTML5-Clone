@@ -123,7 +123,7 @@ class Sprite
 
     setCurrentFrame(frame)
     {
-        if (frame > 0 && frame < this.spriteDef.frameCount)
+        if (frame >= 0 && frame < this.spriteDef.frameCount)
         {
              this.currentFrameY = frame;
         }
