@@ -100,8 +100,9 @@ class WormAnimationManger
             WormAnimationManger.playerAttentionSemaphore++;
 
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.worm.body.GetPosition()));
-            this.worm.setSpriteDef(Sprites.worms.die, true, true);
-            this.worm.setNoLoop(true);
+            
+            //Set the onFinishAnimation now as once the spriteDef is locked 
+            // can't modify it
             this.worm.onAnimationFinish(function () =>
             {
                 // Once the players death animated is finished then we most create
@@ -128,7 +129,9 @@ class WormAnimationManger
                     //All animations to do with death are finished so derement semaphore
                     WormAnimationManger.playerAttentionSemaphore--;
                 });           
-            });
+            });          
+            this.worm.setSpriteDef(Sprites.worms.die, true, true);
+            this.worm.setNoLoop(true);
 
             Utilies.pickRandomSound(["byebye", "ohdear", "fatality"]).play(1, 2);
         }
