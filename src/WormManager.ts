@@ -84,7 +84,7 @@ class WormManager
             var weapon = this.allWorms[i].team.getWeaponManager().getCurrentWeapon();
             if (weapon.getIsActive() == true)
             {
-                if ((weapon instanceof ThrowableWeapon) == false)
+                if ((weapon instanceof ThrowableWeapon || weapon instanceof ProjectileWeapon) == false)
                 {
                     weapon.deactivate();
                 }

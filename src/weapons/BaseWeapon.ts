@@ -54,7 +54,7 @@ class BaseWeapon
         this.ammo--;
         this.worm = worm;
 
-        Logger.debug(this + " was activated ");
+        Logger.debug(this.name + " was activated ");
 
     }
 

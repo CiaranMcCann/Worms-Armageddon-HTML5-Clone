@@ -110,7 +110,7 @@ class ThrowableWeapon extends BaseWeapon
 
     deactivate()
     {
-        Logger.debug(this + " was deactivated ");
+        Logger.debug(this.name + " was deactivated ");
         this.setIsActive(false);
         super.deactivate();
     }
@@ -121,7 +121,7 @@ class ThrowableWeapon extends BaseWeapon
         var image = this.sprite.getImage();
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = 10.0;
         fixDef.friction = 3.5;
         fixDef.restitution = 0.6
         fixDef.shape = new b2CircleShape((image.width / 4) / Physics.worldScale);

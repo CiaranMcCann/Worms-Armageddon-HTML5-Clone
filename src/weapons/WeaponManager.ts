@@ -36,7 +36,7 @@ class WeaponManager
             new Minigun(),   
             new HandGrenade(),
             new HolyGrenade(),
-            new Dynamite(2),
+            new Dynamite(1),
             new LandMine(10),
             new JetPack(),           
             new NinjaRope(),
@@ -67,6 +67,7 @@ class WeaponManager
 
     setCurrentWeapon(index)
     {
+        //Allows the user to switch weapon once its active if its a jetpack or ninjia rope
         if (this.getCurrentWeapon().getIsActive() == false || this.getCurrentWeapon() instanceof JetPack || this.getCurrentWeapon() instanceof NinjaRope)
         {
             this.currentWeaponIndex = index;

@@ -60,6 +60,10 @@ class WeaponsMenu
         {
             weaponMgmt.setCurrentWeapon(weaponId);
             Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon", [weaponId]));
+        } else
+        {
+            AssetManager.getSound("cantclickhere").play();
+
         }
 
     }

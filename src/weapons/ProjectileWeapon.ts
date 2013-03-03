@@ -28,7 +28,7 @@ class ProjectileWeapon extends BaseWeapon
 
     projectileSprite: Sprite;
 
-    constructor (name : string, ammo : number, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition,  terrainRef: Terrain)
+    constructor (name : string, ammo : number, iconSpriteDef, weaponSpriteDef: SpriteDefinition, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
         super(
             name,
@@ -40,9 +40,6 @@ class ProjectileWeapon extends BaseWeapon
 
 
         this.projectileSprite = new Sprite(weaponSpriteDef);
-       // this.image = image;
-        this.terrainRef = terrainRef;
-        this.isLive = true;
 
         // Force/worm damge radius
         this.effectedRadius = Physics.pixelToMeters(30);
@@ -56,7 +53,7 @@ class ProjectileWeapon extends BaseWeapon
         this.maxDamage = 50;
 
         //Max force this weapon can be thrown with
-        this.forceIndicator.setMaxForce(50);
+        this.forceIndicator.setMaxForce(120);
 
 
     }
@@ -85,7 +82,7 @@ class ProjectileWeapon extends BaseWeapon
         var image = this.projectileSprite.getImage();
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = 20.0;
         fixDef.friction = 3.5;
         fixDef.restitution = 0.6
         fixDef.shape = new b2CircleShape((image.width / 4) / Physics.worldScale);
@@ -97,7 +94,7 @@ class ProjectileWeapon extends BaseWeapon
 
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
-        this.body.SetLinearVelocity(initalVelocity);
+        this.body.ApplyImpulse(initalVelocity,this.body.GetPosition());
 
         if (initalVelocity.x >= 0)
         {
@@ -117,10 +114,10 @@ class ProjectileWeapon extends BaseWeapon
 
     beginContact(contact)
     {
-       // if (Physics.isCollisionBetweenTypes(Terrain, ProjectileWeapon, contact) && this.isActive)
+        if (this.isActive && this.isLive)
         {
-             GameInstance.state.tiggerNextTurn();
-            Effects.explosion(
+            GameInstance.state.tiggerNextTurn();
+            var animation : ParticleEffect = Effects.explosion(
                 this.body.GetPosition(),
                 this.explosionRadius,
                 this.effectedRadius,
@@ -128,44 +125,42 @@ class ProjectileWeapon extends BaseWeapon
                 this.maxDamage,
                 this.worm
            );
-
-            this.reset();
-           
+             
+            this.deactivate();
         }
 
     }
 
+    deactivate()
+    {
+        super.deactivate();
+        Logger.debug(this.name + " was deactivated ");
+       // Set this object to dead so it can be cleaned up       
+       this.isLive = false;
+    }
+
     activate(worm: Worm)
     {
-        if (this.ammo > 0 && this.getIsActive() == false)
+        //FIXME: Hack some how activate gets called on the opisite team if they used a bazzoka before hand.
+        // doesnt happen for any other weapon, very strange. This is a temp fix. Investage later
+        if (GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm() == worm && this.ammo > 0 && this.getIsActive() == false)
         {
+            this.isLive = true;
             super.activate(worm);
             this.setupDirectionAndForce(worm);
         }
     }
 
-    reset()
-    {
-         // Set this object to dead so it can be cleaned up 
-         this.isActive = false;          
-         this.isLive = false;
-    }
 
     update()
     {
-        if (!this.isLive)
+        if (!this.isLive &&  this.isActive)
         {
             //The bomb has exploded so remove it from the world         
             Physics.removeToFastAcessList(this.body);
             Physics.world.DestroyBody(this.body);
-            this.isLive = true;
-
+            this.isActive = false;   
         } 
-
-        if (this.isActive && this.isLive)
-        {
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
-        }
     }
 
     draw(ctx)
@@ -206,8 +201,7 @@ class Bazzoka extends ProjectileWeapon
             Sprites.weaponIcons.bazooka,
             Sprites.weapons.missle,
             Sprites.worms.takeOutBazooka,
-            Sprites.worms.aimBazooka,
-            GameInstance.terrain
+            Sprites.worms.aimBazooka
             );
     }
 
