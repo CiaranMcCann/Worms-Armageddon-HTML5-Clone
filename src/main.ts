@@ -35,7 +35,6 @@ $(document).ready(function () => {
             {
                if(Settings.DEVELOPMENT_MODE)
                 Graphics.stats.update();
-
                 GameInstance.step();
                 GameInstance.update();
                 GameInstance.draw();

@@ -21,6 +21,8 @@
 ///<reference path="../weapons/Shotgun.ts"/>
 ///<reference path="../weapons/Minigun.ts"/>
 ///<reference path="../weapons/LandMine.ts"/>
+///<reference path="../weapons/Blowtorch.ts"/>
+///<reference path="../weapons/ProjectileWeapon.ts"/>
 
 class WeaponManager
 {
