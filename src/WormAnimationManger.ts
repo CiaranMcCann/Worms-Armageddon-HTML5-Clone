@@ -68,7 +68,8 @@ class WormAnimationManger
             // most of the time, depending on the type or weapon or tool.
             this.worm.onAnimationFinish(function () =>
             {
-                this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeAimAnimations);
+                this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeAimAnimations);            
+                this.worm.setCurrentFrame(this.worm.target.previousSpriteFrame);   
                 this.worm.finished = true;
                 this.currentState = WormAnimationManger.WORM_STATE.aiming;
             });

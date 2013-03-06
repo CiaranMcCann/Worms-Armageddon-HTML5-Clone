@@ -64,6 +64,7 @@ class Sprite
                         {
                             this.onFinishFunc();
                             this.onFinishFunc = null;
+                            return
                         }
                     }
 

@@ -129,7 +129,7 @@ class Player
                     currentWrom.target.aim(0.8);
                 }
 
-                currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() - 0.8)
+          
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [0.8]));
 
             }
@@ -143,7 +143,7 @@ class Player
                     currentWrom.target.aim(-0.8);
                 }
 
-                currentWrom.setCurrentFrame(currentWrom.getCurrentFrame() + 0.8)
+               
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [-0.8]));
             }
 

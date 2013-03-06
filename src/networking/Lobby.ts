@@ -14,6 +14,7 @@
 ///<reference path="GameLobby.ts"/>
 declare var Util;
 declare var server;
+declare function require(string);
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export

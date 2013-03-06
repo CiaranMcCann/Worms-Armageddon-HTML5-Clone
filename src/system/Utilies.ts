@@ -59,6 +59,8 @@ module Utilies
         return newObject;
     };
 
+    export function sign(x) { return x > 0 ? 1 : x < 0 ? -1 : 0; }
+
     export function findByValue(needle, haystack, haystackProperity, )
     {
 
@@ -264,7 +266,7 @@ module Logger
 module keyboard
 {
 
-    var keys = [];
+    export var keys = [];
 
     (function ()
     {
