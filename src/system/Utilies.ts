@@ -61,6 +61,12 @@ module Utilies
 
     export function sign(x) { return x > 0 ? 1 : x < 0 ? -1 : 0; }
 
+    //TODO Should probly intergrate Modernizr, but two lines of code is nice a fast.
+    export function isTouchDevice() {
+      return !!('ontouchstart' in window) // works on most browsers 
+          || !!('onmsgesturechange' in window); // works on ie10
+    };
+
     export function findByValue(needle, haystack, haystackProperity, )
     {
 
@@ -261,6 +267,38 @@ module Logger
         if (Settings.DEVELOPMENT_MODE || Settings.LOG)
             console.error(message);
     }
+}
+
+module TouchUI
+{
+    var isFireHeld = false;
+
+    export function init() 
+    {      
+        var cssId = "touchFireButton";
+        //Using this to also insert the touch contorls for tablets
+        $('body').append("<div id="+cssId+"></div>");
+
+        $("#"+cssId).bind('touchstart', function(e)
+        {
+            e.preventDefault();
+            isFireHeld = true;
+        });
+
+
+        $("#"+cssId).bind("touchend", function (e)
+        {
+            isFireHeld = false;
+        });
+    }
+
+    export function isFireButtonDown()
+    {
+        return isFireHeld;
+    }
+
+
+
 }
 
 module keyboard

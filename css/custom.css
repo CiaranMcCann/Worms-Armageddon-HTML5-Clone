@@ -121,8 +121,8 @@
     left: 100%;
     top: 100%;
     width: 275px;
-    height: 500px;
-    margin-top: -500px;
+    height: 400px;
+    margin-top: -400px;
     z-index: 1;
     background: black;
     border: 1px white solid;
@@ -139,7 +139,7 @@
 -ms-transform: rotate(90deg);
 -o-transform: rotate(90deg);
 transform: rotate(90deg);
-	background:red;
+
 	 position: absolute;
     left: -42.5%;
     top: 20%;
@@ -260,3 +260,29 @@ kbd {
     font-size: 18.5px;
     line-height: normal;
 }
+
+
+#touchFireButton {
+   position: absolute;
+left: 100%;
+top: 100%;
+width: 70px;
+height: 50px;
+margin-top: -78px;
+margin-left: -300px;
+z-index: 1;
+background: black;
+border: 1px white solid;
+padding: 10px;
+padding-left: 2px;
+padding-right: 2px;
+border-radius: 3px;
+cursor: default;
+color: white;
+font-size: 30px;
+        display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+

@@ -25,6 +25,8 @@ class WeaponsMenu
         this.toggleButtonCssId = "weaponsMenuBtn";
 
         $('body').append("<div id=" + this.cssId + "><div id=" + this.toggleButtonCssId + ">Weapons Menu</div><div id=content></div></div>");
+
+
         this.htmlElement = $("#" + this.cssId);
 
 

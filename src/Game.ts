@@ -242,6 +242,8 @@ class Game
             }
         });
 
+        TouchUI.init();
+
         this.nextTurn();
 
     }

@@ -269,7 +269,7 @@ TwinStickControls.prototype.draw = function (context)
             context.lineWidth = 3;
             if (stick.atLimit)
             {
-                context.strokeStyle = "rgb(200, 0, 0)";
+                context.strokeStyle = "#08c";
             } else
             {
                 context.strokeStyle = "rgb(0, 0, 0)";
@@ -280,7 +280,7 @@ TwinStickControls.prototype.draw = function (context)
             context.beginPath();
             context.arc(stick.limit.x, stick.limit.y, (this.limitSize / 2), 0, (Math.PI * 2), true);
 
-            context.lineWidth = 3;
+            context.lineWidth = 2;
             context.strokeStyle = "rgb(200, 200, 200)";
             context.stroke();
 

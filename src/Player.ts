@@ -148,7 +148,10 @@ class Player
             }
 
             // While holding the
-            if (keyboard.isKeyDown(Controls.fire.keyboard, true) || this.gamePad.isButtonPressed(7))
+            if (
+                keyboard.isKeyDown(Controls.fire.keyboard, true) || 
+                this.gamePad.isButtonPressed(7) ||
+                TouchUI.isFireButtonDown())
             {
                this.weaponFireOrCharge();
                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
