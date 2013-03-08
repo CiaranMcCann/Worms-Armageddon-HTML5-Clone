@@ -97,7 +97,9 @@ class Player
 
             //Player controls 
            
-            if (keyboard.isKeyDown(Controls.jump.keyboard, true) || this.gamePad.isButtonPressed(0))
+            if (keyboard.isKeyDown(Controls.jump.keyboard, true) || 
+                this.gamePad.isButtonPressed(0) ||
+                TouchUI.isJumpDown(true))
             {
                 this.team.getCurrentWorm().jump();
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("jump"));
@@ -149,12 +151,23 @@ class Player
 
             // While holding the
             if (
-                keyboard.isKeyDown(Controls.fire.keyboard, true) || 
+                keyboard.isKeyDown(Controls.fire.keyboard, true) ||
                 this.gamePad.isButtonPressed(7) ||
                 TouchUI.isFireButtonDown())
             {
-               this.weaponFireOrCharge();
-               Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
+                this.weaponFireOrCharge();
+                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
+            } else
+            {
+
+                var wormWeapon = this.team.getCurrentWorm().getWeapon()
+                 // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
+                if (!TouchUI.isFireButtonDown() && wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
+                {
+                    this.team.getCurrentWorm().fire();
+                    Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
+                    GameInstance.weaponMenu.refresh();
+                }
             }
 
             // end of player controls

@@ -272,30 +272,66 @@ module Logger
 module TouchUI
 {
     var isFireHeld = false;
+    var isJumpPressed = false;
 
     export function init() 
     {      
-        var cssId = "touchFireButton";
+        var fireButtonCssId = "touchFireButton";
+        var jumpButtonCssId = "touchJump";
         //Using this to also insert the touch contorls for tablets
-        $('body').append("<div id="+cssId+"></div>");
+        $('body').append("<div class=touchButton id="+fireButtonCssId+">Fire</div>");
+        $('body').append("<div class=touchButton id="+jumpButtonCssId+">Jump</div>");
 
-        $("#"+cssId).bind('touchstart', function(e)
+        $("#"+fireButtonCssId).bind('touchstart', function(e)
         {
             e.preventDefault();
             isFireHeld = true;
+            Logger.log("touchstarted");
         });
 
 
-        $("#"+cssId).bind("touchend", function (e)
+        $("#"+fireButtonCssId).bind("touchend", function (e)
         {
             isFireHeld = false;
+               Logger.log("touchend");
+        });
+
+        $("#"+jumpButtonCssId).bind('touchstart', function(e)
+        {
+            e.preventDefault();
+            isJumpPressed = true;
+        });
+
+
+        $("#"+jumpButtonCssId).bind("touchend", function (e)
+        {
+            isJumpPressed = false;
         });
     }
 
-    export function isFireButtonDown()
+
+    export function isFireButtonDown(reset = false)
     {
-        return isFireHeld;
+        if (isFireHeld && reset)
+        {
+            isFireHeld = false;
+            return true;
+        }
+
+        return  isFireHeld;
     }
+
+    export function isJumpDown(reset = false)
+    {
+         if (isJumpPressed && reset)
+        {
+            isJumpPressed = false;
+            return true;
+        }
+
+        return  isJumpPressed;
+    }
+
 
 
 

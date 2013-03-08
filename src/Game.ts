@@ -287,7 +287,6 @@ class Game
     {
         if (this.state.isStarted)
         {
-
             // while no winner, check for one
             if (this.winner == null)
             {
