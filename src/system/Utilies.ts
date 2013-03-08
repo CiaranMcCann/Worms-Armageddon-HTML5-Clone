@@ -61,12 +61,6 @@ module Utilies
 
     export function sign(x) { return x > 0 ? 1 : x < 0 ? -1 : 0; }
 
-    //TODO Should probly intergrate Modernizr, but two lines of code is nice a fast.
-    export function isTouchDevice() {
-      return !!('ontouchstart' in window) // works on most browsers 
-          || !!('onmsgesturechange' in window); // works on ie10
-    };
-
     export function findByValue(needle, haystack, haystackProperity, )
     {
 
@@ -274,39 +268,48 @@ module TouchUI
     var isFireHeld = false;
     var isJumpPressed = false;
 
+    export function isTouchDevice() {
+      return 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+    };
+
+
     export function init() 
     {      
-        var fireButtonCssId = "touchFireButton";
-        var jumpButtonCssId = "touchJump";
-        //Using this to also insert the touch contorls for tablets
-        $('body').append("<div class=touchButton id="+fireButtonCssId+">Fire</div>");
-        $('body').append("<div class=touchButton id="+jumpButtonCssId+">Jump</div>");
-
-        $("#"+fireButtonCssId).bind('touchstart', function(e)
+        if (TouchUI.isTouchDevice())
         {
-            e.preventDefault();
-            isFireHeld = true;
-            Logger.log("touchstarted");
-        });
+            var fireButtonCssId = "touchFireButton";
+            var jumpButtonCssId = "touchJump";
+            //Using this to also insert the touch contorls for tablets
+            $('body').append("<div class=touchButton id=" + fireButtonCssId + ">Fire</div>");
+            $('body').append("<div class=touchButton id=" + jumpButtonCssId + ">Jump</div>");
+
+            $("#" + fireButtonCssId).bind('touchstart', function (e)
+            {
+                e.preventDefault();
+                isFireHeld = true;
+                Logger.log("touchstarted");
+            });
 
 
-        $("#"+fireButtonCssId).bind("touchend", function (e)
-        {
-            isFireHeld = false;
-               Logger.log("touchend");
-        });
+            $("#" + fireButtonCssId).bind("touchend", function (e)
+            {
+                isFireHeld = false;
+                Logger.log("touchend");
+            });
 
-        $("#"+jumpButtonCssId).bind('touchstart', function(e)
-        {
-            e.preventDefault();
-            isJumpPressed = true;
-        });
+            $("#" + jumpButtonCssId).bind('touchstart', function (e)
+            {
+                e.preventDefault();
+                isJumpPressed = true;
+            });
 
 
-        $("#"+jumpButtonCssId).bind("touchend", function (e)
-        {
-            isJumpPressed = false;
-        });
+            $("#" + jumpButtonCssId).bind("touchend", function (e)
+            {
+                isJumpPressed = false;
+            });
+        }
     }
 
 

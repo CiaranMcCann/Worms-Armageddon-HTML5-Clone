@@ -159,14 +159,16 @@ class Player
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             } else
             {
-
-                var wormWeapon = this.team.getCurrentWorm().getWeapon()
-                 // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
-                if (!TouchUI.isFireButtonDown() && wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
+                if (TouchUI.isTouchDevice())
                 {
-                    this.team.getCurrentWorm().fire();
-                    Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
-                    GameInstance.weaponMenu.refresh();
+                    var wormWeapon = this.team.getCurrentWorm().getWeapon()
+                    // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
+                    if (!TouchUI.isFireButtonDown() && wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 5 && wormWeapon.getIsActive() == false)
+                    {
+                        this.team.getCurrentWorm().fire();
+                        Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
+                        GameInstance.weaponMenu.refresh();
+                    }
                 }
             }
 

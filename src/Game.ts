@@ -242,10 +242,10 @@ class Game
             }
         });
 
+        //Only inited if its a touch device
         TouchUI.init();
 
         this.nextTurn();
-
     }
 
     // This method allows for quick use of the instruction chain
