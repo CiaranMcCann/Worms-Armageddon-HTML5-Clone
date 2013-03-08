@@ -28,6 +28,8 @@ class HolyGrenade extends ThrowableWeapon
         //hit damage at center
         this.maxDamage = 50;
 
+        this.detonationTimer = new Timer(6000);
+
         //Sound its makes when it collides with somthing
         this.impactSound = "HOLYGRENADEIMPACT";
     }

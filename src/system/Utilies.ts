@@ -47,12 +47,25 @@ module Utilies
         {
             // if the member is itself an object, then we most also call copy on that
             if (typeof (oldObject[member]) == "object")
-            {
-                newObject[member] = copy(newObject[member], oldObject[member])
+            {   
+                //FIXME : Should be usig this try catch, fix it later
+                try
+                {
+                    newObject[member] = copy(newObject[member], oldObject[member])
+                } catch (e)
+                {
+
+                }
             } else
             {
                 // if its a primative member just assign it
-                newObject[member] = oldObject[member];
+                try
+                {
+                    newObject[member] = oldObject[member];
+                } catch (e)
+                {
+
+                }
             }
         }
 

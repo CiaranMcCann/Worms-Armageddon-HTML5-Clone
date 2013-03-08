@@ -38,6 +38,17 @@ class WormManager
         Logger.log( this.allWorms);
     }
 
+    findWormWithName(name: string)
+    {
+        for (var i = this.allWorms.length - 1; i > 0; --i)
+        {
+            if (this.allWorms[i].name == name)
+            {
+                return this.allWorms[i];
+            }
+        }
+    }
+
     // are all the worms completely finished, animations, health reduction, actions etc.
     areAllWormsReadyForNextTurn()
     {
@@ -48,11 +59,7 @@ class WormManager
     areAllWormsStationary()
     {
 
-        ////TODO should use this
-        //every Requires JavaScript 1.6
-        //Returns true if every element in this array satisfies the provided testing function.
-
-        for (var i = 0; i < this.allWorms.length; i++)
+        for (var i = this.allWorms.length-1; i > 0; --i)
         {
             if (this.allWorms[i].isStationary() == false)
             {
@@ -66,7 +73,7 @@ class WormManager
      // Are all the worms stop, not moving at all. 
     areAllWeaponsDeactived()
     {
-        for (var i = 0; i < this.allWorms.length; i++)
+        for (var i = this.allWorms.length-1; i > 0; --i)
         {
             if (this.allWorms[i].team.getWeaponManager().getCurrentWeapon().getIsActive() == true)
             {
@@ -80,7 +87,7 @@ class WormManager
     //deactivate all non-time based weapons, such as jetpacks and ropes etc. 
     deactivedAllNonTimeBasedWeapons()
     {
-        for (var i = 0; i < this.allWorms.length; i++)
+        for (var i = this.allWorms.length-1; i > 0; --i)
         {
             var weapon = this.allWorms[i].team.getWeaponManager().getCurrentWeapon();
             if (weapon.getIsActive() == true)

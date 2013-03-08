@@ -240,7 +240,14 @@ class Worm extends Sprite
                     damage = 10;
                 }
 
+
                 this.hit(damage);
+
+                if () //online spefic, returns true all the time if in local games
+                {                 
+                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.damageWormWithName", parameters));
+                }
+
             }
 
             if (impulse.normalImpulses[0] > 3)
@@ -389,7 +396,7 @@ class Worm extends Sprite
                 this.setSpriteDef(Sprites.worms.wbackflp, true, true);
 
                 var currentPos = this.body.GetPosition();
-                var forces = new b2Vec2(this.direction*-1, -2);
+                var forces = new b2Vec2(this.direction * -1, -2);
                 forces.Multiply(2.3);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
@@ -406,11 +413,18 @@ class Worm extends Sprite
     hit(damage, worm = null)
     {
         //For Networked games.
-        //if (Client.isClientsTurn()) 
+
         {
             if (this.isDead == false)
             {
-                this.damageTake += damage;
+                if (Client.isClientsTurn())
+                {
+                    this.damageTake += damage;
+                    var parameters = [this.name,damage];
+                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.setDamageTaken",parameters));
+
+                }              
+
                 AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
 
                 //If worm using Jetpack, deactive it if they get hurt.
@@ -482,7 +496,7 @@ class Worm extends Sprite
             // back down though the sprites again and then back up etc.
             if (this.getCurrentFrame() >= this.getTotalFrames() - 1)
             {
-                this.setCurrentFrame(this.getTotalFrames()-1);
+                this.setCurrentFrame(this.getTotalFrames() - 1);
                 this.frameIncremeter *= -1;
 
             } else if (this.getCurrentFrame() <= 0)

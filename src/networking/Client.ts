@@ -26,7 +26,7 @@ module Client
             socket.on(Events.client.ACTION, function (packet) =>
             {
                var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);
-               instructionSet.call(GameInstance);
+               instructionSet.callFunc(GameInstance);
                 
             });
 
@@ -34,7 +34,7 @@ module Client
             socket.on(Events.client.CURRENT_WORM_ACTION, function (packet) =>
             {
                var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);
-               instructionSet.call(GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm());
+               instructionSet.callFunc(GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm());
                 
             });
 

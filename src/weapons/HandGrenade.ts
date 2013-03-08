@@ -28,7 +28,7 @@ class HandGrenade extends ThrowableWeapon
         //hit damage at center
         this.maxDamage = 25;
 
-        this.detonationTimer = new Timer(3000);
+        this.detonationTimer = new Timer(4000);
 
         //Sound its makes when it collides with somthing
         this.impactSound = "GRENADEIMPACT";

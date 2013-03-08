@@ -29,7 +29,7 @@ class InstructionChain
 
     }
 
-    call(objectToApplyInstruction)
+    callFunc(objectToApplyInstruction)
     {
         var obj = objectToApplyInstruction;
         var objMethod;
