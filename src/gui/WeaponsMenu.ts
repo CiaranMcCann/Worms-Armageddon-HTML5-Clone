@@ -17,13 +17,24 @@ class WeaponsMenu
     htmlElement;
     isVisable;
     cssId;
+    toggleButtonCssId;
 
     constructor()
     {
         this.cssId = "weaponsMenu";
+        this.toggleButtonCssId = "weaponsMenuBtn";
 
-        $('body').append("<div id=" + this.cssId + "></div>");
+        $('body').append("<div id=" + this.cssId + "><div id=" + this.toggleButtonCssId + ">Weapons Menu</div><div id=content></div></div>");
         this.htmlElement = $("#" + this.cssId);
+
+
+         $('#'+this.toggleButtonCssId).click(function =>
+         {
+             if (Client.isClientsTurn())
+            {
+                _this.toggle();
+            }
+         });
 
         var _this = this;
         $(window).keypress(function (event)
@@ -121,8 +132,9 @@ class WeaponsMenu
         }
         html += "</ul>";
 
-        this.htmlElement.empty();
-        this.htmlElement.append(html);
+        //Should of just used a CSS class and then an ID selector, oh well fuck it, it works!
+        $($(this.htmlElement).children().get(1)).empty();
+        $($(this.htmlElement).children().get(1)).append(html);
 
 
         var _this = this;

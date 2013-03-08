@@ -133,6 +133,31 @@
     cursor: default;
 }
 
+#weaponsMenuBtn{
+-webkit-transform: rotate(90deg);	
+-moz-transform: rotate(90deg);
+-ms-transform: rotate(90deg);
+-o-transform: rotate(90deg);
+transform: rotate(90deg);
+	background:red;
+	 position: absolute;
+    left: -42.5%;
+    top: 20%;
+	padding:20px;
+	font-style:bold;
+    background: black;
+    color:white;
+    border: white 1px solid;
+    border-radius: 3px;
+    z-index:1;
+    font-size: 20px;
+    border-top:none;
+}
+
+    #weaponsMenuBtn:hover {
+        color: #08c;
+    }
+
     #weaponsMenu .thumbnail:active {
         -ms-transform: scale(0.7,0.7); /* IE 9 */
         -webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
