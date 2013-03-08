@@ -93,6 +93,7 @@ class Target extends PhysicsSprite
     // Allows the player to increase the aiming angle or decress
     aim(upOrDown: number)
     {
+        upOrDown *= this.worm.direction;
         var td = this.targetDirection.Copy();
         var currentAngle = Utilies.toDegrees( Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td) );
         //this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
@@ -102,7 +103,7 @@ class Target extends PhysicsSprite
         //console.log("frame inc" + upOrDown);
 
         //Magic number 0.6 - it works anyway, not enough time. Though if upOrDown changes from 0.8 might need to change it.
-        this.worm.setCurrentFrame(this.worm.getCurrentFrame() +  ( (Utilies.sign(upOrDown)*0.6) *-this.worm.direction) )
+        this.worm.setCurrentFrame(this.worm.getCurrentFrame() +  ( Utilies.sign(upOrDown*-this.worm.direction)*0.6) )
         this.previousSpriteFrame = this.worm.getCurrentFrame();
 
         if (this.direction == Worm.DIRECTION.right)

@@ -81,6 +81,8 @@ class GamePad
 }
 
 
+//Touch screen anagloue ticks
+// Adpated from http://www.lostdecadegames.com/demos/analog_sticks/ios.html
 function Stick(maxLength, active)
 {
     this.active = active;
