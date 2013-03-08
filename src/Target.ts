@@ -96,15 +96,17 @@ class Target extends PhysicsSprite
         upOrDown *= this.worm.direction;
         var td = this.targetDirection.Copy();
         var currentAngle = Utilies.toDegrees( Utilies.toRadians(this.rotationRate * upOrDown) + Utilies.vectorToAngle(td) );
-        //this.targetDirection = Utilies.angleToVector(Utilies.toRadians(currentAngle));
-        //console.log(currentAngle);
-        
-        //var unit = (this.worm.getTotalFrames()) * (upOrDown);
-        //console.log("frame inc" + upOrDown);
 
         //Magic number 0.6 - it works anyway, not enough time. Though if upOrDown changes from 0.8 might need to change it.
-        this.worm.setCurrentFrame(this.worm.getCurrentFrame() +  ( Utilies.sign(upOrDown*-this.worm.direction)*0.6) )
-        this.previousSpriteFrame = this.worm.getCurrentFrame();
+         this.worm.setCurrentFrame(this.worm.getCurrentFrame() + (Utilies.sign(upOrDown * -this.worm.direction) * 0.6))
+        
+        //Hack: All the aiming sprite sheets are 32 or greater. 
+        //This makes sure if we move the target while jumping that we don't lose 
+        //correct previousSpriteFrame 
+        if (this.worm.getTotalFrames() >= 32)
+        {
+            this.previousSpriteFrame = this.worm.getCurrentFrame();
+        }
 
         if (this.direction == Worm.DIRECTION.right)
         {
