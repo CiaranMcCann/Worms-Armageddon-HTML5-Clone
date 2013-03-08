@@ -29,6 +29,7 @@ class GameLobby
     name: string;
     id: string;
     private numberOfPlayers: number;
+
     mapName;
     currentPlayerId: string;
 
@@ -131,6 +132,18 @@ class GameLobby
         for (var i in this.playerIds)
         {
             return this.playerIds[i] == playerId;
+        }
+
+        return false;
+    }
+
+    disconnection(disconnectedPlayerId)
+    {
+        ServerUtilies.deleteFromCollection(this.playerIds, disconnectedPlayerId);
+
+        if (this.playerIds.length <= 0)
+        {
+            return true;
         }
 
         return false;

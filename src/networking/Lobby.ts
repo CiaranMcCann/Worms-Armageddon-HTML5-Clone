@@ -14,20 +14,20 @@
 ///<reference path="GameLobby.ts"/>
 declare var Util;
 declare var server;
-declare var sanitize;
+
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 try
 {
+    var check = require('validator').check;
+    var sanitize = require('validator').sanitize;
 
 //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
 // prevents the project from compling.
     eval("var GameLobby = require('./GameLobby');var Events = require('./Events'); " +
         " var ServerSettings = require('./ServerSettings'); var ServerUtilies = require('./ServerUtilies'); " +
-        "var Util = require('util');var server = require('./Server'); var server = require('./server') "+
-        " var check = require('validator').check "+
-    "var sanitize = require('validator').sanitize");
+        "var Util = require('util');var server = require('./Server'); var server = require('./server'); ")
 } catch (error) { }
 
 
@@ -76,7 +76,6 @@ class Lobby
         socket.on('disconnect', function () => {
 
             ServerUtilies.info(io, " User exit ");
-            ServerUtilies.info(io, " U################################## ");
 
             this.userCount--;
             io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
@@ -86,9 +85,19 @@ class Lobby
             {
                 socket.get('gameLobbyId', function (err, gameLobbyId) =>
                 {             
-                    
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.PLAYER_DISCONNECTED, userId);
                     socket.leave(gameLobbyId);
+
+                                        
+                    //Checks if there is anyone left in the room
+                    if (this.gameLobbies[gameLobbyId].disconnection(userId))
+                    {
+                        //Delete gameb lobby
+                        delete this.gameLobbies[gameLobbyId];
+
+                        //Update all clients that this lobby is now closed.
+                        io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                    }
                 });
             });
 
