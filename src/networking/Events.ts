@@ -10,7 +10,8 @@ module Events
     export var gameLobby = {
         PLAYER_JOIN: "pJoin",
         START_GAME_FOR_OTHER_CLIENTS: "startForOther",
-        START_GAME_HOST : "startG"
+        START_GAME_HOST : "startG",
+        PLAYER_DISCONNECTED: "pd"
     }
 
     export var client = {

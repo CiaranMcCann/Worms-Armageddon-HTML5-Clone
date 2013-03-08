@@ -33,6 +33,38 @@ String.prototype.format = function(...numbers: String[]) {
   });
 };
 
+module Notify
+{
+
+    export function display(header: string, message: string, autoHideTime = 2500)
+    {
+        $("#notifaction strong").empty();
+        $("#notifaction strong").text(header);
+
+        $("#notifaction p").empty();
+        $("#notifaction p").text(message);
+
+        $("#notifaction").animate({
+            top: "5%"
+        }, 400,function() {
+            if (autoHideTime)
+            {
+                setTimeout(function () => {
+                    hide();
+                }, autoHideTime );
+            }
+        });      
+    }
+
+    export function hide()
+    {
+        $("#notifaction").animate({
+            top: "-20%"
+        }, 400);
+    }
+
+}
+
 module Utilies
 {
 

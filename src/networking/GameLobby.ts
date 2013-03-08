@@ -96,6 +96,32 @@ class GameLobby
             GameInstance.start();
         });
 
+        Client.socket.on(Events.gameLobby.PLAYER_DISCONNECTED, function (playerId)
+        {
+            Logger.log("Events.gameLobby.PLAYER_DISCONNECTED " + playerId);
+
+
+            for (var j = GameInstance.players.length - 1; j >= 0; j--)
+            {
+                if (GameInstance.players[j].id == playerId)
+                {
+                    Notify.display(
+                        GameInstance.players[j].getTeam().name + " has disconnected ",
+                        "Looks like you were too much competition for them. They just gave up, well done!! Although they might have just lost connection... though we will say you won =)",
+                    12000)
+
+                    var worms = GameInstance.players[j].getTeam().getWorms();
+                    //Kill all the players worms.
+                    for (var i = worms.length - 1; i >= 0; i--)
+                    {
+                        worms[i].hit(999);
+                    }
+
+                    return;
+                }
+            }
+        });
+
 
 
     }

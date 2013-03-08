@@ -40,7 +40,7 @@ class WormManager
 
     findWormWithName(name: string)
     {
-        for (var i = this.allWorms.length - 1; i > 0; --i)
+        for (var i = this.allWorms.length - 1; i >= 0; --i)
         {
             if (this.allWorms[i].name == name)
             {

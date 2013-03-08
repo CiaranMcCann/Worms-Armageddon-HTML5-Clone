@@ -243,11 +243,6 @@ class Worm extends Sprite
 
                 this.hit(damage);
 
-                if () //online spefic, returns true all the time if in local games
-                {                 
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.damageWormWithName", parameters));
-                }
-
             }
 
             if (impulse.normalImpulses[0] > 3)
@@ -417,13 +412,13 @@ class Worm extends Sprite
         {
             if (this.isDead == false)
             {
-                if (Client.isClientsTurn())
-                {
+                //if (Client.isClientsTurn())
+               // {
                     this.damageTake += damage;
-                    var parameters = [this.name,damage];
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.setDamageTaken",parameters));
+                //    var parameters = [this.name,damage];
+                //    Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.setDamageTaken",parameters));
 
-                }              
+               // }              
 
                 AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
 
