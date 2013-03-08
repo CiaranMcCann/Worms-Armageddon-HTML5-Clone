@@ -34,27 +34,24 @@ class Tutorial
         }
     }
 
-    displayCommandMessage(currentCommand : number)
+    displayCommandMessage(currentCommand : number, displayTime : number)
     {
-        GameInstance.miscellaneousEffects.stopAll();
-        var pos = Physics.vectorMetersToPixels(GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition());
-        pos.y -= 200;
-
-        var cam = GameInstance.camera;
-        GameInstance.miscellaneousEffects.add(new ToostMessage(
-            pos,
-            tutorialCommandBank[currentCommand].message,
-           "#0099CC",990000,0.0)
-         );
+        Notify.hide(function ()
+        {
+            Notify.display(tutorialCommandBank[currentCommand].header, tutorialCommandBank[currentCommand].message, displayTime);
+        });
     }
 
     update()
     {
+        //Displays message forever
+        var displayTime = -1;
+
         //This kicks off the commands
         if (this.currentCommand == -1)
         {
             this.currentCommand = 0;
-            this.displayCommandMessage(this.currentCommand);
+            this.displayCommandMessage(this.currentCommand,displayTime );
 
             //pause game timer to give player a chance at the game
             GameInstance.gameTimer.timer.pause();
@@ -69,9 +66,15 @@ class Tutorial
 
                     this.nextCommand();
 
+                    //If last message set time for it to disppaer
+                    if (this.currentCommand == tutorialCommandBank.length-1)
+                    {
+                        displayTime = 9000;
+                    }
+
                     if (this.isFinished == false)
                     {
-                        this.displayCommandMessage(this.currentCommand);
+                        this.displayCommandMessage(this.currentCommand,displayTime);
                     }
 
                     clearTimeout(this.timeOut);
@@ -86,8 +89,10 @@ class Tutorial
 
 var tutorialCommandBank = [
 
+
      {
-         message: " Move left press A and move right press D",
+         header: "Movement 101",
+         message: " Move left press <strong>"+ keyboard.getKeyName(Controls.walkLeft.keyboard) +"</strong> and move right press <strong>" +  keyboard.getKeyName(Controls.walkRight.keyboard)+"</strong>",
          detection: function ()
          {
              if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || keyboard.isKeyDown(Controls.walkRight.keyboard))
@@ -98,7 +103,8 @@ var tutorialCommandBank = [
      },
 
      {
-        message: "Cool, alright now press space bar to jump",
+        header: "Jumping",
+        message: "Cool, alright now press <strong>"+ keyboard.getKeyName(Controls.jump.keyboard) +"</strong> to jump",
         detection: function ()
         {
             if (keyboard.isKeyDown(Controls.jump.keyboard) )
@@ -108,8 +114,21 @@ var tutorialCommandBank = [
         },
     },
 
+     {
+        header: "BackFlip",
+        message: "Try a backflip now press <strong>"+ keyboard.getKeyName(Controls.backFlip.keyboard) +"</strong>",
+        detection: function ()
+        {
+            if (keyboard.isKeyDown(Controls.backFlip.keyboard) )
+            {
+                return true;
+            }
+        },
+    },
+
     {
-        message: " Now, see the red target circle near you? W and S move rotate it around.",
+        header: "Aiming",
+        message: " Now, see the red target circle near you? <strong>"+ keyboard.getKeyName(Controls.aimUp.keyboard) +"</strong> and <strong>"+ keyboard.getKeyName(Controls.aimDown.keyboard) +"</strong> to rotate it around.",
         detection: function ()
         {
             if (keyboard.isKeyDown(Controls.aimDown.keyboard) || keyboard.isKeyDown(Controls.aimUp.keyboard))
@@ -120,7 +139,8 @@ var tutorialCommandBank = [
     },
 
     {
-        message: " Lets have some fun! Pick a weapon by pressing E or right mouse click. Click on the Holy Gernade in the menu",
+        header: "Weapon Selection",
+        message: " Lets have some fun! Pick a weapon by pressing <strong>"+ keyboard.getKeyName(Controls.toggleWeaponMenu.keyboard) +"</strong> or right mouse click. Click on the Holy Gernade in the menu",
         detection: function ()
         {
             if ( GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon() instanceof HolyGrenade )
@@ -131,9 +151,11 @@ var tutorialCommandBank = [
     },
 
     {
-        message: "Now take aim using the red target. Hold enter and then release it to throw gernade",
+        header: "Firing weapon",
+        message: "Now take aim using the red target. Hold <strong>"+ keyboard.getKeyName(Controls.fire.keyboard) +"</strong> and then release it to throw gernade",
         detection: function ()
         {
+
             if ( GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon().isActive)
             {
                 return true;
@@ -141,7 +163,21 @@ var tutorialCommandBank = [
         },
     },
 
+    {
+        header: "Jetpack",
+        message: "So select the Jetpack from the weapons menu, press <strong>"+ keyboard.getKeyName(Controls.jump.keyboard) +"</strong> and then use directional keys to move",
+        detection: function ()
+        {
+            var weapon = GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon();
+            if ( weapon.isActive && weapon instanceof JetPack)
+            {
+                return true;
+            }
+        },
+    },
+
      {
+        header: "Awesome!",
         message: "Well Done! Your finished the tutorial, you can just mess around or start a new game",
         detection: function ()
         {            

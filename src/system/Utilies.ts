@@ -39,15 +39,15 @@ module Notify
     export function display(header: string, message: string, autoHideTime = 2500)
     {
         $("#notifaction strong").empty();
-        $("#notifaction strong").text(header);
+        $("#notifaction strong").html(header);
 
         $("#notifaction p").empty();
-        $("#notifaction p").text(message);
+        $("#notifaction p").html(message);
 
         $("#notifaction").animate({
             top: "5%"
         }, 400,function() {
-            if (autoHideTime)
+            if (autoHideTime > 0)
             {
                 setTimeout(function () => {
                     hide();
@@ -56,11 +56,17 @@ module Notify
         });      
     }
 
-    export function hide()
+    export function hide(callback)
     {
+
         $("#notifaction").animate({
             top: "-20%"
-        }, 400);
+        }, 400,function() {
+            if (callback != null)
+            {
+                callback();
+            }
+        });      
     }
 
 }
@@ -424,6 +430,17 @@ module keyboard
         return false;
     }
 
+    export function getKeyName(keycode: number)
+    {
+        for (var i in keyCodes)
+        {
+            if (keyCodes[i] == keycode)
+            {
+                return i;
+            }
+        }
+    }
+
     export var keyCodes =  {
     'Backspace': 8,
     'Tab': 9,
@@ -435,6 +452,7 @@ module keyboard
     'Capslock': 20,
     'Esc': 27,
     'Pageup': 33,
+        'Space': 32,
     'Pagedown': 34,
     'End': 35,
     'Home': 36,
@@ -458,7 +476,7 @@ module keyboard
     'b': 66,
     'c': 67,
     'd': 68,
-    'e': 69,
+    'e': 101,
     'f': 70,
     'g': 71,
     'h': 72,
@@ -485,7 +503,6 @@ module keyboard
     'numpad2': 98,
     'numpad3': 99,
     'numpad4': 100,
-    'numpad5': 101,
     'numpad6': 102,
     'numpad7': 103,
     'numpad8': 104,
