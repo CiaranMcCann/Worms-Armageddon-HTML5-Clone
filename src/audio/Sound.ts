@@ -84,8 +84,13 @@ class SoundFallback extends Sound
 
     constructor(soundSrc)
     {
-        super(soundSrc);
-        this.audio = <HTMLAudioElement>document.createElement("Audio");
+        super(soundSrc);  
+        this.load(soundSrc);
+    }
+
+    load(soundSrc)
+    {
+          this.audio = <HTMLAudioElement>document.createElement("Audio");
 
         // When the sound loads sucesfully tell the asset manager
         $(this.audio).on("loadeddata", function () =>
@@ -99,6 +104,9 @@ class SoundFallback extends Sound
         }
 
         this.audio.src = soundSrc;
+        $('body').append(this.audio);
+
+
     }
 
     play(volume = 1, time = 0, allowSoundOverLay = false)
@@ -106,16 +114,12 @@ class SoundFallback extends Sound
         if (Settings.SOUND)
         {
             // if sound is playing don't replay it
-            if (this.playing == false || allowSoundOverLay == true)
+            //if (this.playing == false || allowSoundOverLay == true)
             {
-                this.audio.volume = volume;
+
+                this.audio.volume = volume;    
                 this.audio.play();
                 this.playing = true;
-                
-                this.audio.onended = function() =>
-                {
-                    this.playing = false;
-                }
             }
 
         } else

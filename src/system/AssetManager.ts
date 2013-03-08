@@ -188,6 +188,7 @@ module AssetManager
 
     export function loadSounds(sources)
     {
+        //First lets try load our audio using the web audio API
         try
         {
             Sound.context = new webkitAudioContext();
@@ -202,22 +203,30 @@ module AssetManager
             bufferLoader.load();
 
         }
-         catch (e)
+         catch (e) //web Auido api failed so lets try the normal audio tag
         {
             console.log('Web Audio API is not supported in this browser');
-
-            for (var src in sources)
+            try
             {
-                var name = sources[src].match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "")
+                var testForAudio = new Audio();
 
-                // If IE use mp3 instead 
-                if ($.browser.msie)
+                for (var src in sources)
                 {
-                    sources[src] = sources[src].replace(".wav", ".mp3");
-                    sources[src] = sources[src].replace(".WAV", ".mp3");
-                }
+                    var name = sources[src].match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "")
 
-                sounds[name] = new SoundFallback(sources[src]);
+                    // If IE use mp3 instead 
+                    if ($.browser.msie)
+                    {
+                        sources[src] = sources[src].replace(".wav", ".mp3");
+                        sources[src] = sources[src].replace(".WAV", ".mp3");
+                    }
+
+                    sounds[name] = new SoundFallback(sources[src]);
+                }
+            } catch (e) // All HTML5 audio failed, this is not good :(
+            {
+                alert("The browser or device your using doesn't seem to like any type of HTML5 audio, sorry");
+                numAssetsLoaded += sources.length; // To tell the loader everything is finished
             }
         }
     }
