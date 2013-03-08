@@ -96,12 +96,7 @@ class Player
         {
 
             //Player controls 
-            if (keyboard.isKeyDown(Controls.walkLeft.keyboard) || this.gamePad.isButtonPressed(14) || this.gamePad.getAxis(0) > 0.5)
-            {
-                this.team.getCurrentWorm().walkLeft();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkLeft"));
-            }
-
+           
             if (keyboard.isKeyDown(Controls.jump.keyboard, true) || this.gamePad.isButtonPressed(0))
             {
                 this.team.getCurrentWorm().jump();
@@ -114,36 +109,44 @@ class Player
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("backFlip"));
             }
 
-            if (keyboard.isKeyDown(Controls.walkRight.keyboard) || this.gamePad.isButtonPressed(15) || this.gamePad.getAxis(0) > 0.5)
+            if (keyboard.isKeyDown(Controls.walkLeft.keyboard) ||
+                 this.gamePad.isButtonPressed(14) || 
+                this.gamePad.getAxis(0) > 0.5 ||
+                GameInstance.sticks.getNormal(0).x < -0.4)
+            {
+                this.team.getCurrentWorm().walkLeft();
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkLeft"));
+            }
+
+            if (keyboard.isKeyDown(Controls.walkRight.keyboard) || 
+                this.gamePad.isButtonPressed(15) || 
+                this.gamePad.getAxis(0) > 0.5 ||
+                GameInstance.sticks.getNormal(0).x  > 0.4)
             {
                 this.team.getCurrentWorm().walkRight();
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkRight"));
             }
 
             if (keyboard.isKeyDown(Controls.aimUp.keyboard) ||
-             this.gamePad.getAxis(2) >= 0.2 || this.gamePad.getAxis(3) >= 0.2)
+             this.gamePad.getAxis(2) >= 0.2 || 
+             this.gamePad.getAxis(3) >= 0.2 ||
+             GameInstance.sticks.getNormal(0).y != 0 && GameInstance.sticks.getNormal(0).y > 0.4)
             {
                 var currentWrom = this.team.getCurrentWorm();
                 //if ( !(currentWrom.getWeapon() instanceof NinjaRope) && !(currentWrom.getWeapon().getIsActive()) )
-                {
-                    currentWrom.target.aim(0.8);
-                }
-
-          
+                currentWrom.target.aim(0.8);
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [0.8]));
-
             }
 
-            if (keyboard.isKeyDown(Controls.aimDown.keyboard) || this.gamePad.getAxis(2) <= -0.2 || this.gamePad.getAxis(3) <= -0.2)
+            if (keyboard.isKeyDown(Controls.aimDown.keyboard) || 
+                this.gamePad.getAxis(2) <= -0.2 || 
+                this.gamePad.getAxis(3) <= -0.2 || 
+                GameInstance.sticks.getNormal(0).y != 0 && GameInstance.sticks.getNormal(0).y < -0.4)
             {
                 var currentWrom = this.team.getCurrentWorm();
 
                 //if ( !(currentWrom.getWeapon() instanceof NinjaRope) && !(currentWrom.getWeapon().getIsActive()) )
-                {
-                    currentWrom.target.aim(-0.8);
-                }
-
-               
+                currentWrom.target.aim(-0.8);           
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [-0.8]));
             }
 
@@ -153,9 +156,6 @@ class Player
                this.weaponFireOrCharge();
                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             }
-
-            //End of final sprint, getting hacky now ha.
-            GameInstance.sticks.update();
 
             // end of player controls
         }
@@ -215,13 +215,6 @@ class Player
     draw(ctx)
     {
         this.team.draw(ctx);
-
-        var onlineSpefic = Client.isClientsTurn();
-        if (onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
-        {
-             //End of final sprint, getting hacky now ha.
-            GameInstance.sticks.draw(ctx);
-        }
     }
 
 

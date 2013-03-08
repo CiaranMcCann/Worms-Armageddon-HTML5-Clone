@@ -86,6 +86,7 @@ class StartMenu
             {
                 if (AssetManager.isReady())
                 {
+                    $('#startLocal').off('click');
                     AssetManager.getSound("CursorSelect").play();
                     $('.slide').empty();
                     $('.slide').append(this.settingsMenu.getView());
@@ -93,6 +94,7 @@ class StartMenu
                         AssetManager.getSound("CursorSelect").play();
                         this.controlsMenu(callback);
                     });
+
                 }
 
 
@@ -100,6 +102,7 @@ class StartMenu
 
             $('#startOnline').click(function =>
             {
+                  $('#startOnline').off('click');
                 if (AssetManager.isReady())
                 {
                     if (GameInstance.lobby.client_init() != false)
@@ -119,6 +122,7 @@ class StartMenu
 
             $('#startTutorial').click(function =>
             {
+                $('#startTutorial').off('click');
                 if (AssetManager.isReady())
                 {
                     AssetManager.getSound("CursorSelect").play();

@@ -185,7 +185,10 @@ function TwinStickControls(canvas)
 {
     this.limitSize = 64;
     this.inputSize = 36;
-    this.sticks = [new Stick(this.inputSize), new Stick(this.inputSize)];
+
+    //After some gameplay turns out I only need one stick
+    //might try two again at some stage
+    this.sticks = [new Stick(this.inputSize)]; 
 
     var _this = this;
     canvas.addEventListener("touchstart", function (e)
@@ -232,30 +235,18 @@ TwinStickControls.prototype.update = function ()
     for (var i = 0; i < this.sticks.length; ++i)
     {
         this.sticks[i].update();
-
-        if (this.sticks[i].active && this.sticks[i].length > 30)
-        {
-            if (this.sticks[i].normal.x > 0.8)
-            {
-                GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm().walkRight();
-
-            } else if (this.sticks[i].normal.x < -0.8)
-            {
-
-                GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm().walkLeft();
-            }
-
-            if (this.sticks[i].normal.y > 0.4)
-            {
-                GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm().target.aim(0.8);
-
-            } else if (this.sticks[i].normal.y < -0.4)
-            {
-
-                GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm().target.aim(-0.8);
-            }
-        }
     }
+}
+
+TwinStickControls.prototype.getNormal = function (stickId)
+{
+    //Zero is the index for the mo as I'm not actually using it as twin sticks
+    if (this.sticks[stickId].active && this.sticks[stickId].length > 30)
+    {
+        return this.sticks[stickId].normal;
+    }
+
+    return {"x":0,"y":0}
 }
 
 TwinStickControls.prototype.draw = function (context)

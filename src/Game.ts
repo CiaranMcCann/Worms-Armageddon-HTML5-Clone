@@ -84,7 +84,7 @@ class Game
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
 
-        this.sticks = new TwinStickControls(this.actionCanvasContext);
+        this.sticks = new TwinStickControls(this.actionCanvas);
 
         this.setupCanvas();
 
@@ -323,6 +323,9 @@ class Game
             this.miscellaneousEffects.update();
             this.enviormentEffects.update();
             this.gameTimer.update();
+
+           if(Client.isClientsTurn())
+           GameInstance.sticks.update();
         }
     }
 
@@ -377,6 +380,9 @@ class Game
 
 
         this.actionCanvasContext.restore();
+
+        if(Client.isClientsTurn())
+        GameInstance.sticks.draw(this.actionCanvasContext);
     }
 
 }
