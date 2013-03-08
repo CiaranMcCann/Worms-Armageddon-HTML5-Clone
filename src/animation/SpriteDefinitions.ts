@@ -430,6 +430,7 @@ module Sprites
         },
 
         blowtorching: {
+
             imageName: "wbloww",
             frameY: 0,
             frameCount: 15,

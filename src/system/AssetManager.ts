@@ -20,6 +20,7 @@ module AssetManager
     // you can then acess the image by AssetManager.getImage("placeHolderImage")
     // no need for the full url or the extenision
     var imagesToBeLoaded = [
+        Settings.REMOTE_ASSERT_SERVER + "data/images/menu/stick.png"
     ];
 
     var audioToBeLoaded = [
@@ -173,6 +174,7 @@ module AssetManager
             imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/levels/" + Maps[map].terrainImage + ".png");
             imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/levels/" + Maps[map].smallImage + ".png");
         }
+
 
     }
 

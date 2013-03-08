@@ -154,6 +154,8 @@ class Player
                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             }
 
+            //End of final sprint, getting hacky now ha.
+            GameInstance.sticks.update();
 
             // end of player controls
         }
@@ -213,6 +215,13 @@ class Player
     draw(ctx)
     {
         this.team.draw(ctx);
+
+        var onlineSpefic = Client.isClientsTurn();
+        if (onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
+        {
+             //End of final sprint, getting hacky now ha.
+            GameInstance.sticks.draw(ctx);
+        }
     }
 
 
