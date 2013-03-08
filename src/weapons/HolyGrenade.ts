@@ -5,11 +5,11 @@
 class HolyGrenade extends ThrowableWeapon
 {
    
-    constructor ()
+    constructor (ammo)
     {
         super(
             "Holy Grenade", // Weapon name
-            3, // ammo
+            ammo,
             Sprites.weaponIcons.holyGernade, //Icon for menu
             Sprites.weapons.holyGernade, //Inital weapon object state
             Sprites.worms.takeOutHolyGernade,

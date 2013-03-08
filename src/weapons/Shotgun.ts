@@ -20,12 +20,13 @@ class Shotgun extends RayWeapon
     fireAnimations: SpriteDefinition[];
     fireAnimationIndex: number;
     animationSheetChangeTimer: Timer;
+    shotsTaken;
 
-    constructor()
+    constructor(ammo)
     {
         super(
             "Shotgun",
-            10,
+            ammo,
             Sprites.weaponIcons.shotgun,
             Sprites.worms.shotgunTakeOut,
             Sprites.worms.aimingShotgun
@@ -44,6 +45,8 @@ class Shotgun extends RayWeapon
 
         this.animationSheetChangeTimer = new Timer(300);
 
+        this.shotsTaken = 0;
+
     }
 
 
@@ -56,6 +59,7 @@ class Shotgun extends RayWeapon
             this.animationSheetChangeTimer.reset();
             this.fireAnimationIndex = 0;
             AssetManager.getSound("SHOTGUNRELOAD").play(1, 0.3);
+            this.shotsTaken++;
         }
     }
 
@@ -95,6 +99,13 @@ class Shotgun extends RayWeapon
                 setTimeout(function () => {
                     this.setIsActive(false);
                     this.worm.swapSpriteSheet(this.fireAnimations[this.fireAnimationIndex]);
+
+                    if (this.shotsTaken >= 2)
+                    {
+                        this.shotsTaken = 0;
+                        GameInstance.state.tiggerNextTurn();
+                    }
+
                 }, 400);
 
 

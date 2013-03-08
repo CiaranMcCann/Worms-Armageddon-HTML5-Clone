@@ -42,13 +42,13 @@ class ProjectileWeapon extends BaseWeapon
         this.projectileSprite = new Sprite(weaponSpriteDef);
 
         // Force/worm damge radius
-        this.effectedRadius = Physics.pixelToMeters(30);
+        this.effectedRadius = Physics.pixelToMeters(60);
 
         // The area in pxiels that get cut out of the terrain
-        this.explosionRadius = 40;
+        this.explosionRadius = 70;
 
         // force scaler
-        this.explosiveForce = 15
+        this.explosiveForce = 20
 
         this.maxDamage = 50;
 

@@ -21,11 +21,11 @@ class NinjaRope extends BaseWeapon
 
     ropeTip: Sprite;
 
-    constructor ()
+    constructor (ammo)
     {
         super(
            "Ninja Rope",
-           20,
+           ammo,
          Sprites.weaponIcons.ninjaRope,
          Sprites.worms.takeNinjaRope,
          Sprites.worms.aimNinjaRope

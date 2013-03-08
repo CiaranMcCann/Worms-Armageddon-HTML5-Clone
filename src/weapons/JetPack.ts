@@ -22,11 +22,11 @@ class JetPack extends BaseWeapon
     
     INITAL_FUEL: number;
 
-    constructor ()
+    constructor (ammo)
     {
         super(
            "Jet Pack",
-           5,
+           ammo,
          Sprites.weaponIcons.jetPack,
          Sprites.worms.takeOutJetPack,
          Sprites.worms.defualtJetPack

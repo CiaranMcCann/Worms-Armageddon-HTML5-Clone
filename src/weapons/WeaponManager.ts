@@ -34,17 +34,17 @@ class WeaponManager
     {
         this.weaponsAndTools = 
         [
-            new Shotgun(), 
-            new Minigun(),   
-            new HandGrenade(),
-            new HolyGrenade(),
-            new Dynamite(1),
-            new LandMine(10),
-            new JetPack(),           
-            new NinjaRope(),
+            new Shotgun(99),           
+            new HandGrenade(20),
+            new HolyGrenade(1),
+            new Dynamite(5),
+           // new LandMine(10), //Not finished
+            new JetPack(5), 
+            new Minigun(4),   //Bug: might take out for final demo          
+            new NinjaRope(20),
             new Drill(3),
-            new Blowtorch(3),
-            new Bazzoka(10)
+           // new Blowtorch(3), //not finished
+            new Bazzoka(15)
                
                        
         ];

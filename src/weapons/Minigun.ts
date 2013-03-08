@@ -19,11 +19,11 @@ class Minigun extends RayWeapon
 {
     fireRate: Timer;
 
-    constructor()
+    constructor(ammo)
     {
         super(
             "Minigun",
-            8,
+            ammo,
             Sprites.weaponIcons.minigun,
             Sprites.worms.minigunTakeOut,
             Sprites.worms.minigunAim
