@@ -1,0 +1,229 @@
+CACHE MANIFEST
+
+#version 1.0 3-9-2013
+
+CACHE:
+
+#images
+http://www.ciaranmccann.me/college/fyp/data/images/arrowdnb.png
+http://www.ciaranmccann.me/college/fyp/data/images/blob.png
+http://www.ciaranmccann.me/college/fyp/data/images/circl100.png
+http://www.ciaranmccann.me/college/fyp/data/images/cloudl.png
+http://www.ciaranmccann.me/college/fyp/data/images/cloudm.png
+http://www.ciaranmccann.me/college/fyp/data/images/clouds.png
+http://www.ciaranmccann.me/college/fyp/data/images/crshairr.png
+http://www.ciaranmccann.me/college/fyp/data/images/dynamite.png
+http://www.ciaranmccann.me/college/fyp/data/images/elipse75.png
+http://www.ciaranmccann.me/college/fyp/data/images/exbiff.png
+http://www.ciaranmccann.me/college/fyp/data/images/exhaust.png
+http://www.ciaranmccann.me/college/fyp/data/images/flame1.png
+http://www.ciaranmccann.me/college/fyp/data/images/grave1.png
+http://www.ciaranmccann.me/college/fyp/data/images/grave2.png
+http://www.ciaranmccann.me/college/fyp/data/images/grave3.png
+http://www.ciaranmccann.me/college/fyp/data/images/grave4.png
+http://www.ciaranmccann.me/college/fyp/data/images/grave5.png
+http://www.ciaranmccann.me/college/fyp/data/images/grave6.png
+http://www.ciaranmccann.me/college/fyp/data/images/grenade.png
+http://www.ciaranmccann.me/college/fyp/data/images/hexhaust.png
+http://www.ciaranmccann.me/college/fyp/data/images/hgrenade.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/castles.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/level2.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/level20.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/level3.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/level5.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/smallcastles.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/smalllevel2.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/smalllevel20.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/smalllevel3.png
+http://www.ciaranmccann.me/college/fyp/data/images/levels/smalllevel5.png
+http://www.ciaranmccann.me/college/fyp/data/images/menu/stick.png
+http://www.ciaranmccann.me/college/fyp/data/images/mineoff.png
+http://www.ciaranmccann.me/college/fyp/data/images/mineon.png
+http://www.ciaranmccann.me/college/fyp/data/images/missile.png
+http://www.ciaranmccann.me/college/fyp/data/images/ropecuff.png
+http://www.ciaranmccann.me/college/fyp/data/images/shotcase.png
+http://www.ciaranmccann.me/college/fyp/data/images/shothit.png
+http://www.ciaranmccann.me/college/fyp/data/images/smklt75.png
+http://www.ciaranmccann.me/college/fyp/data/images/water3.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbackflp.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbataim.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbatlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbaz.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbazlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wblink1u.png
+http://www.ciaranmccann.me/college/fyp/data/images/wblowlk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbloww.png
+http://www.ciaranmccann.me/college/fyp/data/images/wbrth2.png
+http://www.ciaranmccann.me/college/fyp/data/images/wdie.png
+http://www.ciaranmccann.me/college/fyp/data/images/wdrill.png
+http://www.ciaranmccann.me/college/fyp/data/images/wdrllnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wdynlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/drill.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconbazooka.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconblowtorch.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/icondynamite.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/icongrenade.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconhgrenade.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconjetpack.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconmine.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconminigun.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconrope.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconsheep.png
+http://www.ciaranmccann.me/college/fyp/data/images/weaponicons/iconshotgun.png
+http://www.ciaranmccann.me/college/fyp/data/images/wfall.png
+http://www.ciaranmccann.me/college/fyp/data/images/wflyup.png
+http://www.ciaranmccann.me/college/fyp/data/images/wgrnlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/whgrlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wjetbak.png
+http://www.ciaranmccann.me/college/fyp/data/images/wjetflmb.png
+http://www.ciaranmccann.me/college/fyp/data/images/wjetflmd.png
+http://www.ciaranmccann.me/college/fyp/data/images/wjetlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wmgnbak.png
+http://www.ciaranmccann.me/college/fyp/data/images/wmgnlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wmini.png
+http://www.ciaranmccann.me/college/fyp/data/images/wminif.png
+http://www.ciaranmccann.me/college/fyp/data/images/wminlnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wselbak.png
+http://www.ciaranmccann.me/college/fyp/data/images/wshgbak.png
+http://www.ciaranmccann.me/college/fyp/data/images/wshglnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wshotf.png
+http://www.ciaranmccann.me/college/fyp/data/images/wshotg.png
+http://www.ciaranmccann.me/college/fyp/data/images/wshotp.png
+http://www.ciaranmccann.me/college/fyp/data/images/wshplnk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wthrgrn.png
+http://www.ciaranmccann.me/college/fyp/data/images/wthrhgr.png
+http://www.ciaranmccann.me/college/fyp/data/images/wtwangd.png
+http://www.ciaranmccann.me/college/fyp/data/images/wwalk.png
+http://www.ciaranmccann.me/college/fyp/data/images/wwinner.png
+
+#audio
+ http://www.ciaranmccann.me/college/fyp/data/sounds/JUMP1.WAV 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/TIMERTICK.WAV 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ohdear.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/drill.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/fire.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/victory.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow2.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/holygrenade.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow3.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/hurry.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow1.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/traitor.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/byebye.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/laugh.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/youllregretthat.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/grenade.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/justyouwait.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/watchthis.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/cantclickhere.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/incoming.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/fatality.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/JetPackLoop2.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/yessir.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/JetPackLoop1.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/NinjaRopeFire.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/fuse.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/NinjaRopeImpact.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/ROCKETPOWERUP.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/WormLanding.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/GRENADEIMPACT.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/HOLYGRENADEIMPACT.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/StartRound.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/SHOTGUNRELOAD.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/THROWRELEASE.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/ShotGunFire.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/MINEIMPACT.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/MINETICK.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/THROWPOWERUP.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/MiniGunFire.wav 
+ http://www.ciaranmccann.me/college/fyp/data/sounds/fanfare/Ireland.wav  
+http://www.ciaranmccann.me/college/fyp/data/sounds/CursorSelect.wav
+http://www.ciaranmccann.me/college/fyp/data/sounds/explosion1.wav
+http://www.ciaranmccann.me/college/fyp/data/sounds/explosion2.wav
+http://www.ciaranmccann.me/college/fyp/data/sounds/explosion3.wav
+http://www.ciaranmccann.me/college/fyp/data/sounds/WalkExpand.wav
+http://www.ciaranmccann.me/college/fyp/data/sounds/WalkCompress.wav  
+
+#internal HTML documents
+http://www.ciaranmccann.me/
+http://www.ciaranmccann.me/college/fyp/data/images/awesome.jpg
+http://www.ciaranmccann.me/college/fyp/release5/
+
+#style sheets
+http://www.ciaranmccann.me/college/fyp/release5/css/bootstrap.min.css
+http://www.ciaranmccann.me/college/fyp/release5/css/custom.css
+
+
+#javascript files
+http://www.ciaranmccann.me/college/fyp/release5/external/jquery.1.8.2.min.js
+http://www.ciaranmccann.me/college/fyp/release5/external/Box2dWeb-2.1.a.3.js
+http://www.ciaranmccann.me/college/fyp/release5/external/Stats.js
+http://www.ciaranmccann.me/college/fyp/release5/external/bootstrap-modal.js
+http://www.ciaranmccann.me/college/fyp/release5/src/audio/SoundBufferLoader.js
+http://www.ciaranmccann.me/college/fyp/release5/src/audio/Sound.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/Utilies.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/Controls.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Settings.js
+http://www.ciaranmccann.me/college/fyp/release5/src/gui/SettingsMenu.js
+http://www.ciaranmccann.me/college/fyp/release5/src/gui/StartMenu.js
+http://www.ciaranmccann.me/college/fyp/release5/src/gui/WeaponsMenu.js
+http://www.ciaranmccann.me/college/fyp/release5/src/gui/HealthMenu.js
+http://www.ciaranmccann.me/college/fyp/release5/src/gui/CountDownTimer.js
+http://www.ciaranmccann.me/college/fyp/release5/src/gui/LobbyMenu.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Tutorial.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/Physics.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/Graphics.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/HealthReduction.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/SpriteDefinitions.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/Sprite.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/PhysicsSprite.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/BounceArrow.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/Particle.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/ParticleEffect.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/EffectsManager.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/SpriteDefinitions.js
+http://www.ciaranmccann.me/college/fyp/release5/src/animation/Effects.js
+http://www.ciaranmccann.me/college/fyp/release5/src/main.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/Camera.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/AssetManager.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/NameGenerator.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/Timer.js
+http://www.ciaranmccann.me/college/fyp/release5/src/environment/Waves.js
+http://www.ciaranmccann.me/college/fyp/release5/src/environment/Maps.js
+http://www.ciaranmccann.me/college/fyp/release5/src/WormManager.js
+http://www.ciaranmccann.me/college/fyp/release5/src/GameStateManager.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Game.js
+http://www.ciaranmccann.me/college/fyp/release5/src/environment/Terrain.js
+http://www.ciaranmccann.me/college/fyp/release5/src/environment/TerrainBoundary.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/ForceIndicator.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/WeaponManager.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/BaseWeapon.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Drill.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/ThrowableWeapon.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Dynamite.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/JetPack.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/RayWeapon.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/ProjectileWeapon.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/HolyGrenade.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/HandGrenade.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/NinjaRope.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Minigun.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Shotgun.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/LandMine.js
+http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Blowtorch.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Target.js
+http://www.ciaranmccann.me/college/fyp/release5/src/WormAnimationManger.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Worm.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Team.js
+http://www.ciaranmccann.me/college/fyp/release5/src/system/GamePad.js
+http://www.ciaranmccann.me/college/fyp/release5/src/Player.js
+http://www.ciaranmccann.me/college/fyp/release5/src/networking/NetworkTimer.js
+http://www.ciaranmccann.me/college/fyp/release5/src/networking/Events.js
+http://www.ciaranmccann.me/college/fyp/release5/src/networking/InstructionChain.js
+http://www.ciaranmccann.me/college/fyp/release5/src/networking/Client.js
+http://www.ciaranmccann.me/college/fyp/release5/src/networking/GameLobby.js
+http://www.ciaranmccann.me/college/fyp/release5/src/networking/Lobby.js
+http://96.126.111.211:8080/socket.io/socket.io.js
+
+NETWORK:
+*

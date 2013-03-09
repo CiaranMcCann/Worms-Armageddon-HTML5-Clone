@@ -122,6 +122,12 @@ module AssetManager
             if (images[name] == null)
             {
                 images[name] = new Image();
+
+                if (Settings.BUILD_MANIFEST_FILE)
+                {
+                    $('body').append(images[name]);
+                }
+
                 images[name].onload = function ()
                 {
                     Logger.log(" Image " + this.src + " loaded sucessfully ");
@@ -191,6 +197,11 @@ module AssetManager
         //First lets try load our audio using the web audio API
         try
         {
+            if (Settings.BUILD_MANIFEST_FILE)
+            {
+                throw "LOL"
+            }
+
             Sound.context = new webkitAudioContext();
             var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
             {

@@ -25,6 +25,10 @@ module Settings
     export var DEVELOPMENT_MODE = false; 
     export var LOG = true;
 
+    //When I want to build the manifest file using 
+    // http://westciv.com/tools/manifestR/
+    export var BUILD_MANIFEST_FILE = false;
+
     export var REMOTE_ASSERT_SERVER = "../";
 
     export var PHYSICS_DEBUG_MODE = false;
