@@ -106,6 +106,14 @@ class Lobby
 
     }
 
+    //Checks if the user id is in another room
+    //and if so removes them. Called before adding any
+    //user to a room.
+    server_removeUserFromOtherRooms(playerId)
+    {
+
+    }
+
     client_getMyLobby() : GameLobby
     {
         return this.client_GameLobby;

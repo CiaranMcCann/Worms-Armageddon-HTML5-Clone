@@ -88,7 +88,7 @@ class GameStateManager
     }
 
     // Selects the next players to have a go and selects the next worm they use
-    nextPlayer()
+    nextPlayer() : string
     {
 
         //Networked games need this
@@ -107,7 +107,7 @@ class GameStateManager
         //If the team is all dead return -1 to sign move to next player.
         if (this.getCurrentPlayer().getTeam().getPercentageHealth() <= 0)
         {
-            return -1;
+            return null;
         }
 
         this.getCurrentPlayer().getTeam().nextWorm();

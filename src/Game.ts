@@ -255,31 +255,33 @@ class Game
         var id = this.state.nextPlayer();
 
         // If the id is -1 then the next player is dead
-        if (id == -1)
+        if (id == null)
         {
             this.nextTurn()
-        }
-
-        Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
-        this.lobby.client_GameLobby.currentPlayerId = id;
-        this.gameTimer.timer.reset();
-        AssetManager.getSound("yessir").play();
-
-        var pos = Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition());
-        pos.y -= 45;
-
-
-        var message = "Your go " + this.state.getCurrentPlayer().getTeam().name
-        if (!Client.isClientsTurn())
+        } else
         {
-            message = " Time to see what " + this.state.getCurrentPlayer().getTeam().name + " can do ";
-        }
 
-        GameInstance.particleEffectMgmt.add(new ToostMessage(
-            pos,
-            message,
-           this.state.getCurrentPlayer().getTeam().color)
-         );
+            Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
+            this.lobby.client_GameLobby.currentPlayerId = id;
+            this.gameTimer.timer.reset();
+            AssetManager.getSound("yessir").play();
+
+            var pos = Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition());
+            pos.y -= 45;
+
+
+            var message = "Your go " + this.state.getCurrentPlayer().getTeam().name
+            if (!Client.isClientsTurn())
+            {
+                message = " Time to see what " + this.state.getCurrentPlayer().getTeam().name + " can do ";
+            }
+
+            GameInstance.particleEffectMgmt.add(new ToostMessage(
+                pos,
+                message,
+               this.state.getCurrentPlayer().getTeam().color)
+             );
+        }
 
     }
 

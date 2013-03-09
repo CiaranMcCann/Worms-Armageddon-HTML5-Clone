@@ -60,16 +60,23 @@ class StartMenu
                     this.settingsMenu = new SettingsMenu();
                     $('#startLocal').removeAttr("disabled");
                     $('#startOnline').removeAttr("disabled");
-                    $('#startTutorial').removeAttr("disabled");
+                  
 
                     // IE tell the user to get a better browser, but still allow them to play
                     if ($.browser.msie)
                     {
+                         $('#startTutorial').removeAttr("disabled");
                         $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
                             '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
                             '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
-                    } else
+                    } else if (TouchUI.isTouchDevice())
                     {
+                        $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
+                            '<strong>Hey tablet user</strong> There may be performance problems and some missing features in the tablet version. You can still play though!</div> ');
+                    }
+                    else
+                    {
+                        $('#startTutorial').removeAttr("disabled");
                         $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong><br> Also thanks for using a modern browser. <a href="../data/images/awesome.jpg">Your awesome!</a></div> ');
                     }
 

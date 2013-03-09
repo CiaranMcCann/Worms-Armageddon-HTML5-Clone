@@ -118,6 +118,11 @@ class GameLobby
                         worms[i].hit(999);
                     }
 
+                    //If the user who disconnected is the current one signal next turn
+                    if (GameInstance.players[j].id == GameInstance.state.getCurrentPlayer().id)
+                    {
+                        GameInstance.state.tiggerNextTurn();
+                    }
                     return;
                 }
             }
@@ -137,7 +142,7 @@ class GameLobby
         return false;
     }
 
-    disconnection(disconnectedPlayerId)
+    removePlayer(disconnectedPlayerId)
     {
         ServerUtilies.deleteFromCollection(this.playerIds, disconnectedPlayerId);
 
