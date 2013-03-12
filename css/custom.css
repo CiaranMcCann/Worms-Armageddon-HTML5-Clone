@@ -127,6 +127,7 @@
 -ms-transform: rotate(90deg);
 -o-transform: rotate(90deg);
 transform: rotate(90deg);
+  cursor: pointer; 
 
 	 position: absolute;
     left: -42.5%;
@@ -152,7 +153,7 @@ transform: rotate(90deg);
         -o-transform: scale(0.9,0.9); /* Opera */
         -moz-transform: scale(0.9,0.9);
         transform: scale(0.9,0.9); /* Firefox */
-        cursor: default;
+        cursor: pointer;
     }
 
     #weaponsMenu .noAmmo {
@@ -162,6 +163,8 @@ transform: rotate(90deg);
 
 a.noAmmo:hover {
     border-color: none;
+    cursor: pointer; 
+ 
 }
 
 
@@ -171,6 +174,7 @@ a.noAmmo:hover {
 
 a.thumbnail.ammo {
     background: black;
+    cursor: pointer;
 }
 
 .ammoCount {

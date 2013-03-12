@@ -272,10 +272,10 @@ class Game
             AssetManager.getSound("yessir").play();
 
 
-            if (Client.isClientsTurn())
+            if (this.tutorial == null && Client.isClientsTurn())
             {
                 Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
-            } else
+            } else if(this.tutorial == null)
             {
                 Notify.display(this.state.getCurrentPlayer().getTeam().name + "'s turn", "Sit back relax and enjoy the show", 9000, Notify.levels.warn);
             }

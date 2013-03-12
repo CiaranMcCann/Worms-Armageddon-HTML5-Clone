@@ -164,6 +164,21 @@ var tutorialCommandBank = [
     },
 
     {
+        header: "Looking around the map",
+        message: "You can move the camera around using the arrow keys, give it a shot",
+        detection: function ()
+        {
+            if (keyboard.isKeyDown(keyboard.keyCodes.Leftarrow) || 
+                keyboard.isKeyDown(keyboard.keyCodes.Downarrow) ||
+                keyboard.isKeyDown(keyboard.keyCodes.Rightarrow) ||
+                keyboard.isKeyDown(keyboard.keyCodes.Uparrow) )
+            {
+                return true;
+            }
+        },
+    },
+
+    {
         header: "Jetpack",
         message: "So select the Jetpack from the weapons menu, press <strong>"+ keyboard.getKeyName(Controls.jump.keyboard) +"</strong> and then use directional keys to move",
         detection: function ()
