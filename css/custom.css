@@ -147,11 +147,11 @@ transform: rotate(90deg);
     }
 
     #weaponsMenu .thumbnail:active {
-        -ms-transform: scale(0.7,0.7); /* IE 9 */
-        -webkit-transform: scale(0.7,0.7); /* Safari and Chrome */
-        -o-transform: scale(0.7,0.7); /* Opera */
-        -moz-transform: scale(0.7,0.7);
-        transform: scale(0.7,0.7); /* Firefox */
+        -ms-transform: scale(0.9,0.9); /* IE 9 */
+        -webkit-transform: scale(0.9,0.9); /* Safari and Chrome */
+        -o-transform: scale(0.9,0.9); /* Opera */
+        -moz-transform: scale(0.9,0.9);
+        transform: scale(0.9,0.9); /* Firefox */
         cursor: default;
     }
 

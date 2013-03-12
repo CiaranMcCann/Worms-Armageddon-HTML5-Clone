@@ -140,7 +140,7 @@ class WeaponsMenu
 
 
         var _this = this;
-        $("#" + this.cssId + " a").click(function ()
+        $("#" + this.cssId + " li").click(function ()
         {
             var weaponId = parseInt($(this).attr('id'));
 

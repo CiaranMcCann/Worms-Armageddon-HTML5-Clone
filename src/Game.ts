@@ -181,7 +181,7 @@ class Game
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
         this.camera.setX(this.terrain.getWidth() / 2);
         this.camera.setY(this.terrain.getHeight() / 2);
-        
+
 
         if (this.gameType == Game.types.LOCAL_GAME)
         {
@@ -266,25 +266,19 @@ class Game
             this.nextTurn()
         } else
         {
-
             Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
             this.lobby.client_GameLobby.currentPlayerId = id;
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
 
-            var pos = Physics.vectorMetersToPixels(this.state.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition());
-            pos.y -= 45;
-
 
             if (Client.isClientsTurn())
             {
-                Notify.display("Time's a ticking","Your go " + this.state.getCurrentPlayer().getTeam().name, 5000);
+                Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
             } else
             {
-               Notify.display(this.state.getCurrentPlayer().getTeam().name + "'s turn", "sit back relax and enjoy the show", 9000, Notify.levels.warn);
+                Notify.display(this.state.getCurrentPlayer().getTeam().name + "'s turn", "Sit back relax and enjoy the show", 9000, Notify.levels.warn);
             }
-
-            
         }
 
     }
@@ -392,8 +386,8 @@ class Game
 
         this.actionCanvasContext.restore();
 
-        if(Client.isClientsTurn())
-        GameInstance.sticks.draw(this.actionCanvasContext);
+        if (Client.isClientsTurn())
+            GameInstance.sticks.draw(this.actionCanvasContext);
     }
 
 }
