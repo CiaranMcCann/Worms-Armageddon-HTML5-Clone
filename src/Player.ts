@@ -68,11 +68,17 @@ class Player
         //If this weapons use a force, then we charge the force.
         if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getIsActive() == false)
         {
+
             // The charge returns true if the charge has reached maxium
-            if (this.team.getCurrentWorm().getWeapon().getForceIndicator().charge(3))
+            if (wormWeapon.ammo > 0 && this.team.getCurrentWorm().getWeapon().getForceIndicator().charge(3))
             {
                 this.team.getCurrentWorm().fire();
                 GameInstance.weaponMenu.refresh();
+
+            } else if(wormWeapon.ammo <= 0)
+            {
+                Notify.display("Out of Ammo", "No more ammo left in your " + wormWeapon.name + " Select a new weapon ",5000);
+                AssetManager.getSound("cantclickhere").play();
             }
         }
         else

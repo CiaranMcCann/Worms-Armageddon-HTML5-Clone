@@ -512,8 +512,10 @@ class Worm extends Sprite
 
         if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
-            if (this.isDead == false)
+            if (this.isDead == false && Client.isClientsTurn())
+            {
                 this.target.draw(ctx);
+            }
         }
 
         ctx.save()

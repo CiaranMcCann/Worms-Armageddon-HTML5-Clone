@@ -55,7 +55,7 @@ module NameGenerator
     {
         if (randomNamesList.length == 0)
             return "Error with genertor";
-        return randomNamesList[Utilies.random(0, randomNamesList.length - 9)];
+        return Utilies.pickUnqine(randomNamesList, "names");
     }
 
 }

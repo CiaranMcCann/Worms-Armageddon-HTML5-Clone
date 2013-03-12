@@ -63,7 +63,6 @@ class Game
 
     winner: Player;
 
-    // TODO clean this up -just made it static to get it working
     static map: Map = new Map(Maps.castle);
 
     camera: Camera;
@@ -110,6 +109,8 @@ class Game
 
         // Manages the state of the game, the player turns etc.
         this.state = new GameStateManager();
+
+        this.players = []; //TODO Make this work as a c-style array(4)
 
         // Development stuff
         this.spawns = [];
@@ -184,19 +185,17 @@ class Game
 
         if (this.gameType == Game.types.LOCAL_GAME)
         {
-            this.players = new Array(2);
-            for (var i = this.players.length-1; i >= 0; i--)
+            for (var i = 0; i < 2; i++)
             {
-                this.players[i] = new Player();
+                this.players.push(new Player());
             }
 
         } else if (this.gameType == Game.types.ONLINE_GAME && playerIds != null)
         {
 
-            this.players = new Array(playerIds.length);
-            for (var i = this.players.length-1; i >= 0; i--)
+            for (var i = 0; i < playerIds.length; i++)
             {
-                 this.players[i] = new Player(playerIds[i]);
+                this.players.push(new Player(playerIds[i]));
             }
         }
 
@@ -277,17 +276,15 @@ class Game
             pos.y -= 45;
 
 
-            var message = "Your go " + this.state.getCurrentPlayer().getTeam().name
-            if (!Client.isClientsTurn())
+            if (Client.isClientsTurn())
             {
-                message = " Time to see what " + this.state.getCurrentPlayer().getTeam().name + " can do ";
+                Notify.display("Time's a ticking","Your go " + this.state.getCurrentPlayer().getTeam().name, 5000);
+            } else
+            {
+               Notify.display(this.state.getCurrentPlayer().getTeam().name + "'s turn", "sit back relax and enjoy the show", 9000, Notify.levels.warn);
             }
 
-            GameInstance.particleEffectMgmt.add(new ToostMessage(
-                pos,
-                message,
-               this.state.getCurrentPlayer().getTeam().color)
-             );
+            
         }
 
     }

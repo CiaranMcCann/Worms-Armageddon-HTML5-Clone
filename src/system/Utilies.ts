@@ -23,43 +23,62 @@ interface String
     format(...numbers: String[]);
 }
 
-String.prototype.format = function(...numbers: String[]) {
-  var args = arguments;
-  return this.replace(/{(\d+)}/g, function(match, number) { 
-    return typeof args[number] != 'undefined'
-      ? args[number]
-      : match
-    ;
-  });
+String.prototype.format = function (...numbers: String[])
+{
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function (match, number)
+    {
+        return typeof args[number] != 'undefined'
+          ? args[number]
+          : match
+            ;
+    });
 };
 
 module Notify
 {
+    export var currentInUse = false;
+    export var levels = {
+        sucess: "alert-success",
+        warn: "alert-warn",
+        error: "alert-error"
+    };
 
-    export function display(header: string, message: string, autoHideTime = 2500)
+    export function display(header: string, message: string, autoHideTime = 2800, cssStyle = Notify.levels.sucess)
     {
-        $("#notifaction strong").empty();
-        $("#notifaction strong").html(header);
+        //if (!currentInUse)
+        {
+            $("#notifaction").removeClass(levels.warn);
+            $("#notifaction").removeClass(levels.error);
+            $("#notifaction").removeClass(levels.sucess);
+            $("#notifaction").addClass(cssStyle);
 
-        $("#notifaction p").empty();
-        $("#notifaction p").html(message);
+            currentInUse = true;
+            $("#notifaction strong").empty();
+            $("#notifaction strong").html(header);
 
-        $("#notifaction").animate({
-            top: "5%"
-        }, 400,function() {
-            if (autoHideTime > 0)
+            $("#notifaction p").empty();
+            $("#notifaction p").html(message);
+
+            $("#notifaction").animate({
+                top: "5%"
+            }, 400, function ()
             {
-                setTimeout(hide, autoHideTime );
-            }
-        });      
+                if (autoHideTime > 0)
+                {
+                    setTimeout(hide, autoHideTime);
+                }
+            });
+        }
     }
 
     export function hide(callback)
     {
-
+        
         $("#notifaction").animate({
             top: "-20%"
-        }, 400,function() {
+        }, 400,function() => {
+            currentInUse = false;
             if (callback != null)
             {
                 callback();

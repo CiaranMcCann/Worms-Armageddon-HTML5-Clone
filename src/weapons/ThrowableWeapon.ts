@@ -191,7 +191,9 @@ class ThrowableWeapon extends BaseWeapon
             this.playWormVoice();
             super.activate(worm);
             this.setupDirectionAndForce(worm);
-           
+        } else
+        {
+              AssetManager.getSound("cantclickhere").play();
         }
     }
 
