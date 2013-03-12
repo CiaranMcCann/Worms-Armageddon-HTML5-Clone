@@ -184,7 +184,7 @@ class Game
 
         if (this.gameType == Game.types.LOCAL_GAME)
         {
-            this.players = new Array(4);
+            this.players = new Array(2);
             for (var i = this.players.length-1; i >= 0; i--)
             {
                 this.players[i] = new Player();

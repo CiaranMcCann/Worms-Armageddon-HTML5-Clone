@@ -41,7 +41,7 @@ class Terrain
         this.world = world;
         this.scale = scale;
 
-        this.Offset = new b2Vec2(2500, 2000);
+        this.Offset = new b2Vec2(2300, 1300);
 
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
@@ -56,7 +56,6 @@ class Terrain
         this.boundary = new TerrainBoundary(this.bufferCanvas.width+this.Offset.x, this.bufferCanvas.height+100);
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
-
 
         this.bufferCanvasContext.fillStyle = 'rgba(0,0,0,255)'; //Setup alpha colour for cutting out terrain
         this.bufferCanvasContext.drawImage(terrainImage, this.Offset.x,  this.Offset.y, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y);
