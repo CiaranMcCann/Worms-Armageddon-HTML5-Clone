@@ -24,7 +24,7 @@
 
 class Worm extends Sprite
 {
-    
+
     static DENSITY = 10.0;
     static DIRECTION = {
         left: -1,
@@ -223,12 +223,12 @@ class Worm extends Sprite
 
     postSolve(contact, impulse)
     {
-        var impactTheroshold = 6*Worm.DENSITY
+        var impactTheroshold = 8 * Worm.DENSITY
 
         // If the worm is using the Jetpack don't take damage
         if ((this.getWeapon() instanceof JetPack) && this.getWeapon().getIsActive())
         {
-            impactTheroshold += 2*Worm.DENSITY
+            impactTheroshold += 2 * Worm.DENSITY
         }
         //If the worm is using the NijaRope don't take damage
         if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
@@ -359,8 +359,8 @@ class Worm extends Sprite
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction, -2);
-                forces.Multiply(1.5*Worm.DENSITY);
-                
+                forces.Multiply(1.5 * Worm.DENSITY);
+
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }
@@ -394,7 +394,7 @@ class Worm extends Sprite
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction * -1, -2);
-                forces.Multiply(2.3*Worm.DENSITY);
+                forces.Multiply(2.3 * Worm.DENSITY);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }
@@ -414,15 +414,14 @@ class Worm extends Sprite
         {
             if (this.isDead == false)
             {
-                //if (Client.isClientsTurn())
-               // {
+
+                if (Client.isClientsTurn())
+                {
+                    console.log("CLIENT HIT");
                     this.damageTake += damage;
-                //    var parameters = [this.name,damage];
-                //    Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.setDamageTaken",parameters));
-
-               // }              
-
-                AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
+                    GameInstance.wormManager.syncHit(this.name, damage)
+                    AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
+                }
 
                 //If worm using Jetpack, deactive it if they get hurt.
                 if (this.getWeapon() instanceof JetPack)

@@ -142,5 +142,24 @@ class WormManager
         return true;
     }
 
+    syncHit(wormName,damage)
+    {
+        if (Client.isClientsTurn())
+        {
+            var parameters = [wormName, damage];
+            Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.syncHit", parameters));
+
+        } else
+        {
+            var damage = wormName[1];
+            var wormName = wormName[0];
+
+           var worm : Worm =  GameInstance.wormManager.findWormWithName(wormName);
+           worm.damageTake += damage;
+           worm.hit(0, null);   
+
+               
+        }
+    }
 
 }
