@@ -23,7 +23,7 @@ class HolyGrenade extends ThrowableWeapon
         this.effectedRadius = Physics.pixelToMeters(360);
 
         // force scaler
-        this.explosiveForce = 110
+        this.explosiveForce = 90
 
         //hit damage at center
         this.maxDamage = 50;

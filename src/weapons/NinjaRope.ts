@@ -75,9 +75,9 @@ class NinjaRope extends BaseWeapon
                 this.ammo--;
                 this.isActive = true;
                 var fixDef = new b2FixtureDef;
-                fixDef.density = 0.5;
+                fixDef.density = 10.5;
                 fixDef.friction = 1.0;
-                fixDef.restitution = 0.0;
+                fixDef.restitution = 0.3;
                 fixDef.shape = new b2PolygonShape;
                 fixDef.shape.SetAsBox(0.2, 0.2);
 

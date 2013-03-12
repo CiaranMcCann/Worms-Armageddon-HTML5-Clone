@@ -144,7 +144,7 @@ class GameLobby
 
     removePlayer(disconnectedPlayerId)
     {
-        ServerUtilies.deleteFromCollection(this.playerIds, disconnectedPlayerId);
+        
 
         if (this.playerIds.length <= 0)
         {

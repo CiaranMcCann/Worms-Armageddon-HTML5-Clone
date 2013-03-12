@@ -24,6 +24,8 @@
 
 class Worm extends Sprite
 {
+    
+    static DENSITY = 10.0;
     static DIRECTION = {
         left: -1,
         right: 1
@@ -62,7 +64,7 @@ class Worm extends Sprite
     {
         super(Sprites.worms.idle1);
         this.name = NameGenerator.randomName();
-        this.health = 50;
+        this.health = 80;
         this.damageTake = 0;
         this.team = team;
 
@@ -71,7 +73,7 @@ class Worm extends Sprite
         var circleRadius = (AssetManager.getImage(this.spriteDef.imageName).width / 2) / Physics.worldScale;
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = Worm.DENSITY;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
         fixDef.shape = new b2CircleShape(circleRadius);
@@ -221,28 +223,27 @@ class Worm extends Sprite
 
     postSolve(contact, impulse)
     {
-        var impactTheroshold = 8
+        var impactTheroshold = 6*Worm.DENSITY
 
         // If the worm is using the Jetpack don't take damage
         if ((this.getWeapon() instanceof JetPack) && this.getWeapon().getIsActive())
         {
-            impactTheroshold = 10
+            impactTheroshold += 2*Worm.DENSITY
         }
         //If the worm is using the NijaRope don't take damage
         if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
         {
             if (impulse.normalImpulses[0] > impactTheroshold)
             {
-                var damage = Math.round(impulse.normalImpulses[0]) / 2;
+                var damage = Math.round(impulse.normalImpulses[0]) / Worm.DENSITY;
+                Logger.log(damage);
 
                 if (damage > 10)
                 {
                     damage = 10;
                 }
 
-
                 this.hit(damage);
-
             }
 
             if (impulse.normalImpulses[0] > 3)
@@ -358,7 +359,8 @@ class Worm extends Sprite
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction, -2);
-                forces.Multiply(1.5);
+                forces.Multiply(1.5*Worm.DENSITY);
+                
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }
@@ -392,7 +394,7 @@ class Worm extends Sprite
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction * -1, -2);
-                forces.Multiply(2.3);
+                forces.Multiply(2.3*Worm.DENSITY);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }

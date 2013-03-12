@@ -111,8 +111,6 @@ class Game
         // Manages the state of the game, the player turns etc.
         this.state = new GameStateManager();
 
-        this.players = [];
-
         // Development stuff
         this.spawns = [];
         if (Settings.DEVELOPMENT_MODE)
@@ -180,23 +178,27 @@ class Game
     {
         this.terrain = new Terrain(this.actionCanvas, Game.map.getTerrainImg(), Physics.world, Physics.worldScale);
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
+        this.camera.setX(this.terrain.getWidth() / 2);
+        this.camera.setY(this.terrain.getHeight() / 2);
+        
 
         if (this.gameType == Game.types.LOCAL_GAME)
         {
-            for (var i = 0; i < 2; i++)
+            this.players = new Array(4);
+            for (var i = this.players.length-1; i >= 0; i--)
             {
-                this.players.push(new Player());
+                this.players[i] = new Player();
             }
 
         } else if (this.gameType == Game.types.ONLINE_GAME && playerIds != null)
         {
 
-            for (var i = 0; i < playerIds.length; i++)
+            this.players = new Array(playerIds.length);
+            for (var i = this.players.length-1; i >= 0; i--)
             {
-                this.players.push(new Player(playerIds[i]));
+                 this.players[i] = new Player(playerIds[i]);
             }
         }
-
 
 
         this.state.init(this.players);
@@ -244,6 +246,11 @@ class Game
 
         //Only inited if its a touch device
         TouchUI.init();
+
+        setTimeout(function () =>
+        {
+            this.state.physicsWorldSettled = true;
+        }, 1000);
 
         this.nextTurn();
     }
@@ -305,7 +312,7 @@ class Game
             if (this.state.readyForNextTurn() && this.winner == null)
             {
                 //If this player is the host they will decide when to move to next player
-                if (this.gameType == Game.types.LOCAL_GAME || this.lobby.client_GameLobby.currentPlayerId == Client.id)
+                if (Client.isClientsTurn())
                 {
                     Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
                     this.nextTurn();
@@ -313,7 +320,9 @@ class Game
             }
 
             if (this.tutorial != null)
+            {
                 this.tutorial.update();
+            }
 
             for (var i = this.players.length - 1; i >= 0; --i)
             {
@@ -327,8 +336,10 @@ class Game
             this.enviormentEffects.update();
             this.gameTimer.update();
 
-           if(Client.isClientsTurn())
-           GameInstance.sticks.update();
+            if (Client.isClientsTurn())
+            {
+                GameInstance.sticks.update();
+            }
         }
     }
 

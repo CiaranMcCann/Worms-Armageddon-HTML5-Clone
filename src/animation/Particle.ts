@@ -32,7 +32,7 @@ class Cloud extends PhysicsSprite
    
     constructor ()
     {
-        var initalPos = new b2Vec2(Utilies.random(0, GameInstance.camera.levelWidth), Utilies.random(200, 625));
+        var initalPos = new b2Vec2(Utilies.random(0, GameInstance.camera.levelWidth), Utilies.random(GameInstance.terrain.Offset.y-800, GameInstance.terrain.Offset.y-200));
         var initalVelocity = new b2Vec2(Utilies.random(3, 7)*0.4, 0);
         var spriteDef = Utilies.pickRandom([Sprites.particleEffects.cloudl, Sprites.particleEffects.cloudm, Sprites.particleEffects.clouds]);
                 

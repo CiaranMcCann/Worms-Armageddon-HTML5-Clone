@@ -179,7 +179,7 @@ class Player
          // the camera will then pan to the position of that worm. 
          // So when their is an explosion it gives the player somthing interesting and fun to look at
          var fastestWorm : Worm = GameInstance.wormManager.findFastestMovingWorm();
-         if (fastestWorm != null && fastestWorm.body.GetLinearVelocity().Length() > 3)
+         if (GameInstance.state.physicsWorldSettled && fastestWorm != null && fastestWorm.body.GetLinearVelocity().Length() > 3)
          {
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(fastestWorm.body.GetPosition()));
          }
@@ -216,13 +216,13 @@ class Player
             //The camera tracks the player while they move
             var currentWorm = this.team.getCurrentWorm();
            
-            if (currentWorm.body.GetLinearVelocity().Length() >= 0.1)
+            if (GameInstance.state.physicsWorldSettled && currentWorm.body.GetLinearVelocity().Length() >= 0.1)
             {
 
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
             }          
                 //if the players weapon is active and is a throwable then track it with the camera
-            else if ((this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ThrowableWeapon
+            else if ( GameInstance.state.physicsWorldSettled && (this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ThrowableWeapon
                 || this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ProjectileWeapon) &&
                 this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
                 {

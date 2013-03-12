@@ -14,6 +14,7 @@
 ///<reference path="GameLobby.ts"/>
 declare var Util;
 declare var server;
+declare var require;
 
 
 // Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system

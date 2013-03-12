@@ -23,7 +23,7 @@ class HandGrenade extends ThrowableWeapon
         this.effectedRadius = Physics.pixelToMeters(200);
 
         // force scaler
-        this.explosiveForce = 100
+        this.explosiveForce = 70
 
         //hit damage at center
         this.maxDamage = 25;

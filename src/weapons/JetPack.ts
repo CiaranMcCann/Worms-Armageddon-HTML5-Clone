@@ -32,7 +32,7 @@ class JetPack extends BaseWeapon
          Sprites.worms.defualtJetPack
        );
 
-        this.thurstScaler = 0.15;
+        this.thurstScaler = 0.15 * Worm.DENSITY;
         this.forceDir = new b2Vec2(0, 0);
         this.bottomflame = new Sprite(Sprites.weapons.jetPackFlamesDown);
         this.sideflame = new Sprite(Sprites.weapons.jetPackFlamesSide);

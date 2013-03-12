@@ -19,7 +19,7 @@
 
 class ThrowableWeapon extends BaseWeapon
 {
-
+    static DENSITY = 50;
     body;
     fixture;
     hasImpacted;
@@ -64,7 +64,7 @@ class ThrowableWeapon extends BaseWeapon
         );
 
         //Max force this weapon can be thrown with
-        this.forceIndicator.setMaxForce(50);
+        this.forceIndicator.setMaxForce(40);
 
         this.sprite = new Sprite(weaponSpriteDef);
 
@@ -75,7 +75,7 @@ class ThrowableWeapon extends BaseWeapon
         this.effectedRadius = Physics.pixelToMeters(50);
 
         // force scaler
-        this.explosiveForce = 150
+        this.explosiveForce = 50
 
         //hit damage at center
         this.maxDamage = 30;
@@ -121,7 +121,7 @@ class ThrowableWeapon extends BaseWeapon
         var image = this.sprite.getImage();
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 10.0;
+        fixDef.density = ThrowableWeapon.DENSITY;
         fixDef.friction = 3.5;
         fixDef.restitution = 0.6
         fixDef.shape = new b2CircleShape((image.width / 4) / Physics.worldScale);
@@ -141,11 +141,10 @@ class ThrowableWeapon extends BaseWeapon
         
         if ((this instanceof Dynamite) == false)
         {
+            //Visual hack, as box2d doesn't have air resistence
+            //objects won't rotate in the air, so add some AngularVelcoity.
             if (initalVelocity.x >= 0)
             {
-                //TODO make this even better, by setting the rotation off
-                // the inital velocity of the projectile.
-                // Looks ok for the mo, other more important things to do atm.
                 this.body.SetAngularVelocity(0.7);
             } else
             {

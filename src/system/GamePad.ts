@@ -83,7 +83,7 @@ class GamePad
 
 //Touch screen anagloue ticks
 // Adpated from http://www.lostdecadegames.com/demos/analog_sticks/ios.html
-function Stick(maxLength, active)
+function Stick(maxLength, active = false)
 {
     this.active = active;
     this.atLimit = false;
@@ -208,7 +208,7 @@ function TwinStickControls(canvas)
         }
     });
 
-    document.addEventListener("touchmove", function (e)
+    document.addEventListener("touchmove", function (e : any)
     {
         e.preventDefault();
 
@@ -221,7 +221,7 @@ function TwinStickControls(canvas)
         }
     });
 
-    document.addEventListener("touchend", function (e)
+    document.addEventListener("touchend", function (e : any)
     {
         var touches = e.changedTouches;
         for (var i = 0; i < touches.length; ++i)

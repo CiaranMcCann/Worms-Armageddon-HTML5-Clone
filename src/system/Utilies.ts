@@ -49,9 +49,7 @@ module Notify
         }, 400,function() {
             if (autoHideTime > 0)
             {
-                setTimeout(function () => {
-                    hide();
-                }, autoHideTime );
+                setTimeout(hide, autoHideTime );
             }
         });      
     }

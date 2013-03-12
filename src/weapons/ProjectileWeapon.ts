@@ -48,7 +48,7 @@ class ProjectileWeapon extends BaseWeapon
         this.explosionRadius = 70;
 
         // force scaler
-        this.explosiveForce = 20
+        this.explosiveForce = 60
 
         this.maxDamage = 50;
 
@@ -82,7 +82,7 @@ class ProjectileWeapon extends BaseWeapon
         var image = this.projectileSprite.getImage();
 
         var fixDef = new b2FixtureDef;
-        fixDef.density = 20.0;
+        fixDef.density = 50.0;
         fixDef.friction = 3.5;
         fixDef.restitution = 0.6
         fixDef.shape = new b2CircleShape((image.width / 4) / Physics.worldScale);

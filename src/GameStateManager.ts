@@ -20,6 +20,7 @@ class GameStateManager
     private currentPlayerIndex: number;
     private players: Player[];
     isStarted: bool;
+    physicsWorldSettled: bool;
 
     constructor()
     {
@@ -27,6 +28,7 @@ class GameStateManager
         this.nextTurnTrigger = false;
         this.currentPlayerIndex = 0;
         this.isStarted = false;
+        this.physicsWorldSettled = false;
     }
 
     init(players)

@@ -43,13 +43,13 @@ class Team
         this.weaponManager = new WeaponManager();
 
         this.currentWorm = 0;
-        this.initalNumberOfWorms = 3;
+        this.initalNumberOfWorms = 4;
 
-        this.worms = [];
+        this.worms = new Array(this.initalNumberOfWorms);
         for (var i = 0; i < this.initalNumberOfWorms; i++)
         {
             var tmp = Game.map.getNextSpawnPoint();
-            this.worms.push(new Worm(this, tmp.x, tmp.y));
+            this.worms[i] = (new Worm(this, tmp.x, tmp.y));
 
         }
     }

@@ -59,7 +59,7 @@ class WormManager
     areAllWormsStationary()
     {
 
-        for (var i = this.allWorms.length-1; i > 0; --i)
+        for (var i = this.allWorms.length-1; i >= 0; --i)
         {
             if (this.allWorms[i].isStationary() == false)
             {
@@ -70,10 +70,30 @@ class WormManager
         return true;
     }
 
+    findFastestMovingWorm()
+    {
+        var highestVecloity = 0;
+        var wormWithHighestVelocity : Worm = null;
+        var lenght = 0;
+
+        for (var i = this.allWorms.length-1; i > 0; --i)
+        {
+            lenght = this.allWorms[i].body.GetLinearVelocity().Length();
+
+            if (lenght > highestVecloity)
+            {
+                highestVecloity = lenght;
+                wormWithHighestVelocity = this.allWorms[i];
+            }
+        }
+
+        return wormWithHighestVelocity ;
+    }
+
      // Are all the worms stop, not moving at all. 
     areAllWeaponsDeactived()
     {
-        for (var i = this.allWorms.length-1; i > 0; --i)
+        for (var i = this.allWorms.length-1; i >= 0; --i)
         {
             if (this.allWorms[i].team.getWeaponManager().getCurrentWeapon().getIsActive() == true)
             {
@@ -87,7 +107,7 @@ class WormManager
     //deactivate all non-time based weapons, such as jetpacks and ropes etc. 
     deactivedAllNonTimeBasedWeapons()
     {
-        for (var i = this.allWorms.length-1; i > 0; --i)
+        for (var i = this.allWorms.length-1; i >= 0; --i)
         {
             var weapon = this.allWorms[i].team.getWeaponManager().getCurrentWeapon();
             if (weapon.getIsActive() == true)
