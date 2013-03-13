@@ -61,7 +61,7 @@ module Notify
             $("#notifaction p").html(message);
 
             $("#notifaction").animate({
-                top: "5%"
+                top:  (parseInt($("#notifaction").css("height"))) +"px"
             }, 400, function ()
             {
                 if (autoHideTime > 0)
@@ -76,7 +76,7 @@ module Notify
     {
         
         $("#notifaction").animate({
-            top: "-20%"
+            top: (-parseInt($("#notifaction").css("height"))) - 100 +"px"
         }, 400,function() => {
             currentInUse = false;
             if (callback != null)

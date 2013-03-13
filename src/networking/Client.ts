@@ -80,6 +80,7 @@ module Client
     }
 
     // Is the game an only one and if so is the current player == to this client
+    //Spefic to online games, allows returns true in single player
     export function isClientsTurn()
     {
         return GameInstance.gameType == Game.types.LOCAL_GAME || GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id

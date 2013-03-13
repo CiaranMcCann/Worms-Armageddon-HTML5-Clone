@@ -109,13 +109,13 @@ class GameLobby
                     Notify.display(
                         GameInstance.players[j].getTeam().name + " has disconnected ",
                         "Looks like you were too much competition for them. They just gave up, well done!! Although they might have just lost connection... though we will say you won =)",
-                    12000)
+                    13000)
 
                     var worms = GameInstance.players[j].getTeam().getWorms();
                     //Kill all the players worms.
                     for (var i = worms.length - 1; i >= 0; i--)
                     {
-                        worms[i].hit(999);
+                        worms[i].hit(999,null,true);
                     }
 
                     //If the user who disconnected is the current one signal next turn

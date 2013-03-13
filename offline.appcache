@@ -1,10 +1,10 @@
 CACHE MANIFEST
 
 #version 1.0 3-9-2013
-
+#szxzxz
 CACHE:
 
-#images
+#Images
 http://www.ciaranmccann.me/college/fyp/data/images/arrowdnb.png
 http://www.ciaranmccann.me/college/fyp/data/images/blob.png
 http://www.ciaranmccann.me/college/fyp/data/images/circl100.png
@@ -145,85 +145,20 @@ http://www.ciaranmccann.me/college/fyp/data/sounds/WalkExpand.wav
 http://www.ciaranmccann.me/college/fyp/data/sounds/WalkCompress.wav  
 
 #internal HTML documents
-http://www.ciaranmccann.me/
 http://www.ciaranmccann.me/college/fyp/data/images/awesome.jpg
-http://www.ciaranmccann.me/college/fyp/release5/
 
 #style sheets
 http://www.ciaranmccann.me/college/fyp/release5/css/bootstrap.min.css
 http://www.ciaranmccann.me/college/fyp/release5/css/custom.css
 
-
 #javascript files
+http://www.ciaranmccann.me/college/fyp/release5/Worms.js
 http://www.ciaranmccann.me/college/fyp/release5/external/jquery.1.8.2.min.js
 http://www.ciaranmccann.me/college/fyp/release5/external/Box2dWeb-2.1.a.3.js
 http://www.ciaranmccann.me/college/fyp/release5/external/Stats.js
 http://www.ciaranmccann.me/college/fyp/release5/external/bootstrap-modal.js
 http://www.ciaranmccann.me/college/fyp/release5/src/audio/SoundBufferLoader.js
 http://www.ciaranmccann.me/college/fyp/release5/src/audio/Sound.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/Utilies.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/Controls.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Settings.js
-http://www.ciaranmccann.me/college/fyp/release5/src/gui/SettingsMenu.js
-http://www.ciaranmccann.me/college/fyp/release5/src/gui/StartMenu.js
-http://www.ciaranmccann.me/college/fyp/release5/src/gui/WeaponsMenu.js
-http://www.ciaranmccann.me/college/fyp/release5/src/gui/HealthMenu.js
-http://www.ciaranmccann.me/college/fyp/release5/src/gui/CountDownTimer.js
-http://www.ciaranmccann.me/college/fyp/release5/src/gui/LobbyMenu.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Tutorial.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/Physics.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/Graphics.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/HealthReduction.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/SpriteDefinitions.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/Sprite.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/PhysicsSprite.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/BounceArrow.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/Particle.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/ParticleEffect.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/EffectsManager.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/SpriteDefinitions.js
-http://www.ciaranmccann.me/college/fyp/release5/src/animation/Effects.js
-http://www.ciaranmccann.me/college/fyp/release5/src/main.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/Camera.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/AssetManager.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/NameGenerator.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/Timer.js
-http://www.ciaranmccann.me/college/fyp/release5/src/environment/Waves.js
-http://www.ciaranmccann.me/college/fyp/release5/src/environment/Maps.js
-http://www.ciaranmccann.me/college/fyp/release5/src/WormManager.js
-http://www.ciaranmccann.me/college/fyp/release5/src/GameStateManager.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Game.js
-http://www.ciaranmccann.me/college/fyp/release5/src/environment/Terrain.js
-http://www.ciaranmccann.me/college/fyp/release5/src/environment/TerrainBoundary.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/ForceIndicator.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/WeaponManager.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/BaseWeapon.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Drill.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/ThrowableWeapon.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Dynamite.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/JetPack.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/RayWeapon.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/ProjectileWeapon.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/HolyGrenade.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/HandGrenade.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/NinjaRope.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Minigun.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Shotgun.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/LandMine.js
-http://www.ciaranmccann.me/college/fyp/release5/src/weapons/Blowtorch.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Target.js
-http://www.ciaranmccann.me/college/fyp/release5/src/WormAnimationManger.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Worm.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Team.js
-http://www.ciaranmccann.me/college/fyp/release5/src/system/GamePad.js
-http://www.ciaranmccann.me/college/fyp/release5/src/Player.js
-http://www.ciaranmccann.me/college/fyp/release5/src/networking/NetworkTimer.js
-http://www.ciaranmccann.me/college/fyp/release5/src/networking/Events.js
-http://www.ciaranmccann.me/college/fyp/release5/src/networking/InstructionChain.js
-http://www.ciaranmccann.me/college/fyp/release5/src/networking/Client.js
-http://www.ciaranmccann.me/college/fyp/release5/src/networking/GameLobby.js
-http://www.ciaranmccann.me/college/fyp/release5/src/networking/Lobby.js
-http://96.126.111.211:8080/socket.io/socket.io.js
 
 NETWORK:
 *

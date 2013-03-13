@@ -19,6 +19,7 @@ class RayWeapon extends BaseWeapon
 {
     damageToTerrainRadius: number;
     damgeToWorm: number;
+    forceScaler: number;
 
     constructor(name, ammo, iconSpriteDef, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {
@@ -35,6 +36,8 @@ class RayWeapon extends BaseWeapon
 
         //Health removed from worm when shot hits
         this.damgeToWorm = 10;
+
+ 
     }
 
     update()

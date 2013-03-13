@@ -77,7 +77,10 @@ class StartMenu
                     else
                     {
                         $('#startTutorial').removeAttr("disabled");
-                        $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong><br> Also thanks for using a modern browser. <a href="../data/images/awesome.jpg">Your awesome!</a></div> ');
+                        $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong><br> Also thanks for using a modern browser. <a href="#" id="awesome">Your awesome!</a></div> ');
+                        $('#awesome').click(function => {
+                            Notify.display("Awesome!", "<img src='../data/images/awesome.jpg'/>", 5000);
+                        });
                     }
 
                 } else

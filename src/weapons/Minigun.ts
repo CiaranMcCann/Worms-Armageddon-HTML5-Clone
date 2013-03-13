@@ -34,7 +34,9 @@ class Minigun extends RayWeapon
         this.damageToTerrainRadius = 30; //px
 
         //Health removed from worm when shot hits
-        this.damgeToWorm = 10;
+        this.damgeToWorm = 30;
+
+        this.forceScaler = 30;
 
         this.fireRate = new Timer(300);
     }
@@ -72,8 +74,8 @@ class Minigun extends RayWeapon
                 {
                     Effects.explosion(hitPiont,
                         this.damageToTerrainRadius,
-                        2,
-                        2,
+                        1,
+                         this.forceScaler,
                         this.damgeToWorm,
                         this.worm,
                        null);

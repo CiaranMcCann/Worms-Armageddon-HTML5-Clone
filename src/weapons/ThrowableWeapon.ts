@@ -213,6 +213,7 @@ class ThrowableWeapon extends BaseWeapon
         Physics.world.DestroyBody(this.body);
 
         this.deactivate();
+        this.worm.team.weaponManager.getListOfWeapons()[6].deactivate();
     }
 
     update()

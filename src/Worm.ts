@@ -246,7 +246,7 @@ class Worm extends Sprite
                 this.hit(damage);
             }
 
-            if (impulse.normalImpulses[0] > 3)
+            if (impulse.normalImpulses[0] > 25)
             {
                 AssetManager.getSound("WormLanding").play();
             }
@@ -407,7 +407,7 @@ class Worm extends Sprite
         }
     }
 
-    hit(damage, worm = null)
+    hit(damage, worm = null, overrideClientOnlyUse = false)
     {
         //For Networked games.
 
@@ -415,7 +415,7 @@ class Worm extends Sprite
             if (this.isDead == false)
             {
 
-                if (Client.isClientsTurn())
+                if (overrideClientOnlyUse || Client.isClientsTurn())
                 {
                     console.log("CLIENT HIT");
                     this.damageTake += damage;
@@ -446,9 +446,14 @@ class Worm extends Sprite
     // over their head and panning the camera toward him.
     activeWorm()
     {
-        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-        this.arrow = new BounceArrow(pos);
-        GameInstance.miscellaneousEffects.add(this.arrow);
+        
+        //This makes no sence, but it works.
+        if (GameInstance.gameType == Game.types.LOCAL_GAME || !Client.isClientsTurn()) 
+        {
+            var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+            this.arrow = new BounceArrow(pos);
+            GameInstance.miscellaneousEffects.add(this.arrow);
+        }
     }
 
     //Is this the current worm of the current player

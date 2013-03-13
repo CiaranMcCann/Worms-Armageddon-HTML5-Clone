@@ -81,7 +81,7 @@
     margin-left: -360px;
     margin-top: -280px;
     width: 600px;
-    height: 450px;
+    height: 475px;
     z-index: 1;
  
 }
@@ -291,7 +291,7 @@ font-size: 30px;
 text-align: center;
 z-index: 99;
 position: absolute;
-top: -20%;
+top: -50px;
 left: 50%;
 margin-left: -250px;
 width: 500px;

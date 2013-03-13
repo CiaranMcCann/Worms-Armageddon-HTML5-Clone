@@ -41,7 +41,9 @@ class Shotgun extends RayWeapon
         this.damageToTerrainRadius = 30; //px
 
         //Health removed from worm when shot hits
-        this.damgeToWorm = 10;
+        this.damgeToWorm = 30;
+
+        this.forceScaler = 40;
 
         this.animationSheetChangeTimer = new Timer(300);
 
@@ -83,8 +85,8 @@ class Shotgun extends RayWeapon
                 {
                     Effects.explosion(hitPiont,
                         this.damageToTerrainRadius,
-                        3,
-                        2,
+                        1,
+                        this.forceScaler,
                         this.damgeToWorm,
                         this.worm,
                         AssetManager.getSound("ShotGunFire"));

@@ -249,9 +249,11 @@ class Game
         setTimeout(function () =>
         {
             this.state.physicsWorldSettled = true;
+             
         }, 1000);
 
-        this.nextTurn();
+       this.nextTurn();
+       
     }
 
     // This method allows for quick use of the instruction chain
@@ -270,7 +272,6 @@ class Game
             this.lobby.client_GameLobby.currentPlayerId = id;
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
-
 
             if (this.tutorial == null && Client.isClientsTurn())
             {

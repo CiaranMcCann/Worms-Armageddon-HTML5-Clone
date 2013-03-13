@@ -73,6 +73,12 @@ class WeaponManager
         //Allows the user to switch weapon once its active if its a jetpack or ninjia rope
         if (this.getCurrentWeapon().getIsActive() == false || this.getCurrentWeapon() instanceof JetPack || this.getCurrentWeapon() instanceof NinjaRope)
         {
+            
+            if (this.getCurrentWeapon() instanceof NinjaRope)
+            {
+                this.getCurrentWeapon().deactivate();
+            }
+
             this.currentWeaponIndex = index;
         }
     }
