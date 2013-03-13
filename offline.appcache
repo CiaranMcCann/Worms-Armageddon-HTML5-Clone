@@ -1,10 +1,10 @@
 CACHE MANIFEST
 
-#version 1.0 3-9-2013
-#szxzxz
+#version s
+
 CACHE:
 
-#Images
+#images
 http://www.ciaranmccann.me/college/fyp/data/images/arrowdnb.png
 http://www.ciaranmccann.me/college/fyp/data/images/blob.png
 http://www.ciaranmccann.me/college/fyp/data/images/circl100.png
@@ -95,48 +95,49 @@ http://www.ciaranmccann.me/college/fyp/data/images/wthrhgr.png
 http://www.ciaranmccann.me/college/fyp/data/images/wtwangd.png
 http://www.ciaranmccann.me/college/fyp/data/images/wwalk.png
 http://www.ciaranmccann.me/college/fyp/data/images/wwinner.png
+http://www.ciaranmccann.me/college/fyp/data/images/Ireland.png 
 
 #audio
- http://www.ciaranmccann.me/college/fyp/data/sounds/JUMP1.WAV 
- http://www.ciaranmccann.me/college/fyp/data/sounds/TIMERTICK.WAV 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ohdear.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/drill.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/fire.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/victory.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow2.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/holygrenade.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow3.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/hurry.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow1.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/traitor.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/byebye.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/laugh.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/youllregretthat.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/grenade.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/justyouwait.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/watchthis.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/cantclickhere.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/incoming.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/fatality.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/JetPackLoop2.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/yessir.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/JetPackLoop1.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/NinjaRopeFire.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/fuse.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/NinjaRopeImpact.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/ROCKETPOWERUP.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/WormLanding.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/GRENADEIMPACT.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/HOLYGRENADEIMPACT.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/StartRound.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/SHOTGUNRELOAD.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/THROWRELEASE.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/ShotGunFire.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/MINEIMPACT.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/MINETICK.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/THROWPOWERUP.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/MiniGunFire.wav 
- http://www.ciaranmccann.me/college/fyp/data/sounds/fanfare/Ireland.wav  
+http://www.ciaranmccann.me/college/fyp/data/sounds/JUMP1.WAV 
+http://www.ciaranmccann.me/college/fyp/data/sounds/TIMERTICK.WAV 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ohdear.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/drill.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/fire.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/victory.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow2.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/holygrenade.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow3.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/hurry.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/ow1.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/traitor.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/byebye.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/laugh.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/youllregretthat.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/grenade.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/justyouwait.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/watchthis.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/cantclickhere.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/incoming.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/fatality.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/JetPackLoop2.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/Speech/Irish/yessir.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/JetPackLoop1.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/NinjaRopeFire.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/fuse.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/NinjaRopeImpact.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/ROCKETPOWERUP.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/WormLanding.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/GRENADEIMPACT.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/HOLYGRENADEIMPACT.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/StartRound.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/SHOTGUNRELOAD.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/THROWRELEASE.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/ShotGunFire.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/MINEIMPACT.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/MINETICK.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/THROWPOWERUP.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/MiniGunFire.wav 
+http://www.ciaranmccann.me/college/fyp/data/sounds/fanfare/Ireland.wav  
 http://www.ciaranmccann.me/college/fyp/data/sounds/CursorSelect.wav
 http://www.ciaranmccann.me/college/fyp/data/sounds/explosion1.wav
 http://www.ciaranmccann.me/college/fyp/data/sounds/explosion2.wav
@@ -144,21 +145,20 @@ http://www.ciaranmccann.me/college/fyp/data/sounds/explosion3.wav
 http://www.ciaranmccann.me/college/fyp/data/sounds/WalkExpand.wav
 http://www.ciaranmccann.me/college/fyp/data/sounds/WalkCompress.wav  
 
-#internal HTML documents
-http://www.ciaranmccann.me/college/fyp/data/images/awesome.jpg
-
 #style sheets
 http://www.ciaranmccann.me/college/fyp/release5/css/bootstrap.min.css
 http://www.ciaranmccann.me/college/fyp/release5/css/custom.css
 
 #javascript files
-http://www.ciaranmccann.me/college/fyp/release5/Worms.js
+
 http://www.ciaranmccann.me/college/fyp/release5/external/jquery.1.8.2.min.js
 http://www.ciaranmccann.me/college/fyp/release5/external/Box2dWeb-2.1.a.3.js
 http://www.ciaranmccann.me/college/fyp/release5/external/Stats.js
 http://www.ciaranmccann.me/college/fyp/release5/external/bootstrap-modal.js
 http://www.ciaranmccann.me/college/fyp/release5/src/audio/SoundBufferLoader.js
 http://www.ciaranmccann.me/college/fyp/release5/src/audio/Sound.js
+http://www.ciaranmccann.me/college/fyp/release5/Worms.js
+http://96.126.111.211:8080/socket.io/socket.io.js
 
 NETWORK:
 *
