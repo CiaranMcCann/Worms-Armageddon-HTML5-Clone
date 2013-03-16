@@ -27,6 +27,7 @@
 ///<reference path="WormManager.ts"/>
 ///<reference path="networking/Client.ts"/>
 ///<reference path="networking/Lobby.ts"/>
+///<reference path="networking/LeaderBoards.ts"/>
 ///<reference path="Tutorial.ts"/>
 
 class Game
@@ -74,6 +75,8 @@ class Game
 
     sticks;
 
+    leaderBoard: LeaderBoards;
+
     constructor()
     {
         Graphics.init();
@@ -114,7 +117,7 @@ class Game
 
         // Development stuff
         this.spawns = [];
-        if (Settings.DEVELOPMENT_MODE)
+        if (Settings.DEVELOPMENT_MODE &&  this.particleEffectMgmt != null)
         {
             window.addEventListener("click", function (evt: any) =>
             {
@@ -126,6 +129,8 @@ class Game
         }
 
         this.lobby = new Lobby();
+
+        this.leaderBoard = new LeaderBoards();
     }
 
     getGameNetData()

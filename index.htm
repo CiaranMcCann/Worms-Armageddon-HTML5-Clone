@@ -24,9 +24,9 @@
     
     <!-- Complied and minifed Worms.js -->
     <!-- final release build tsc --out all.js js/*.ts -->
-   <script src="Worms.js"></script>
+    <!--<script src="Worms.js"></script>
 
-      <!--Settings and Ulities 
+     Settings and Ulities -->
         <script src="src/system/Utilies.js"></script>
     <script src="src/system/Controls.js"></script>
     <script src="src/Settings.js"></script>
@@ -105,13 +105,13 @@
 
     
 
- 
+ <script src="src/networking/LeaderBoards.js"></script>
         <script src="src/networking/NetworkTimer.js"></script>
         <script src="src/networking/Events.js"></script>
         <script src="src/networking/InstructionChain.js"></script>
         <script src="src/networking/Client.js"></script>
         <script src="src/networking/GameLobby.js"></script>
-        <script src="src/networking/Lobby.js"></script>-->
+        <script src="src/networking/Lobby.js"></script>
         
 
     <!-- Socket.io -->
@@ -151,6 +151,36 @@
   </div>
 </div>
 
+  
+   <div class="modal fade" id="nickname">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>Welcome</h3>
+  </div>
+  <div class="modal-body" style="text-align:center">
+      <p> Sign in with Google+ for stats and achivements or just be another John Doe :( </p>
+      <span id="signinButton">
+          <span
+            class="g-signin"
+            data-callback="googlePlusSignIn"
+            data-clientid="1023068169705.apps.googleusercontent.com"
+            data-cookiepolicy="single_host_origin"
+            data-scope="https://www.googleapis.com/auth/plus.login">
+          </span>
+    </span>
+      <p><strong>Or</strong></p>
+    <a href="#" class="btn" data-dismiss="modal">Continue without signing in</a>
+
+      
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
+
+
+
+
     <div id="turnTimeCounter" style="display:none"></div>
 
     <div class="hero-unit" id="startMenu">
@@ -181,23 +211,25 @@
     </div>
 
     <div class="healthMenu"><ul></ul></div>
-   
+
+
+    <script>
+
+        ////Twiiter
+        //!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+
+        //G+
+        (function ()
+        {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+
+</script>
 
 </body>
 </html>
 <div id="fb-root"></div>
-<script>
-  
-    ////Twiiter
-    //!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
 
-    ////G+
-    //(function ()
-    //{
-    //    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    //    po.src = 'https://apis.google.com/js/plusone.js';
-    //    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    //})();
-
-</script>
 

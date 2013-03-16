@@ -12,13 +12,14 @@
 class LobbyMenu
 {
     private view: string;
-    CSS_ID = {
+    static CSS_ID = {
         QUICK_PLAY_BTN: "#quickPlay",
         LOBBY_TABLE: "#lobbyList tbody",
         CREATE_BTN: "#create",
         JOIN_BTN: ".join",
         INFO_BOX: "#infoBox",
         CREATE_LOBBY_POP_UP: "#createLobby",
+        NICKNAME_PICK_UP: "#nickname",
         CREATE_LOBBY_FORM: "#createLobbyForm",
         CREATE_LOBBY_FORM_SUBMIT: "#submit",
         USER_COUNT_BOX: "#userCount"
@@ -28,34 +29,38 @@ class LobbyMenu
     constructor (lobby: Lobby)
     {
         this.lobbyRef = lobby;
-        this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2><span class="label label-success" style="float:left;padding:3px;">Connected users   <span class="badge badge-inverse" id=' + this.CSS_ID.USER_COUNT_BOX.replace('#','') + '></span></span><br>' +
-            '<table id=' + this.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>Num Players</th>  <th> Status </th>   <th>Join a game lobby</th>  </tr>  </thead>  ' +
+        this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2><span class="label label-success" style="float:left;padding:3px;">Connected users   <span class="badge badge-inverse" id=' + LobbyMenu.CSS_ID.USER_COUNT_BOX.replace('#','') + '></span></span><br>' +
+            '<table id=' + LobbyMenu.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>Num Players</th>  <th> Status </th>   <th>Join a game lobby</th>  </tr>  </thead>  ' +
             '<tbody></tbody></table>' +
-            '<div class="alert alert-success" id="' + this.CSS_ID.INFO_BOX.replace('#', '') + '"></div>' +
-            '<a class="btn btn-primary btn-large" id=' + this.CSS_ID.QUICK_PLAY_BTN.replace('#', '') + ' style="text-align:center">Quick Play</a>' +
-            '<a class="btn btn-primary btn-large" id=' + this.CSS_ID.CREATE_BTN.replace('#', '') + ' style="text-align:center">Create Lobby</a>' +
+            '<div class="alert alert-success" id="' + LobbyMenu.CSS_ID.INFO_BOX.replace('#', '') + '"></div>' +
+            '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.QUICK_PLAY_BTN.replace('#', '') + ' style="text-align:center">Quick Play</a>' +
+            '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.CREATE_BTN.replace('#', '') + ' style="text-align:center">Create Lobby</a>' +
             '</div>';
+
+
        
     }
 
+
+
     updateUserCountUI(userCount)
     {
-        $(this.CSS_ID.USER_COUNT_BOX).empty()
-        $(this.CSS_ID.USER_COUNT_BOX).append(userCount);
+        $(LobbyMenu.CSS_ID.USER_COUNT_BOX).empty()
+        $(LobbyMenu.CSS_ID.USER_COUNT_BOX).append(userCount);
     }
 
     bind()
     {
-        $(this.CSS_ID.QUICK_PLAY_BTN).click(function =>
+        $(LobbyMenu.CSS_ID.QUICK_PLAY_BTN).click(function =>
         {
-            $(this.CSS_ID.QUICK_PLAY_BTN).unbind();
+            $(LobbyMenu.CSS_ID.QUICK_PLAY_BTN).unbind();
             AssetManager.getSound("CursorSelect").play();
             this.lobbyRef.client_joinQuickGame();
         })
 
-        $(this.CSS_ID.CREATE_BTN).click(function =>
+        $(LobbyMenu.CSS_ID.CREATE_BTN).click(function =>
         {
-            $(this.CSS_ID.CREATE_LOBBY_POP_UP).modal('show');
+            $(LobbyMenu.CSS_ID.CREATE_LOBBY_POP_UP).modal('show');
 
             var levelSelector :  SettingsMenu  = new SettingsMenu();
             $('.modal-body').prepend(levelSelector.getView());
@@ -64,11 +69,11 @@ class LobbyMenu
                         
                  });
 
-            $(this.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).click(function (e) =>
+            $(LobbyMenu.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).click(function (e) =>
             {
-                $(this.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).unbind();
-                var name = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputName").val();
-                var playerCount = $(this.CSS_ID.CREATE_LOBBY_FORM + " #inputPlayers").val();
+                $(LobbyMenu.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).unbind();
+                var name = $(LobbyMenu.CSS_ID.CREATE_LOBBY_FORM + " #inputName").val();
+                var playerCount = $(LobbyMenu.CSS_ID.CREATE_LOBBY_FORM + " #inputPlayers").val();
                 this.lobbyRef.client_createGameLobby(name, playerCount, levelSelector.getLevelName());
                 AssetManager.getSound("CursorSelect").play();
             });
@@ -79,8 +84,8 @@ class LobbyMenu
 
     displayMessage(msg)
     {
-        $(this.CSS_ID.INFO_BOX).empty();
-        $(this.CSS_ID.INFO_BOX).append(msg);
+        $(LobbyMenu.CSS_ID.INFO_BOX).empty();
+        $(LobbyMenu.CSS_ID.INFO_BOX).append(msg);
     }
 
     show(callback)
@@ -89,6 +94,8 @@ class LobbyMenu
         {
             $('.slide').empty();
             $('.slide').append(this.view);
+
+            $(LobbyMenu.CSS_ID.NICKNAME_PICK_UP).modal('show');
 
             this.updateLobbyListUI(this.lobbyRef);
             this.updateUserCountUI(this.lobbyRef.userCount);
@@ -102,7 +109,7 @@ class LobbyMenu
 
     updateLobbyListUI(lobby: Lobby)
     {
-        $(this.CSS_ID.LOBBY_TABLE).empty()
+        $(LobbyMenu.CSS_ID.LOBBY_TABLE).empty()
         var gameLobbies: GameLobby[] = lobby.getGameLobbies();
         for (var gameLobby in gameLobbies)
         {
@@ -121,17 +128,17 @@ class LobbyMenu
 
             }
 
-            $(this.CSS_ID.LOBBY_TABLE).append(
+            $(LobbyMenu.CSS_ID.LOBBY_TABLE).append(
            ' <tr><td>' + gameLobbies[gameLobby].name + '</td> ' +
            ' <td> ' + gameLobbies[gameLobby].getNumberOfPlayers() + ' / ' + gameLobbies[gameLobby].getPlayerSlots() + ' </td>   ' +
            ' <td>' + status + '</td> ' +
-           ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + this.CSS_ID.JOIN_BTN.replace('.', '') + 
+           ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + LobbyMenu.CSS_ID.JOIN_BTN.replace('.', '') + 
            '"  value=' + gameLobbies[gameLobby].id + ' type="button"> ' + buttonText  + '</button></td> ');
         }
-        $(this.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
+        $(LobbyMenu.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
 
         var _this = this;
-        $(this.CSS_ID.JOIN_BTN).click(function ()
+        $(LobbyMenu.CSS_ID.JOIN_BTN).click(function ()
         {
          
             AssetManager.getSound("CursorSelect").play();

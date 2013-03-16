@@ -64,6 +64,13 @@
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Tutorial.ts" />
+    <TypeScriptCompile Include="src\networking\Leaderboards.ts" />
+    <Content Include="src\networking\Leaderboards.js">
+      <DependentUpon>Leaderboards.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Leaderboards.min.js">
+      <DependentUpon>Leaderboards.ts</DependentUpon>
+    </Content>
     <Content Include="src\Tutorial.js">
       <DependentUpon>Tutorial.ts</DependentUpon>
     </Content>
