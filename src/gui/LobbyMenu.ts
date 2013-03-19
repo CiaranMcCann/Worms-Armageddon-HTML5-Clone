@@ -22,23 +22,52 @@ class LobbyMenu
         NICKNAME_PICK_UP: "#nickname",
         CREATE_LOBBY_FORM: "#createLobbyForm",
         CREATE_LOBBY_FORM_SUBMIT: "#submit",
-        USER_COUNT_BOX: "#userCount"
+        USER_COUNT_BOX: "#userCount",
+        LEADERBOARDS_TABLE: "#leaderBoards"
     }
     private lobbyRef: Lobby;
 
-    constructor (lobby: Lobby)
+    constructor(lobby: Lobby)
     {
         this.lobbyRef = lobby;
-        this.view = '<div style="text-align:center"> <h2>Game Lobbies </h2><span class="label label-success" style="float:left;padding:3px;">Connected users   <span class="badge badge-inverse" id=' + LobbyMenu.CSS_ID.USER_COUNT_BOX.replace('#','') + '></span></span><br>' +
-            '<table id=' + LobbyMenu.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Lobby</th>  <th>Num Players</th>  <th> Status </th>   <th>Join a game lobby</th>  </tr>  </thead>  ' +
+
+        this.view = '<span class="label label-success" style="float:left;padding:3px;text-align:center;">Connected users   <span class="badge badge-inverse" id=' + LobbyMenu.CSS_ID.USER_COUNT_BOX.replace('#', '') + '></span></span><br>';
+
+
+
+        this.view += '<div class="navbar" id="onlineMenu">' +
+              '<div class="navbar-inner">' +
+                '  <div class="nav-collapse collapse navbar-responsive-collapse">' +
+                   ' <ul class="nav">' +
+                      '<li class="active"><a href="#" value="#lobbies">Game Lobbies</a></li>' +
+                      '<li><a href="#"  value="#leaderBoards">Leaderboards</a></li>' +
+
+                   ' </ul>' +
+                   ' <ul class="nav pull-right">' +
+                    ' <li><a href="#"  value="#profile">Profiles</a></li>' +
+                    '</ul></div></div></div></div>';
+
+        this.view += ' <div style="text-align:center" id="tabContainer" >';
+
+
+        this.view += '<div id="lobbies">' +
+            '<table id=' + LobbyMenu.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Game Lobby</th>  <th>Number of Players</th>  <th> Status </th>   <th>Join</th>  </tr>  </thead>  ' +
             '<tbody></tbody></table>' +
             '<div class="alert alert-success" id="' + LobbyMenu.CSS_ID.INFO_BOX.replace('#', '') + '"></div>' +
             '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.QUICK_PLAY_BTN.replace('#', '') + ' style="text-align:center">Quick Play</a>' +
             '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.CREATE_BTN.replace('#', '') + ' style="text-align:center">Create Lobby</a>' +
             '</div>';
 
+        this.view += '<div id="leaderBoards" style="display:none">' +
+          '<table id=' + LobbyMenu.CSS_ID.LEADERBOARDS_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Player</th>  <th>Wins/Loss</th> </tr>  </thead>  ' +
+          '<tbody></tbody></table>' +
+          '</div>';
 
-       
+        this.view += '<div id="profile" style="display:none">' +
+          '<p>If you would like to remove <strong>All</strong> trace of your leaderboard rankings, you can revoke your Google+ token<br>  <br><a href="#" class="btn" id="googlePlusdisconnectUser">Revoke</a></p>' +
+          '</div>';
+        this.view += '</div>';
+
     }
 
 
@@ -51,6 +80,22 @@ class LobbyMenu
 
     bind()
     {
+        $('#googlePlusdisconnectUser').click(function ()
+        {
+            googlePlusdisconnectUser(access_token);
+        });
+
+        $('#onlineMenu a').click(function (e)
+        {
+            e.preventDefault();
+
+            $('.nav').children().removeClass('active');
+            $(this).parent().addClass('active');
+
+            $($(this).attr('value')).show();
+            $($(this).attr('value')).siblings().hide();
+        })
+
         $(LobbyMenu.CSS_ID.QUICK_PLAY_BTN).click(function =>
         {
             $(LobbyMenu.CSS_ID.QUICK_PLAY_BTN).unbind();
@@ -62,12 +107,12 @@ class LobbyMenu
         {
             $(LobbyMenu.CSS_ID.CREATE_LOBBY_POP_UP).modal('show');
 
-            var levelSelector :  SettingsMenu  = new SettingsMenu();
+            var levelSelector: SettingsMenu = new SettingsMenu();
             $('.modal-body').prepend(levelSelector.getView());
-             levelSelector.bind(function () =>{ 
-                         AssetManager.getSound("CursorSelect").play();   
-                        
-                 });
+            levelSelector.bind(function () => {
+                AssetManager.getSound("CursorSelect").play();
+
+            });
 
             $(LobbyMenu.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).click(function (e) =>
             {
@@ -132,15 +177,15 @@ class LobbyMenu
            ' <tr><td>' + gameLobbies[gameLobby].name + '</td> ' +
            ' <td> ' + gameLobbies[gameLobby].getNumberOfPlayers() + ' / ' + gameLobbies[gameLobby].getPlayerSlots() + ' </td>   ' +
            ' <td>' + status + '</td> ' +
-           ' <td><button ' + disableButton +' class="btn btn-mini btn-success ' + LobbyMenu.CSS_ID.JOIN_BTN.replace('.', '') + 
-           '"  value=' + gameLobbies[gameLobby].id + ' type="button"> ' + buttonText  + '</button></td> ');
+           ' <td><button ' + disableButton + ' class="btn btn-mini btn-success ' + LobbyMenu.CSS_ID.JOIN_BTN.replace('.', '') +
+           '"  value=' + gameLobbies[gameLobby].id + ' type="button"> ' + buttonText + '</button></td> ');
         }
         $(LobbyMenu.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
 
         var _this = this;
         $(LobbyMenu.CSS_ID.JOIN_BTN).click(function ()
         {
-         
+
             AssetManager.getSound("CursorSelect").play();
             _this.lobbyRef.client_joinGameLobby($(this).attr('value'));
         })
