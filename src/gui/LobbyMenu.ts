@@ -80,6 +80,7 @@ class LobbyMenu
 
     bind()
     {
+        
         $('#googlePlusdisconnectUser').click(function ()
         {
             googlePlusdisconnectUser(access_token);
@@ -89,9 +90,11 @@ class LobbyMenu
         {
             e.preventDefault();
 
+            //Changes the menu css to give user feedback
             $('.nav').children().removeClass('active');
             $(this).parent().addClass('active');
 
+            //Hides all other divs and displays the one we want
             $($(this).attr('value')).show();
             $($(this).attr('value')).siblings().hide();
         })

@@ -1,3 +1,14 @@
+/**
+ *  
+ * Leaderboards.js is a RESETful api for the leaderboards information
+ *
+ *  License: Apache 2.0
+ *  author:  Ciarán McCann
+ *  url: http://www.ciaranmccann.me/
+ */
+///<reference path="../../Game.ts"/>
+///<reference path="../../system/Utilies.ts"/>
+
 var access_token;
 
 function googlePlusSignIn(authResult) 
@@ -26,6 +37,7 @@ function googlePlusSignIn(authResult)
       }
 
     }
+
 
 function googlePlusdisconnectUser(access_token) {
   var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
@@ -57,6 +69,24 @@ class LeaderBoards
 {
     
 
+    findUserId(token: string) 
+    {
+        
+    }
+
+    getRankings()
+    {
+
+    }
+
+    getUserData(token)
+    {
+
+    }
+
+    insertUserRank(token)
+    {
+    }
 
 }
 

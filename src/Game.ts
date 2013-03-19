@@ -27,7 +27,7 @@
 ///<reference path="WormManager.ts"/>
 ///<reference path="networking/Client.ts"/>
 ///<reference path="networking/Lobby.ts"/>
-///<reference path="networking/LeaderBoards.ts"/>
+///<reference path="networking/Leaderboard/LeaderBoards.ts"/>
 ///<reference path="Tutorial.ts"/>
 
 class Game
