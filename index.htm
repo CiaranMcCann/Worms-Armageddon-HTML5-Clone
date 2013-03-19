@@ -158,7 +158,8 @@
     <h3>Welcome</h3>
   </div>
   <div class="modal-body" style="text-align:center">
-      <p> Sign in with Google+ for stats and achivements or just be another John Doe :( </p>
+      <p> Sign in with Google+ for leaderboard rankings or just be another John Doe :( </p>
+      <br />
       <span id="signinButton">
           <span
             class="g-signin"
@@ -167,15 +168,14 @@
             data-cookiepolicy="single_host_origin"
             data-scope="https://www.googleapis.com/auth/plus.login">
           </span>
-    </span>
-      <p><strong>Or</strong></p>
-    <a href="#" class="btn" data-dismiss="modal">Continue without signing in</a>
+    </span><br />
+
 
 
 
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn" data-dismiss="modal">Continue without signing in</a>
   </div>
 </div>
 
@@ -202,11 +202,11 @@
              <a class="btn btn-primary btn-large" id="startOnline" disabled="disabled">Online multiplayer</a></p>
           <div id="notice" style="font-size:14px"></div>
             
-            <!-- add for live deployment 
+            <!-- add for live deployment -->
             <ul  onclick="return false;" class="breadcrumb" style="margin-bottom: 5px; background: none; margin-top: 20px;text-align: center;margin-left: 80px;">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" url="https://dev.twitter.com" data-lang="en">Tweet</a>
                 <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="300"></div>
-            </ul>-->
+            </ul>
 
         </div>
     </div>
@@ -217,7 +217,7 @@
     <script>
 
         ////Twiiter
-        //!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
 
         //G+
         (function ()

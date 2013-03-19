@@ -50,9 +50,9 @@ class LobbyMenu
         this.view += ' <div style="text-align:center" id="tabContainer" >';
 
 
-        this.view += '<div id="lobbies">' +
-            '<table id=' + LobbyMenu.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Game Lobby</th>  <th>Number of Players</th>  <th> Status </th>   <th>Join</th>  </tr>  </thead>  ' +
-            '<tbody></tbody></table>' +
+        this.view += '<div id="lobbies"><div style="overflow-y:scroll;max-height:235px">' +
+            '<table id=' + LobbyMenu.CSS_ID.LOBBY_TABLE.replace('#', '') + ' class="table table-striped table-bordered" style="margin-bottom:0px" > <thead>  <tr>  <th>Game Lobby</th>  <th>Number of Players</th>  <th> Status </th>   <th>Join</th>  </tr>  </thead>  ' +
+            '<tbody></tbody></table></div><br>' +
             '<div class="alert alert-success" id="' + LobbyMenu.CSS_ID.INFO_BOX.replace('#', '') + '"></div>' +
             '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.QUICK_PLAY_BTN.replace('#', '') + ' style="text-align:center">Quick Play</a>' +
             '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.CREATE_BTN.replace('#', '') + ' style="text-align:center">Create Lobby</a>' +
