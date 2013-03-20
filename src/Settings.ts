@@ -19,6 +19,7 @@ module Settings
 
     //Server details
     export var NODE_SERVER_IP = '96.126.111.211'; 
+    export var LEADERBOARD_API_URL = 'http://96.126.111.211'; 
     export var NODE_SERVER_PORT = '8080';
 
     // development vars
@@ -29,7 +30,7 @@ module Settings
     // http://westciv.com/tools/manifestR/
     export var BUILD_MANIFEST_FILE = false;
 
-    export var REMOTE_ASSERT_SERVER = "../";
+    export var REMOTE_ASSERT_SERVER = "../"; //"../college/fyp/"
 
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;

@@ -67,9 +67,10 @@ class LeaderBoardApi
 
     getLeaderBoard(req, res)
     {
+        console.log(res);
         this.db.collection(this.settings.userTable, function(err, collection) => {
             collection.find().toArray(function(err, items) {
-                res.send(items);
+               res.jsonp(JSON.stringify(items));
             });
         });
     }

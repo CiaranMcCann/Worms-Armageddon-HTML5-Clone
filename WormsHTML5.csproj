@@ -57,6 +57,13 @@
     <Content Include="src\animation\PhysicsSprite.min.js">
       <DependentUpon>PhysicsSprite.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\gui\LeaderBoardView.ts" />
+    <Content Include="src\gui\LeaderBoardView.js">
+      <DependentUpon>LeaderBoardView.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\LeaderBoardView.min.js">
+      <DependentUpon>LeaderBoardView.ts</DependentUpon>
+    </Content>
     <Content Include="src\gui\SettingsMenu.js">
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>

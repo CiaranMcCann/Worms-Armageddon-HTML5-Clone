@@ -26,14 +26,14 @@ class LobbyMenu
         LEADERBOARDS_TABLE: "#leaderBoards"
     }
     private lobbyRef: Lobby;
+    private leaderBoardView: LeaderBoardView;
 
     constructor(lobby: Lobby)
     {
         this.lobbyRef = lobby;
+        this.leaderBoardView = new LeaderBoardView();
 
         this.view = '<span class="label label-success" style="float:left;padding:3px;text-align:center;">Connected users   <span class="badge badge-inverse" id=' + LobbyMenu.CSS_ID.USER_COUNT_BOX.replace('#', '') + '></span></span><br>';
-
-
 
         this.view += '<div class="navbar" id="onlineMenu">' +
               '<div class="navbar-inner">' +
@@ -58,18 +58,15 @@ class LobbyMenu
             '<a class="btn btn-primary btn-large" id=' + LobbyMenu.CSS_ID.CREATE_BTN.replace('#', '') + ' style="text-align:center">Create Lobby</a>' +
             '</div>';
 
-        this.view += '<div id="leaderBoards" style="display:none">' +
-          '<table id=' + LobbyMenu.CSS_ID.LEADERBOARDS_TABLE.replace('#', '') + ' class="table table-striped table-bordered" > <thead>  <tr>  <th>Player</th>  <th>Wins/Loss</th> </tr>  </thead>  ' +
-          '<tbody></tbody></table>' +
-          '</div>';
+        this.view += this.leaderBoardView.getView();
 
         this.view += '<div id="profile" style="display:none">' +
           '<p>If you would like to remove <strong>All</strong> trace of your leaderboard rankings, you can revoke your Google+ token<br>  <br><a href="#" class="btn" id="googlePlusdisconnectUser">Revoke</a></p>' +
           '</div>';
+
         this.view += '</div>';
 
     }
-
 
 
     updateUserCountUI(userCount)
@@ -86,10 +83,13 @@ class LobbyMenu
             googlePlusdisconnectUser(access_token);
         });
 
+        var _this = this;
         $('#onlineMenu a').click(function (e)
         {
             e.preventDefault();
 
+            _this.leaderBoardView.update();
+            //this.leaderBoardView.update();
             //Changes the menu css to give user feedback
             $('.nav').children().removeClass('active');
             $(this).parent().addClass('active');
