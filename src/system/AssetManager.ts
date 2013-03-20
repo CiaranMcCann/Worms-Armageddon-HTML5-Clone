@@ -68,9 +68,7 @@ module AssetManager
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/THROWRELEASE.wav",
        Settings.REMOTE_ASSERT_SERVER + "data/sounds/SHOTGUNRELOAD.wav",
         Settings.REMOTE_ASSERT_SERVER + "data/sounds/ShotGunFire.wav",
-        Settings.REMOTE_ASSERT_SERVER + "data/sounds/MiniGunFire.wav",
-        Settings.REMOTE_ASSERT_SERVER + "data/sounds/MINEIMPACT.wav",
-         Settings.REMOTE_ASSERT_SERVER + "data/sounds/MINETICK.wav"
+        Settings.REMOTE_ASSERT_SERVER + "data/sounds/MiniGunFire.wav"
 
     ];
 
@@ -189,7 +187,30 @@ module AssetManager
         addSpritesDefToLoadList();
 
         loadImages(imagesToBeLoaded);
-        loadSounds(audioToBeLoaded);
+
+        //Tweet
+        //Hmm seems like IE9 doesn't like loading anymore then 40 audio files in parallel.  
+        //I have 44 audio assets :( #FuckYouInternetExplorer
+        //Putting in a delay for IE users
+        if ($.browser.msie)
+        {
+            var leftSide = audioToBeLoaded.splice(0, Math.floor(audioToBeLoaded.length / 2));
+            loadSounds(leftSide);
+
+            var timer = setInterval(function () => {
+
+                if (numAssetsLoaded >= imagesToBeLoaded.length + leftSide.length)
+                {
+                    loadSounds(audioToBeLoaded);
+                    clearInterval(timer);
+                }
+
+            }, 5000);
+
+        } else
+        {
+            loadSounds(audioToBeLoaded);
+        }
     }
 
     export function loadSounds(sources)
