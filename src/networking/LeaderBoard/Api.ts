@@ -29,7 +29,7 @@ app.get('/findUserIdByToken/:token', function (req, res)
       });
 });
 app.get('/getLeaderBoard', function (req, res) { api.getLeaderBoard(req, res) });
-app.post('/updateUser/:token', function (req, res) { api.updateUser(req, res) });
+app.get('/updateUser/:token', function (req, res) { api.updateUser(req, res) });
 
 
 app.listen(settings.port);

@@ -45,12 +45,12 @@ class LeaderBoardApi
                             if (item)
                             {
                                 collection.update({ 'userId': userId }, { $inc: { "winCount": 1 } });
-                                res.send("update");
+                                 res.jsonp({ 'userId': userId });
 
                             } else
                             {
                                 collection.insert({ 'userId': userId, 'winCount': 1 });
-                                res.send({ 'userId': userId, 'winCount': 1 });
+                                 res.jsonp({ 'userId': userId, 'winCount': 1 });
                             }
                         });
 
@@ -58,7 +58,7 @@ class LeaderBoardApi
                 } else
                 {
                     //If we where unable to get the userId from the authToken
-                     res.send({ 'Error': "Failed to auth" });
+                      res.jsonp({ 'Error': "Failed to auth" });
                 }
 
             });

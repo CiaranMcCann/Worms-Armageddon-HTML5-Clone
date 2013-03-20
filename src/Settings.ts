@@ -32,6 +32,8 @@ module Settings
 
     export var REMOTE_ASSERT_SERVER = "../"; //"../college/fyp/"
 
+    export var API_KEY = "AIzaSyA1aZhcIhRQ2gbmyxV5t9pGK47hGsiIO7U";
+
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
 

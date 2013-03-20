@@ -30,42 +30,56 @@ class LeaderBoardView
         return this.view;
     }
 
-    update()
+    populateTable(userData)
     {
         $(LeaderBoardView.CSS_ID.LEADERBOARDS_TABLE).empty()
 
-        var func = function (json) => {
+        for (var player in userData)
+        {
+            $(LeaderBoardView.CSS_ID.LEADERBOARDS_TABLE).append(' <tr> <td><img width=30 height=30 src=' + userData[player]["image"] + ' /> <span> ' + userData[player]["name"] + '</td> <td> ' + userData[player]["score"] + '</span></td>  </tr>');
+        }
 
-            var json = JSON.parse(json);
+        $(LobbyMenu.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
+    }
 
-            for (var item in json)
+    update()
+    {
+        var callback = function (leaderBoardData) => {
+
+            var leaderBoardData = JSON.parse(leaderBoardData);
+            var combinedUserData = [];
+            var dataLoadCount = 0;
+
+            for (var player in leaderBoardData)
             {
+                combinedUserData[leaderBoardData[player]["userId"]] = { "image": "", "name": "", "score": leaderBoardData[player]["winCount"] };
 
                 $.ajax({
-                    url: "https://www.googleapis.com/plus/v1/people/100821494565115211032/?key=AIzaSyA1aZhcIhRQ2gbmyxV5t9pGK47hGsiIO7U",
+                    url: "https://www.googleapis.com/plus/v1/people/" + leaderBoardData[player]["userId"] + "/?key=" + Settings.API_KEY,
                     dataType: 'jsonp',
-                    success: function (userData)
+                    success: function (userDataFromGoogle) =>
                     {
-                        $(LeaderBoardView.CSS_ID.LEADERBOARDS_TABLE).append(' <tr> <td><img width=30 height=30 src=' + userData["image"]["url"] + ' /> <span> ' + userData["displayName"] + '</td> <td> ' + json[item]["winCount"] + '</span></td>  </tr>');
+                        combinedUserData[userDataFromGoogle.id].image = userDataFromGoogle.image.url;
+                        combinedUserData[userDataFromGoogle.id].name = userDataFromGoogle.displayName;
+                        dataLoadCount++;
+
+                        if (dataLoadCount == leaderBoardData.length)
+                        {
+                            this.populateTable(combinedUserData);
+                        }
+
                     }
                 });
 
             }
-
-            $(LobbyMenu.CSS_ID.LOBBY_TABLE).append('</tbody></table>');
 
         }
 
         $.ajax({
             url: Settings.LEADERBOARD_API_URL + '/getLeaderBoard',
             dataType: 'jsonp',
-            error: function (xhr, status, error)
-            {
-                alert(error);
-            },
-            success: func
+            success: callback
         });
 
-
-
     }
+
