@@ -117,7 +117,7 @@ class Game
 
         // Development stuff
         this.spawns = [];
-        if (Settings.DEVELOPMENT_MODE &&  this.particleEffectMgmt != null)
+        if (Settings.DEVELOPMENT_MODE && this.particleEffectMgmt != null)
         {
             window.addEventListener("click", function (evt: any) =>
             {
@@ -254,11 +254,11 @@ class Game
         setTimeout(function () =>
         {
             this.state.physicsWorldSettled = true;
-             
+
         }, 1000);
 
-       this.nextTurn();
-       
+        this.nextTurn();
+
     }
 
     // This method allows for quick use of the instruction chain
@@ -281,7 +281,7 @@ class Game
             if (this.tutorial == null && Client.isClientsTurn())
             {
                 Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
-            } else if(this.tutorial == null)
+            } else if (this.tutorial == null)
             {
                 Notify.display(this.state.getCurrentPlayer().getTeam().name + "'s turn", "Sit back relax and enjoy the show", 9000, Notify.levels.warn);
             }
@@ -302,6 +302,15 @@ class Game
                 {
                     this.gameTimer.timer.pause();
                     this.winner.getTeam().celebrate();
+
+                    //TODO fix this up, do server side, just putting in for demo 2moro.
+                    if (access_token && GameInstance.gameType != Game.types.LOCAL_GAME)
+                    {
+                        $.ajax({
+                            url: "http://96.126.111.211/updateUser/" + access_token,
+                            dataType: 'jsonp'
+                        });
+                    }
                 }
             }
 

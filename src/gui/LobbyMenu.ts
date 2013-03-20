@@ -8,6 +8,7 @@
  */
 ///<reference path="../Game.ts"/>
 ///<reference path="../networking/Lobby.ts"/>
+///<reference path="LeaderBoardView.ts"/>
 
 class LobbyMenu
 {

@@ -43,7 +43,8 @@ class LeaderBoardView
     }
 
     update()
-    {
+    { 
+
         var callback = function (leaderBoardData) => {
 
             var leaderBoardData = JSON.parse(leaderBoardData);

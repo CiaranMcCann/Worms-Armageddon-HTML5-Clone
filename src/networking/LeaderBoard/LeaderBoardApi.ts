@@ -69,8 +69,9 @@ class LeaderBoardApi
     {
         console.log(res);
         this.db.collection(this.settings.userTable, function(err, collection) => {
-            collection.find().toArray(function(err, items) {
-               res.jsonp(JSON.stringify(items));
+            collection.find().sort({ "winCount": -1 }).toArray(function(err, items) {
+                console.log(items);
+                res.jsonp(JSON.stringify(items));
             });
         });
     }
