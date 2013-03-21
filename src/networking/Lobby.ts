@@ -91,7 +91,7 @@ class Lobby
 
                                         
                     //Checks if there is anyone left in the room
-                    if (this.gameLobbies[gameLobbyId].disconnection(userId))
+                    if (this.gameLobbies[gameLobbyId] != null && this.gameLobbies[gameLobbyId].disconnection(userId))
                     {
                         //Delete gameb lobby
                         delete this.gameLobbies[gameLobbyId];
@@ -112,7 +112,7 @@ class Lobby
     //user to a room.
     server_removeUserFromOtherRooms(playerId)
     {
-
+        
     }
 
     client_getMyLobby() : GameLobby

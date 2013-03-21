@@ -37,23 +37,23 @@ String.prototype.format = function (...numbers: String[])
 
 module Notify
 {
-    export var currentInUse = false;
+    export var locked = false;
     export var levels = {
         sucess: "alert-success",
         warn: "alert-warn",
         error: "alert-error"
     };
 
-    export function display(header: string, message: string, autoHideTime = 2800, cssStyle = Notify.levels.sucess)
+    export function display(header: string, message: string, autoHideTime = 2800, cssStyle = Notify.levels.sucess,doNotOverWrite = false)
     {
-        //if (!currentInUse)
+        if (!locked)
         {
+            locked = doNotOverWrite;
             $("#notifaction").removeClass(levels.warn);
             $("#notifaction").removeClass(levels.error);
             $("#notifaction").removeClass(levels.sucess);
             $("#notifaction").addClass(cssStyle);
 
-            currentInUse = true;
             $("#notifaction strong").empty();
             $("#notifaction strong").html(header);
 
@@ -69,21 +69,27 @@ module Notify
                     setTimeout(hide, autoHideTime);
                 }
             });
+
+
         }
+
+
     }
 
     export function hide(callback)
     {
-        
-        $("#notifaction").animate({
-            top: (-parseInt($("#notifaction").css("height"))) - 100 +"px"
-        }, 400,function() => {
-            currentInUse = false;
-            if (callback != null)
-            {
-                callback();
-            }
-        });      
+        if (!locked)
+        {
+            $("#notifaction").animate({
+                top: (-parseInt($("#notifaction").css("height"))) - 100 + "px"
+            }, 400, function () => {
+                locked = false;
+                if (callback != null)
+                {
+                    callback();
+                }
+            });
+        }
     }
 
 }

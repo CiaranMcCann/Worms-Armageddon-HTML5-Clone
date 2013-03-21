@@ -23,6 +23,17 @@ module Client
                 Client.id = id;
             });
 
+            socket.on('disconnect', function(){
+
+                Notify.display("Bad News :(", 
+                    "So it looks like the game server has crashed or maybe your internet connection has been cut? "+
+                    "Either way this game is over, so refresh this page now. The server will have rebooted by the time you read this hopefully.",
+                 -1, Notify.levels.error,true);
+
+                GameInstance.state.isStarted = false;
+
+            });
+
             socket.on(Events.client.ACTION, function (packet) =>
             {
                var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);

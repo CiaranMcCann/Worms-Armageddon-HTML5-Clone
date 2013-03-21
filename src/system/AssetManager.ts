@@ -188,29 +188,29 @@ module AssetManager
 
         loadImages(imagesToBeLoaded);
 
-        //Tweet
+    
         //Hmm seems like IE9 doesn't like loading anymore then 40 audio files in parallel.  
         //I have 44 audio assets :( #FuckYouInternetExplorer
         //Putting in a delay for IE users
-        if ($.browser.msie)
-        {
-            var leftSide = audioToBeLoaded.splice(0, Math.floor(audioToBeLoaded.length / 2));
-            loadSounds(leftSide);
+        //if ($.browser.msie)
+        //{
+        //    var leftSide = audioToBeLoaded.splice(0, Math.floor(audioToBeLoaded.length / 2));
+        //    loadSounds(leftSide);
 
-            var timer = setInterval(function () => {
+        //    var timer = setInterval(function () => {
 
-                if (numAssetsLoaded >= imagesToBeLoaded.length + leftSide.length)
-                {
-                    loadSounds(audioToBeLoaded);
-                    clearInterval(timer);
-                }
+        //        if (numAssetsLoaded >= imagesToBeLoaded.length + leftSide.length)
+        //        {
+        //            loadSounds(audioToBeLoaded);
+        //            clearInterval(timer);
+        //        }
 
-            }, 5000);
+        //    }, 5000);
 
-        } else
-        {
+        //} else
+        //{
             loadSounds(audioToBeLoaded);
-        }
+        //}
     }
 
     export function loadSounds(sources)
@@ -251,6 +251,14 @@ module AssetManager
                     {
                         sources[src] = sources[src].replace(".wav", ".mp3");
                         sources[src] = sources[src].replace(".WAV", ".mp3");
+                    }
+
+                    //Hmm seems like IE9 doesn't like loading anymore then 40 audio files in parallel.  
+                    //I have 44 audio assets :( #FuckYouInternetExplorer
+                    if ($.browser.msie &&  parseInt(src) >=  40)
+                    {
+                        numAssetsLoaded += sources.length-parseInt(src);
+                        break;
                     }
 
                     sounds[name] = new SoundFallback(sources[src]);
