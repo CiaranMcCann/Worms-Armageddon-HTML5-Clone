@@ -9,6 +9,7 @@
 ///<reference path="../../Game.ts"/>
 ///<reference path="../../system/Utilies.ts"/>
 
+
 var access_token;
 
 function googlePlusSignIn(authResult) 
@@ -19,10 +20,12 @@ function googlePlusSignIn(authResult)
       {
     
         // Successfully authorized
-        // Hide the sign-in button now that the user is authorized, for example:
-        //document.getElementById('signinButton').setAttribute('style', 'display: none');
-          console.log(authResult['access_token']);
           access_token = authResult['access_token'];
+
+          if (Client.socket)
+          {
+              Client.socket.emit(Events.lobby.GOOGLE_PLUS_LOGIN, access_token);
+          }
 
       } else if (authResult['error']) 
       {
@@ -64,30 +67,5 @@ function googlePlusdisconnectUser(access_token) {
   });
 }
 
-
-class LeaderBoards
-{
-    
-
-    findUserId(token: string) 
-    {
-        
-    }
-
-    getRankings()
-    {
-
-    }
-
-    getUserData(token)
-    {
-
-    }
-
-    insertUserRank(token)
-    {
-    }
-
-}
 
   

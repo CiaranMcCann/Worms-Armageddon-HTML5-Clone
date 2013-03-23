@@ -300,7 +300,11 @@ class BodyDataPacket
 
     override(body)
     {
-        body.SetPosition(new b2Vec2(this.pX, this.pY));
+        
+        if (body)
+        {
+            body.SetPosition(new b2Vec2(this.pX, this.pY));
+        }
     }
 
     toJSON()

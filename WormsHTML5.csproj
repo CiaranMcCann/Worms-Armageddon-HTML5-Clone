@@ -71,7 +71,7 @@
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Tutorial.ts" />
-    <TypeScriptCompile Include="src\networking\LeaderBoard\Leaderboards.ts" />
+    <TypeScriptCompile Include="src\networking\LeaderBoard\GooglePlus.ts" />
     <TypeScriptCompile Include="src\networking\LeaderBoard\Api.ts" />
     <Content Include="src\networking\LeaderBoard\Api.js">
       <DependentUpon>Api.ts</DependentUpon>
@@ -80,6 +80,12 @@
     <Content Include="src\networking\LeaderBoard\Api.min.js">
       <DependentUpon>Api.ts</DependentUpon>
     </Content>
+    <Content Include="src\networking\LeaderBoard\GooglePlus.js">
+      <DependentUpon>GooglePlus.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\GooglePlus.min.js">
+      <DependentUpon>GooglePlus.ts</DependentUpon>
+    </Content>
     <Content Include="src\networking\LeaderBoard\LeaderBoardApi.js">
       <DependentUpon>LeaderBoardApi.ts</DependentUpon>
     </Content>
@@ -87,10 +93,10 @@
       <DependentUpon>LeaderBoardApi.ts</DependentUpon>
     </Content>
     <Content Include="src\networking\LeaderBoard\Leaderboards.js">
-      <DependentUpon>Leaderboards.ts</DependentUpon>
+      <DependentUpon>GooglePlus.ts</DependentUpon>
     </Content>
     <Content Include="src\networking\LeaderBoard\Leaderboards.min.js">
-      <DependentUpon>Leaderboards.ts</DependentUpon>
+      <DependentUpon>GooglePlus.ts</DependentUpon>
     </Content>
     <Content Include="src\Tutorial.js">
       <DependentUpon>Tutorial.ts</DependentUpon>
