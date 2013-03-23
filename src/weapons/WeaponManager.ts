@@ -36,12 +36,12 @@ class WeaponManager
         [
             new Shotgun(99),           
             new HandGrenade(20),
-            new HolyGrenade(1),
+            new HolyGrenade(2),
             new Dynamite(5),
            // new LandMine(10), //Not finished
             new JetPack(5), 
             new Minigun(4),   //Bug: might take out for final demo          
-            new NinjaRope(20),
+            new NinjaRope(50),
             new Drill(3),
            // new Blowtorch(3), //not finished
             new Bazzoka(15)

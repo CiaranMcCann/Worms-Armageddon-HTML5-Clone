@@ -283,6 +283,10 @@ class Game
                 Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
             } else if (this.tutorial == null)
             {
+                //Quick hack sprint 4 demo in a few hours - All clients are give bouncing arrows over their worms
+                // so want to remove all arrows from clients whos go it current isn't
+                GameInstance.miscellaneousEffects.stopAll();
+
                 Notify.display(this.state.getCurrentPlayer().getTeam().name + "'s turn", "Sit back relax and enjoy the show", 9000, Notify.levels.warn);
             }
         }
@@ -304,12 +308,16 @@ class Game
                     this.winner.getTeam().celebrate();
 
                     //TODO fix this up, do server side, just putting in for demo 2moro.
-                    if (access_token && GameInstance.gameType != Game.types.LOCAL_GAME)
+                    if (this.winner.id == Client.id && access_token && GameInstance.gameType != Game.types.LOCAL_GAME)
                     {
+                        Notify.display("Congratulations you won!", "", -1,Notify.levels.sucess,true);
                         $.ajax({
                             url: "http://96.126.111.211/updateUser/" + access_token,
                             dataType: 'jsonp'
                         });
+                    } else
+                    {
+                        Notify.display("Unlucky you lost, better luck next time", "", -1, Notify.levels.error,true);
                     }
                 }
             }

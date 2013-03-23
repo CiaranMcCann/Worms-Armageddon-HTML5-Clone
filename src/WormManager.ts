@@ -47,6 +47,8 @@ class WormManager
                 return this.allWorms[i];
             }
         }
+
+        Logger.error("Unable to find worm with name " + name);
     }
 
     // are all the worms completely finished, animations, health reduction, actions etc.
@@ -155,9 +157,12 @@ class WormManager
             var wormName = wormName[0];
 
            var worm : Worm =  GameInstance.wormManager.findWormWithName(wormName);
-           worm.damageTake += damage;
-           worm.hit(0, null);   
 
+           if (worm)
+           {
+               worm.damageTake += damage;
+               worm.hit(0, null);
+           }
                
         }
     }

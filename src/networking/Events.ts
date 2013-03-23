@@ -4,7 +4,8 @@ module Events
 
     export var lobby = {
         CREATE_GAME_LOBBY: "createLob",
-        UPDATE_USER_COUNT : "newConnect"
+        UPDATE_USER_COUNT : "newConnect",
+        GOOGLE_PLUS_LOGIN : "gp"
     }
 
     export var gameLobby = {
@@ -22,6 +23,7 @@ module Events
         UPDATE: "u",
         GET_GAME_TIME: "t",
         CURRENT_WORM_ACTION: "wa"
+
     }
 
     export var server = {

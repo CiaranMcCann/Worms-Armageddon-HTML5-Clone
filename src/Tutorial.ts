@@ -180,7 +180,7 @@ var tutorialCommandBank = [
 
     {
         header: "Jetpack",
-        message: "So select the Jetpack from the weapons menu, press <strong>"+ keyboard.getKeyName(Controls.jump.keyboard) +"</strong> and then use directional keys to move",
+        message: "So select the Jetpack from the weapons menu, press <strong>"+ keyboard.getKeyName(Controls.fire.keyboard) +"</strong> and then use directional keys to move",
         detection: function ()
         {
             var weapon = GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon();

@@ -28,7 +28,10 @@ class GameLobby
     private playerIds: string[];
     name: string;
     id: string;
-    private numberOfPlayers: number;
+    numberOfPlayers: number;
+
+    //Used to track the number of players who have dicconnecte
+    numberOfDisconnectedPlayer: number;
 
     mapName;
     currentPlayerId: string;
@@ -42,6 +45,7 @@ class GameLobby
         this.playerIds = [];
         this.numberOfPlayers = numberOfPlayers;
         this.currentPlayerId = "";
+        this.numberOfDisconnectedPlayer = 0;
     }
 
     getNumberOfPlayers()
@@ -113,7 +117,7 @@ class GameLobby
 
                     var worms = GameInstance.players[j].getTeam().getWorms();
                     //Kill all the players worms.
-                    for (var i = worms.length - 1; i >= 0; i--)
+                    for (var i = 0; i < worms.length; i++)
                     {
                         worms[i].hit(999,null,true);
                     }
@@ -142,11 +146,11 @@ class GameLobby
         return false;
     }
 
-    removePlayer(disconnectedPlayerId)
+    isLobbyEmpty()
     {
-        
 
-        if (this.playerIds.length <= 0)
+        console.log("this.playerIds.length" + this.playerIds.length + " this.numberOfDisconnectedPlayer" + this.numberOfDisconnectedPlayer);
+        if (this.playerIds.length == this.numberOfDisconnectedPlayer)
         {
             return true;
         }
@@ -161,12 +165,10 @@ class GameLobby
         // Add the player to the gameLobby socket.io room
         socket.join(this.id);
 
-        //Means the player who created the lobby will go first
-         
-        if (this.currentPlayerId == "")
-        {
-            this.currentPlayerId = userId;
-        }
+        //This will be set to the last player to join,
+        // but nextTurn is called on the client when the game starts, so it will be the 
+        // first player to join who goes first.
+        this.currentPlayerId = userId;
 
         // Write the gameLobbyId to the users socket
         socket.set(SOCKET_STORAGE_GAMELOBBY_ID, this.id);

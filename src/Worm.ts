@@ -448,7 +448,7 @@ class Worm extends Sprite
     {
         
         //This makes no sence, but it works.
-        if (GameInstance.gameType == Game.types.LOCAL_GAME || !Client.isClientsTurn()) 
+        //if (GameInstance.gameType == Game.types.LOCAL_GAME || !Client.isClientsTurn()) 
         {
             var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
             this.arrow = new BounceArrow(pos);

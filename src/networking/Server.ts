@@ -12,7 +12,7 @@
 ///<reference path="Events.ts"/>
 ///<reference path="Lobby.ts"/>
 ///<reference path="BandwidthMonitor.ts"/>
-declare function require(s);
+declare var require
 declare var Util;
 
 
@@ -65,7 +65,7 @@ class GameServer
     init()
     {
         // Setup a default lobby
-         this.lobby.server_createGameLobby("Default", 2);
+         //this.lobby.server_createGameLobby("Default", 2);
     }
 
 }
