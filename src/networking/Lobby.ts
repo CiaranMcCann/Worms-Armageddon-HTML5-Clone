@@ -37,7 +37,11 @@ try
 class Lobby
 {
     private gameLobbies;
+
+    //This is used on the client side and is a reference 
+    // to the game lobby the client is attached to.
     client_GameLobby: GameLobby;
+
     menu: LobbyMenu;
     userCount: number;
     highestUserCount: number;
@@ -84,9 +88,21 @@ class Lobby
             io.sockets.emit(Events.lobby.UPDATE_USER_COUNT, this.userCount);
 
 
-            socket.get('userId', function (err, userId) =>
+            this.server_removePlayerFormCurrentLobby(socket);
+
+        });
+
+
+    }
+
+    server_removePlayerFormCurrentLobby(socket)
+    {
+        socket.get('userId', function (err, userId) =>
+        {
+            socket.get('gameLobbyId', function (err, gameLobbyId) =>
             {
-                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                console.log(" ##############" + gameLobbyId);
+                if (gameLobbyId)
                 {
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.PLAYER_DISCONNECTED, userId);
                     socket.leave(gameLobbyId);
@@ -106,26 +122,12 @@ class Lobby
                         //Update all clients that this lobby is now closed.
                         io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
                     }
-                });
+                }
             });
-
         });
 
-
     }
 
-    //Checks if the user id is in another room
-    //and if so removes them. Called before adding any
-    //user to a room.
-    server_removeUserFromOtherRooms(playerId)
-    {
-
-    }
-
-    client_getMyLobby(): GameLobby
-    {
-        return this.client_GameLobby;
-    }
 
     server_init(socket, io)
     {
@@ -133,6 +135,10 @@ class Lobby
         // Create lobby
         socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
         {
+
+            //If the user was connected to another room disconnect them
+            this.server_removePlayerFormCurrentLobby(socket);
+
             data.nPlayers = sanitize(data.nPlayers).xss();
             data.name = sanitize(data.name).xss();
             data.name = data.name.substring(0, 20);
@@ -145,15 +151,20 @@ class Lobby
             }
 
             //Once a new game lobby has been created, add the user who created it.
+
             socket.get('userId', function (err, userId) =>
             {
-                io.log.info(Util.format("@ Create lobby with name  [%s] using map ", data.name, data.mapName));
-                var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers), data.mapName);
-                newGameLobby.join(userId, socket);
+                socket.get('googleUserId', function (err, googleUserId) =>
+                {
+
+                    io.log.info(Util.format("@ Create lobby by user with ID [%s] with name  [%s] using map ", data.name, googleUserId, data.mapName));
+                    var newGameLobby = this.server_createGameLobby(data.name, parseInt(data.nPlayers), data.mapName);
+                    newGameLobby.join(userId, googleUserId, socket);
 
 
-                console.log(" Lobby list " + this.gameLobbies);
-                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                    console.log(" Lobby list " + this.gameLobbies);
+                    io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                });
 
             });
         });
@@ -161,32 +172,53 @@ class Lobby
         // Google plus login
         socket.on(Events.lobby.GOOGLE_PLUS_LOGIN, function (googleAuthToken) => {
 
-            io.log.info(Util.format("@ Events.lobby.GOOGLE_PLUS_LOGIN " + googleAuthToken));
+            // TODO use this inside of cURL
+            //request({
+            //    uri: "localhost:12060/repository/schema/fieldType",
+            //    method: "POST",
+            //    json: {
+            //        action: "create",
+            //        fieldType: {
+            //            name: "n$name",
+            //            valueType: { primitive: "STRING" },
+            //            scope: "versioned",
+            //            namespaces: { "my.demo": "n" }
+            //        }
+            //    }
+            //});
 
-            //Call the RESTful api to find how the userId of the auth user from the token
-            curl(ServerSettings.LEADERBOARDS_API + "findUserIdByToken/" + googleAuthToken, function (err)
-            {
-                var googleUserId = JSON.parse(this.body);
+            //io.log.info(Util.format("@ Events.lobby.GOOGLE_PLUS_LOGIN " + googleAuthToken));
 
-                //Assiocate this socket with the G+ userId
-                socket.set('googleUserId', googleUserId);
+            ////Call the RESTful api to find how the userId of the auth user from the token
+            //curl(ServerSettings.LEADERBOARDS_API + "findUserIdByToken/" + googleAuthToken, function (err)
+            //{
+            //    var googleUserId = JSON.parse(this.body);
 
-            });
+            //    //Assiocate this socket with the G+ userId
+            //    socket.set('googleUserId', googleUserId);
+
+            //});
 
         });
 
         // PLAYER_JOIN Game lobby
         socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) => {
 
+            //If the user was connected to another room disconnect them
+            this.server_removePlayerFormCurrentLobby(socket);
+
             io.log.info(Util.format("@ Events.client.JOIN_GAME_LOBBY " + gamelobbyId));
 
             // Get the usersId
             socket.get('userId', function (err, userId) =>
             {
-                var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
-                gamelobby.join(userId, socket);
+                socket.get('googleUserId', function (err, googleUserId) =>
+                {
+                    var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
+                    gamelobby.join(userId, googleUserId, socket);
 
-                io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                    io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                });
             });
 
         });
@@ -310,7 +342,7 @@ class Lobby
 
     client_createGameLobby(name, numberOfPlayers, mapName)
     {
-        this.menu.displayMessage(" Waitting on more players.... ");
+        this.menu.displayMessage(" Waiing on more players.... ");
         Client.socket.emit(Events.lobby.CREATE_GAME_LOBBY, { "name": name, "nPlayers": numberOfPlayers, "mapName": mapName });
     }
 
@@ -328,26 +360,27 @@ class Lobby
 
     client_joinGameLobby(lobbyId)
     {
-        this.menu.displayMessage(" Waitting on more players.... ");
+        this.menu.displayMessage(" Waiting on more players.... ");
         Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lobbyId);
     }
 
 
     client_joinQuickGame()
     {
+
         for (var i in this.gameLobbies)
         {
             var lob: GameLobby = this.gameLobbies[i];
             if (lob.isFull() == false)
             {
-                this.menu.displayMessage(" Waitting on more players.... ");
+                this.menu.displayMessage(" Waiting on more players.... ");
                 Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lob.id);
                 return true;
             }
         }
 
         //If it doesn't find any empty lobby for the user it creates one.
-        this.client_createGameLobby("Default QuickGame", 2, Maps.priates.name);
+        this.client_createGameLobby("Default QuickGame", 2, Maps.smallCastle.name);
     }
 
 

@@ -223,35 +223,38 @@ class Worm extends Sprite
 
     postSolve(contact, impulse)
     {
-        var impactTheroshold = 8 * Worm.DENSITY
+        if (contact.GetFixtureA() instanceof BaseWeapon == false && contact.GetFixtureB() instanceof BaseWeapon == false)
+        {
+            var impactTheroshold = 8 * Worm.DENSITY
 
-        // If the worm is using the Jetpack don't take damage
-        if ((this.getWeapon() instanceof JetPack) && this.getWeapon().getIsActive())
-        {
-            impactTheroshold += 2 * Worm.DENSITY
-        }
-        //If the worm is using the NijaRope don't take damage
-        if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
-        {
-            if (impulse.normalImpulses[0] > impactTheroshold)
+            // If the worm is using the Jetpack don't take damage
+            if ((this.getWeapon() instanceof JetPack) && this.getWeapon().getIsActive())
             {
-                var damage = Math.round(impulse.normalImpulses[0]) / Worm.DENSITY;
-                Logger.log(damage);
-
-                if (damage > 10)
+                impactTheroshold += 2 * Worm.DENSITY
+            }
+            //If the worm is using the NijaRope don't take damage
+            if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
+            {
+                if (impulse.normalImpulses[0] > impactTheroshold)
                 {
-                    damage = 10;
+                    var damage = Math.round(impulse.normalImpulses[0]) / Worm.DENSITY;
+                    Logger.log(damage);
+
+                    if (damage > 10)
+                    {
+                        damage = 10;
+                    }
+
+                    this.hit(damage);
                 }
 
-                this.hit(damage);
+                if (impulse.normalImpulses[0] > 25)
+                {
+                    AssetManager.getSound("WormLanding").play();
+                }
             }
 
-            if (impulse.normalImpulses[0] > 25)
-            {
-                AssetManager.getSound("WormLanding").play();
-            }
         }
-
 
 
     }

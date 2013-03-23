@@ -158,38 +158,33 @@ class GameLobby
         return false;
     }
 
-    join(userId, socket)
+    join(userId, googleUserId, socket)
     {
-        console.log("Player " + userId + " added to gamelobby " + this.id + " and name " + this.name);
+        console.log("Player " + googleUserId + " added to gamelobby " + this.id + " and name " + this.name);
 
         // Add the player to the gameLobby socket.io room
         socket.join(this.id);
 
-        //This will be set to the last player to join,
-        // but nextTurn is called on the client when the game starts, so it will be the 
-        // first player to join who goes first.
-        this.currentPlayerId = userId;
+        //if (this.currentPlayerId == null)
+        {
+            this.currentPlayerId = userId;
+        }
 
         // Write the gameLobbyId to the users socket
         socket.set(SOCKET_STORAGE_GAMELOBBY_ID, this.id);
 
         this.playerIds.push(userId);
 
-        this.server_startGame(socket,userId)
+        //if the room is full start game
+        if (this.isFull())
+        {   
+            socket.emit(Events.gameLobby.START_GAME_HOST, this);
+        }
     }
 
     isFull()
     {
         return this.numberOfPlayers == this.playerIds.length;
-    }
-
-    server_startGame(socket,userId)
-    {
-
-        if (this.isFull())
-        {   
-            socket.emit(Events.gameLobby.START_GAME_HOST, this);
-        }
     }
 
 }

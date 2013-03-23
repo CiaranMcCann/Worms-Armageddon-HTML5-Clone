@@ -226,7 +226,7 @@ class Game
         this.gameTimer.show();
         this.weaponMenu.show();
 
-        this.gameTimer.timer.reset();
+        
 
         // Need to fire the menu call back to remove it and start the game
 
@@ -251,7 +251,7 @@ class Game
         {
             this.state.physicsWorldSettled = true;
 
-        }, 1000);
+        }, 1200);
 
         this.nextTurn();
 
