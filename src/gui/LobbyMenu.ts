@@ -113,11 +113,15 @@ class LobbyMenu
             $(LobbyMenu.CSS_ID.CREATE_LOBBY_POP_UP).modal('show');
 
             var levelSelector: SettingsMenu = new SettingsMenu();
-            $('.modal-body').prepend(levelSelector.getView());
-            levelSelector.bind(function () => {
-                AssetManager.getSound("CursorSelect").play();
 
-            });
+            if ($('#mapSelector').length == 0)
+            {
+                $('.modal-body').prepend(levelSelector.getView());
+                levelSelector.bind(function () => {
+                    AssetManager.getSound("CursorSelect").play();
+
+                });
+            }
 
             $(LobbyMenu.CSS_ID.CREATE_LOBBY_FORM_SUBMIT).click(function (e) =>
             {

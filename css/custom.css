@@ -92,11 +92,17 @@
     margin-right: 10px;
 }
 
-
 .thumbnail{
+
+     padding: 5px;
+}
+
+#weaponsMenu .thumbnail{
 
      padding: 17px;
 }
+
+
 
 .thumbnails {
     margin-left: auto;

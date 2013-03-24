@@ -24,14 +24,14 @@ class SettingsMenu
         //default selected map
         this.levelName = Maps.priates.name;
 
-        this.view = '<h1 style="text-align: center">Select a Map</h1><p> <div class="row-fluid" style="text-align: center"><ul class="thumbnails"></p>';                 
+        this.view = '<div id="mapSelector"><h1 style="text-align: center">Select a Map</h1><p> <div class="row-fluid" style="text-align: center"><ul class="thumbnails"></p>';                 
 
         for (var map in Maps)
         {
            this.view += this.addMapItem(Maps[map],map);
         }
 
-        this.view += '</ul></div><p style="text-align: center"> All map images were sourced from <a href="http://wmdb.org/">http://wmdb.org/</a></p>';
+        this.view += '</ul></div><p style="text-align: center"> All map images were sourced from <a href="http://wmdb.org/">http://wmdb.org/</a></p></div>';
     }
 
     addMapItem(map : any, name)

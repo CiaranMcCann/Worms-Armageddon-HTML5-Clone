@@ -1,3 +1,4 @@
+/// <reference path="../WormAnimationManger.ts" />
 /**
  *  
  * GameLobby.js
@@ -10,7 +11,7 @@
 ///<reference path="../Game.ts"/>
 ///<reference path="ServerUtilies.ts"/>
 
-// Had to give up the benfits of types in this instance, as a problem with the way ES6 proposal module system
+// Had to give up the benfits of types in this instance, as a problem with the way ES6/Typescript module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 //declare function require(s);
 try
