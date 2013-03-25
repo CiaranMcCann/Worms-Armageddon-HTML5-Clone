@@ -51,6 +51,7 @@ class GameLobby
         this.playerIds = [];
         this.gameLobbyCapacity = numberOfPlayers;
         this.currentPlayerId = "";
+        this.status = GameLobby.LOBBY_STATS.WATTING_FOR_PLAYERS;
     }
 
     getNumberOfPlayers()

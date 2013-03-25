@@ -3,8 +3,8 @@ declare var module;
 
 var mongo = require('mongodb');
 var Server = mongo.Server,
-	Db = mongo.Db,
-	BSON = mongo.BSONPure;
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
 var curl = require('node-curl');
 
 class LeaderBoardApi
@@ -17,59 +17,72 @@ class LeaderBoardApi
         this.settings = settings;
 
         //Setup server and connect to the database
-        var server = new Server('localhost', 27017, {auto_reconnect: true});
-        this.db = new Db(this.settings.database, server, {safe:false});
-        this.db.open(function(err, db) => {
-            if(!err) {
+        var server = new Server('localhost', 27017, { auto_reconnect: true });
+        this.db = new Db(this.settings.database, server, { safe: false });
+        this.db.open(function (err, db) => {
+            if (!err)
+            {
                 console.log("Connected to " + this.settings.database + " database");
-            }else{
+            } else
+            {
                 console.log("ERROR connecting to " + this.settings.database + " database");
             }
         });
     }
 
-    updateUser(req,res)
-    { 
+    remove(req,res)
+    {
+        var authToken = req.params.token;
+        this.findUsersIdByToken(authToken, function (userId) => {
+            this.db.collection(this.settings.userTable, function (err, collection) => {
+                collection.remove({"userId": userId });
+            });
+        });
+    }
+
+    updateUser(req, res)
+    {
         var authToken = req.params.token;
 
-            this.findUsersIdByToken(authToken, function (userId) => {
-                
-                //if got userId from authToken
-                if (userId)
-                {
-                    this.db.collection(this.settings.userTable, function (err, collection) => {
+        this.findUsersIdByToken(authToken, function (userId) => {
 
-                        collection.findOne({ 'userId': userId }, function (err, item) => {
+            //if got userId from authToken
+            if (userId)
+            {
+                this.db.collection(this.settings.userTable, function (err, collection) => {
 
-                            //TODO fix this up
-                            if (item)
-                            {
-                                collection.update({ 'userId': userId }, { $inc: { "winCount": 1 } });
-                                 res.jsonp({ 'userId': userId });
+                    collection.findOne({ 'userId': userId }, function (err, item) => {
 
-                            } else
-                            {
-                                collection.insert({ 'userId': userId, 'winCount': 1 });
-                                 res.jsonp({ 'userId': userId, 'winCount': 1 });
-                            }
-                        });
+                        //TODO fix this up
+                        if (item)
+                        {
+                            collection.update({ 'userId': userId }, { $inc: { "winCount": 1 } });
+                            res.jsonp({ 'userId': userId });
 
+                        } else
+                        {
+                            collection.insert({ 'userId': userId, 'winCount': 1 });
+                            res.jsonp({ 'userId': userId, 'winCount': 1 });
+                        }
                     });
-                } else
-                {
-                    //If we where unable to get the userId from the authToken
-                      res.jsonp({ 'Error': "Failed to auth" });
-                }
 
-            });
+                });
+            } else
+            {
+                //If we where unable to get the userId from the authToken
+                res.jsonp({ 'Error': "Failed to auth" });
+            }
+
+        });
 
     }
 
     getLeaderBoard(req, res)
     {
         console.log(res);
-        this.db.collection(this.settings.userTable, function(err, collection) => {
-            collection.find().sort({ "winCount": -1 }).toArray(function(err, items) {
+        this.db.collection(this.settings.userTable, function (err, collection) => {
+            collection.find().sort({ "winCount": -1 }).toArray(function (err, items)
+            {
                 console.log(items);
                 res.jsonp(JSON.stringify(items));
             });
@@ -81,8 +94,9 @@ class LeaderBoardApi
     {
         var url = 'https://www.googleapis.com/plus/v1/people/me?key=' + this.settings.apiKey + '&access_token=' + authToken;
         //console.log(url);
-        curl(url,  function(err) {
-            
+        curl(url, function (err)
+        {
+
             //console.log(this.body);
             var userId = JSON.parse(this.body).id;
             callback(userId);
@@ -94,5 +108,5 @@ class LeaderBoardApi
 declare var exports: any;
 if (typeof exports != 'undefined')
 {
-    (module).exports = LeaderBoardApi;
+    (module ).exports = LeaderBoardApi;
 }

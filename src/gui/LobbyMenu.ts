@@ -62,9 +62,7 @@ class LobbyMenu
 
         this.view += this.leaderBoardView.getView();
 
-        this.view += '<div id="profile" style="display:none">' +
-          '<p>If you would like to remove <strong>All</strong> trace of your leaderboard rankings, you can revoke your Google+ token<br>  <br><a href="#" class="btn" id="googlePlusdisconnectUser">Revoke</a></p>' +
-          '</div>';
+        this.view += this.leaderBoardView.getProfileView();
 
         this.view += '</div>';
 
