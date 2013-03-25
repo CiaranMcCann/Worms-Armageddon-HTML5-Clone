@@ -24,6 +24,12 @@ module ServerUtilies
         throw "Couldn't find object with proerpty " + haystackProperity + " equal to " + needle;
     }
 
+    export function deleteFromCollection(collection, indexToRemove)
+    {
+        delete collection[indexToRemove];
+        collection.splice(indexToRemove, 1);
+    }
+
     export function createToken()
     {
         return Math.random().toString(36).substr(2);

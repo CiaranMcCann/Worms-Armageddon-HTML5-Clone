@@ -169,14 +169,14 @@ class LobbyMenu
         {
             var lob: GameLobby = gameLobbies[gameLobby];
             var disableButton = "";
-            if (lob.contains(Client.id) || lob.isFull())
+            if (lob.contains(Client.id) || lob.status == GameLobby.LOBBY_STATS.GAME_IN_PLAY)
             {
                 disableButton = 'disabled="disabled"';
             }
 
             var status = "Waitting";
             var buttonText = " Join game ";
-            if (lob.isFull())
+            if (lob.status == GameLobby.LOBBY_STATS.GAME_IN_PLAY)
             {
                 status = "Playing";
 

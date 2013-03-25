@@ -14,6 +14,7 @@
 // Had to give up the benfits of types in this instance, as a problem with the way ES6/Typescript module system
 // works with Node.js modules. http://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
 //declare function require(s);
+
 try
 {
 //This is some mega hacky stuff, but its the only way I can get around a very strange typescript static anaylse error which
@@ -26,13 +27,17 @@ var SOCKET_STORAGE_GAMELOBBY_ID = 'gameLobbyId';
 
 class GameLobby
 {
+    static LOBBY_STATS = {
+        WATTING_FOR_PLAYERS: 0,
+        GAME_IN_PLAY: 1
+    }
+
     private playerIds: string[];
     name: string;
     id: string;
-    numberOfPlayers: number;
+    gameLobbyCapacity: number;
 
-    //Used to track the number of players who have dicconnecte
-    numberOfDisconnectedPlayer: number;
+    status: number;
 
     mapName;
     currentPlayerId: string;
@@ -44,14 +49,13 @@ class GameLobby
         this.name = name;
         this.mapName = mapName;
         this.playerIds = [];
-        this.numberOfPlayers = numberOfPlayers;
+        this.gameLobbyCapacity = numberOfPlayers;
         this.currentPlayerId = "";
-        this.numberOfDisconnectedPlayer = 0;
     }
 
     getNumberOfPlayers()
     {
-        return this.numberOfPlayers;
+        return this.gameLobbyCapacity;
     }
 
     getPlayerSlots(){
@@ -140,8 +144,11 @@ class GameLobby
     contains(playerId: string) : bool
     {
         for (var i in this.playerIds)
-        {
-            return this.playerIds[i] == playerId;
+        {          
+            if (this.playerIds[i] == playerId)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -149,43 +156,55 @@ class GameLobby
 
     isLobbyEmpty()
     {
-
-        console.log("this.playerIds.length" + this.playerIds.length + " this.numberOfDisconnectedPlayer" + this.numberOfDisconnectedPlayer);
-        if (this.playerIds.length == this.numberOfDisconnectedPlayer)
-        {
-            return true;
-        }
-
-        return false;
+        return (this.playerIds.length == 0);
     }
 
     join(userId, googleUserId, socket)
     {
-        console.log("Player " + googleUserId + " added to gamelobby " + this.id + " and name " + this.name);
-
-        // Add the player to the gameLobby socket.io room
-        socket.join(this.id);
-
-        //if (this.currentPlayerId == null)
+        //Stops a user from joing a room twice
+        if (this.contains(userId) == false && this.status == GameLobby.LOBBY_STATS.WATTING_FOR_PLAYERS)
         {
-            this.currentPlayerId = userId;
+            console.log("Player " + googleUserId + " added to gamelobby " + this.id + " and name " + this.name);
+
+            // Add the player to the gameLobby socket.io room
+            socket.join(this.id);
+
+            //if (this.currentPlayerId == null)
+            {
+                this.currentPlayerId = userId;
+            }
+
+            // Write the gameLobbyId to the users socket
+            socket.set(SOCKET_STORAGE_GAMELOBBY_ID, this.id);
+
+            this.playerIds.push(userId);
+
+            //if the room is full start game
+            if (this.isFull())
+            {
+                socket.emit(Events.gameLobby.START_GAME_HOST, this);
+                this.status = GameLobby.LOBBY_STATS.GAME_IN_PLAY;
+
+            } else
+            {
+                this.status = GameLobby.LOBBY_STATS.WATTING_FOR_PLAYERS;
+            }
         }
+    }
 
-        // Write the gameLobbyId to the users socket
-        socket.set(SOCKET_STORAGE_GAMELOBBY_ID, this.id);
+    remove(userId)
+    {
+       var index = this.playerIds.indexOf(userId);
 
-        this.playerIds.push(userId);
-
-        //if the room is full start game
-        if (this.isFull())
-        {   
-            socket.emit(Events.gameLobby.START_GAME_HOST, this);
-        }
+       if (index >= 0)
+       {
+           ServerUtilies.deleteFromCollection(this.playerIds, index);
+       }
     }
 
     isFull()
     {
-        return this.numberOfPlayers == this.playerIds.length;
+        return this.gameLobbyCapacity == this.playerIds.length;
     }
 
 }

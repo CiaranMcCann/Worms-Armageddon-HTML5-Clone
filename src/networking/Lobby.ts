@@ -91,8 +91,6 @@ class Lobby
             this.server_removePlayerFormCurrentLobby(socket);
 
         });
-
-
     }
 
     server_removePlayerFormCurrentLobby(socket)
@@ -101,7 +99,6 @@ class Lobby
         {
             socket.get('gameLobbyId', function (err, gameLobbyId) =>
             {
-                console.log(" ##############" + gameLobbyId);
                 if (gameLobbyId)
                 {
                     socket.broadcast.to(gameLobbyId).emit(Events.gameLobby.PLAYER_DISCONNECTED, userId);
@@ -109,18 +106,17 @@ class Lobby
 
                     if (this.gameLobbies[gameLobbyId])
                     {
-                        this.gameLobbies[gameLobbyId].numberOfDisconnectedPlayer += 1;
-                    }
+                        this.gameLobbies[gameLobbyId].remove(userId)
+                       
+                        //Checks if there is anyone left in the room
+                        if (this.gameLobbies[gameLobbyId].isLobbyEmpty())
+                        {
+                            //Delete gameb lobby
+                            delete this.gameLobbies[gameLobbyId];
 
-
-                    //Checks if there is anyone left in the room
-                    if (this.gameLobbies[gameLobbyId] && this.gameLobbies[gameLobbyId].isLobbyEmpty())
-                    {
-                        //Delete gameb lobby
-                        delete this.gameLobbies[gameLobbyId];
-
-                        //Update all clients that this lobby is now closed.
-                        io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                            //Update all clients that this lobby is now closed.
+                            io.sockets.emit(Events.client.UPDATE_ALL_GAME_LOBBIES, JSON.stringify(this.getGameLobbies()));
+                        }
                     }
                 }
             });
@@ -239,9 +235,6 @@ class Lobby
             });
 
         });
-
-
-
 
         /************************************************************
         *   Game sync event bindings  
@@ -371,11 +364,19 @@ class Lobby
         for (var i in this.gameLobbies)
         {
             var lob: GameLobby = this.gameLobbies[i];
+
             if (lob.isFull() == false)
             {
-                this.menu.displayMessage(" Waiting on more players.... ");
-                Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lob.id);
-                return true;
+                if (lob.contains(Client.id))
+                {
+                    Notify.display("Your already join the lobby", "Still waiting for players");
+                }
+                else
+                {
+                    this.menu.displayMessage(" Waiting on more players.... ");
+                    Client.socket.emit(Events.gameLobby.PLAYER_JOIN, lob.id);
+                    return true;
+                }
             }
         }
 
