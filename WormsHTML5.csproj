@@ -219,13 +219,6 @@
     </Content>
     <TypeScriptCompile Include="src\networking\Server.ts" />
     <TypeScriptCompile Include="src\networking\Client.ts" />
-    <TypeScriptCompile Include="src\networking\BandwidthMonitor.ts" />
-    <Content Include="src\networking\BandwidthMonitor.js">
-      <DependentUpon>BandwidthMonitor.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\BandwidthMonitor.min.js">
-      <DependentUpon>BandwidthMonitor.ts</DependentUpon>
-    </Content>
     <Content Include="src\networking\Client.js">
       <DependentUpon>Client.ts</DependentUpon>
     </Content>
@@ -654,6 +647,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="offline.appcache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.conf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\networking\LeaderBoard\package.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

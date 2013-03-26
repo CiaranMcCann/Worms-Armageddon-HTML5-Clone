@@ -158,14 +158,14 @@ module Sprites
 
         },
 
-        hitground: {
+        //hitground: {
 
-            imageName: "wtwangd",
-            frameY: 0,
-            frameCount: 36,
-            msPerFrame: 200,
+        //    imageName: "wtwangd",
+        //    frameY: 0,
+        //    frameCount: 36,
+        //    msPerFrame: 200,
 
-        },
+        //},
 
 
         drilling: {
@@ -187,14 +187,14 @@ module Sprites
         },
 
 
-        blink: {
+        //blink: {
 
-            imageName: "wblink1u",
-            frameY: 0,
-            frameCount: 6,
-            msPerFrame: 50,
+        //    imageName: "wblink1u",
+        //    frameY: 0,
+        //    frameCount: 6,
+        //    msPerFrame: 50,
 
-        },
+        //},
 
         falling: {
 
@@ -347,13 +347,13 @@ module Sprites
 
         },
         
-        shotgunPutAway: {
-            imageName: "wshgbak",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        //shotgunPutAway: {
+        //    imageName: "wshgbak",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
         shotgunFireAnimation1: {
             imageName: "wshotf",
@@ -396,13 +396,13 @@ module Sprites
 
         },
 
-         minigunPutAway: {
-            imageName: "wmgnbak",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        // minigunPutAway: {
+        //    imageName: "wmgnbak",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
         //takeOutLandMine: {
         //    imageName: "wminlnk",
@@ -463,10 +463,6 @@ module Sprites
             msPerFrame: 50,
 
         },
-
-        
-
-
 
     }
 

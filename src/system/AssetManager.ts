@@ -167,7 +167,6 @@ module AssetManager
             imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.weapons[sprite].imageName + ".png");
         }
 
-
         for (var sprite in Sprites.particleEffects)
         {
             imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.particleEffects[sprite].imageName + ".png");

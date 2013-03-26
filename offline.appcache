@@ -146,18 +146,18 @@ http://www.ciaranmccann.me/college/fyp/data/sounds/WalkExpand.wav
 http://www.ciaranmccann.me/college/fyp/data/sounds/WalkCompress.wav  
 
 #style sheets
-http://www.ciaranmccann.me/college/fyp/release5/css/bootstrap.min.css
-http://www.ciaranmccann.me/college/fyp/release5/css/custom.css
+http://www.ciaranmccann.me/wormsjs/css/bootstrap.min.css
+http://www.ciaranmccann.me/wormsjs/css/custom.min.css
 
 #javascript files
 
-http://www.ciaranmccann.me/college/fyp/release5/external/jquery.1.8.2.min.js
-http://www.ciaranmccann.me/college/fyp/release5/external/Box2dWeb-2.1.a.3.js
-http://www.ciaranmccann.me/college/fyp/release5/external/Stats.js
-http://www.ciaranmccann.me/college/fyp/release5/external/bootstrap-modal.js
-http://www.ciaranmccann.me/college/fyp/release5/src/audio/SoundBufferLoader.js
-http://www.ciaranmccann.me/college/fyp/release5/src/audio/Sound.js
-http://www.ciaranmccann.me/college/fyp/release5/Worms.js
+http://www.ciaranmccann.me/wormsjs/external/jquery.1.8.2.min.js
+http://www.ciaranmccann.me/wormsjs/external/Box2dWeb-2.1.a.3.js
+http://www.ciaranmccann.me/wormsjs/external/Stats.js
+http://www.ciaranmccann.me/wormsjs/external/bootstrap-modal.js
+http://www.ciaranmccann.me/wormsjs/src/audio/SoundBufferLoader.js
+http://www.ciaranmccann.me/wormsjs/src/audio/Sound.js
+http://www.ciaranmccann.me/wormsjs/src/Worms.js
 http://96.126.111.211:8080/socket.io/socket.io.js
 
 NETWORK:
