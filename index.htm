@@ -1,191 +1,87 @@
-﻿<!doctype html> 
+﻿<!doctype html>
 <html manifest="offline.appcache">
 <head>
     <meta charset="utf-8" />
-       <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Worms Armageddon HTML5 Clone</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="css/custom.min.css" type="text/css" />
 
     <!-- External deps -->
     <script src="external/jquery.1.8.2.min.js"></script>
-    <script src="external/Box2dWeb-2.1.a.3.js"></script>
+    <script src="external/Box2dWeb-2.1.a.3.min.js"></script>
     <script src="external/Stats.js"></script>
     <script src="external/bootstrap.min.js"></script>
 
     <!-- None complied js files -->
     <script src="src/audio/SoundBufferLoader.js"></script>
 
-    
-    <!-- Audio -->
-    <script src="src/audio/Sound.js"></script>   
-    
-    <!-- Complied and minifed Worms.js -->
-    <!-- final release build tsc --out all.js js/*.ts -->
-    <!--<script src="Worms.js"></script>
-
-     Settings and Ulities -->
-        <script src="src/system/Utilies.js"></script>
-    <script src="src/system/Controls.js"></script>
-    <script src="src/Settings.js"></script>
-
-
-
-    <script src="src/gui/SettingsMenu.js"></script>
-    <script src="src/gui/StartMenu.js"></script>
-    <script src="src/gui/WeaponsMenu.js"></script>
-    <script src="src/gui/HealthMenu.js"></script>
-    <script src="src/gui/CountDownTimer.js"></script>
-    <script src="src/gui/LeaderBoardView.js"></script>
-    <script src="src/gui/LobbyMenu.js"></script>
-
-
-    <script src="src/Tutorial.js"></script>
-
- 
-    <script src="src/system/Physics.js"></script>
-
-
-    <script src="src/system/Graphics.js"></script>
- 
-    
-    <script src="src/animation/HealthReduction.js"></script>
-    <script src="src/animation/SpriteDefinitions.js"></script>
-    <script src="src/animation/Sprite.js"></script>
-    <script src="src/animation/PhysicsSprite.js"></script>
-    <script src="src/animation/BounceArrow.js"></script>
-    <script src="src/animation/Particle.js"></script>
-    <script src="src/animation/ParticleEffect.js"></script>
-    <script src="src/animation/EffectsManager.js"></script>
-    <script src="src/animation/SpriteDefinitions.js"></script>
-    <script src="src/animation/Effects.js"></script>
-
-    <script src="src/main.js"></script> 
-
-    <script src="src/system/Camera.js"></script>
-    <script src="src/system/AssetManager.js"></script>
-    <script src="src/system/NameGenerator.js"></script>
-    <script src="src/system/Timer.js"></script>
-    
-    <script src="src/environment/Waves.js"></script>
-    <script src="src/environment/Maps.js"></script>
-    <script src="src/WormManager.js"></script>
-    <script src="src/GameStateManager.js"></script>
-    <script src="src/Game.js"></script>
-    
-    
-    <script src="src/environment/Terrain.js"></script>
-    <script src="src/environment/TerrainBoundary.js"></script>
-
-
-    <script src="src/weapons/ForceIndicator.js"></script>
-    <script src="src/weapons/WeaponManager.js"></script>
-    <script src="src/weapons/BaseWeapon.js"></script>
-    <script src="src/weapons/Drill.js"></script>
-    <script src="src/weapons/ThrowableWeapon.js"></script>
-    <script src="src/weapons/Dynamite.js"></script>
-    <script src="src/weapons/JetPack.js"></script>
-    <script src="src/weapons/RayWeapon.js"></script>
-    <script src="src/weapons/ProjectileWeapon.js"></script>
-    <script src="src/weapons/HolyGrenade.js"></script>
-    <script src="src/weapons/HandGrenade.js"></script>
-    <script src="src/weapons/NinjaRope.js"></script>
-    <script src="src/weapons/Minigun.js"></script>
-    <script src="src/weapons/Shotgun.js"></script>
-    <script src="src/weapons/LandMine.js"></script>
-    <script src="src/weapons/Blowtorch.js"></script>
-
-
-    <script src="src/Target.js"></script>
-    <script src="src/WormAnimationManger.js"></script>
-    <script src="src/Worm.js"></script>
-    <script src="src/Team.js"></script>
-    <script src="src/system/GamePad.js"></script>
-    <script src="src/Player.js"></script>
-
-    
-
- <script src="src/networking/LeaderBoard/GooglePlus.js"></script>
-        <script src="src/networking/NetworkTimer.js"></script>
-        <script src="src/networking/Events.js"></script>
-        <script src="src/networking/InstructionChain.js"></script>
-        <script src="src/networking/Client.js"></script>
-        <script src="src/networking/GameLobby.js"></script>
-        <script src="src/networking/Lobby.js"></script>
-        
+    <!-- Complied Typescript Javascript -->
+    <script src="src/Worms.min.js"></script>
 
     <!-- Socket.io -->
     <script src="http://96.126.111.211:8080/socket.io/socket.io.js"></script>
 </head>
-<body >
-    <div class="alert" id="notifaction"> <strong></strong><p></p></div>
-
+<body>
+    <div class="alert" id="notifaction"><strong></strong>
+        <p></p>
+    </div>
     <div class="modal fade" id="createLobby">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Create Game Lobby</h3>
-  </div>
-  <div class="modal-body">
-   <form class="bs-docs-example form-horizontal" id="createLobbyForm" name="createLobbyForm">
-            <div class="control-group">
-              <label class="control-label" for="inputName">Lobby Name</label>
-              <div class="controls">
-                <input type="text" id="inputName" placeholder="Lobby Name">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="inputPlayers">Number Players</label>
-              <div class="controls">
-                  <select id="inputPlayers" placeholder=" Number Players">
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                  </select>
-              </div>
-            </div>       
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary" data-dismiss="modal" id="submit">Create</a>
-      </form>
-  </div>
-</div>
-
-  
-   <div class="modal fade" id="nickname">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Welcome</h3>
-  </div>
-  <div class="modal-body" style="text-align:center">
-      <p> Sign in with Google+ for leaderboard rankings or just be another John Doe :( </p>
-      <br />
-      <span id="signinButton">
-          <span
-            class="g-signin"
-            data-callback="googlePlusSignIn"
-             data-clientid-live="1023068169705-t3jfknsu2cafmauctr3l34mqhnn4sivf.apps.googleusercontent.com"
-            data-clientid="1023068169705.apps.googleusercontent.com"
-            data-cookiepolicy="single_host_origin"
-            data-scope="https://www.googleapis.com/auth/plus.login">
-          </span>
-    </span><br />
-
-
-
-
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn btn-primary" data-dismiss="modal">Continue without signing in</a>
-  </div>
-</div>
-
-
-
-
-    <div id="turnTimeCounter" style="display:none"></div>
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3>Create Game Lobby</h3>
+        </div>
+        <div class="modal-body">
+            <form class="bs-docs-example form-horizontal" id="createLobbyForm" name="createLobbyForm">
+                <div class="control-group">
+                    <label class="control-label" for="inputName">Lobby Name</label>
+                    <div class="controls">
+                        <input type="text" id="inputName" placeholder="Lobby Name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPlayers">Number Players</label>
+                    <div class="controls">
+                        <select id="inputPlayers" placeholder=" Number Players">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary" data-dismiss="modal" id="submit">Create</a>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="nickname">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3>Welcome</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <p>Sign in with Google+ for leaderboard rankings or just be another John Doe :( </p>
+            <br />
+            <span id="signinButton">
+                <span
+                    class="g-signin"
+                    data-callback="googlePlusSignIn"
+                    data-clientid-live="1023068169705-t3jfknsu2cafmauctr3l34mqhnn4sivf.apps.googleusercontent.com"
+                    data-clientid="1023068169705.apps.googleusercontent.com"
+                    data-cookiepolicy="single_host_origin"
+                    data-scope="https://www.googleapis.com/auth/plus.login"></span>
+            </span>
+            <br />
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-primary" data-dismiss="modal">Continue without signing in</a>
+        </div>
+    </div>
+    <div id="turnTimeCounter" style="display: none"></div>
 
     <div class="hero-unit" id="startMenu">
         <div class="slide">
@@ -194,92 +90,86 @@
             <p>
                 Welcome to a recreation of <a href="http://www.team17.com/">Team17's</a> turn-based artillery strategy worms armageddon. 
                 All copyright and credit for the art/sound assets belongs to <a href="http://www.team17.com/">Team17</a>
-                and for making such an awesome game in the first place. This clone is currently under development by <a href="http://www.ciaranmccann.me/">Ciarán McCann</a> as part of his final year on the <a href="http://www.itcarlow.ie/study-at-itc/science/computing-networking/cw208.htm"> IT Carlow Games Development</a> course.
+                and for making such an awesome game in the first place. This clone is currently under development by <a href="http://www.ciaranmccann.me/">Ciarán McCann</a> as part of his final year on the <a href="http://www.itcarlow.ie/study-at-itc/science/computing-networking/cw208.htm">IT Carlow Games Development</a> course.
                 <a href="http://www.ciaranmccann.me/">Read more..</a>
             </p>
             <br />
 
             <p style="text-align: center">
-             
-             <a class="btn btn-primary btn-large" id="startTutorial" disabled="disabled">Noobs tutorial</a>
-             <a class="btn btn-primary btn-large" id="startLocal" disabled="disabled">Local two player</a>
-             <a class="btn btn-primary btn-large" id="startOnline" disabled="disabled">Online multiplayer</a></p>
-          <div id="notice" style="font-size:14px"></div>
-            
-            <!-- add for live deployment -->
-            <div style=" background: none; margin-top: 20px;">
-                
-                  <div  style="margin-top:-10px;position: absolute; left: 225px;">
-                <a href="https://twitter.com/share" class="twitter-share-button"
-                     data-via="C_McCann" 
-                    data-related="C_McCann" 
-                    data-url="http://www.ciaranmccann.me/wormsjs/"
-                    data-text="Multiplayer Worms Armageddon HTML5 Clone #Javascript #gamedev #irishgamedev"
-                    >Tweet</a></div>
-                   
-          <div  style="margin-top:-15px;position: absolute; left: 320px;">
-                <div class="fb-like" data-href="http://www.ciaranmccann.me/wormsjs/" data-send="false" data-layout="button_count" data-show-faces="true"></div>
+
+                <a class="btn btn-primary btn-large" id="startTutorial" disabled="disabled">Noobs tutorial</a>
+                <a class="btn btn-primary btn-large" id="startLocal" disabled="disabled">Local two player</a>
+                <a class="btn btn-primary btn-large" id="startOnline" disabled="disabled">Online multiplayer</a>
+            </p>
+            <div id="notice" style="font-size: 14px"></div>
+            <div style="background: none; margin-top: 20px;">
+
+                <div style="margin-top: -10px; position: absolute; left: 225px;">
+                    <a href="https://twitter.com/share" class="twitter-share-button"
+                        data-via="C_McCann"
+                        data-related="C_McCann"
+                        data-url="http://www.ciaranmccann.me/wormsjs/"
+                        data-text="Multiplayer Worms Armageddon HTML5 Clone #Javascript #gamedev #irishgamedev">Tweet</a>
+                </div>
+
+                <div style="margin-top: -15px; position: absolute; left: 320px;">
+                    <div class="fb-like" data-href="http://www.ciaranmccann.me/wormsjs/" data-send="false" data-layout="button_count" data-show-faces="true"></div>
+                </div>
+
+
+                <div style="margin-top: -10px; position: absolute; left: 405px;">
+                    <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="10"></div>
+                    </span>
+
+              <div style="margin-top: -33px; position: absolute; left: 60px;">
+                  <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+                  <script type="IN/Share" data-url="http://www.ciaranmccann.me/wormsjs/" data-counter="right"></script>
               </div>
 
-                
-                 <div  style="margin-top:-10px;position: absolute; left: 405px;">
-                <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="10"></div>
-                     </span>
 
-              <div  style="margin-top:-33px;position: absolute; left: 60px;">
-                     <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-                    <script type="IN/Share" data-url="http://www.ciaranmccann.me/wormsjs/" data-counter="right"></script>
-              </div>
-     
+                    <div />
+                </div>
+            </div>
 
-            <div/>
+            <div class="healthMenu">
+                <ul></ul>
+            </div>
 
+            <div id="fb-root"></div>
+            <script>
 
-        </div>
-    </div>
+                ////Twiiter
+                !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
 
-    <div class="healthMenu"><ul></ul></div>
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-633762-11']);
+                _gaq.push(['_addDevId', 'i9k95']); // Google Analyticator App ID with Google 
 
-     <div id="fb-root"></div>
-    <script>
+                _gaq.push(['_trackPageview']);
 
-        ////Twiiter
-        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+                //G+
+                (function ()
+                {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
 
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-633762-11']);
-          _gaq.push(['_addDevId', 'i9k95']); // Google Analyticator App ID with Google 
-                
-          _gaq.push(['_trackPageview']);
-
-        //G+
-        (function ()
-        {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+                (function ()
+                {
+                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
 
 
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=134430549926818";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+                (function (d, s, id)
+                {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=134430549926818";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
 
-    </script>
-
-
-</body>
-</html>
-
-
-
+            </script></body></html>

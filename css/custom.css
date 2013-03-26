@@ -6,73 +6,21 @@
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
-       //cursor: url('../data/images/menu/cursor.png'), pointer;
 }
 
-
-
-#action{
-
+#action {
     background: #242a4a; /* Old browsers */
-    background: -moz-linear-gradient(top,  #242a4a 0%, #201610 100%); /* FF3.6+ */
+    background: -moz-linear-gradient(top, #242a4a 0%, #201610 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#242a4a), color-stop(100%,#201610)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #242a4a 0%,#201610 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #242a4a 0%,#201610 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #242a4a 0%,#201610 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #242a4a 0%,#201610 100%); /* W3C */
+    background: -webkit-linear-gradient(top, #242a4a 0%,#201610 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #242a4a 0%,#201610 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #242a4a 0%,#201610 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #242a4a 0%,#201610 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#242a4a', endColorstr='#201610',GradientType=0 ); /* IE6-9 */
-
 }
 
-
-
-
-#splashScreen #loadIcon {
-    width: 160px;
-    height: 160px;
-    background: url(http://www.ciaranmccann.me/college/fyp/data/images/cdrom.png);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -80px;
-    margin-top: -80px;
-    -webkit-animation: wink 2.8s steps(25, end);
-    -moz-animation: wink 2.8s steps(25, end);
-    -o-animation: wink 2.8s steps(25, end);
-    animation: wink 2.8s steps(25, end);
-}
-
-
-@-webkit-keyframes wink {
-    from {
-        background-position: 0px 0px;
-    }
-
-    to {
-        background-position: 0px -4000px;
-    }
-}
-
-@-moz-keyframes wink {
-    from {
-        background-position: 0px 0px;
-    }
-
-    to {
-        background-position: 0px -4000px;
-    }
-}
-
-@keyframes wink {
-    from {
-        background-position: 0px 0px;
-    }
-
-    to {
-        background-position: 0px -4000px;
-    }
-}
 
 #startMenu {
     position: absolute;
@@ -83,7 +31,6 @@
     width: 600px;
     height: 490px;
     z-index: 1;
- 
 }
 
 
@@ -92,14 +39,12 @@
     margin-right: 10px;
 }
 
-.thumbnail{
-
-     padding: 5px;
+.thumbnail {
+    padding: 5px;
 }
 
-#weaponsMenu .thumbnail{
-
-     padding: 17px;
+#weaponsMenu .thumbnail {
+    padding: 17px;
 }
 
 
@@ -107,7 +52,6 @@
 .thumbnails {
     margin-left: auto;
     list-style: none;
-   
 }
 
 #weaponsMenu {
@@ -127,50 +71,48 @@
     cursor: default;
 }
 
-#weaponsMenuBtn{
--webkit-transform: rotate(90deg);	
--moz-transform: rotate(90deg);
--ms-transform: rotate(90deg);
--o-transform: rotate(90deg);
-transform: rotate(90deg);
-  cursor: pointer; 
-
-	 position: absolute;
+#weaponsMenuBtn {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    cursor: pointer;
+    position: absolute;
     left: -42.5%;
     top: 20%;
-	padding:20px;
-	font-style:bold;
+    padding: 20px;
+    font-style: bold;
     background: black;
-    color:white;
+    color: white;
     border: white 1px solid;
     border-radius: 3px;
-    z-index:1;
+    z-index: 1;
     font-size: 20px;
-    border-top:none;
+    border-top: none;
 }
 
     #weaponsMenuBtn:hover {
         color: #08c;
     }
 
-    #weaponsMenu .thumbnail:active {
-        -ms-transform: scale(0.9,0.9); /* IE 9 */
-        -webkit-transform: scale(0.9,0.9); /* Safari and Chrome */
-        -o-transform: scale(0.9,0.9); /* Opera */
-        -moz-transform: scale(0.9,0.9);
-        transform: scale(0.9,0.9); /* Firefox */
-        cursor: pointer;
-    }
+#weaponsMenu .thumbnail:active {
+    -ms-transform: scale(0.9,0.9); /* IE 9 */
+    -webkit-transform: scale(0.9,0.9); /* Safari and Chrome */
+    -o-transform: scale(0.9,0.9); /* Opera */
+    -moz-transform: scale(0.9,0.9);
+    transform: scale(0.9,0.9); /* Firefox */
+    cursor: pointer;
+}
 
-    #weaponsMenu .noAmmo {
-        -moz-opacity: 0.4;
-        opacity: 0.4;
-    }
+#weaponsMenu .noAmmo {
+    -moz-opacity: 0.4;
+    opacity: 0.4;
+}
 
 a.noAmmo:hover {
     border-color: none;
-    cursor: pointer; 
- 
+    cursor: pointer;
 }
 
 
@@ -204,11 +146,13 @@ a.thumbnail.ammo {
     color: white;
     font-size: 40px;
     display: -webkit-box;
+    box-align: center;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
+    -moz-box-align: center;
     -webkit-box-align: center;
     border-radius: 3px;
-    z-index:1;
+    z-index: 1;
 }
 
 kbd {
@@ -261,46 +205,45 @@ kbd {
 
 
 .touchButton {
-position: absolute;
-left: 100%;
-top: 100%;
-width: 80px;
-height: 50px;
-margin-top: -78px;
-margin-left: -100px;
-z-index: 1;
-background: black;
-border: 1px white solid;
-padding: 10px;
-padding-left: 2px;
-padding-right: 2px;
-border-radius: 3px;
-cursor: default;
-color: white;
-font-size: 30px;
-        display: -webkit-box;
+    position: absolute;
+    left: 100%;
+    top: 100%;
+    width: 80px;
+    height: 50px;
+    margin-top: -78px;
+    margin-left: -100px;
+    z-index: 1;
+    background: black;
+    border: 1px white solid;
+    padding: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 3px;
+    cursor: default;
+    color: white;
+    font-size: 30px;
+    display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
     -webkit-box-align: center;
 }
 
-#touchJump{
+#touchJump {
     margin-left: -200px;
 }
 
-#touchFire{
+#touchFire {
     margin-left: -100px;
 }
 
-#notifaction{
-
-text-align: center;
-z-index: 99;
-position: absolute;
-top: -50px;
-left: 50%;
-margin-left: -250px;
-width: 500px;
-font-size:17px;
-border-color: black;
+#notifaction {
+    text-align: center;
+    z-index: 99;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    margin-left: -250px;
+    width: 500px;
+    font-size: 17px;
+    border-color: black;
 }

@@ -24,7 +24,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
           return;
         }
         loader.bufferList[index] = { buffer: buffer, name: url.match("[a-z,A-Z,0-9]+[.]")[0].replace(".", "") };
-        Logger.log(" Audio file " + url + " loaded sucessfully ");
+        console.log(" Audio file " + url + " loaded sucessfully ");
         if (++loader.loadCount === loader.urlList.length)
           loader.onload(loader.bufferList);
       },

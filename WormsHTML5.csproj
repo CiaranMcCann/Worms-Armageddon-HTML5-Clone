@@ -24,10 +24,11 @@
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <Content Include=".gitignore" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\custom.min.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
     <Content Include="data\img\wormsBackGround.png" />
-    <Content Include="external\boostrap-carousel.js" />
-    <Content Include="external\bootstrap-modal.js" />
-    <Content Include="external\bootstrap-transition.js" />
+    <Content Include="external\bootstrap.min.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.js" />
     <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
     <Content Include="external\jquery.1.8.2.min.js" />
@@ -43,6 +44,9 @@
     <Content Include="src\animation\BounceArrow.js">
       <DependentUpon>BounceArrow.ts</DependentUpon>
     </Content>
+    <Content Include="src\animation\BounceArrow.min.js">
+      <DependentUpon>BounceArrow.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\EffectsManager.js">
       <DependentUpon>EffectsManager.ts</DependentUpon>
     </Content>
@@ -54,6 +58,12 @@
       <DependentUpon>HealthReduction.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\gui\SettingsMenu.ts" />
+    <Content Include="src\animation\ParticleEffect.js">
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ParticleEffect.min.js">
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\PhysicsSprite.min.js">
       <DependentUpon>PhysicsSprite.ts</DependentUpon>
     </Content>
@@ -106,6 +116,9 @@
     </Content>
     <TypeScriptCompile Include="src\weapons\Blowtorch.ts" />
     <Content Include="src\weapons\Blowtorch.js">
+      <DependentUpon>Blowtorch.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Blowtorch.min.js">
       <DependentUpon>Blowtorch.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\ForceIndicator.js">
@@ -683,4 +696,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>"$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc" "$(ProjectDir)src\main.ts" --out "$(ProjectDir)src\Worms.js"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

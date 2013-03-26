@@ -35,10 +35,10 @@ module Sprites
         jetPack: { imageName: "iconjetpack" },
         shotgun: { imageName: "iconshotgun" },
         minigun: { imageName: "iconminigun" },
-        landMine: { imageName: "iconmine" },
         bazooka: { imageName: "iconbazooka" },
-        blowTorch: { imageName: "iconblowtorch" },
-        sheep: { imageName: "iconsheep" }
+        //blowTorch: { imageName: "iconblowtorch" },
+        //sheep: { imageName: "iconsheep" },
+        //landMine: { imageName: "iconmine" },
 
     };
 
@@ -99,23 +99,23 @@ module Sprites
 
         },
 
-        mineOn: {
+        //mineOn: {
 
-            imageName: "mineon",
-            frameY: 0,
-            frameCount: 32,
-            msPerFrame: 50,
+        //    imageName: "mineon",
+        //    frameY: 0,
+        //    frameCount: 32,
+        //    msPerFrame: 50,
 
-        },
+        //},
 
-         mineOff: {
+        // mineOff: {
 
-            imageName: "mineoff",
-            frameY: 0,
-            frameCount: 32,
-            msPerFrame: 50,
+        //    imageName: "mineoff",
+        //    frameY: 0,
+        //    frameCount: 32,
+        //    msPerFrame: 50,
 
-        },
+        //},
 
         //TODO Move aiming things to misulaous 
         redTarget: {
@@ -404,39 +404,39 @@ module Sprites
 
         },
 
-        takeOutLandMine: {
-            imageName: "wminlnk",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        //takeOutLandMine: {
+        //    imageName: "wminlnk",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
         
-        takeOutSheep: {
-            imageName: "wshplnk",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        //takeOutSheep: {
+        //    imageName: "wshplnk",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
-        takeOutBlowtorch: {
-            imageName: "wblowlk",
-            frameY: 0,
-            frameCount: 15,
-            msPerFrame: 60,
+        //takeOutBlowtorch: {
+        //    imageName: "wblowlk",
+        //    frameY: 0,
+        //    frameCount: 15,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
-        blowtorching: {
+        //blowtorching: {
 
-            imageName: "wbloww",
-            frameY: 0,
-            frameCount: 15,
-            msPerFrame: 60,
+        //    imageName: "wbloww",
+        //    frameY: 0,
+        //    frameCount: 15,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
          
         takeOutBazooka: {
@@ -603,38 +603,38 @@ module Sprites
 
         },
 
-         hexhaust: {
-            imageName: "hexhaust",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        // hexhaust: {
+        //    imageName: "hexhaust",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
         
-        exhaust: {
-            imageName: "exhaust",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        //exhaust: {
+        //    imageName: "exhaust",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
-        shotcase: {
-            imageName: "shotcase",
-            frameY: 0,
-            frameCount: 16,
-            msPerFrame: 60,
+        //shotcase: {
+        //    imageName: "shotcase",
+        //    frameY: 0,
+        //    frameCount: 16,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
-        shothit: {
-            imageName: "shothit",
-            frameY: 0,
-            frameCount: 10,
-            msPerFrame: 60,
+        //shothit: {
+        //    imageName: "shothit",
+        //    frameY: 0,
+        //    frameCount: 10,
+        //    msPerFrame: 60,
 
-        },
+        //},
 
     }
 
