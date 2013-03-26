@@ -78,7 +78,7 @@ class WormManager
         var wormWithHighestVelocity : Worm = null;
         var lenght = 0;
 
-        for (var i = this.allWorms.length-1; i > 0; --i)
+        for (var i = this.allWorms.length-1; i >= 0; --i)
         {
             lenght = this.allWorms[i].body.GetLinearVelocity().Length();
 
@@ -92,7 +92,7 @@ class WormManager
         return wormWithHighestVelocity ;
     }
 
-     // Are all the worms stop, not moving at all. 
+
     areAllWeaponsDeactived()
     {
         for (var i = this.allWorms.length-1; i >= 0; --i)

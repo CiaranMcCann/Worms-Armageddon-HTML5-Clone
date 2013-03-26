@@ -5,7 +5,7 @@
        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>FYP</title>
+    <title>Worms Armageddon HTML5 Clone</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/custom.css" type="text/css" />
 
@@ -192,9 +192,10 @@
             <h1 style="text-align: center">Worms Armageddon HTML5 Clone</h1>
             <br />
             <p>
-                Welcome to a recreation of <a href="http://www.team17.com/">Team17's</a> amazing turn-base artillery strategy game, worms armageddon. 
+                Welcome to a recreation of <a href="http://www.team17.com/">Team17's</a> turn-base artillery strategy game, worms armageddon. 
                 All copyright and credit for the art/sound assets goes to <a href="http://www.team17.com/">Team17</a>
-                for these and for making such an awesome game in the first place. Currently under development by <a href="http://www.ciaranmccann.me/">Ciarán McCann</a>
+                for these and for making such an awesome game in the first place. This clone is currently under development by <a href="http://www.ciaranmccann.me/">Ciarán McCann</a> as part of his final year on the <a href="http://www.itcarlow.ie/study-at-itc/science/computing-networking/cw208.htm"> IT Carlow Games Development</a> course.
+                <a href="http://www.ciaranmccann.me/">Read more..</a>
             </p>
             <br />
 
@@ -206,21 +207,50 @@
           <div id="notice" style="font-size:14px"></div>
             
             <!-- add for live deployment -->
-            <ul  onclick="return false;" class="breadcrumb" style="margin-bottom: 5px; background: none; margin-top: 20px;text-align: center;margin-left: 80px;">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" url="https://dev.twitter.com" data-lang="en">Tweet</a>
-                <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="300"></div>
-            </ul>
+            <div style=" background: none; margin-top: 20px;">
+                
+                  <div  style="margin-top:-10px;position: absolute; left: 225px;">
+                <a href="https://twitter.com/share" class="twitter-share-button"
+                     data-via="C_McCann" 
+                    data-related="C_McCann" 
+                    data-url="http://www.ciaranmccann.me/wormsjs/"
+                    data-text="Multiplayer Worms Armageddon HTML5 Clone #Javascript #gamedev #irishgamedev"
+                    >Tweet</a></div>
+                   
+          <div  style="margin-top:-15px;position: absolute; left: 320px;">
+                <div class="fb-like" data-href="http://www.ciaranmccann.me/wormsjs/" data-send="false" data-layout="button_count" data-show-faces="true"></div>
+              </div>
+
+                
+                 <div  style="margin-top:-10px;position: absolute; left: 405px;">
+                <div class="g-plusone" data-size="tall" data-annotation="inline" data-width="10"></div>
+                     </span>
+
+              <div  style="margin-top:-33px;position: absolute; left: 60px;">
+                     <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+                    <script type="IN/Share" data-url="http://www.ciaranmccann.me/wormsjs/" data-counter="right"></script>
+              </div>
+     
+
+            <div/>
+
 
         </div>
     </div>
 
     <div class="healthMenu"><ul></ul></div>
 
-
+     <div id="fb-root"></div>
     <script>
 
         ////Twiiter
         !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-633762-11']);
+          _gaq.push(['_addDevId', 'i9k95']); // Google Analyticator App ID with Google 
+                
+          _gaq.push(['_trackPageview']);
 
         //G+
         (function ()
@@ -230,10 +260,26 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
 
-</script>
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=134430549926818";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+
 
 </body>
 </html>
-<div id="fb-root"></div>
+
 
 
