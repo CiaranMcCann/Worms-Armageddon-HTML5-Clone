@@ -7,7 +7,7 @@
  * SoundFallback use just the simple Audio tag, works ok but not as feature full as web audio api.
  * 
  *  License: Apache 2.0
- *  author:  Ciar�n McCann
+ *  author:  Ciarán McCann
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../system/Utilies.ts"/>
