@@ -7,7 +7,7 @@
  * SoundFallback use just the simple Audio tag, works ok but not as feature full as web audio api.
  * 
  *  License: Apache 2.0
- *  author:  Ciar·n McCann
+ *  author:  Ciar√°n McCann
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../system/Utilies.ts"/>
@@ -68,9 +68,10 @@ class Sound
 
     pause()
     {
-        if (Settings.SOUND && this.buffer != null)
-        {
-            this.source.noteOff(0);
+        if (Settings.SOUND && this.buffer != null) {
+            if (typeof(this.source.noteOff) !== 'undefined') {
+                this.source.noteOff(0);
+            }
         }
     }
 
