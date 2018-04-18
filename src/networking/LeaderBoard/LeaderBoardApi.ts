@@ -19,7 +19,7 @@ class LeaderBoardApi
         //Setup server and connect to the database
         var server = new Server('localhost', 27017, { auto_reconnect: true });
         this.db = new Db(this.settings.database, server, { safe: false });
-        this.db.open(function (err, db) => {
+        this.db.open(function (err, db)  {
             if (!err)
             {
                 console.log("Connected to " + this.settings.database + " database");
@@ -33,8 +33,8 @@ class LeaderBoardApi
     remove(req,res)
     {
         var authToken = req.params.token;
-        this.findUsersIdByToken(authToken, function (userId) => {
-            this.db.collection(this.settings.userTable, function (err, collection) => {
+        this.findUsersIdByToken(authToken, function (userId)  {
+            this.db.collection(this.settings.userTable, function (err, collection)  {
                 collection.remove({"userId": userId });
             });
         });
@@ -44,14 +44,14 @@ class LeaderBoardApi
     {
         var authToken = req.params.token;
 
-        this.findUsersIdByToken(authToken, function (userId) => {
+        this.findUsersIdByToken(authToken, function (userId)  {
 
             //if got userId from authToken
             if (userId)
             {
-                this.db.collection(this.settings.userTable, function (err, collection) => {
+                this.db.collection(this.settings.userTable, function (err, collection)  {
 
-                    collection.findOne({ 'userId': userId }, function (err, item) => {
+                    collection.findOne({ 'userId': userId }, function (err, item)  {
 
                         //TODO fix this up
                         if (item)
@@ -80,7 +80,7 @@ class LeaderBoardApi
     getLeaderBoard(req, res)
     {
         console.log(res);
-        this.db.collection(this.settings.userTable, function (err, collection) => {
+        this.db.collection(this.settings.userTable, function (err, collection)  {
             collection.find().sort({ "winCount": -1 }).toArray(function (err, items)
             {
                 console.log(items);

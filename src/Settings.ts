@@ -78,12 +78,15 @@ module Settings
     }
 
     export function getUrlVars()
-    {
+	{
+		//TODO
+		//VERIFICAR O RETORNO QUE PODE ESTAR INCORRETO PARA O METODO
         var vars = {};
         window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) 
         {
-            vars[key] = value;
-            return true;
+			vars[key] = value;
+			//return true;
+            return "";
         });
         return vars;
     }

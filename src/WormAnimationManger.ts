@@ -66,7 +66,7 @@ class WormAnimationManger
 
             // Once the animation to take out the weapon is finished then display this still image, which is the aiming image 
             // most of the time, depending on the type or weapon or tool.
-            this.worm.onAnimationFinish(function () =>
+            this.worm.onAnimationFinish(function ()
             {
                 this.worm.setSpriteDef(this.worm.team.getWeaponManager().getCurrentWeapon().takeAimAnimations);            
                 this.worm.setCurrentFrame(this.worm.target.previousSpriteFrame);   
@@ -104,7 +104,7 @@ class WormAnimationManger
             
             //Set the onFinishAnimation now as once the spriteDef is locked 
             // can't modify it
-            this.worm.onAnimationFinish(function () =>
+            this.worm.onAnimationFinish(function ()
             {
                 // Once the players death animated is finished then we most create
                 // a particle explision effect and pay an explosion sound.
@@ -125,7 +125,7 @@ class WormAnimationManger
                      maxDamage
                  );
 
-                animation.onAnimationFinish(function () =>
+                animation.onAnimationFinish(function ()
                 {
                     //All animations to do with death are finished so derement semaphore
                     WormAnimationManger.playerAttentionSemaphore--;
@@ -144,7 +144,7 @@ class WormAnimationManger
             
             WormAnimationManger.playerAttentionSemaphore++;
             var animation = new ToostMessage(Physics.vectorMetersToPixels(this.worm.body.GetPosition()), this.worm.damageTake, this.worm.team.color);
-            animation.onAnimationFinish(function () =>
+            animation.onAnimationFinish(function ()
             {
                 WormAnimationManger.playerAttentionSemaphore--;
                 GameInstance.healthMenu.update(this.worm.team);

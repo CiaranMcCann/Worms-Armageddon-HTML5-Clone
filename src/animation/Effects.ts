@@ -34,7 +34,7 @@ module Effects
         Physics.applyToNearByObjects(
             epicenter,
             effectedRadius,
-            function (fixture, epicenter) =>
+            function (fixture, epicenter) 
             {
                 // Applys force to all the bodies in the radius
                 if (fixture.GetBody().GetType() != b2Body.b2_staticBody && fixture.GetBody().GetUserData() instanceof Worm)

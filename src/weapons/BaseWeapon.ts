@@ -14,7 +14,7 @@ class BaseWeapon
     takeAimAnimations: SpriteDefinition;
     forceIndicator: ForceIndicator;
 
-    requiresAiming: bool;
+    requiresAiming: boolean;
 
     constructor(name: string, ammo: number, iconSprite, takeOutAnimation: SpriteDefinition, takeAimAnimation: SpriteDefinition)
     {

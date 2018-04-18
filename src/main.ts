@@ -12,7 +12,7 @@
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="gui/StartMenu.ts" />
 var GameInstance: Game;
-$(document).ready(function () => {
+$(document).ready(function () {
 
     Settings.getSettingsFromUrl();
 

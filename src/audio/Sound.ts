@@ -50,7 +50,7 @@ class Sound
                 this.playing = true;
                 var bufferLenght = this.buffer.duration;
 
-                setTimeout(function () => {
+                setTimeout(function () {
                     this.playing = false;
                 }, bufferLenght * 1000);
             }
@@ -94,13 +94,13 @@ class SoundFallback extends Sound
           this.audio = <HTMLAudioElement>document.createElement("Audio");
 
         // When the sound loads sucesfully tell the asset manager
-        $(this.audio).on("loadeddata", function () =>
+        $(this.audio).on("loadeddata", function ()
         {
             AssetManager.numAssetsLoaded++;
             Logger.log(" Sound loaded " + this.audio.src );
         });
 
-        this.audio.onerror = function () => {
+        this.audio.onerror = () => {
             Logger.error( " Sound failed to load " + this.audio.src);
         }
 

@@ -9,7 +9,7 @@ asyncTest( "Asynchronous", function() {
     var t = new Timer(timePeroid);
      
     
-    setTimeout(function() => {
+    setTimeout(function() {
         t.update();
         notEqual(t.getTimeLeft(), timePeroid , "getTimeLeft()");
         equal(t.hasTimePeriodPassed(), true,"hasTimePeriodPassed()");
@@ -27,7 +27,7 @@ asyncTest( "Reset", function() {
     var t = new Timer(timePeroid);
      
     
-    setTimeout(function() => {
+    setTimeout(function() {
         t.update();
         notEqual(t.getTimeLeft(), timePeroid , "getTimeLeft()");
         t.reset();
@@ -43,7 +43,7 @@ asyncTest( "time lenght", function() {
     var t = new Timer(timePeroid+1);
      
     
-    setTimeout(function() => {
+    setTimeout(function()  {
         t.update();
         equal(t.getTimeLeft(), 0 , "getTimeLeft()");
 

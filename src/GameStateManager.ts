@@ -16,11 +16,11 @@
 
 class GameStateManager
 {
-    private nextTurnTrigger: bool;
+    private nextTurnTrigger: boolean;
     private currentPlayerIndex: number;
     private players: Player[];
-    isStarted: bool;
-    physicsWorldSettled: bool;
+	isStarted: boolean;
+	physicsWorldSettled: boolean;
 
     constructor()
     {

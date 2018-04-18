@@ -29,7 +29,7 @@ class NetworkTimer extends Timer
 
         if (this.packetRateTimer.hasTimePeriodPassed())
         {
-            Client.socket.emit(Events.client.GET_GAME_TIME, '',function (data) =>
+            Client.socket.emit(Events.client.GET_GAME_TIME, '',function (data)
             {
                 this.currentServerTime = data;
             });

@@ -103,7 +103,7 @@ class Terrain
         var bodiesCreated = 0;
 
         // Used to create a single rect out of a series of consecnative solid 
-        var makeBlock = function () => {
+        var makeBlock = function () {
 
             fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
@@ -216,7 +216,7 @@ class Terrain
                 Physics.pixelToMeters( y + normalizedRadis)
             );
 
-            Physics.world.QueryAABB(function (fixture) =>
+            Physics.world.QueryAABB(function (fixture) 
             {
                 if (fixture.GetBody().GetType() == b2Body.b2_staticBody && fixture.GetBody().GetUserData() instanceof Terrain)
                 {

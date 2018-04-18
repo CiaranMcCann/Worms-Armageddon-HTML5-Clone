@@ -24,7 +24,7 @@ var api : LeaderBoardApi = new LBApi(settings);
 app.get('/findUserIdByToken/:token', function (req, res)
 {
       var authToken = req.params.token;
-      api.findUsersIdByToken(authToken, function (userId) => {
+      api.findUsersIdByToken(authToken, function (userId) {
               res.send(userId);
       });
 });

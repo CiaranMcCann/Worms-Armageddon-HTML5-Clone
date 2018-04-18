@@ -72,7 +72,7 @@ class GameLobby
     client_init()
     {
         //Have the host client setup all the player objects with all the other clients ids
-        Client.socket.on(Events.gameLobby.START_GAME_HOST, function (data) =>
+        Client.socket.on(Events.gameLobby.START_GAME_HOST, function (data) 
         {
             var gameLobby = (Utilies.copy(new GameLobby(null, null), data));
             Game.map = new Map(Maps[gameLobby.mapName]);
@@ -89,7 +89,7 @@ class GameLobby
 
         // Start the game for all other playrs by passing the player information create
         // by the host client to them.
-        Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data) =>
+        Client.socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data) 
         {
              var gameLobby = (Utilies.copy(new GameLobby(null, null), data.lobby));          
              Game.map = new Map(Maps[gameLobby.mapName]);
@@ -142,7 +142,7 @@ class GameLobby
 
     }
 
-    contains(playerId: string) : bool
+    contains(playerId: string) : boolean
     {
         for (var i in this.playerIds)
         {          

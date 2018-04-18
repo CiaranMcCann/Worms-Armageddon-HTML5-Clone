@@ -52,7 +52,7 @@ class Worm extends Sprite
     footSensor;
     stateAnimationMgmt: WormAnimationManger;
     target: Target;
-    isDead: bool;
+    isDead: boolean;
 
     soundDelayTimer: Timer;
 
@@ -131,7 +131,7 @@ class Worm extends Sprite
         var nameBoxWidth = this.name.length * 10;
         var healthBoxWidth = 39;
         var healthBoxHeight = 18
-        this.nameBox = Graphics.preRenderer.render(function (ctx) =>
+        this.nameBox = Graphics.preRenderer.render(function (ctx) 
         {
 
             ctx.fillStyle = '#1A1110';
@@ -147,7 +147,7 @@ class Worm extends Sprite
 
         }, nameBoxWidth, 20);
 
-        this.healthBox = Graphics.preRenderer.render(function (ctx) =>
+        this.healthBox = Graphics.preRenderer.render(function (ctx) 
         {
 
             ctx.fillStyle = '#1A1110';
@@ -386,7 +386,7 @@ class Worm extends Sprite
             {
                 // Setup a callback that once the animation finish
                 // unlock it and set it to idel
-                this.onAnimationFinish(function () =>
+                this.onAnimationFinish(function ()
                 {
                     this.setSpriteDef(Sprites.worms.wbackflp, false);
                     this.setSpriteDef(Sprites.worms.idle1, false);

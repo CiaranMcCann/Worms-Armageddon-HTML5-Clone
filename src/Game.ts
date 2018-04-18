@@ -33,7 +33,7 @@ class Game
 {
     static types = {
         ONLINE_GAME: 0,
-        LOCAL_GAME: 1
+        LOCAL_GAME: 1,
     };
 
     actionCanvas;
@@ -89,20 +89,20 @@ class Game
         this.setupCanvas();
 
         //If the window gets resize, resize the canvas
-        $(window).resize(function () => {
+        $(window).resize(function () {
             this.setupCanvas();
         });
 
         //If we go full screen also resize
-        document.addEventListener("fullscreenchange", function () => {
+        document.addEventListener("fullscreenchange", () => {
             this.setupCanvas();
         }, false);
 
-        document.addEventListener("mozfullscreenchange", function () => {
+		document.addEventListener("mozfullscreenchange", () => {
             this.setupCanvas();
         }, false);
 
-        document.addEventListener("webkitfullscreenchange", function () => {
+		document.addEventListener("webkitfullscreenchange", () => {
             this.setupCanvas();
         }, false);
 
@@ -117,7 +117,7 @@ class Game
         this.spawns = [];
         if (Settings.DEVELOPMENT_MODE && this.particleEffectMgmt != null)
         {
-            window.addEventListener("click", function (evt: any) =>
+			window.addEventListener("click", (evt: any) => 
             {
                 this.particleEffectMgmt.add(new ParticleEffect(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY));
                 this.spawns.push(new b2Vec2(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY));
@@ -247,7 +247,7 @@ class Game
         //Only inited if its a touch device
         TouchUI.init();
 
-        setTimeout(function () =>
+        setTimeout(function ()
         {
             this.state.physicsWorldSettled = true;
 
