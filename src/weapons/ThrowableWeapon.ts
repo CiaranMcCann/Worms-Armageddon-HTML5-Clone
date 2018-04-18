@@ -38,7 +38,7 @@ class ThrowableWeapon extends BaseWeapon
     {
         var timerBoxWidth = 20;
         var timerBoxHeight = 22
-        return Graphics.preRenderer.render(function (ctx) =>
+        return Graphics.preRenderer.render(function (ctx)
         {
 
             ctx.fillStyle = '#1A1110';

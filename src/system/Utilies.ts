@@ -82,7 +82,7 @@ module Notify
         {
             $("#notifaction").animate({
                 top: (-parseInt($("#notifaction").css("height"))) - 100 + "px"
-            }, 400, function () => {
+            }, 400, function () {
                 locked = false;
                 if (callback != null)
                 {

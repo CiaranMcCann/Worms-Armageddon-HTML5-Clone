@@ -13,7 +13,7 @@ class ForceIndicator
     private forceRateIncrease;
     private forceMax;
     private  sprite: Sprite;
-    private  needReRender: bool;
+    private  needReRender: boolean;
     private  renderCanvas;
 
     constructor(maxForceForWeapon)
@@ -39,7 +39,7 @@ class ForceIndicator
 
             if (this.needReRender)
             {
-                this.renderCanvas = Graphics.preRenderer.render(function (context) =>
+                this.renderCanvas = Graphics.preRenderer.render(function (context)
                 {
                     // if(this.renderCanvas == null)
                      //context.fillRect(0, 0, 400, 400);

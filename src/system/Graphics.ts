@@ -84,7 +84,7 @@ module Graphics
                 (<any>window).webkitRequestAnimationFrame ||
                 (<any>window).mozRequestAnimationFrame ||
                 (<any>window).oRequestAnimationFrame ||
-                window.msRequestAnimationFrame ||
+				(<any>window).window.msRequestAnimationFrame ||
             function ( /* function */ callback, /* DOMElement */ element)
             {
                 window.setTimeout(callback, 1000 / 60);

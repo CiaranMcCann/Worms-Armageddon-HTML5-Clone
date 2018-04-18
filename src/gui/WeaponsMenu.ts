@@ -30,7 +30,7 @@ class WeaponsMenu
         this.htmlElement = $("#" + this.cssId);
 
 
-         $('#'+this.toggleButtonCssId).click(function =>
+         $('#'+this.toggleButtonCssId).click(function ()
          {
              if (Client.isClientsTurn())
             {
@@ -47,7 +47,7 @@ class WeaponsMenu
             }
         });
 
-        $('body').mousedown(function (event) =>
+        $('body').mousedown(function (event) 
         {
             if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {

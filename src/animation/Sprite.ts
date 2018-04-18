@@ -16,8 +16,8 @@ class Sprite
     spriteDef;
     currentFrameY: number;
 
-    finished: bool;
-    noLoop: bool;
+    finished: boolean;
+	noLoop: boolean;
     lastUpdateTime;
     accumulateDelta;
     isSpriteLocked;
@@ -131,7 +131,7 @@ class Sprite
 
     }
 
-    setNoLoop(val: bool)
+    setNoLoop(val: boolean)
     {
         this.noLoop = val;
     }

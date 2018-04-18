@@ -14,7 +14,7 @@ class Tutorial
 {
 
     currentCommand;
-    isFinished: bool;
+    isFinished: boolean;
     timeOut;
 
     constructor()
@@ -62,7 +62,7 @@ class Tutorial
             if (this.timeOut == null)
             {
 
-                this.timeOut = setTimeout(function () => {
+                this.timeOut = setTimeout(function () {
 
                     this.nextCommand();
 

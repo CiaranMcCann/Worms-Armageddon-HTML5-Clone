@@ -92,7 +92,7 @@ module Physics
         // I have set the this pionter as the user data, which allows me to then call methods
         // on that class as we can see below.
         var listener = new b2ContactListener();
-        listener.BeginContact = function (contact) =>
+        listener.BeginContact = function (contact)
         {
             if (contact.GetFixtureA().GetBody().GetUserData() != null &&
                 contact.GetFixtureA().GetBody().GetUserData().beginContact != null)
@@ -108,7 +108,7 @@ module Physics
         }
 
 
-        listener.EndContact = function (contact) =>
+        listener.EndContact = function (contact)
         {
             if (contact.GetFixtureA().GetBody().GetUserData() != null &&
                 contact.GetFixtureA().GetBody().GetUserData().endContact != null)
@@ -123,7 +123,7 @@ module Physics
             }
         }
 
-        listener.PostSolve = function (contact,impulse) =>
+        listener.PostSolve = function (contact,impulse)
         {
             if (contact.GetFixtureA().GetBody().GetUserData() != null &&
                 contact.GetFixtureA().GetBody().GetUserData().postSolve != null)
@@ -139,7 +139,7 @@ module Physics
 
         }
 
-        listener.PreSolve = function (contact) =>
+        listener.PreSolve = function (contact)
         {
             if (contact.GetFixtureA().GetBody().GetUserData() != null &&
                 contact.GetFixtureA().GetBody().GetUserData().preSolve != null)
@@ -234,7 +234,7 @@ module Physics
         aabb.lowerBound.Set(epicenter.x - effectedRadius, epicenter.y - effectedRadius);
         aabb.upperBound.Set(epicenter.x + effectedRadius, epicenter.y + effectedRadius);
 
-        Physics.world.QueryAABB(function (fixture) =>
+        Physics.world.QueryAABB(function (fixture)
         {
             funcToApplyToEach(fixture, epicenter);
             return true;

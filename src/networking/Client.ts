@@ -17,7 +17,7 @@ module Client
             Logger.debug(" Client connecting to " + dest);
             socket = io.connect(dest);
 
-            socket.on(Events.client.ASSIGN_USER_ID, function (id) =>
+            socket.on(Events.client.ASSIGN_USER_ID, function (id)
             {
                 Logger.debug(" Your have been assigned an id " + id);
                 Client.id = id;
@@ -34,7 +34,7 @@ module Client
 
             });
 
-            socket.on(Events.client.ACTION, function (packet) =>
+            socket.on(Events.client.ACTION, function (packet)
             {
                var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);
                instructionSet.callFunc(GameInstance);
@@ -42,14 +42,14 @@ module Client
             });
 
             // This allows for smaller action packets
-            socket.on(Events.client.CURRENT_WORM_ACTION, function (packet) =>
+            socket.on(Events.client.CURRENT_WORM_ACTION, function (packet) 
             {
                var instructionSet : InstructionChain = Utilies.copy(new InstructionChain(), packet);
                instructionSet.callFunc(GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm());
                 
             });
 
-            socket.on(Events.client.UPDATE, function (packet) =>
+            socket.on(Events.client.UPDATE, function (packet) 
             {
                     var physicsDataPacket = new PhysiscsDataPacket(packet);
                     physicsDataPacket.override(Physics.fastAcessList);

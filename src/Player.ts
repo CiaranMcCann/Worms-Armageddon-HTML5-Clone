@@ -26,7 +26,7 @@ class Player
         this.team = new Team(playerId);
 
         // Global window keyup event
-        $(window).keyup(function (e) =>
+        $(window).keyup(function (e)
         {
             // Dectects keyup on fire button
             if (e.which == Controls.fire.keyboard)

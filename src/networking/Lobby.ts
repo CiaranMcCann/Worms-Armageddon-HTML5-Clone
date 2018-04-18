@@ -64,7 +64,7 @@ class Lobby
         //When any user connects to the node server we set their socket an ID
         //so we can idefnitny them unqine in their dealings with the server
         var token = ServerUtilies.createToken() + this.userCount;
-        socket.set('userId', token, function () =>
+        socket.set('userId', token, function ()
         {
             io.log.info(Util.format("User connected and assigned ID " + token + " from " + socket.handshake.address.address));
         });
@@ -80,7 +80,7 @@ class Lobby
 
     onDisconnection(socket, io)
     {
-        socket.on('disconnect', function () => {
+        socket.on('disconnect', function ()  {
 
             ServerUtilies.info(io, " User exit ");
 
@@ -95,9 +95,9 @@ class Lobby
 
     server_removePlayerFormCurrentLobby(socket)
     {
-        socket.get('userId', function (err, userId) =>
+        socket.get('userId', function (err, userId) 
         {
-            socket.get('gameLobbyId', function (err, gameLobbyId) =>
+            socket.get('gameLobbyId', function (err, gameLobbyId) 
             {
                 if (gameLobbyId)
                 {
@@ -129,7 +129,7 @@ class Lobby
     {
 
         // Create lobby
-        socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) =>
+        socket.on(Events.lobby.CREATE_GAME_LOBBY, function (data) 
         {
 
             //If the user was connected to another room disconnect them
@@ -148,9 +148,9 @@ class Lobby
 
             //Once a new game lobby has been created, add the user who created it.
 
-            socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) 
             {
-                socket.get('googleUserId', function (err, googleUserId) =>
+                socket.get('googleUserId', function (err, googleUserId) 
                 {
 
                     io.log.info(Util.format("@ Create lobby by user with ID [%s] with name  [%s] using map ", data.name, googleUserId, data.mapName));
@@ -166,7 +166,7 @@ class Lobby
         });
 
         // Google plus login
-        socket.on(Events.lobby.GOOGLE_PLUS_LOGIN, function (googleAuthToken) => {
+        socket.on(Events.lobby.GOOGLE_PLUS_LOGIN, function (googleAuthToken) {
 
             // TODO use this inside of cURL
             //request({
@@ -198,7 +198,7 @@ class Lobby
         });
 
         // PLAYER_JOIN Game lobby
-        socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) => {
+        socket.on(Events.gameLobby.PLAYER_JOIN, function (gamelobbyId) {
 
             //If the user was connected to another room disconnect them
             this.server_removePlayerFormCurrentLobby(socket);
@@ -206,9 +206,9 @@ class Lobby
             io.log.info(Util.format("@ Events.client.JOIN_GAME_LOBBY " + gamelobbyId));
 
             // Get the usersId
-            socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) 
             {
-                socket.get('googleUserId', function (err, googleUserId) =>
+                socket.get('googleUserId', function (err, googleUserId)
                 {
                     var gamelobby: GameLobby = this.gameLobbies[gamelobbyId];
                     gamelobby.join(userId, googleUserId, socket);
@@ -222,10 +222,10 @@ class Lobby
         socket.on(Events.gameLobby.START_GAME_FOR_OTHER_CLIENTS, function (data)
         {
 
-            socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) 
             {
 
-                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                socket.get('gameLobbyId', function (err, gameLobbyId) 
                 {
 
                     //this.gameLobbies[gameLobbyId].currentPlayerId = userId;
@@ -243,9 +243,9 @@ class Lobby
         socket.on(Events.client.UPDATE, function (data)
         {
 
-            socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) 
             {
-                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                socket.get('gameLobbyId', function (err, gameLobbyId) 
                 {
                     io.log.info(Util.format("@ UPDATE   " + data));
                     socket.broadcast.to(gameLobbyId).emit(Events.client.UPDATE, data);
@@ -255,12 +255,12 @@ class Lobby
         });
 
 
-        socket.on(Events.client.ACTION, function (data) => {
+        socket.on(Events.client.ACTION, function (data)  {
 
-            socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) 
             {
 
-                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                socket.get('gameLobbyId', function (err, gameLobbyId) 
                 {
                     io.log.info(Util.format("@ Events.gameLobby.UPDATE from userId " + userId + " for lobby " + gameLobbyId + "   " + data));
                     socket.broadcast.to(gameLobbyId).emit(Events.client.ACTION, data);
@@ -269,12 +269,12 @@ class Lobby
         });
 
         // This is done to make the action packets smaller
-        socket.on(Events.client.CURRENT_WORM_ACTION, function (data) => {
+        socket.on(Events.client.CURRENT_WORM_ACTION, function (data)  {
 
-            socket.get('userId', function (err, userId) =>
+            socket.get('userId', function (err, userId) 
             {
 
-                socket.get('gameLobbyId', function (err, gameLobbyId) =>
+                socket.get('gameLobbyId', function (err, gameLobbyId) 
                 {
                     io.log.info(Util.format("@ Events.client.CURRENT_WORM_ACTION" + userId + " for lobby " + gameLobbyId + "   " + data));
                     socket.broadcast.to(gameLobbyId).emit(Events.client.CURRENT_WORM_ACTION, data);
@@ -300,7 +300,7 @@ class Lobby
         GameInstance.gameType = Game.types.ONLINE_GAME;
 
         // Create lobby
-        Client.socket.on(Events.lobby.UPDATE_USER_COUNT, function (userCount) =>
+        Client.socket.on(Events.lobby.UPDATE_USER_COUNT, function (userCount) 
         {
             Logger.log("Events.lobby.NEW_USER_CONNECTED " + userCount);
             this.userCount = userCount;
@@ -308,7 +308,7 @@ class Lobby
         });
 
         //Bind events
-        Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data) =>
+        Client.socket.on(Events.client.UPDATE_ALL_GAME_LOBBIES, function (data) 
         {
             Logger.debug(" Events.client.UPDATE_ALL_GAME_LOBBIES " + data);
             var gameLobbyList = JSON.parse(data);

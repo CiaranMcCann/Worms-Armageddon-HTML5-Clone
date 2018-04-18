@@ -65,24 +65,19 @@ class Shotgun extends RayWeapon
         }
     }
 
-    update()
-    {
-        if (super.update())
-        {
+    update() {
+        if (super.update()) {
             this.animationSheetChangeTimer.update();
 
-            if (this.animationSheetChangeTimer.hasTimePeriodPassed())
-            {             
+            if (this.animationSheetChangeTimer.hasTimePeriodPassed()) {
                 this.worm.swapSpriteSheet(this.fireAnimations[this.fireAnimationIndex]);
                 this.fireAnimationIndex++;
             }
 
 
-            if (this.fireAnimationIndex >= this.fireAnimations.length)
-            {
+            if (this.fireAnimationIndex >= this.fireAnimations.length) {
                 var hitPiont = Physics.shotRay(this.worm.body.GetPosition(), this.worm.target.getTargetDirection().Copy());
-                if (hitPiont)
-                {
+                if (hitPiont) {
                     Effects.explosion(hitPiont,
                         this.damageToTerrainRadius,
                         1,
@@ -90,20 +85,18 @@ class Shotgun extends RayWeapon
                         this.damgeToWorm,
                         this.worm,
                         AssetManager.getSound("ShotGunFire"));
-                } else
-                {
+                } else {
                     //Even if we miss the shot make a sound
                     AssetManager.getSound("ShotGunFire").play();
                 }
                 this.animationSheetChangeTimer.pause();
                 this.fireAnimationIndex = 0;
 
-                setTimeout(function () => {
+                setTimeout(function () {
                     this.setIsActive(false);
                     this.worm.swapSpriteSheet(this.fireAnimations[this.fireAnimationIndex]);
 
-                    if (this.shotsTaken >= 2)
-                    {
+                    if (this.shotsTaken >= 2) {
                         this.shotsTaken = 0;
                         GameInstance.state.tiggerNextTurn();
                     }
@@ -116,5 +109,5 @@ class Shotgun extends RayWeapon
         }
 
 
-
+    }
     }
